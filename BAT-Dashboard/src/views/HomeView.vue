@@ -1,9 +1,14 @@
 <script setup>
-import TheWelcome from "@/components/TheWelcome.vue";
+
 </script>
 
-<template>
-  <main>
-    <TheWelcome />
-  </main>
+<template lang="pug">
+main
+    div main
 </template>
+
+<style lang="scss" scoped>
+
+
+
+</style>
