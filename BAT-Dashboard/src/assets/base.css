@@ -1,21 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700;900&display=swap');
 
 
 :root {
     --bgc: #F6F7F6;
+    --grey: #F6F7F6;
+    --inactive: #686868;
+    --grey-medium: #ededed;
+    --grey-light: #F7F7F7;
+
     --blue-dark: #0E2B63;
     --blue-medium: #004F9F;
     --blue-light: #00B1EB;
+
+    --blue-light-hover: #2ccaff;
+    
     --orange: #EF7D00;
     --yellow: #FFBB00;
+
     --green: #50AF47;
     --green-light: #AFCA0B;
+
     --purple: #5A328A;
     --pink: #E72582;
+
+    --BAT: linear-gradient(90deg,
+            #0e2b63 30.4785%,
+            rgba(0, 0, 0, 0) 30.4785%),
+        linear-gradient(90deg,
+            #004f9f 52.15788%,
+            rgba(0, 0, 0, 0) 52.15788%),
+        linear-gradient(90deg,
+            #00b1eb 64.72807%,
+            rgba(0, 0, 0, 0) 64.72807%),
+        linear-gradient(90deg,
+            #ef7d00 73.22551%,
+            rgba(0, 0, 0, 0) 73.22551%),
+        linear-gradient(90deg,
+            #ffbb00 79.62792%,
+            rgba(0, 0, 0, 0) 79.62792%),
+        linear-gradient(90deg,
+            #50af47 86.69237%,
+            rgba(0, 0, 0, 0) 86.69237%),
+        linear-gradient(90deg, #afca0b 92.0305%, rgba(0, 0, 0, 0) 92.0305%),
+        linear-gradient(90deg, #5a328a 97.0083%, rgba(0, 0, 0, 0) 97.0083%),
+        linear-gradient(90deg, #e72582 100%, rgba(0, 0, 0, 0) 100%);
 }
 
 
 :root {
+    --index: calc(1vh + 1vw);
+
     --pd: 4px;
     --pdsm: 8px;
     --pdlg: 16px;
@@ -26,6 +60,13 @@
     --navbar: 64px;
 
     --shadow: 0px 4px 4px rgba(207, 207, 207, 0.25);
+    --shadow-large: 0px 16px 16px rgba(207, 207, 207, 0.25);
+
+    --radius-8: 8px;
+    --radius-4: 4px;
+
+    --tr-1: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --tr-2: cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
 @media (prefers-color-scheme: dark) {
