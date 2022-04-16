@@ -22,16 +22,11 @@ main {
     max-width: 100%;
     margin-left: var(--sidebar);
     margin-top: var(--navbar);
-    // padding: var(--pdlg);
     padding: var(--layout-pd);
 
     @include respond-to(large) {
         margin-left: 0;
     }
-
-    // @include respond-to(handlers) {
-    //     padding: var(--pdsm);
-    // }
 }
 
 .panel {
@@ -68,4 +63,9 @@ hr {
     padding: var(--pdlg);
     border: 1px solid #eeeeee;
 }
+
+.mgy {
+    margin: var(--pdlg) 0;
+}
+
 </style>

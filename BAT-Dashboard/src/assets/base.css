@@ -44,6 +44,10 @@
         linear-gradient(90deg, #afca0b 92.0305%, rgba(0, 0, 0, 0) 92.0305%),
         linear-gradient(90deg, #5a328a 97.0083%, rgba(0, 0, 0, 0) 97.0083%),
         linear-gradient(90deg, #e72582 100%, rgba(0, 0, 0, 0) 100%);
+    
+    --ms-tag-bg: var(--blue-light);
+    --ms-option-bg-selected-pointed: var(--blue-light);
+    --ms-option-bg-selected: var(--blue-light);
 }
 
 

@@ -41,6 +41,11 @@ const router = createRouter({
                             path: 'Delivery-Execution',
                             component: () => import('../views/Panels/ISF-Delivery-Execution.vue')
                         }, 
+                        {
+                            name: 'ISF-Comparison',
+                            path: 'Comparison',
+                            component: () => import('../views/Panels/ISF-Comparison.vue')
+                        }, 
                     ],
                 },
             ]

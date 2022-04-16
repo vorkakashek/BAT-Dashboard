@@ -90,7 +90,8 @@ nav {
     font-weight: 700;
     font-size: 13px;
     margin-right: 8px;
-    color: var(--blue-light);
+    // color: var(--blue-light);
+    color: #333;
     
     @include respond-to (handlers) {
         display: none;

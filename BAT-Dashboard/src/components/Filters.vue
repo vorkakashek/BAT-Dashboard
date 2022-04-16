@@ -1,0 +1,162 @@
+<script>
+export default {
+    data() {
+        return {
+            multiselects: [
+                {
+                    value: null,
+                    options: [
+                        "Unit long name 1",
+                        "Unit 2",
+                        "Unit 3",
+                        "Unit 4",
+                    ],
+                    placeholder: "Unit",
+                },
+                {
+                    value: null,
+                    options: ["Region 1", "Region 2", "Region 3", "Region 4"],
+                    placeholder: "Region",
+                },
+                {
+                    value: null,
+                    options: ["City 1", "City 2", "City 3", "City 4"],
+                    placeholder: "City",
+                },
+                {
+                    value: null,
+                    options: ["CM 1", "CM 2", "CM 3", "CM 4"],
+                    placeholder: "CM",
+                },
+                {
+                    value: null,
+                    options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
+                    placeholder: "TMR",
+                },
+            ],
+        };
+    },
+    methods: {
+        clearFilter: function () {
+            for(var i = 0; this.multiselects.length > i; i++) {
+                console.log(this.multiselects[i].value);
+                this.multiselects[i].value = null;
+            }
+        }
+    }
+};
+</script>
+
+<template lang="pug">
+.filters
+    Multiselect(
+        v-for="multiselect in multiselects",
+        :options="multiselect.options",
+        v-model="multiselect.value",
+        mode="single",
+        :searchable="false",
+        :placeholder="multiselect.placeholder"
+    )
+    .clear-filters(@click="clearFilter") Clear Filter
+</template>
+
+<style lang="scss" scoped>
+.clear-filters {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    margin-left: var(--pdxl);
+    text-decoration: underline;
+    opacity: .5;
+    &:hover {
+        opacity: 1;
+        color: var(--blue-light);
+    }
+
+    @include respond-to(large) {
+        order: -1;
+        margin-left: 0;
+        margin-right: auto;
+        margin-top: 9px;
+    }
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    @include respond-to(large) {
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    &::v-deep {
+        .multiselect {
+            margin: 0;
+            width: fit-content;
+            min-width: 100px;
+            border-radius: 100px;
+            border: var(--ms-border-width,1px) solid rgb(227, 227, 227);
+            &:not(:first-child) {
+                margin-left: var(--pdsm);
+            }
+            &.is-active {
+                box-shadow: none;
+                border: var(--ms-border-width,1px) solid var(--ms-border-color,#b3b5b9);
+            }
+            @include respond-to(large) {
+                margin-bottom: var(--pdsm);
+                &:first-child {
+                    margin-left: var(--pdxl);
+                }
+            }
+        }
+
+        .multiselect-single-label {
+            position: unset;
+            padding-right: var(--pdlg);
+            padding-left: var(--pdlg);
+        }
+
+        .multiselect-option {
+            max-width: 100%;
+            overflow: hidden;
+            font-size: 13px;
+            > span {
+                max-width: 100%;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+            
+        }
+
+        .multiselect-dropdown {
+            overflow-y: auto;
+            border-radius: var(--radius-4);
+            bottom: -2px;
+            &::-webkit-scrollbar {
+                width: 4px;
+            }
+            &::-webkit-scrollbar-track {
+                background-color: #e4e4e4;
+            }
+            &::-webkit-scrollbar-thumb {
+                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .multiselect-placeholder {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .multiselect-single-label-text {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--blue-light);
+        }
+    }
+}
+</style>
