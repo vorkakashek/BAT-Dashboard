@@ -1,69 +1,60 @@
 <script>
+import { inject } from "vue";
+
 export default {
     props: ["sidebarActive"],
-
+    inject: ["navItems", "updateItems"],
     data() {
-        return {
-            value: null,
-            options: [
-                "КЕНТ NANOTEK Cycle'4",
-                "КЕНТ NANOTEK Cycle'5",
-                "КЕНТ NANOTEK Cycle'6",
-                "КЕНТ NANOTEK Cycle'7",
-                "КЕНТ NANOTEK Cycle'8",
-                "КЕНТ NANOTEK Cycle'9",
-                "КЕНТ NANOTEK Cycle'10",
-                "КЕНТ NANOTEK Cycle'11",
-            ],
-        };
+        return {};
     },
+    methods: {},
 };
 </script>
 
 <template lang="pug">
-sidebar(:class="{ active: sidebarActive }")
-    router-link.sidebar__nav-item(to="/panel/dashboard")
-        app-icon(name="Dashboard", size="24")
-        .sidebar__nav-item-name Dashboard
-    //- 
-    router-link.sidebar__nav-item(to="/panel/ISF")
-        app-icon(name="ISF", size="24")
-        .sidebar__nav-item-name ISF
-        app-icon.chevron(name="chevron", size="16")
+aside(:class="{ active: sidebarActive }")
+    div(v-for="item in navItems")
+        router-link.sidebar__nav-item(:to="`/panel/${item.link}`")
+            app-icon(:name="item.link", size="24")
+            .sidebar__nav-item-name {{ item.name }}
+            app-icon.chevron(
+                name="chevron",
+                size="16",
+                v-if="item.children !== undefined"
+            )
 
-    .sidebar__tag-select(v-if="$route.path.includes('/panel/ISF/')",)
-        //- MULTI SELECT
-        Multiselect(
-            v-model="value",
-            :options="options",
-            mode="tags",
-            :searchable="true",
-            placeholder="Start typing or select..."
+        .sidebar__tag-select(
+            v-if="$route.path.includes(`/panel/${item.link}/`)"
         )
+            Multiselect(
+                :model-value="item.itemValue",
+                @update:modelValue="updateItems(item.name, $event)",
+                :options="item.itemOptions",
+                mode="tags",
+                :searchable="true",
+                placeholder="Start typing or select..."
+            ) 
 
-    .sidebar__nav-group(v-if="$route.path.includes('/panel/ISF/')")
-        router-link.sidebar__nav-group-item(to="/panel/ISF/Delivery-Execution") Delivery / Execution
-        router-link.sidebar__nav-group-item(to="/panel/ISF/Comparison") Comparison
-    //- 
-    router-link.sidebar__nav-item(to="/panel/CycleMaterials")
-        app-icon(name="CycleMaterials", size="24")
-        .sidebar__nav-item-name CycleMaterials
-        app-icon.chevron(name="chevron", size="16")
-    router-link.sidebar__nav-item(to="/panel/Touchpoints")
-        app-icon(name="Touchpoints", size="24")
-        .sidebar__nav-item-name Touchpoints
-        app-icon.chevron(name="chevron", size="16")
-    router-link.sidebar__nav-item(to="/panel/Projects")
-        app-icon(name="Projects", size="24")
-        .sidebar__nav-item-name Projects
-        app-icon.chevron(name="chevron", size="16")
+        .sidebar__nav-group(
+            v-if="$route.path.includes(`/panel/${item.link}/`) && item.children !== undefined"
+        )
+            router-link.sidebar__nav-group-item(
+                v-for="child in item.children",
+                :to="`/panel/${item.link}/${child.link}`"
+            ) {{ child.name }}
 </template>
 
 <style lang="scss" scoped>
 .sidebar__tag-select {
-    background-color: #DFF7FF;
+    background-color: #dff7ff;
     padding: var(--pdsm);
     ::v-deep {
+        .multiselect {
+            border: none;
+            outline: none;
+            box-shadow: none;
+        }
+
         .multiselect-placeholder {
             font-size: 13px;
             font-weight: 700;
@@ -74,7 +65,7 @@ sidebar(:class="{ active: sidebarActive }")
             color: #333;
             font-size: 13px;
         }
-        
+
         .multiselect-tags-search-wrapper {
             width: 100%;
         }
@@ -83,7 +74,7 @@ sidebar(:class="{ active: sidebarActive }")
             position: absolute;
             bottom: 8px;
         }
-        
+
         .multiselect-caret {
             top: 10px;
             position: absolute;
@@ -107,10 +98,9 @@ sidebar(:class="{ active: sidebarActive }")
     }
 }
 
-sidebar {
+aside {
     overflow-y: auto;
     width: var(--sidebar);
-    // padding: var(--pdxl);
     padding-top: 36px;
     background-color: #fff;
     position: fixed;
@@ -130,7 +120,7 @@ sidebar {
 }
 
 .sidebar__nav-group {
-    background-color: #F2FCFF;
+    background-color: #f2fcff;
 }
 
 .sidebar__nav-group-item {
@@ -146,7 +136,7 @@ sidebar {
     }
     &:hover {
         &:not(&.router-link-active) {
-            background-color: #DFF7FF;
+            background-color: #dff7ff;
         }
     }
 }

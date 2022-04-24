@@ -2,6 +2,7 @@
 import Navbar from "@/components/Navbar.vue";
 import LeftSidebar from "@/components/LeftSidebar.vue";
 import { RouterLink, RouterView } from "vue-router";
+import { computed } from "vue";
 </script>
 
 <script>
@@ -9,22 +10,217 @@ export default {
     data() {
         return {
             menuActive: false,
-        }
+            multiselects: [
+                {
+                    value: null,
+                    options: ["Unit long name 1", "Unit 2", "Unit 3", "Unit 4"],
+                    placeholder: "Unit",
+                },
+
+                {
+                    value: null,
+                    options: ["Region 1", "Region 2", "Region 3", "Region 4"],
+                    placeholder: "Region",
+                },
+                {
+                    value: null,
+                    options: ["City 1", "City 2", "City 3", "City 4"],
+                    placeholder: "City",
+                },
+                {
+                    value: null,
+                    options: ["CM 1", "CM 2", "CM 3", "CM 4"],
+                    placeholder: "CM",
+                },
+                {
+                    value: null,
+                    options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
+                    placeholder: "TMR",
+                },
+            ],
+            navItems: [
+                {
+                    link: "Dashboard",
+                    name: "Dashboard",
+                },
+                {
+                    link: "ISF",
+                    name: "ISF",
+                    itemValue: null,
+                    itemOptions: [
+                        "КЕНТ NANOTEK Cycle'4",
+                        "КЕНТ NANOTEK Cycle'5",
+                        "КЕНТ NANOTEK Cycle'6",
+                        "КЕНТ NANOTEK Cycle'7",
+                        "КЕНТ NANOTEK Cycle'8",
+                        "КЕНТ NANOTEK Cycle'9",
+                        "КЕНТ NANOTEK Cycle'10",
+                        "КЕНТ NANOTEK Cycle'11",
+                    ],
+                    children: [
+                        {
+                            link: "Delivery-Execution",
+                            name: "Delivery / Execution",
+                        },
+                        {
+                            link: "Comparison",
+                            name: "Comparison",
+                        },
+                        {
+                            link: "Progress",
+                            name: "Progress",
+                        },
+                    ],
+                },
+                {
+                    link: "CycleMaterials",
+                    name: "CycleMaterials",
+                    itemValue: null,
+                    itemOptions: [
+                        "CycleMaterial Cycle'4",
+                        "CycleMaterial Cycle'5",
+                        "CycleMaterial Cycle'6",
+                        "CycleMaterial Cycle'7",
+                        "CycleMaterial Cycle'8",
+                        "CycleMaterial Cycle'9",
+                        "CycleMaterial Cycle'10",
+                        "CycleMaterial Cycle'11",
+                    ],
+                    children: [
+                        {
+                            link: "Delivery",
+                            name: "Delivery",
+                        },
+                        {
+                            link: "Execution",
+                            name: "Execution",
+                        },
+                        {
+                            link: "Comparison",
+                            name: "Comparison",
+                        },
+                        {
+                            link: "Progress",
+                            name: "Progress",
+                        },
+                    ],
+                },
+                {
+                    link: "Touchpoints",
+                    name: "Touchpoints",
+                    itemValue: null,
+                    itemOptions: [
+                        "Touchpoints Cycle'4",
+                        "Touchpoints Cycle'5",
+                        "Touchpoints Cycle'6",
+                        "Touchpoints Cycle'7",
+                        "Touchpoints Cycle'8",
+                        "Touchpoints Cycle'9",
+                        "Touchpoints Cycle'10",
+                        "Touchpoints Cycle'11",
+                    ],
+                    children: [
+                        {
+                            link: "Delivery-Execution",
+                            name: "Delivery / Execution",
+                        },
+                        {
+                            link: "Comparison",
+                            name: "Comparison",
+                        },
+                        {
+                            link: "Progress",
+                            name: "Progress",
+                        },
+                    ],
+                },
+                {
+                    link: "Projects",
+                    name: "Projects",
+                    itemValue: null,
+                    itemOptions: [
+                        {
+                            value: "Lucky Strike Legend",
+                            label: "Lucky Strike Legend",
+                            photo: "project-1",
+                        },
+                        {
+                            value: "Project name 2",
+                            label: "Project name 2",
+                            photo: "project-2",
+                        },
+                        {
+                            value: "Project name 3",
+                            label: "Project name 3",
+                            photo: "project-3",
+                        },
+                        {
+                            value: "Project name 4",
+                            label: "Project name 4",
+                            photo: "project-4",
+                        },
+                        {
+                            value: "Project name 5",
+                            label: "Project name 5",
+                            photo: "project-5",
+                        },
+                        {
+                            value: "Project name 6",
+                            label: "Project name 6",
+                            photo: "project-6",
+                        },
+                    ],
+                    children: [
+                        {
+                            link: "Catalog",
+                            name: "Projects Catalog",
+                        },
+                        {
+                            link: "Delivery-Execution",
+                            name: "Delivery / Execution",
+                        },
+                        {
+                            link: "Comparison",
+                            name: "Comparison",
+                        },
+                        {
+                            link: "Progress",
+                            name: "Progress",
+                        },
+                    ],
+                },
+            ],
+        };
+    },
+    provide() {
+        return {
+            navItems: computed(() => this.navItems),
+            updateItems: this.updateItems,
+        };
     },
     methods: {
         navActive(data) {
             this.menuActive = data.menuActive;
-            console.log("Nav status: ", data);
+        },
+        updateItems(key, value) {
+            const index = this.navItems.findIndex(({ name }) => name === key);
+
+            this.navItems.splice(index, 1, {
+                ...this.navItems[index],
+                itemValue: value,
+            });
         },
     },
 };
 </script>
 
 <template lang="pug">
-//- Navbar(@navClick="navActive")
 Navbar(:navActive="navActive")
 LeftSidebar(:sidebarActive="menuActive")
 main
+    Filters(
+        v-if="$route.path !== '/panel/Dashboard' && $route.path !== '/panel/Projects/Catalog'",
+        :multiselects="multiselects"
+    )
     RouterView
-
 </template>

@@ -4,18 +4,41 @@ import router from "./router";
 
 import Btn from "./components/Btn.vue";
 import AppIcon from "./components/AppIcon.vue";
-import ProgressBar from "./components/app-progressbar.vue";
+
+import Filters from "@/components/Filters.vue";
+
+import TotalProgressbar from "./components/Progress Bars/TotalProgressbar.vue";
+import ProgressbarLegend from "./components/Progress Bars/ProgressbarLegend.vue";
+
+import ItemProgressbar from "./components/Progress Bars/ItemProgressbar.vue";
+
+
+import ProductCards from "./components/ProductCards.vue";
+import ItemData from "./components/Progress Bars/ItemData.vue";
+import ISFFilter from "./components/ISFFilter.vue";
 import Multiselect from '@vueform/multiselect';
 import '@vueform/multiselect/themes/default.css';
+// import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'
+import VueEasyLightbox from 'vue-easy-lightbox'
+
 
 const app = createApp(App);
 
 
 app.use(router);
 
+app.config.unwrapInjectedRef = true;
+
 app
+    .use(VueEasyLightbox)
     .component('Multiselect', Multiselect)
     .component('Btn', Btn)
+    .component('Filters', Filters)
+    .component('ProductCards', ProductCards)
+    .component('ItemData', ItemData)
+    .component('ISFFilter', ISFFilter)
     .component('app-icon', AppIcon)
-    .component('app-progressbar', ProgressBar)
+    .component('TotalProgressbar', TotalProgressbar)
+    .component('ProgressbarLegend', ProgressbarLegend)
+    .component('ItemProgressbar', ItemProgressbar)
     .mount("#app");

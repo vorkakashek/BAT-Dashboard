@@ -1,45 +1,14 @@
 <script>
 export default {
+    props: ['multiselects'],
     data() {
         return {
-            multiselects: [
-                {
-                    value: null,
-                    options: [
-                        "Unit long name 1",
-                        "Unit 2",
-                        "Unit 3",
-                        "Unit 4",
-                    ],
-                    placeholder: "Unit",
-                },
-                {
-                    value: null,
-                    options: ["Region 1", "Region 2", "Region 3", "Region 4"],
-                    placeholder: "Region",
-                },
-                {
-                    value: null,
-                    options: ["City 1", "City 2", "City 3", "City 4"],
-                    placeholder: "City",
-                },
-                {
-                    value: null,
-                    options: ["CM 1", "CM 2", "CM 3", "CM 4"],
-                    placeholder: "CM",
-                },
-                {
-                    value: null,
-                    options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
-                    placeholder: "TMR",
-                },
-            ],
+
         };
     },
     methods: {
         clearFilter: function () {
             for(var i = 0; this.multiselects.length > i; i++) {
-                console.log(this.multiselects[i].value);
                 this.multiselects[i].value = null;
             }
         }
@@ -98,6 +67,8 @@ export default {
             min-width: 100px;
             border-radius: 100px;
             border: var(--ms-border-width,1px) solid rgb(227, 227, 227);
+            background-color: var(--blue-light);
+            
             &:not(:first-child) {
                 margin-left: var(--pdsm);
             }
@@ -117,6 +88,7 @@ export default {
             position: unset;
             padding-right: var(--pdlg);
             padding-left: var(--pdlg);
+            color: #fff;
         }
 
         .multiselect-option {
@@ -148,14 +120,21 @@ export default {
         }
 
         .multiselect-placeholder {
-            font-weight: 700;
+            // font-weight: 700;
             font-size: 14px;
+            color: #fff;
+            opacity: .85;
         }
 
         .multiselect-single-label-text {
             font-weight: 700;
             font-size: 14px;
-            color: var(--blue-light);
+            // color: var(--blue-light);
+        }
+
+        .multiselect-caret,
+        .multiselect-clear-icon {
+            background-color: #fff;
         }
     }
 }

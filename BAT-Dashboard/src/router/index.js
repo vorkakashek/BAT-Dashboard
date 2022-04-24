@@ -34,29 +34,107 @@ const router = createRouter({
                     name: 'ISF',
                     path: 'ISF',
                     redirect: { name: 'ISF-Delivery-Execution' },
-                    component: () => import('../views/Panels/ISF.vue'),
+                    component: () => import('../views/Panels/ISF/ISF.vue'),
                     children: [
                         {
                             name: 'ISF-Delivery-Execution',
                             path: 'Delivery-Execution',
-                            component: () => import('../views/Panels/ISF-Delivery-Execution.vue')
+                            component: () => import('../views/Panels/ISF/ISF-Delivery-Execution.vue')
                         }, 
                         {
                             name: 'ISF-Comparison',
                             path: 'Comparison',
-                            component: () => import('../views/Panels/ISF-Comparison.vue')
+                            component: () => import('../views/Panels/ISF/ISF-Comparison.vue')
+                        }, 
+                        {
+                            name: 'ISF-Progress',
+                            path: 'Progress',
+                            component: () => import('../views/Panels/ISF/ISF-Progress.vue')
+                        }, 
+                    ],
+                },
+                {
+                    name: 'CycleMaterials',
+                    path: 'CycleMaterials',
+                    redirect: { name: 'CycleMaterials-Delivery' },
+                    component: () => import('../views/Panels/CycleMaterials/CycleMaterials.vue'),
+                    children: [
+                        {
+                            name: 'CycleMaterials-Delivery',
+                            path: 'Delivery',
+                            component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Delivery.vue')
+                        }, 
+                        {
+                            name: 'CycleMaterials-Execution',
+                            path: 'Execution',
+                            component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Execution.vue')
+                        }, 
+                        {
+                            name: 'CycleMaterials-Comparison',
+                            path: 'Comparison',
+                            component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Comparison.vue')
+                        }, 
+                        {
+                            name: 'CycleMaterials-Progress',
+                            path: 'Progress',
+                            component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Progress.vue')
+                        }, 
+                    ],
+                },
+                {
+                    name: 'Touchpoints',
+                    path: 'Touchpoints',
+                    redirect: { name: 'Touchpoints-Delivery-Execution' },
+                    component: () => import('../views/Panels/Touchpoints/Touchpoints.vue'),
+                    children: [
+                        {
+                            name: 'Touchpoints-Delivery-Execution',
+                            path: 'Delivery-Execution',
+                            component: () => import('../views/Panels/Touchpoints/Touchpoints-Delivery-Execution.vue')
+                        }, 
+                        {
+                            name: 'Touchpoints-Comparison',
+                            path: 'Comparison',
+                            component: () => import('../views/Panels/Touchpoints/Touchpoints-Comparison.vue')
+                        }, 
+                        {
+                            name: 'Touchpoints-Progress',
+                            path: 'Progress',
+                            component: () => import('../views/Panels/Touchpoints/Touchpoints-Progress.vue')
+                        }, 
+                    ],
+                },
+                {
+                    name: 'Projects',
+                    path: 'Projects',
+                    redirect: { name: 'Projects-Catalog' },
+                    params: true,
+                    component: () => import('../views/Panels/Projects/Projects.vue'),
+                    children: [
+                        {
+                            name: 'Projects-Catalog',
+                            path: 'Catalog',
+                            params: true,
+                            component: () => import('../views/Panels/Projects/Projects-Catalog.vue')
+                        }, 
+                        {
+                            name: 'Projects-Delivery-Execution',
+                            path: 'Delivery-Execution',
+                            component: () => import('../views/Panels/Projects/Projects-Delivery-Execution.vue')
+                        }, 
+                        {
+                            name: 'Projects-Comparison',
+                            path: 'Comparison',
+                            component: () => import('../views/Panels/Projects/Projects-Comparison.vue')
+                        }, 
+                        {
+                            name: 'Projects-Progress',
+                            path: 'Progress',
+                            component: () => import('../views/Panels/Projects/Projects-Progress.vue')
                         }, 
                     ],
                 },
             ]
-        },
-        {
-            path: "/about",
-            name: "about",
-            // route level code-splitting
-            // this generates a separate chunk (About.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import("../views/AboutView.vue"),
         },
     ],
 });

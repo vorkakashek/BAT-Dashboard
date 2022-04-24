@@ -35,6 +35,7 @@ main {
     box-shadow: var(--shadow);
     padding: var(--pdxl);
     overflow: hidden;
+    margin: var(--pdlg) 0;
 }
 
 hr {
@@ -62,10 +63,18 @@ hr {
     background-color: #fff;
     padding: var(--pdlg);
     border: 1px solid #eeeeee;
+    h2 {
+        font-weight: 900;
+        color: var(--blue-medium);
+        font-size: 26px;
+        margin-bottom: var(--pdxl);
+    }
 }
 
 .mgy {
     margin: var(--pdlg) 0;
 }
+
+
 
 </style>

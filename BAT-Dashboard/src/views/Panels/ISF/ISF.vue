@@ -1,3 +1,5 @@
 <template lang="pug">
-div Comparison
+
+RouterView
+
 </template>

@@ -42,7 +42,7 @@ nav
 
     .logo Merchandising Dashboard
 
-    a.export-excel.fajc(href="#", v-if="$route.path !== '/panel/dashboard'")
+    a.export-excel.fajc(href="#", v-if="$route.path !== '/panel/Dashboard' && $route.path !== '/panel/Projects/Catalog'")
         app-icon(name="excel", size="40")
 
     router-link.user.fajc(to="/login")
