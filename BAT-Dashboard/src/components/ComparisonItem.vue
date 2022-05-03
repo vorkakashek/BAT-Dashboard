@@ -38,11 +38,12 @@ export default {
 .comparison-item-label {
     color: var(--blue-medium);
     font-weight: 700;
-    font-size: 16px;
+    font-size: 18px;
     background-color: var(--grey);
-    display: inline-block;
+    display: block;
     padding: var(--pd) var(--pdlg);
     border-radius: var(--radius-4);
+    text-align: center;
 }
 
 .progressbar-container {
