@@ -5,79 +5,80 @@ export default {
 </script>
 
 <template lang="pug">
-//- div {{inData}}
-
 .product-card-infographics
-    span.executed(v-if="inData.executed !== undefined") {{ inData.executed }}
-    span.delivered(v-if="inData.delivered !== undefined") {{ inData.delivered }}
-    span.delivered-to-city(v-if="inData.deliveredToCity !== undefined") {{ inData.deliveredToCity }}
-    span.delivered-to-tmr(v-if="inData.deliveredToTMR !== undefined") {{ inData.deliveredToTMR }}
-    span.not-delivered(v-if="inData.notDelivered !== undefined") {{ inData.notDelivered }}
-    span.not-delivered(v-if="inData.notExecuted !== undefined") {{ inData.notExecuted }}
-    span.planned(v-if="inData.planned !== undefined") Planned [{{ inData.planned }}]
+    .executed(v-if="inData.executed !== undefined")
+        span Executed:
+        | {{ inData.executed }}
+    .delivered(v-if="inData.delivered !== undefined")
+        span Delivered:
+        | {{ inData.delivered }}
+    .delivered-to-city(v-if="inData.deliveredToCity !== undefined") 
+        span Delivered to City:
+        | {{ inData.deliveredToCity }}
+    .delivered-to-tmr(v-if="inData.deliveredToTMR !== undefined") 
+        span Delivered to TMR:
+        | {{ inData.deliveredToTMR }}
+    .not-delivered(v-if="inData.notDelivered !== undefined") 
+        span Not Delivered:
+        | {{ inData.notDelivered }}
+    .not-delivered(v-if="inData.notExecuted !== undefined") 
+        span Not Executed:
+        | {{ inData.notExecuted }}
+    .target(v-if="inData.target !== undefined") 
+        span Target:  
+        | [ {{ inData.target }} ]
 </template>
 
 <style lang="scss" scoped>
 .product-card-infographics {
     display: flex;
-    margin-top: var(--pdlg);
-    // min-width: max-content;
     flex-wrap: wrap;
-    span {
+    background-color: var(--grey);
+    padding: var(--pdsm);
+    border-radius: var(--radius-4);
+    > * {
         font-weight: 700;
         font-size: 15px;
         display: flex;
         align-items: center;
-        &:not(.planned) {
-            &:not(:last-child) {
-            }
-            &:not(.not-delivered) {
-                &:after {
-                    content: "";
-                    height: 16px;
-                    width: 1px;
-                    background: #e5e5e5;
-                    display: inline-block;
-                    margin: 0 var(--pdsm);
-                }
-            }
-        }
+        width: 100%;
+    }
 
-        &.executed {
-            color: var(--green);
-        }
+    span {
+        margin-right: auto;
+    }
 
-        &.delivered {
-            // color: var(--green-light);
-            // color: #7e9200;
-            color: var(--green-light-darker);
-        }
+    .executed {
+        color: var(--green);
+    }
 
-        &.delivered-to-city {
-            // color: var(--green-light);
-            // color: #7e9200;
-            color: var(--green-light-darker);
-        }
+    .delivered {
+        color: var(--green-light-darker);
+    }
 
-        &.delivered-to-tmr {
-            // color: var(--yellow);
-            // color: var(--dark-yellow);
-            color: var(--orange);
-        }
+    .delivered-to-city {
+        color: var(--green-light-darker);
+    }
 
-        &.not-delivered {
-            color: var(--inactive);
-            margin-right: var(--pdxl);
-        }
+    .delivered-to-tmr {
+        color: var(--orange);
+    }
 
-        &.planned {
-            // margin-left: var(--pdxl);
-            margin-left: auto;
-            background: var(--grey);
-            padding: var(--pd) var(--pdsm);
-            border-radius: var(--radius-8);
-            text-align: center;
-        }
+    .not-delivered {
+        color: var(--inactive);
+    }
+
+    .target {
+        background: var(--grey);
+        padding: var(--pd) var(--pdsm);
+        border-radius: var(--radius-4);
+        text-align: center;
+        margin-top: var(--pdlg);
+
+        display: block;
+        // justify-content: space-between;
+        background: var(--blue-light) !important;
+        color: #fff;
     }
 }
 </style>

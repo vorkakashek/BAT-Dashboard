@@ -218,9 +218,21 @@ export default {
 Navbar(:navActive="navActive")
 LeftSidebar(:sidebarActive="menuActive")
 main
-    Filters(
-        v-if="$route.path !== '/panel/Dashboard' && $route.path !== '/panel/Projects/Catalog'",
-        :multiselects="multiselects"
-    )
-    RouterView
+    .container
+        Filters(
+            v-if="$route.path !== '/panel/Dashboard' && $route.path !== '/panel/Projects/Catalog'",
+            :multiselects="multiselects"
+        )
+        RouterView
 </template>
+
+
+<style lang="scss" scoped>
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+</style>

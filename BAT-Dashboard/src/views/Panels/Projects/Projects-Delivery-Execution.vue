@@ -16,7 +16,7 @@ export default {
                     value: 800,
                 },
                 {
-                    name: "Planned",
+                    name: "Target",
                     value: 4000,
                 },
             ],
@@ -28,7 +28,7 @@ export default {
                     executed: 1204,
                     delivered: 1359,
                     notDelivered: 2641,
-                    planned: 4000,
+                    target: 4000,
                 },
                 {
                     name: "GLO_Premium Dispenser",
@@ -36,7 +36,7 @@ export default {
                     executed: 1493,
                     delivered: 2988,
                     notDelivered: 2641,
-                    planned: 4000,
+                    target: 4000,
                 },
                 {
                     name: "GLO_Modular Dispenser",
@@ -44,7 +44,7 @@ export default {
                     executed: 1204,
                     delivered: 1359,
                     notDelivered: 2641,
-                    planned: 4000,
+                    target: 4000,
                 },
                 {
                     name: "GLO_Premium Dispenser",
@@ -52,7 +52,7 @@ export default {
                     executed: 1493,
                     delivered: 2988,
                     notDelivered: 2641,
-                    planned: 4000,
+                    target: 4000,
                 },
                 {
                     name: "GLO_Device Premium Presenter 2 sku",
@@ -60,7 +60,7 @@ export default {
                     executed: 1204,
                     delivered: 1359,
                     notDelivered: 2641,
-                    planned: 4000,
+                    target: 4000,
                 },
                 {
                     name: "GLO_Shelf Stopper",
@@ -68,7 +68,7 @@ export default {
                     executed: 1493,
                     delivered: 2988,
                     notDelivered: 2641,
-                    planned: 4000,
+                    target: 4000,
                 },
                 {
                     name: "GLO_Device Premium Presenter 2 sku",
@@ -76,7 +76,7 @@ export default {
                     executed: 1204,
                     delivered: 1359,
                     notDelivered: 2641,
-                    planned: 4000,
+                    target: 4000,
                 },
                 {
                     name: "GLO_Shelf Stopper",
@@ -84,7 +84,7 @@ export default {
                     executed: 1493,
                     delivered: 2988,
                     notDelivered: 2641,
-                    planned: 4000,
+                    target: 4000,
                 },
             ],
         };
@@ -101,6 +101,8 @@ export default {
             ProgressbarLegend(:inData="totalData")
 
 .panel
-    product-cards(:inData="products")
+    ProductCards
+        template(#items)
+            ProductCard(v-for="product in products", :product="product")
     
 </template>

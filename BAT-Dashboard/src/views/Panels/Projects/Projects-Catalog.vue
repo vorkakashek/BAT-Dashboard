@@ -16,7 +16,9 @@ export default {
     },
     computed: {
         ProjectsOptions() {
-            const { itemOptions } = this.navItems.find(({ name }) => name === 'Projects');
+            const { itemOptions } = this.navItems.find(
+                ({ name }) => name === "Projects"
+            );
             return itemOptions;
         },
     },
@@ -28,10 +30,11 @@ export default {
     .project-list
         router-link.project-item(
             v-for="project in ProjectsOptions",
-            to="/panel/Projects/Delivery-Execution"
+            to="/panel/Projects/Delivery-Execution",
             @click="updateItems('Projects', [project.value])"
         )
-            img(:src="importPhoto(project.photo)")
+            .project-item-img
+                img(:src="importPhoto(project.photo)")
             .project-item-name {{ project.label }}
 </template>
 
@@ -45,23 +48,46 @@ export default {
     align-content: stretch;
 }
 
+.project-item-img {
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius-4);
+    img {
+        width: 100%;
+        height: auto;
+        transition: all .1s ease;
+        object-fit: contain;
+        object-position: center;
+        border-radius: var(--radius-4);
+    }
+}
+
 .project-item {
     text-decoration: none;
     color: var(--blue-medium);
-    img {
-        width: 100%;
-        height: 230px;
-        object-fit: cover;
-        border-radius: var(--radius-8);
-    }
+    padding: var(--pdsm);
+    border-radius: var(--radius-4);
+    
+    background-color: var(--grey);
 
     &:hover {
         color: var(--blue-light);
+        img {
+            width: 94%;
+            // height: 110%;
+            
+        }
     }
 }
 
 .project-item-name {
     text-align: center;
     font-weight: 700;
+    // padding: var(--pdlg);
+    margin-top: var(--pdsm);
 }
 </style>

@@ -75,6 +75,41 @@ hr {
     margin: var(--pdlg) 0;
 }
 
+.product-card-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    width: 100%;
+    height: 100%;
+    gap: 16px;
+    align-content: stretch;
+    @include respond-to(handlers) {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+}
 
+.hidden {
+    display: none;
+}
+
+.comparison-wrap {
+    display: flex;
+    align-items: flex-start;
+    img {
+        width: 200px;
+        object-fit: contain;
+        margin-right: var(--pdxl);
+    }
+
+    @include respond-to(large) {
+        display: block;
+    }
+}
+
+.comparison-items {
+    flex-grow: 1;
+    @include respond-to (large) {
+        margin-top: var(--pdlg);
+    }
+}
 
 </style>

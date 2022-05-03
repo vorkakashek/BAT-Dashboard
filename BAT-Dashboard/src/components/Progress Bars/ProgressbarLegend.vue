@@ -44,7 +44,7 @@ export default {
         margin-top: var(--pdsm);
         width: 100%;
         .progressbar-legend__item {
-            &.Planned {
+            &.Target {
                 margin-left: auto;
             }
         }
@@ -73,7 +73,7 @@ export default {
     align-items: center;
     flex-shrink: 0;
 
-    &:not(.Planned) {
+    &:not(.Target) {
         margin-right: var(--pdlg);
         &:before {
             content: "";
@@ -116,7 +116,7 @@ export default {
             background-color: var(--green);
         }
     }
-    &.Planned {
+    &.Target {
         margin-left: var(--pdxl);
         background-color: var(--grey);
         padding: var(--pdsm) var(--pdlg);

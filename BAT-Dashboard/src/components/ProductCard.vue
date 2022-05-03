@@ -1,64 +1,48 @@
 <script>
 export default {
+    props: ["product"],
     data() {
-        return {
-            visible: false,
-            index: 0,
-            imgs: "",
-        };
+        return {};
     },
     methods: {
-        showSingle(path) {
-            this.imgs = path;
-            this.show();
-        },
-        show() {
-            this.visible = true;
-        },
-        handleHide() {
-            this.visible = false;
+        itemPhoto(photo) {
+            return new URL(`./../assets/images/${photo}.jpg`, import.meta.url)
+                .href;
         },
     },
 };
 </script>
 
-
-
 <template lang="pug">
-vue-easy-lightbox(
-    :visible="visible",
-    :imgs="imgs",
-    :index="index",
-    @hide="handleHide"
-)
-
-.product-card-wrap
-    slot(name="items")
-    
+.product-card
+    .product-card__header
+        .product-card__header-name {{ product.name }}
+        .product-card__header-type {{ product.type }}
+    img.product-card__photo(
+        :src="itemPhoto(product.photo)",
+        v-if="product.photo !== null",
+        @click="() => showSingle(itemPhoto(product.photo))"
+    )
+    ItemProgressbar(:inData="product")
+    ItemData(:inData="product")
 </template>
 
-
 <style lang="scss" scoped>
-.hidden {
-    display: none;
+
+.product-card-infographics {
+    margin-top: var(--pdlg);
 }
 
-.product-card-wrap {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    width: 100%;
-    height: 100%;
-    gap: 16px;
-    align-content: stretch;
-    @include respond-to (handlers) {
-        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-    }
-}
 .product-card {
     background-color: #fff;
     border-radius: var(--radius-4);
     border: 1px solid #e5e5e5;
     padding: var(--pdsm);
+    transition: all .25s ease;
+
+    &:hover {
+        box-shadow: var(--shadow);
+    }
 }
 
 .product-card__header {
@@ -83,8 +67,12 @@ vue-easy-lightbox(
 
 .product-card__photo {
     width: 100%;
-    height: 240px;
+    height: 200px;
     object-fit: contain;
     margin: var(--pdlg) 0 var(--pdxl) 0;
+}
+
+.progressbar-container {
+    margin: var(--pdxl) 0;
 }
 </style>

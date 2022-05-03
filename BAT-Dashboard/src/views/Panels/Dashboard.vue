@@ -36,27 +36,7 @@ export default {
             .dashboard-tile__icon.fajc 
                 app-icon(:name="tile.link", size="30")
             .dashboard-tile__name {{ tile.name }}
-
-    //- .dashboard-tile__wrap
-    //-     router-link.dashboard-tile.dark-blue(to="/panel/ISF")
-    //-         .dashboard-tile__icon.fajc
-    //-             app-icon(name="ISF", size="30")
-    //-         .dashboard-tile__name ISF
-    //- .dashboard-tile__wrap
-    //-     router-link.dashboard-tile.orange(to="/panel/CycleMaterials")
-    //-         .dashboard-tile__icon.fajc
-    //-             app-icon(name="CycleMaterials", size="30")
-    //-         .dashboard-tile__name Cycle Materials
-    //- .dashboard-tile__wrap 
-    //-     router-link.dashboard-tile.pink(to="/panel/Touchpoints")
-    //-         .dashboard-tile__icon.fajc
-    //-             app-icon(name="Touchpoints", size="30")
-    //-         .dashboard-tile__name Touchpoints
-    //- .dashboard-tile__wrap
-    //-     router-link.dashboard-tile.green(to="/panel/Projects")
-    //-         .dashboard-tile__icon.fajc
-    //-             app-icon(name="Projects", size="30")
-    //-         .dashboard-tile__name Projects
+            
 </template>
 
 <style lang="scss" scoped>

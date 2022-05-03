@@ -22,10 +22,10 @@ export default {
     computed: {
         TotalValue() {
             if (
-                this.inData.find((name) => name.name === "Planned") !==
+                this.inData.find((name) => name.name === "Target") !==
                 undefined
             ) {
-                return this.inData.find((name) => name.name === "Planned")
+                return this.inData.find((name) => name.name === "Target")
                     .value;
             } else {
                 return false;

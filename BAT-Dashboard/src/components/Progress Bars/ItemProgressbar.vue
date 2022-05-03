@@ -14,7 +14,7 @@ export default {
             if (this.inData.executed !== undefined) {
                 return (
                     this.inData.executed /
-                    (this.inData.planned / 100)
+                    (this.inData.target / 100)
                 ).toFixed(1);
             } else {
                 return false;
@@ -25,7 +25,7 @@ export default {
             if (this.inData.delivered !== undefined) {
                 return (
                     this.inData.delivered /
-                    (this.inData.planned / 100)
+                    (this.inData.target / 100)
                 ).toFixed(1);
             } else {
                 return false;
@@ -36,7 +36,7 @@ export default {
             if (this.inData.deliveredToTMR !== undefined) {
                 return (
                     this.inData.deliveredToTMR /
-                    (this.inData.planned / 100)
+                    (this.inData.target / 100)
                 ).toFixed(1);
             } else {
                 return false;
@@ -47,7 +47,7 @@ export default {
             if (this.inData.deliveredToCity !== undefined) {
                 return (
                     this.inData.deliveredToCity /
-                    (this.inData.planned / 100)
+                    (this.inData.target / 100)
                 ).toFixed(1);
             } else {
                 return false;
@@ -120,7 +120,7 @@ export default {
     background-color: #e5e5e5;
     border-radius: 100px;
     width: 100%;
-    height: 8px;
+    height: 10px;
     // max-width: calc(360px + var(--index) * 8);
     @include respond-to(medium) {
         max-width: 100%;

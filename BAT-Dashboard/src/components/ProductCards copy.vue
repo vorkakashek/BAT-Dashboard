@@ -1,13 +1,20 @@
 <script>
 export default {
+    props: ["inData"],
     data() {
         return {
             visible: false,
             index: 0,
             imgs: "",
+            filteredOptions: null,
         };
     },
+    inject: ["ISFFilter"],
     methods: {
+        itemPhoto(photo) {
+            return new URL(`./../assets/images/${photo}.jpg`, import.meta.url)
+                .href;
+        },
         showSingle(path) {
             this.imgs = path;
             this.show();
@@ -18,6 +25,27 @@ export default {
         handleHide() {
             this.visible = false;
         },
+        handleFilter() {
+            if (this.ISFFilter !== "ALL") {
+                this.filteredOptions = null;
+                this.filteredOptions = this.inData.filter(
+                    (item) => item.type == this.ISFFilter
+                );
+                // console.log(this.filteredOptions);
+            } else {
+                this.filteredOptions = null;
+                this.filteredOptions = this.inData;
+                // console.log(this.filteredOptions);
+            }
+        },
+    },
+    watch: {
+        ISFFilter: function () {
+            this.handleFilter();
+        },
+    },
+    mounted() {
+        this.handleFilter();
     },
 };
 </script>
@@ -34,7 +62,17 @@ vue-easy-lightbox(
 
 .product-card-wrap
     slot(name="items")
-    
+    //- .product-card(v-for="product in filteredOptions")
+    //-     .product-card__header
+    //-         .product-card__header-name {{ product.name }}
+    //-         .product-card__header-type {{ product.type }}
+    //-     img.product-card__photo(
+    //-         :src="itemPhoto(product.photo)",
+    //-         v-if="product.photo !== null",
+    //-         @click="() => showSingle(itemPhoto(product.photo))"
+    //-     )
+    //-     ItemProgressbar(:inData="product")
+    //-     ItemData(:inData="product")
 </template>
 
 

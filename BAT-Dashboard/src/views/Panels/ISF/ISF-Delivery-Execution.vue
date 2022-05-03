@@ -7,6 +7,7 @@ export default {
     data() {
         return {
             ISFFilter: "ALL",
+            filteredOptions: null,
             totalData: [
                 {
                     name: "Executed",
@@ -21,7 +22,7 @@ export default {
                     value: 800,
                 },
                 {
-                    name: "Planned",
+                    name: "Target",
                     value: 4000,
                 },
             ],
@@ -33,7 +34,7 @@ export default {
                     executed: 1204,
                     delivered: 1359,
                     notDelivered: 1012,
-                    planned: 4000,
+                    target: 4000,
                     type: "BWD",
                 },
                 {
@@ -42,25 +43,7 @@ export default {
                     executed: 1493,
                     delivered: 2988,
                     notDelivered: 1012,
-                    planned: 4000,
-                    type: "BWD",
-                },
-                {
-                    name: "MINI",
-                    photo: "MINI",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 1012,
-                    planned: 4000,
-                    type: "OHD",
-                },
-                {
-                    name: "PRO",
-                    photo: "PRO",
-                    executed: 1493,
-                    delivered: 2988,
-                    notDelivered: 1012,
-                    planned: 4000,
+                    target: 4000,
                     type: "BWD",
                 },
                 {
@@ -69,7 +52,7 @@ export default {
                     executed: 1204,
                     delivered: 1359,
                     notDelivered: 1012,
-                    planned: 4000,
+                    target: 4000,
                     type: "OHD",
                 },
                 {
@@ -78,7 +61,25 @@ export default {
                     executed: 1493,
                     delivered: 2988,
                     notDelivered: 1012,
-                    planned: 4000,
+                    target: 4000,
+                    type: "BWD",
+                },
+                {
+                    name: "MINI",
+                    photo: "MINI",
+                    executed: 1204,
+                    delivered: 1359,
+                    notDelivered: 1012,
+                    target: 4000,
+                    type: "OHD",
+                },
+                {
+                    name: "PRO",
+                    photo: "PRO",
+                    executed: 1493,
+                    delivered: 2988,
+                    notDelivered: 1012,
+                    target: 4000,
                     type: "OHD",
                 },
                 {
@@ -87,7 +88,7 @@ export default {
                     executed: 1204,
                     delivered: 1359,
                     notDelivered: 1012,
-                    planned: 4000,
+                    target: 4000,
                     type: "BWD",
                 },
                 {
@@ -96,7 +97,7 @@ export default {
                     executed: 1493,
                     delivered: 2988,
                     notDelivered: 1012,
-                    planned: 4000,
+                    target: 4000,
                     type: "OHD",
                 },
                 {
@@ -105,7 +106,7 @@ export default {
                     executed: 1493,
                     delivered: 2988,
                     notDelivered: 1012,
-                    planned: 4000,
+                    target: 4000,
                     type: "BWD",
                 },
             ],
@@ -115,14 +116,33 @@ export default {
     provide() {
         return {
             ISFFilter: computed(() => this.ISFFilter),
-            updateISFFilter: this.updateISFFilter
-        }
+            updateISFFilter: this.updateISFFilter,
+        };
     },
     methods: {
         updateISFFilter(value) {
-            this.ISFFilter = value
-        }
-    }
+            this.ISFFilter = value;
+        },
+        handleFilter() {
+            if (this.ISFFilter !== "ALL") {
+                this.filteredOptions = null;
+                this.filteredOptions = this.products.filter(
+                    (item) => item.type == this.ISFFilter
+                );
+            } else {
+                this.filteredOptions = null;
+                this.filteredOptions = this.products;
+            }
+        },
+    },
+    watch: {
+        ISFFilter: function () {
+            this.handleFilter();
+        },
+    },
+    mounted() {
+        this.handleFilter();
+    },
 };
 </script>
 
@@ -135,11 +155,10 @@ export default {
 
 .panel
     ISFFilter
-
-    product-cards(:inData="products")
+    ProductCards
+        template(#items)
+            ProductCard(v-for="product in filteredOptions", :product="product")
 </template>
 
 <style lang="scss" scoped>
-
-
 </style>

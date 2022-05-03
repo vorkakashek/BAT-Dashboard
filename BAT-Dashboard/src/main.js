@@ -11,9 +11,11 @@ import TotalProgressbar from "./components/Progress Bars/TotalProgressbar.vue";
 import ProgressbarLegend from "./components/Progress Bars/ProgressbarLegend.vue";
 
 import ItemProgressbar from "./components/Progress Bars/ItemProgressbar.vue";
-
+import ComparisonItem from "./components/ComparisonItem.vue";
 
 import ProductCards from "./components/ProductCards.vue";
+import ProductCard from "./components/ProductCard.vue";
+
 import ItemData from "./components/Progress Bars/ItemData.vue";
 import ISFFilter from "./components/ISFFilter.vue";
 import Multiselect from '@vueform/multiselect';
@@ -35,10 +37,12 @@ app
     .component('Btn', Btn)
     .component('Filters', Filters)
     .component('ProductCards', ProductCards)
+    .component('ProductCard', ProductCard)
     .component('ItemData', ItemData)
     .component('ISFFilter', ISFFilter)
     .component('app-icon', AppIcon)
     .component('TotalProgressbar', TotalProgressbar)
     .component('ProgressbarLegend', ProgressbarLegend)
     .component('ItemProgressbar', ItemProgressbar)
+    .component('ComparisonItem', ComparisonItem)
     .mount("#app");
