@@ -88,13 +88,13 @@ export default {
                     ],
                     children: [
                         {
-                            link: "Delivery",
-                            name: "Delivery",
+                            link: "Delivery-Execution",
+                            name: "Delivery / Execution",
                         },
-                        {
-                            link: "Execution",
-                            name: "Execution",
-                        },
+                        // {
+                        //     link: "Execution",
+                        //     name: "Execution",
+                        // },
                         {
                             link: "Comparison",
                             name: "Comparison",

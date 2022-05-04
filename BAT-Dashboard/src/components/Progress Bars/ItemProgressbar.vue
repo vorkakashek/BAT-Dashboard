@@ -54,6 +54,20 @@ export default {
             }
         },
     },
+
+    methods: {
+        valueOffset(value) {
+            let val = -50;
+            if (Number(value) <= 10) {
+                val = 0;
+            }
+            if (Number(value) > 95) {
+                val = -100;
+            }
+
+            return `transform: translateX(${val}%);`;
+        },
+    },
 };
 </script>
 
@@ -66,28 +80,40 @@ export default {
                 :style="{ width: ExecutedPercentage + '%' }",
                 v-if="ExecutedPercentage !== false"
             )
-                .progressbar--bar-value {{ ExecutedPercentage }}%
+                .progressbar--bar-value(
+                    v-if="!(Number(ExecutedPercentage) <= 0)",
+                    :style="valueOffset(ExecutedPercentage)"
+                ) {{ ExecutedPercentage }}%
 
             //- Delivered
             .progressbar--bar.green-light(
                 :style="{ width: DeliveredPercentage + '%' }",
                 v-if="DeliveredPercentage !== false"
             )
-                .progressbar--bar-value {{ DeliveredPercentage }}%
+                .progressbar--bar-value(
+                    v-if="!(Number(DeliveredPercentage) <= 0)",
+                    :style="valueOffset(DeliveredPercentage)"
+                ) {{ DeliveredPercentage }}%
 
             //- Delivered to TMR
             .progressbar--bar.green-light.tmr(
                 :style="{ width: DeliveredToTMRPercentage + '%' }",
                 v-if="DeliveredToTMRPercentage !== false"
             )
-                .progressbar--bar-value {{ DeliveredToTMRPercentage }}%
+                .progressbar--bar-value(
+                    v-if="!(Number(DeliveredToTMRPercentage) <= 0)",
+                    :style="valueOffset(DeliveredToTMRPercentage)"
+                ) {{ DeliveredToTMRPercentage }}%
 
             //- Delivered to City
             .progressbar--bar.yellow(
                 :style="{ width: DeliveredToCityPercentage + '%' }",
                 v-if="DeliveredToCityPercentage !== false"
             )
-                .progressbar--bar-value {{ DeliveredToCityPercentage }}%
+                .progressbar--bar-value(
+                    v-if="!(Number(DeliveredToCityPercentage) <= 0)",
+                    :style="valueOffset(DeliveredToCityPercentage)"
+                ) {{ DeliveredToCityPercentage }}%
 
     //- slot using in product cards
     slot(name="data")
@@ -104,7 +130,9 @@ export default {
 
 .progressbar--bar-value {
     position: absolute;
-    right: 8px;
+    // right: 8px;
+    left: 100%;
+    transform: translateX(-50%);
     bottom: 100%;
     font-weight: 900;
     font-size: 13.5px;
@@ -134,7 +162,6 @@ export default {
     background-color: var(--green);
     border-radius: 100px;
     transition: all 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s;
-
     width: 0;
     max-width: 0;
     animation: animateProgressBar 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s;
@@ -144,16 +171,17 @@ export default {
         background-color: var(--green-light);
         z-index: 4;
         animation-delay: 0s;
+
         &:not(.tmr) {
             .progressbar--bar-value {
-                right: unset;
-                left: 100%;
+                // right: unset;
+                // left: 100%;
             }
         }
         .progressbar--bar-value {
-            // color: var(--green-light);
-            // color: #7e9200;
             color: var(--green-light-darker);
+            bottom: unset;
+            top: 100%;
         }
     }
     &.green {
@@ -169,7 +197,6 @@ export default {
         z-index: 3;
         animation-delay: 0.15s;
         .progressbar--bar-value {
-            // color: var(--yellow);
             color: var(--orange);
         }
     }

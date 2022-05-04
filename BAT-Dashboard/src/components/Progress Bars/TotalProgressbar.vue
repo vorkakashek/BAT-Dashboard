@@ -22,11 +22,9 @@ export default {
     computed: {
         TotalValue() {
             if (
-                this.inData.find((name) => name.name === "Target") !==
-                undefined
+                this.inData.find((name) => name.name === "Target") !== undefined
             ) {
-                return this.inData.find((name) => name.name === "Target")
-                    .value;
+                return this.inData.find((name) => name.name === "Target").value;
             } else {
                 return false;
             }
@@ -93,7 +91,19 @@ export default {
             }
         },
     },
-    methods: {},
+    methods: {
+        valueOffset(value) {
+            let val = -50;
+            if (Number(value) <= 10) {
+                val = 0;
+            } if (Number(value) > 95) {
+                val = -100;
+            }
+
+            return `transform: translateX(${val}%);`;
+            
+        },
+    },
 };
 </script>
 
@@ -107,28 +117,40 @@ export default {
                 :style="{ width: ExecutedPercentage + '%' }",
                 v-if="ExecutedPercentage !== false"
             )
-                .progressbar--bar-value {{ ExecutedPercentage }}%
+                .progressbar--bar-value(
+                    v-if="!(Number(ExecutedPercentage) <= 0)",
+                    :style="valueOffset(ExecutedPercentage)"
+                ) {{ ExecutedPercentage }}%
 
             //- Delivered
             .progressbar--bar.green-light(
                 :style="{ width: DeliveredPercentage + '%' }",
                 v-if="DeliveredPercentage !== false"
             )
-                .progressbar--bar-value {{ DeliveredPercentage }}%
+                .progressbar--bar-value(
+                    v-if="!(Number(DeliveredPercentage) <= 0)",
+                    :style="valueOffset(DeliveredPercentage)"
+                ) {{ DeliveredPercentage }}%
 
             //- Delivered to TMR
             .progressbar--bar.green-light.tmr(
                 :style="{ width: DeliveredToTMRPercentage + '%' }",
                 v-if="DeliveredToTMRPercentage !== false"
             )
-                .progressbar--bar-value {{ DeliveredToTMRPercentage }}%
+                .progressbar--bar-value(
+                    v-if="!(Number(DeliveredToTMRPercentage) <= 0)",
+                    :style="valueOffset(DeliveredToTMRPercentage)"
+                ) {{ DeliveredToTMRPercentage }}%
 
             //- Delivered to City
             .progressbar--bar.yellow(
                 :style="{ width: DeliveredToCityPercentage + '%' }",
                 v-if="DeliveredToCityPercentage !== false"
             )
-                .progressbar--bar-value {{ DeliveredToCityPercentage }}%
+                .progressbar--bar-value(
+                    v-if="!(Number(DeliveredToCityPercentage) <= 0)",
+                    :style="valueOffset(DeliveredToCityPercentage)"
+                ) {{ DeliveredToCityPercentage }}%
 
     //- slot for legend (using in total progressbars)
     slot(name="legend")
@@ -154,7 +176,8 @@ export default {
     color: var(--blue-dark);
     margin-right: var(--pdlg);
     flex-shrink: 0;
-    @include respond-to (handlers) {
+    flex-basis: 7rem;
+    @include respond-to(handlers) {
         width: 100%;
         margin-right: 0;
     }
@@ -162,7 +185,8 @@ export default {
 
 .progressbar--bar-value {
     position: absolute;
-    right: 8px;
+    // left: 50%;
+    left: 100%;
     bottom: 100%;
     font-weight: 900;
     font-size: 13.5px;
@@ -179,7 +203,6 @@ export default {
     border-radius: 100px;
     width: 100%;
     height: 16px;
-    // max-width: calc(360px + var(--index) * 8);
     @include respond-to(medium) {
         max-width: 100%;
     }
@@ -208,14 +231,14 @@ export default {
         animation-delay: 0s;
         &:not(.tmr) {
             .progressbar--bar-value {
-                right: unset;
-                left: 100%;
+                // right: 50%;
+                // left: 50%;
             }
         }
         .progressbar--bar-value {
-            // color: var(--green-light);
             color: var(--green-light-darker);
-            // color: #7e9200;
+            bottom: unset;
+            top: 100%;
         }
     }
     &.yellow {
@@ -225,8 +248,8 @@ export default {
         .progressbar--bar-value {
             // color: var(--yellow);
             color: var(--orange);
-            right: unset;
-            left: 100%;
+            // right: unset;
+            // left: 100%;
         }
     }
     &.green {

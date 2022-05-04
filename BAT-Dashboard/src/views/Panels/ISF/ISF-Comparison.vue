@@ -81,7 +81,7 @@ export default {
         };
     },
     computed: {
-        productPhoto() {
+        importPhoto() {
             return new URL(
                 `./../../../assets/images/ISF/PRO.jpg`,
                 import.meta.url
@@ -90,7 +90,7 @@ export default {
     },
     methods: {
         showSingle() {
-            this.imgs = this.productPhoto;
+            this.imgs = this.importPhoto;
             this.show();
         },
         show() {
@@ -124,7 +124,7 @@ vue-easy-lightbox(
 .panel
     h2 ISF
     .comparison-wrap
-        img(:src="productPhoto", @click="() => showSingle()")
+        img.zoom(:src="importPhoto", @click="() => showSingle()")
         .comparison-items
             ISFFilter
             ComparisonItem(v-for="item in comparisonData" :comparisonData="item")

@@ -85,6 +85,6 @@ vue-easy-lightbox(
     width: 100%;
     height: 240px;
     object-fit: contain;
-    margin: var(--pdlg) 0 var(--pdxl) 0;
+    margin: var(--pdlg) 0 var(--pdsm) 0;
 }
 </style>

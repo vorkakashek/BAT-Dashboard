@@ -70,7 +70,7 @@ export default {
         };
     },
     computed: {
-        productPhoto() {
+        importPhoto() {
             return new URL(`./../../../assets/images/Touchpoints/1.jpg`, import.meta.url)
                 .href;
         },
@@ -78,7 +78,7 @@ export default {
 
     methods: {
         showSingle() {
-            this.imgs = this.productPhoto;
+            this.imgs = this.importPhoto;
             this.show();
         },
         show() {
@@ -108,7 +108,7 @@ vue-easy-lightbox(
 .panel
     h2 Touchpoints
     .comparison-wrap
-        img(:src="productPhoto" @click="() => showSingle()")
+        img.zoom(:src="importPhoto" @click="() => showSingle()")
         .comparison-items
             ComparisonItem(v-for="item in comparisonData" :comparisonData="item")
 </template>

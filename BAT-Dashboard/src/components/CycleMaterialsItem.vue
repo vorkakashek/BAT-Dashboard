@@ -9,7 +9,7 @@ export default {
         }
     },
     methods: {
-        itemPhoto(photo) {
+        importPhoto(photo) {
             return new URL(
                 `./../assets/images/Cycle Materials/${photo}.jpg`,
                 import.meta.url
@@ -41,10 +41,10 @@ vue-easy-lightbox(
 .cycle-materials-item
     .cycle-materials-item-data {{ item.label }}
     .cycle-materials-item-data
-        img.cycle-materials-item__photo(
-            :src="itemPhoto(item.photo)",
+        img.zoom.cycle-materials-item__photo(
+            :src="importPhoto(item.photo)",
             v-if="item.photo !== null",
-            @click="() => showSingle(itemPhoto(item.photo))"
+            @click="() => showSingle(importPhoto(item.photo))"
         )
     .cycle-materials-item-data
         ItemProgressbar(:inData="item")
@@ -55,10 +55,8 @@ vue-easy-lightbox(
 
 <style lang="scss" scoped>
 .cycle-materials-item__photo {
-    max-height: 100%;
-    height: 60px;
-    width: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    object-fit: contain;
     border-radius: var(--radius-4);
     @include respond-to(medium) {
         width: auto;
@@ -128,6 +126,11 @@ vue-easy-lightbox(
     }
     &:nth-child(2) {
         flex-grow: 1;
+        flex-basis: 200px;
+        @include respond-to (xlarge) {
+            // flex-grow: 2;
+            
+        }
     }
     &:nth-child(3) {
         flex-grow: 6;

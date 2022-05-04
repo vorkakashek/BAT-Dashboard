@@ -112,4 +112,8 @@ hr {
     }
 }
 
+.zoom {
+    cursor: zoom-in;
+}
+
 </style>

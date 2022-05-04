@@ -56,19 +56,19 @@ const router = createRouter({
                 {
                     name: 'CycleMaterials',
                     path: 'CycleMaterials',
-                    redirect: { name: 'CycleMaterials-Delivery' },
+                    redirect: { name: 'CycleMaterials-Delivery-Execution' },
                     component: () => import('../views/Panels/CycleMaterials/CycleMaterials.vue'),
                     children: [
                         {
-                            name: 'CycleMaterials-Delivery',
-                            path: 'Delivery',
-                            component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Delivery.vue')
+                            name: 'CycleMaterials-Delivery-Execution',
+                            path: 'Delivery-Execution',
+                            component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Delivery-Execution.vue')
                         }, 
-                        {
-                            name: 'CycleMaterials-Execution',
-                            path: 'Execution',
-                            component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Execution.vue')
-                        }, 
+                        // {
+                        //     name: 'CycleMaterials-Execution',
+                        //     path: 'Execution',
+                        //     component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Execution.vue')
+                        // }, 
                         {
                             name: 'CycleMaterials-Comparison',
                             path: 'Comparison',

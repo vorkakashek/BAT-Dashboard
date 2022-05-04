@@ -46,6 +46,7 @@ export default {
     }
     &:nth-child(2) {
         flex-grow: 1;
+        flex-basis: 200px;
     }
     &:nth-child(3) {
         flex-grow: 6;

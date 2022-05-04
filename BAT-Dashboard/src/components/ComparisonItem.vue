@@ -41,7 +41,7 @@ export default {
     font-size: 18px;
     background-color: var(--grey);
     display: block;
-    padding: var(--pd) var(--pdlg);
+    padding: var(--pdsm) var(--pdlg);
     border-radius: var(--radius-4);
     text-align: center;
 }

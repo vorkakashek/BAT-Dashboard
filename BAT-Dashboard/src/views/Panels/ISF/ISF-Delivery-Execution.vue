@@ -15,7 +15,7 @@ export default {
                 },
                 {
                     name: "Delivered",
-                    value: 3200,
+                    value: 3900,
                 },
                 {
                     name: "Not Delivered",
@@ -31,7 +31,7 @@ export default {
                 {
                     name: "MINI",
                     photo: "MINI",
-                    executed: 1204,
+                    executed: 2,
                     delivered: 1359,
                     notDelivered: 1012,
                     target: 4000,
@@ -49,7 +49,7 @@ export default {
                 {
                     name: "MINI",
                     photo: "MINI",
-                    executed: 1204,
+                    executed: 1344,
                     delivered: 1359,
                     notDelivered: 1012,
                     target: 4000,
@@ -58,8 +58,8 @@ export default {
                 {
                     name: "PRO",
                     photo: "PRO",
-                    executed: 1493,
-                    delivered: 2988,
+                    executed: 10,
+                    delivered: 11,
                     notDelivered: 1012,
                     target: 4000,
                     type: "BWD",
@@ -67,8 +67,8 @@ export default {
                 {
                     name: "MINI",
                     photo: "MINI",
-                    executed: 1204,
-                    delivered: 1359,
+                    executed: 400,
+                    delivered: 500,
                     notDelivered: 1012,
                     target: 4000,
                     type: "OHD",
@@ -86,7 +86,7 @@ export default {
                     name: "MINI",
                     photo: "MINI",
                     executed: 1204,
-                    delivered: 1359,
+                    delivered: 3991,
                     notDelivered: 1012,
                     target: 4000,
                     type: "BWD",

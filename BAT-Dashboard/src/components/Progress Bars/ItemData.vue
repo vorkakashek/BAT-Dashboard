@@ -77,8 +77,9 @@ export default {
 
         display: block;
         // justify-content: space-between;
-        background: var(--blue-light) !important;
-        color: #fff;
+        // background: var(--blue-light) !important;
+        background-color: var(--color-target) !important;
+        color: #333;
     }
 }
 </style>

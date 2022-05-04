@@ -56,6 +56,7 @@ export default {
     justify-content: center;
     align-items: center;
     border-radius: var(--radius-4);
+    background-color: #fff;
     img {
         width: 100%;
         height: auto;
