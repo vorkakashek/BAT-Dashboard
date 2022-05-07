@@ -223,16 +223,48 @@ main
             v-if="$route.path !== '/panel/Dashboard' && $route.path !== '/panel/Projects/Catalog'",
             :multiselects="multiselects"
         )
-        RouterView
+        RouterView(v-slot="{ Component, route }")
+            transition(name="fade")
+                div(:key="route.name")
+                    component(:is="Component")
 </template>
 
 
 <style lang="scss" scoped>
-
 .container {
     max-width: 1440px;
     margin: 0 auto;
     width: 100%;
 }
 
+.fade-enter-active {
+    transition: opacity 0.2s ease-in .1s;
+}
+
+.slide-fade-leave-active {
+    transition: opacity 0.2s ease-in 0s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+/*
+  Enter and leave animations can use different
+  durations and timing functions.
+*/
+.slide-fade-enter-active {
+    transition: all 0.3s ease;
+}
+
+.slide-fade-leave-active {
+    transition: all 0.3s ease 1s;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    transform: translateY(40px);
+    opacity: 0;
+}
 </style>

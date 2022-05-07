@@ -56,6 +56,8 @@ vue-easy-lightbox(
 <style lang="scss" scoped>
 .cycle-materials-item__photo {
     max-width: 100%;
+    width: 100%;
+    height: auto;
     object-fit: contain;
     border-radius: var(--radius-4);
     @include respond-to(medium) {
