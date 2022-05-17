@@ -5,10 +5,14 @@ export default {
             totalData: [
                 {
                     name: "Executed",
+                    value: 902,
+                },
+                {
+                    name: "Delivered to TMR",
                     value: 1235,
                 },
                 {
-                    name: "Delivered",
+                    name: "Delivered to City",
                     value: 3200,
                 },
                 {
@@ -22,25 +26,44 @@ export default {
             ],
             comparisonData: [
                 {
-                    label: "CycleMaterial Cycle4",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3000,
+                    label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
+                    executed: 301,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 3500,
+                    notDelivered: 500,
+                    target: 4000,
                 },
                 {
-                    label: "CycleMaterial Cycle5",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3400,
+                    label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
+                    executed: 301,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 3500,
+                    notDelivered: 500,
+                    target: 4000,
                 },
                 {
-                    label: "CycleMaterial Cycle6",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 4100,
+                    label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
+                    executed: 301,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 3500,
+                    notDelivered: 500,
+                    target: 4000,
+                },
+                {
+                    label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
+                    executed: 301,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 3500,
+                    notDelivered: 500,
+                    target: 4000,
+                },
+                {
+                    label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
+                    executed: 3000,
+                    deliveredToTMR: 3400,
+                    deliveredToCity: 3500,
+                    notDelivered: 500,
+                    target: 4000,
                 },
             ],
         };
@@ -57,10 +80,13 @@ export default {
 .panel
     h2 Total
     .comparison-items
-        ComparisonItem(v-for="item in comparisonData" :comparisonData="item")
+        ComparisonItem(
+            v-for="item in comparisonData",
+            :comparisonData="item",
+            :vertical="true"
+        )
 </template>
 
 
 <style lang="scss" scoped>
-
 </style>

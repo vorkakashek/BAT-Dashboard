@@ -59,13 +59,13 @@ export default {
         valueOffset(value) {
             let val = -50;
             if (Number(value) <= 10) {
-                val = 0;
-            }
-            if (Number(value) > 95) {
                 val = -100;
             }
+            if (Number(value) > 95) {
+                val = 0;
+            }
 
-            return `transform: translateX(${val}%);`;
+            return `transform: translateY(${val}%);`;
         },
     },
 };
@@ -77,7 +77,7 @@ export default {
         .progressbar
             //- Executed 
             .progressbar--bar.green(
-                :style="{ width: ExecutedPercentage + '%' }",
+                :style="{ height: ExecutedPercentage + '%' }",
                 v-if="ExecutedPercentage !== false"
             )
                 .progressbar--bar-value(
@@ -87,7 +87,7 @@ export default {
 
             //- Delivered
             .progressbar--bar.green-light(
-                :style="{ width: DeliveredPercentage + '%' }",
+                :style="{ height: DeliveredPercentage + '%' }",
                 v-if="DeliveredPercentage !== false"
             )
                 .progressbar--bar-value(
@@ -97,7 +97,7 @@ export default {
 
             //- Delivered to TMR
             .progressbar--bar.green-light.tmr(
-                :style="{ width: DeliveredToTMRPercentage + '%' }",
+                :style="{ height: DeliveredToTMRPercentage + '%' }",
                 v-if="DeliveredToTMRPercentage !== false"
             )
                 .progressbar--bar-value(
@@ -107,7 +107,7 @@ export default {
 
             //- Delivered to City
             .progressbar--bar.yellow(
-                :style="{ width: DeliveredToCityPercentage + '%' }",
+                :style="{ height: DeliveredToCityPercentage + '%' }",
                 v-if="DeliveredToCityPercentage !== false"
             )
                 .progressbar--bar-value(
@@ -130,10 +130,8 @@ export default {
 
 .progressbar--bar-value {
     position: absolute;
-    // right: 8px;
-    left: 100%;
-    transform: translateX(-50%);
-    bottom: 100%;
+    top: 0 !important;
+    left: calc(-100% - 32px);
     font-weight: 900;
     font-size: 13.5px;
     color: #333;
@@ -146,13 +144,9 @@ export default {
 .progressbar {
     position: relative;
     background-color: #e5e5e5;
-    // border-radius: 100px;
-    border-radius: 4px;
-    width: 100%;
-    // height: 10px;
-    height: 16px;
-    
-    // max-width: calc(360px + var(--index) * 8);
+    border-radius: var(--radius-4);
+    height: 200px;
+    width: 32px;
     @include respond-to(medium) {
         max-width: 100%;
     }
@@ -161,31 +155,27 @@ export default {
 .progressbar--bar {
     position: absolute;
     z-index: 1;
-    height: 100%;
+    width: 100%;
+    bottom: 0;
     background-color: var(--green);
-    // border-radius: 100px;
-    border-radius: 4px;
+    border-radius: 100px;
     transition: all 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s;
-    width: 0;
-    max-width: 0;
+    height: 0;
+    max-height: 0;
     animation: animateProgressBar 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s;
     animation-fill-mode: forwards;
+    border-radius: var(--radius-4);
 
     &.green-light {
         background-color: var(--green-light);
         z-index: 4;
         animation-delay: 0s;
-
-        &:not(.tmr) {
-            .progressbar--bar-value {
-                // right: unset;
-                // left: 100%;
-            }
-        }
         .progressbar--bar-value {
             color: var(--green-light-darker);
-            bottom: unset;
-            top: 100%;
+            // bottom: unset;
+            // top: 100%;
+            left: unset;
+            right: calc(-100% - 32px);
         }
     }
     &.green {
@@ -224,22 +214,22 @@ export default {
 
 .progressbar-wrapper {
     display: flex;
+    justify-content: center;
     align-items: center;
-    // width: 100%;
     flex-grow: 1;
-    &:hover {
-        .progressbar--bar-value {
-            // font-size: 15px;
-        }
-    }
+
+    margin: 16px 0 0 0 !important;
+    background-color: #fafafa;
+    padding: var(--pdlg);
+    border-radius: var(--radius-4);
 }
 
 @keyframes animateProgressBar {
     from {
-        max-width: 0%;
+        max-height: 0%;
     }
     to {
-        max-width: 100%;
+        max-height: 100%;
     }
 }
 

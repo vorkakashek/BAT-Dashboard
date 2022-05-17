@@ -13,16 +13,20 @@ export default {
 <template lang="pug">
 .ISFFilter
     label(v-for="option in options")
-        input(:model-value="option" @click="updateISFFilter(option)" :class="{ checked: option == ISFFilter }")
+        input(
+            :model-value="option",
+            @click="updateISFFilter(option)",
+            :class="{ checked: option == ISFFilter }"
+        )
         span {{ option }}
-
 </template>
 
 <style lang="scss" scoped>
+
 .ISFFilter {
     display: inline-flex;
     align-items: center;
-    margin-bottom: var(--pdlg);
+    margin: 0 0 var(--pdxl) 0;
     border-radius: 100px;
     overflow: hidden;
     label {

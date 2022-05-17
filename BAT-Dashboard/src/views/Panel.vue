@@ -106,8 +106,8 @@ export default {
                     ],
                 },
                 {
-                    link: "Touchpoints",
-                    name: "Touchpoints",
+                    link: "Semi-permanentMaterials",
+                    name: "Semi-permanent materials",
                     itemValue: null,
                     itemOptions: [
                         "Touchpoints Cycle'4",

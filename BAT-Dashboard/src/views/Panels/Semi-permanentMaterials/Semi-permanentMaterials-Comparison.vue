@@ -1,15 +1,7 @@
-<script setup>
-import { computed } from "vue";
-</script>
-
 <script>
 export default {
     data() {
         return {
-            ISFFilter: "ALL",
-            visible: false,
-            index: 0,
-            imgs: "",
             totalData: [
                 {
                     name: "Executed",
@@ -72,22 +64,18 @@ export default {
                     target: 4000,
                 },
             ],
-        };
-    },
-    provide() {
-        return {
-            ISFFilter: computed(() => this.ISFFilter),
-            updateISFFilter: this.updateISFFilter,
+            visible: false,
+            index: 0,
+            imgs: "",
         };
     },
     computed: {
         importPhoto() {
-            return new URL(
-                `./../../../assets/images/ISF/PRO.jpg`,
-                import.meta.url
-            ).href;
+            return new URL(`./../../../assets/images/Touchpoints/1.jpg`, import.meta.url)
+                .href;
         },
     },
+
     methods: {
         showSingle() {
             this.imgs = this.importPhoto;
@@ -99,10 +87,7 @@ export default {
         handleHide() {
             this.visible = false;
         },
-        updateISFFilter(value) {
-            this.ISFFilter = value;
-        },
-    },
+    }
 };
 </script>
 
@@ -121,18 +106,12 @@ vue-easy-lightbox(
             ProgressbarLegend(:inData="totalData")
 
 .panel
-    h2 ISF
+    h2 Touchpoints
     .comparison-wrap
         .comparison-aside
-            img.zoom(:src="importPhoto", @click="() => showSingle()")
-
-        .comparison-content
-            ISFFilter
-            .comparison-items
-                ComparisonItem(
-                    v-for="item in comparisonData",
-                    :comparisonData="item"
-                )
+            img.zoom(:src="importPhoto" @click="() => showSingle()")
+        .comparison-items
+            ComparisonItem(v-for="item in comparisonData" :comparisonData="item")
 </template>
 
 <style lang="scss" scoped>

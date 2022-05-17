@@ -200,9 +200,11 @@ export default {
 .progressbar {
     position: relative;
     background-color: #e5e5e5;
-    border-radius: 100px;
+    // border-radius: 100px;
+    border-radius: 4px;
     width: 100%;
-    height: 16px;
+    // height: 16px;
+    height: 22px;
     @include respond-to(medium) {
         max-width: 100%;
     }
@@ -217,7 +219,8 @@ export default {
     z-index: 1;
     height: 100%;
     background-color: var(--green);
-    border-radius: 100px;
+    // border-radius: 100px;
+    border-radius: 4px;
     transition: all 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s;
 
     width: 0;

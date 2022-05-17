@@ -9,8 +9,8 @@ export default {
                     class: 'blue-medium',
                 },
                 {
-                    link: 'Touchpoints',
-                    name: 'Touchpoints',
+                    link: 'Semi-permanentMaterials',
+                    name: 'Semi-permanent materials',
                     class: 'pink',
                 },
                 {
@@ -151,10 +151,13 @@ export default {
     font-size: calc(4px + var(--index) * .85);
     margin-left: var(--pdlg);
     line-height: 1.2;
-    text-align: center;
+    // text-align: center;
+    max-width: 18rem;
+    text-align: left;
     @include respond-to(large) {
         margin-left: unset;
         margin-top: 16px;
+        text-align: center;
     }
     
 }

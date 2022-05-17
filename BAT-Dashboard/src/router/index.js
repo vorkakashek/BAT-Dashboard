@@ -82,25 +82,25 @@ const router = createRouter({
                     ],
                 },
                 {
-                    name: 'Touchpoints',
-                    path: 'Touchpoints',
-                    redirect: { name: 'Touchpoints-Delivery-Execution' },
-                    component: () => import('../views/Panels/Touchpoints/Touchpoints.vue'),
+                    name: 'Semi-permanentMaterials',
+                    path: 'Semi-permanentMaterials',
+                    redirect: { name: 'Semi-permanentMaterials-Delivery-Execution' },
+                    component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials.vue'),
                     children: [
                         {
-                            name: 'Touchpoints-Delivery-Execution',
+                            name: 'Semi-permanentMaterials-Delivery-Execution',
                             path: 'Delivery-Execution',
-                            component: () => import('../views/Panels/Touchpoints/Touchpoints-Delivery-Execution.vue')
+                            component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials-Delivery-Execution.vue')
                         }, 
                         {
-                            name: 'Touchpoints-Comparison',
+                            name: 'Semi-permanentMaterials-Comparison',
                             path: 'Comparison',
-                            component: () => import('../views/Panels/Touchpoints/Touchpoints-Comparison.vue')
+                            component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials-Comparison.vue')
                         }, 
                         {
-                            name: 'Touchpoints-Progress',
+                            name: 'Semi-permanentMaterials-Progress',
                             path: 'Progress',
-                            component: () => import('../views/Panels/Touchpoints/Touchpoints-Progress.vue')
+                            component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials-Progress.vue')
                         }, 
                     ],
                 },

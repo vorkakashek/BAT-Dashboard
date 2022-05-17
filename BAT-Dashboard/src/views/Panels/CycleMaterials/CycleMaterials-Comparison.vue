@@ -5,10 +5,14 @@ export default {
             totalData: [
                 {
                     name: "Executed",
+                    value: 902,
+                },
+                {
+                    name: "Delivered to TMR",
                     value: 1235,
                 },
                 {
-                    name: "Delivered",
+                    name: "Delivered to City",
                     value: 3200,
                 },
                 {
@@ -23,44 +27,50 @@ export default {
             comparisonData: [
                 {
                     label: "MBU",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3000,
+                    executed: 301,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 3500,
+                    notDelivered: 500,
+                    target: 4000,
                 },
                 {
                     label: "NW",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3400,
+                    executed: 301,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 3500,
+                    notDelivered: 500,
+                    target: 4000,
                 },
                 {
                     label: "South",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 4100,
+                    executed: 301,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 3500,
+                    notDelivered: 500,
+                    target: 4000,
                 },
                 {
                     label: "Volga-Centre",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 2400,
+                    executed: 301,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 3500,
+                    notDelivered: 500,
+                    target: 4000,
                 },
                 {
                     label: "Ural",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 2000,
+                    executed: 301,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 3500,
+                    notDelivered: 500,
+                    target: 4000,
                 },
                 {
                     label: "Siberia-FE",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
+                    executed: 301,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 3500,
+                    notDelivered: 500,
                     target: 4000,
                 },
             ],
@@ -109,7 +119,8 @@ vue-easy-lightbox(
 .panel
     h2 Cycle Materials
     .comparison-wrap
-        img.zoom(:src="importPhoto", @click="() => showSingle()")
+        .comparison-aside
+            img.zoom(:src="importPhoto", @click="() => showSingle()")
         .comparison-items
             ComparisonItem(v-for="item in comparisonData" :comparisonData="item")
 </template>

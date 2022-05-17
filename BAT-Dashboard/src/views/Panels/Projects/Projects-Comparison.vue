@@ -110,7 +110,8 @@ vue-easy-lightbox(
 .panel
     h2 Projects
     .comparison-wrap
-        img.zoom(:src="importPhoto", @click="() => showSingle()")
+        .comparison-aside
+            img.zoom(:src="importPhoto", @click="() => showSingle()")
         .comparison-items
             ComparisonItem(v-for="item in comparisonData" :comparisonData="item")
 </template>

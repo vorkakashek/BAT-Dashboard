@@ -94,26 +94,61 @@ hr {
 .comparison-wrap {
     display: flex;
     align-items: flex-start;
+    position: relative;
     img {
         width: 200px;
         object-fit: contain;
-        margin-right: var(--pdxl);
+        // margin-right: var(--pdxl);
+        margin: 0 auto;
+        margin-bottom: var(--pdxl);
+        display: flex;
     }
 
     @include respond-to(large) {
         display: block;
     }
+
+    .comparison-aside {
+        margin-right: var(--pdxl);
+        @include respond-to(large) {
+            margin-right: 0;
+        }
+    }
+}
+
+.comparison-content {
+    width: 100%;
+    @include respond-to (large) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .ISFFilter {
+            margin: 0 auto;
+        }
+    }
 }
 
 .comparison-items {
     flex-grow: 1;
-    @include respond-to (large) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    width: 100%;
+    height: 100%;
+    gap: 16px;
+    align-content: stretch;
+    @include respond-to(large) {
         margin-top: var(--pdlg);
     }
+    @include respond-to (handlers) {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+    
 }
 
 .zoom {
     cursor: zoom-in;
 }
+
+
 
 </style>

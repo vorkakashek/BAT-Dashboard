@@ -47,6 +47,20 @@ export default {
                     notDelivered: 641,
                     target: 4100,
                 },
+                {
+                    label: "CycleMaterial Cycle6",
+                    executed: 4,
+                    delivered: 5,
+                    notDelivered: 641,
+                    target: 4100,
+                },
+                {
+                    label: "CycleMaterial Cycle6",
+                    executed: 4089,
+                    delivered: 4090,
+                    notDelivered: 641,
+                    target: 4100,
+                },
             ],
         };
     },
@@ -72,9 +86,10 @@ export default {
 
 .panel
     h2 Total
+    ISFFilter
     .comparison-items
-        ISFFilter
-        ComparisonItem(v-for="item in comparisonData" :comparisonData="item")
+        
+        ComparisonItem(v-for="item in comparisonData" :comparisonData="item" :vertical="true")
 </template>
 
 

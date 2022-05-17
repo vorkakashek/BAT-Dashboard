@@ -11,6 +11,7 @@ import TotalProgressbar from "./components/Progress Bars/TotalProgressbar.vue";
 import ProgressbarLegend from "./components/Progress Bars/ProgressbarLegend.vue";
 
 import ItemProgressbar from "./components/Progress Bars/ItemProgressbar.vue";
+import ItemProgressbarVertical from "./components/Progress Bars/ItemProgressbarVertical.vue";
 import ComparisonItem from "./components/ComparisonItem.vue";
 
 import ProductCards from "./components/ProductCards.vue";
@@ -44,5 +45,6 @@ app
     .component('TotalProgressbar', TotalProgressbar)
     .component('ProgressbarLegend', ProgressbarLegend)
     .component('ItemProgressbar', ItemProgressbar)
+    .component('ItemProgressbarVertical', ItemProgressbarVertical)
     .component('ComparisonItem', ComparisonItem)
     .mount("#app");
