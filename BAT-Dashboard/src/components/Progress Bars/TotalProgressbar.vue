@@ -96,12 +96,51 @@ export default {
             let val = -50;
             if (Number(value) <= 10) {
                 val = 0;
-            } if (Number(value) > 95) {
+            }
+            if (Number(value) > 95) {
                 val = -100;
             }
 
             return `transform: translateX(${val}%);`;
-            
+        },
+
+        collisionFixDeliveredToCity(
+            DeliveredToCityPercentage,
+            ExecutedPercentage
+        ) {
+            let val = -50;
+            if (DeliveredToCityPercentage > 90) {
+                val = 0;
+            }
+            if (DeliveredToCityPercentage <= 5) {
+                val = 0;
+            }
+            if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
+                val = 0;
+                if (DeliveredToCityPercentage > 90 || ExecutedPercentage > 90) {
+                    val = -100;
+                }
+            }
+
+            return `transform: translateX(${val}%);`;
+        },
+        collisionFixExecuted(DeliveredToCityPercentage, ExecutedPercentage) {
+            let val = -50;
+
+            if (ExecutedPercentage > 90) {
+                val = 0;
+            }
+            if (ExecutedPercentage <= 5) {
+                val = 0;
+            }
+            if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
+                val = -100;
+                if (ExecutedPercentage > 90 || DeliveredToCityPercentage > 90) {
+                    val = -230;
+                }
+            }
+
+            return `transform: translateX(${val}%);`;
         },
     },
 };
@@ -119,7 +158,7 @@ export default {
             )
                 .progressbar--bar-value(
                     v-if="!(Number(ExecutedPercentage) <= 0)",
-                    :style="valueOffset(ExecutedPercentage)"
+                    :style="collisionFixExecuted(DeliveredToCityPercentage, ExecutedPercentage)"
                 ) {{ ExecutedPercentage }}%
 
             //- Delivered
@@ -149,7 +188,7 @@ export default {
             )
                 .progressbar--bar-value(
                     v-if="!(Number(DeliveredToCityPercentage) <= 0)",
-                    :style="valueOffset(DeliveredToCityPercentage)"
+                    :style="collisionFixDeliveredToCity(DeliveredToCityPercentage, ExecutedPercentage)"
                 ) {{ DeliveredToCityPercentage }}%
 
     //- slot for legend (using in total progressbars)

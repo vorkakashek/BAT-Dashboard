@@ -5,15 +5,15 @@ export default {
             totalData: [
                 {
                     name: "Executed",
-                    value: 902,
+                    value: 15103,
                 },
                 {
                     name: "Delivered to TMR",
-                    value: 1235,
+                    value: 6802,
                 },
                 {
                     name: "Delivered to City",
-                    value: 3200,
+                    value: 16310,
                 },
                 {
                     name: "Not Delivered",
@@ -21,15 +21,15 @@ export default {
                 },
                 {
                     name: "Target",
-                    value: 4000,
+                    value: 16700,
                 },
             ],
             comparisonData: [
                 {
                     label: "MBU",
                     executed: 301,
-                    deliveredToTMR: 1204,
-                    deliveredToCity: 3500,
+                    deliveredToTMR: 302,
+                    deliveredToCity: 303,
                     notDelivered: 500,
                     target: 4000,
                 },
@@ -59,7 +59,15 @@ export default {
                 },
                 {
                     label: "Ural",
-                    executed: 301,
+                    executed: 3997,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 3999,
+                    notDelivered: 500,
+                    target: 4000,
+                },
+                {
+                    label: "Siberia-FE",
+                    executed: 40,
                     deliveredToTMR: 1204,
                     deliveredToCity: 3500,
                     notDelivered: 500,
@@ -67,9 +75,17 @@ export default {
                 },
                 {
                     label: "Siberia-FE",
-                    executed: 301,
+                    executed: 3788,
                     deliveredToTMR: 1204,
-                    deliveredToCity: 3500,
+                    deliveredToCity: 3800,
+                    notDelivered: 500,
+                    target: 4000,
+                },
+                {
+                    label: "Siberia-FE",
+                    executed: 2300,
+                    deliveredToTMR: 1204,
+                    deliveredToCity: 2303,
                     notDelivered: 500,
                     target: 4000,
                 },

@@ -67,6 +67,45 @@ export default {
 
             return `transform: translateY(${val}%);`;
         },
+
+        collisionFixDeliveredToCity(
+            DeliveredToCityPercentage,
+            ExecutedPercentage
+        ) {
+            let val = -50;
+            if (DeliveredToCityPercentage > 95) {
+                val = -25;
+            }
+            if (DeliveredToCityPercentage <= 5) {
+                val = 100;
+            }
+            if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
+                val = -25;
+                if (DeliveredToCityPercentage <= 5) {
+                    val = -150;
+                }
+            }
+
+            return `transform: translateY(${val}%);`;
+        },
+        collisionFixExecuted(DeliveredToCityPercentage, ExecutedPercentage) {
+            let val = -50;
+
+            if (ExecutedPercentage > 95) {
+                val = 0;
+            }
+            if (ExecutedPercentage <= 5) {
+                val = 0;
+            }
+            if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
+                val = 0;
+                if (ExecutedPercentage <= 5) {
+                    val = -75;
+                }
+            }
+
+            return `transform: translateY(${val}%);`;
+        },
     },
 };
 </script>
@@ -81,8 +120,7 @@ export default {
                 v-if="ExecutedPercentage !== false"
             )
                 .progressbar--bar-value(
-                    v-if="!(Number(ExecutedPercentage) <= 0)",
-                    :style="valueOffset(ExecutedPercentage)"
+                    :style="collisionFixExecuted(DeliveredToCityPercentage, ExecutedPercentage)"
                 ) {{ ExecutedPercentage }}%
 
             //- Delivered
@@ -91,7 +129,6 @@ export default {
                 v-if="DeliveredPercentage !== false"
             )
                 .progressbar--bar-value(
-                    v-if="!(Number(DeliveredPercentage) <= 0)",
                     :style="valueOffset(DeliveredPercentage)"
                 ) {{ DeliveredPercentage }}%
 
@@ -101,7 +138,6 @@ export default {
                 v-if="DeliveredToTMRPercentage !== false"
             )
                 .progressbar--bar-value(
-                    v-if="!(Number(DeliveredToTMRPercentage) <= 0)",
                     :style="valueOffset(DeliveredToTMRPercentage)"
                 ) {{ DeliveredToTMRPercentage }}%
 
@@ -111,8 +147,7 @@ export default {
                 v-if="DeliveredToCityPercentage !== false"
             )
                 .progressbar--bar-value(
-                    v-if="!(Number(DeliveredToCityPercentage) <= 0)",
-                    :style="valueOffset(DeliveredToCityPercentage)"
+                    :style="collisionFixDeliveredToCity(DeliveredToCityPercentage, ExecutedPercentage)"
                 ) {{ DeliveredToCityPercentage }}%
 
     //- slot using in product cards
