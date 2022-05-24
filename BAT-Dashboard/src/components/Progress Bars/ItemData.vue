@@ -15,9 +15,11 @@ export default {
     .delivered-to-city(v-if="inData.deliveredToCity !== undefined") 
         span Delivered to City:
         | {{ inData.deliveredToCity }}
+
     .delivered-to-tmr(v-if="inData.deliveredToTMR !== undefined") 
         span Delivered to TMR:
         | {{ inData.deliveredToTMR }}
+        
     .not-delivered(v-if="inData.notDelivered !== undefined") 
         span Not Delivered:
         | {{ inData.notDelivered }}

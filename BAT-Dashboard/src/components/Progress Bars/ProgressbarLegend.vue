@@ -96,13 +96,14 @@ export default {
 
     &.DeliveredtoCity {
         &:before {
-            background-color: var(--yellow);
+            
+            background-color: var(--green-light);
         }
     }
 
     &.DeliveredtoTMR {
         &:before {
-            background-color: var(--green-light);
+            background-color: var(--yellow);
         }
     }
 

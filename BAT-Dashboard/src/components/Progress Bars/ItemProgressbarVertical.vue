@@ -67,23 +67,39 @@ export default {
 
             return `transform: translateY(${val}%);`;
         },
-        collisionFixDeliveredToCity(
-            DeliveredToCityPercentage,
+        collisionFixDeliveredToTMR(
+            DeliveredToTMR,
             ExecutedPercentage
         ) {
             let valY = -50;
             let valX = 0;
 
-            if (DeliveredToCityPercentage < 5) {
+            if (DeliveredToTMR < 5) {
                 valY = -100;
             }
 
-            if (DeliveredToCityPercentage > 95) {
+            if (DeliveredToTMR > 95) {
                 valY = 0;
             }
 
-            if ((DeliveredToCityPercentage - ExecutedPercentage < 10 && DeliveredToCityPercentage - ExecutedPercentage > 0) || (ExecutedPercentage - DeliveredToCityPercentage < 10 && ExecutedPercentage - DeliveredToCityPercentage > 0)) {
+            if ((DeliveredToTMR - ExecutedPercentage < 10 && DeliveredToTMR - ExecutedPercentage > 0) || (ExecutedPercentage - DeliveredToTMR < 10 && ExecutedPercentage - DeliveredToTMR > 0)) {
                 valX = -110;
+            }
+
+            if (DeliveredToTMR >= 100) {
+                
+                if (
+                    (DeliveredToTMR - ExecutedPercentage < 10 &&
+                        DeliveredToTMR - ExecutedPercentage > 0) ||
+                    (ExecutedPercentage - DeliveredToTMR < 10 &&
+                        ExecutedPercentage - DeliveredToTMR > 0)
+                ) {
+                    valX = -110;
+                }
+
+                if (ExecutedPercentage >= 100) {
+                    valX = -110;
+                }
             }
 
             return `transform: translateX(${valX}%) translateY(${valY}%);`;
@@ -115,21 +131,21 @@ export default {
                 ) {{ DeliveredPercentage }}%
 
             //- Delivered to TMR
-            .progressbar--bar.green-light.tmr(
+            .progressbar--bar.yellow(
                 :style="{ height: DeliveredToTMRPercentage + '%' }",
                 v-if="DeliveredToTMRPercentage !== false"
             )
                 .progressbar--bar-value(
-                    :style="valueOffset(DeliveredToTMRPercentage)"
+                    :style="collisionFixDeliveredToTMR(DeliveredToTMRPercentage, ExecutedPercentage)"
                 ) {{ DeliveredToTMRPercentage }}%
 
             //- Delivered to City
-            .progressbar--bar.yellow(
+            .progressbar--bar.green-light(
                 :style="{ height: DeliveredToCityPercentage + '%' }",
                 v-if="DeliveredToCityPercentage !== false"
             )
                 .progressbar--bar-value(
-                    :style="collisionFixDeliveredToCity(DeliveredToCityPercentage, ExecutedPercentage)"
+                    :style="valueOffset(DeliveredToCityPercentage)"
                 ) {{ DeliveredToCityPercentage }}%
 
     //- slot using in product cards
