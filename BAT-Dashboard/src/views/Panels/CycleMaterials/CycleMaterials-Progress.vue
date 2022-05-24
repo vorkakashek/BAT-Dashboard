@@ -73,6 +73,14 @@ export default {
                     notDelivered: 500,
                     target: 4000,
                 },
+                {
+                    label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
+                    executed: 3000,
+                    deliveredToTMR: 2,
+                    deliveredToCity: 2980,
+                    notDelivered: 500,
+                    target: 4000,
+                },
             ],
         };
     },

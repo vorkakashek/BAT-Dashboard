@@ -118,7 +118,7 @@ export default {
                 valX = -100;
             }
 
-            if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
+            if ((DeliveredToCityPercentage - ExecutedPercentage < 10 && DeliveredToCityPercentage - ExecutedPercentage > 0) || (ExecutedPercentage - DeliveredToCityPercentage < 10 && ExecutedPercentage - DeliveredToCityPercentage > 0)) {
                 valY = -50;
             }
 

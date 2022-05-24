@@ -82,51 +82,12 @@ export default {
                 valY = 0;
             }
 
-            if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
+            if ((DeliveredToCityPercentage - ExecutedPercentage < 10 && DeliveredToCityPercentage - ExecutedPercentage > 0) || (ExecutedPercentage - DeliveredToCityPercentage < 10 && ExecutedPercentage - DeliveredToCityPercentage > 0)) {
                 valX = -110;
             }
 
             return `transform: translateX(${valX}%) translateY(${valY}%);`;
         },
-
-        // collisionFixDeliveredToCity(
-        //     DeliveredToCityPercentage,
-        //     ExecutedPercentage
-        // ) {
-        //     let val = -50;
-        //     if (DeliveredToCityPercentage > 95) {
-        //         val = -25;
-        //     }
-        //     if (DeliveredToCityPercentage <= 5) {
-        //         val = 100;
-        //     }
-        //     if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
-        //         val = -25;
-        //         if (DeliveredToCityPercentage <= 5) {
-        //             val = -150;
-        //         }
-        //     }
-
-        //     return `transform: translateY(${val}%);`;
-        // },
-        // collisionFixExecuted(DeliveredToCityPercentage, ExecutedPercentage) {
-        //     let val = -50;
-
-        //     if (ExecutedPercentage > 95) {
-        //         val = 0;
-        //     }
-        //     if (ExecutedPercentage <= 5) {
-        //         val = 0;
-        //     }
-        //     if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
-        //         val = 0;
-        //         if (ExecutedPercentage <= 5) {
-        //             val = -75;
-        //         }
-        //     }
-
-        //     return `transform: translateY(${val}%);`;
-        // },
     },
 };
 </script>
