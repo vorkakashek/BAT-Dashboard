@@ -58,7 +58,7 @@ export default {
     methods: {
         valueOffset(value) {
             let val = -50;
-            if (Number(value) <= 10) {
+            if (Number(value) < 5) {
                 val = 0;
             }
             if (Number(value) > 95) {
@@ -71,39 +71,22 @@ export default {
             DeliveredToCityPercentage,
             ExecutedPercentage
         ) {
-            let val = -50;
-            if (DeliveredToCityPercentage > 90) {
-                val = 0;
+            let valY = 0;
+            let valX = -50;
+
+            if (DeliveredToCityPercentage < 5) {
+                valX = 0;
             }
-            if (DeliveredToCityPercentage <= 5) {
-                val = 0;
+
+            if (DeliveredToCityPercentage > 95) {
+                valX = -100;
             }
+
             if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
-                val = 0;
-                if (DeliveredToCityPercentage > 90 || ExecutedPercentage > 90) {
-                    val = -100;
-                }
+                valY = -50;
             }
 
-            return `transform: translateX(${val}%);`;
-        },
-        collisionFixExecuted(DeliveredToCityPercentage, ExecutedPercentage) {
-            let val = -50;
-
-            if (ExecutedPercentage > 90) {
-                val = 0;
-            }
-            if (ExecutedPercentage <= 5) {
-                val = 0;
-            }
-            if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
-                val = -100;
-                if (ExecutedPercentage > 90 || DeliveredToCityPercentage > 90) {
-                    val = -230;
-                }
-            }
-
-            return `transform: translateX(${val}%);`;
+            return `transform: translateX(${valX}%) translateY(${valY}%);`;
         },
     },
 };
@@ -119,7 +102,7 @@ export default {
                 v-if="ExecutedPercentage !== false"
             )
                 .progressbar--bar-value(
-                    :style="collisionFixExecuted(DeliveredToCityPercentage, ExecutedPercentage)"
+                    :style="valueOffset(ExecutedPercentage)"
                 ) {{ ExecutedPercentage }}%
 
             //- Delivered

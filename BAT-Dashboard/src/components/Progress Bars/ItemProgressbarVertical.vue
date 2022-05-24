@@ -58,7 +58,7 @@ export default {
     methods: {
         valueOffset(value) {
             let val = -50;
-            if (Number(value) <= 10) {
+            if (Number(value) < 5) {
                 val = -100;
             }
             if (Number(value) > 95) {
@@ -67,45 +67,66 @@ export default {
 
             return `transform: translateY(${val}%);`;
         },
-
         collisionFixDeliveredToCity(
             DeliveredToCityPercentage,
             ExecutedPercentage
         ) {
-            let val = -50;
+            let valY = -50;
+            let valX = 0;
+
+            if (DeliveredToCityPercentage < 5) {
+                valY = -100;
+            }
+
             if (DeliveredToCityPercentage > 95) {
-                val = -25;
+                valY = 0;
             }
-            if (DeliveredToCityPercentage <= 5) {
-                val = 100;
-            }
+
             if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
-                val = -25;
-                if (DeliveredToCityPercentage <= 5) {
-                    val = -150;
-                }
+                valX = -110;
             }
 
-            return `transform: translateY(${val}%);`;
+            return `transform: translateX(${valX}%) translateY(${valY}%);`;
         },
-        collisionFixExecuted(DeliveredToCityPercentage, ExecutedPercentage) {
-            let val = -50;
 
-            if (ExecutedPercentage > 95) {
-                val = 0;
-            }
-            if (ExecutedPercentage <= 5) {
-                val = 0;
-            }
-            if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
-                val = 0;
-                if (ExecutedPercentage <= 5) {
-                    val = -75;
-                }
-            }
+        // collisionFixDeliveredToCity(
+        //     DeliveredToCityPercentage,
+        //     ExecutedPercentage
+        // ) {
+        //     let val = -50;
+        //     if (DeliveredToCityPercentage > 95) {
+        //         val = -25;
+        //     }
+        //     if (DeliveredToCityPercentage <= 5) {
+        //         val = 100;
+        //     }
+        //     if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
+        //         val = -25;
+        //         if (DeliveredToCityPercentage <= 5) {
+        //             val = -150;
+        //         }
+        //     }
 
-            return `transform: translateY(${val}%);`;
-        },
+        //     return `transform: translateY(${val}%);`;
+        // },
+        // collisionFixExecuted(DeliveredToCityPercentage, ExecutedPercentage) {
+        //     let val = -50;
+
+        //     if (ExecutedPercentage > 95) {
+        //         val = 0;
+        //     }
+        //     if (ExecutedPercentage <= 5) {
+        //         val = 0;
+        //     }
+        //     if (DeliveredToCityPercentage - ExecutedPercentage < 10) {
+        //         val = 0;
+        //         if (ExecutedPercentage <= 5) {
+        //             val = -75;
+        //         }
+        //     }
+
+        //     return `transform: translateY(${val}%);`;
+        // },
     },
 };
 </script>
@@ -120,7 +141,7 @@ export default {
                 v-if="ExecutedPercentage !== false"
             )
                 .progressbar--bar-value(
-                    :style="collisionFixExecuted(DeliveredToCityPercentage, ExecutedPercentage)"
+                    :style="valueOffset(ExecutedPercentage)"
                 ) {{ ExecutedPercentage }}%
 
             //- Delivered
