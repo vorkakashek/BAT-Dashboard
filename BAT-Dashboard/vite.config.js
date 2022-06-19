@@ -19,5 +19,6 @@ export default defineConfig({
         additionalData: `@import "@/assets/media.scss";`
       }
     }
-  }
+  },
+  base: '/BAT-Dashboard/',
 });

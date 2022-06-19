@@ -99,10 +99,10 @@ export default {
                             link: "Comparison",
                             name: "Comparison",
                         },
-                        {
-                            link: "Progress",
-                            name: "Progress",
-                        },
+                        // {
+                        //     link: "Progress",
+                        //     name: "Progress",
+                        // },
                     ],
                 },
                 {
@@ -231,11 +231,7 @@ main
 
 
 <style lang="scss" scoped>
-.container {
-    max-width: 1440px;
-    margin: 0 auto;
-    width: 100%;
-}
+
 
 .fade-enter-active {
     transition: opacity 0.2s ease-in .1s;

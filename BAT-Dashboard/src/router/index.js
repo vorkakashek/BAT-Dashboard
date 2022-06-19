@@ -1,6 +1,6 @@
 import {
     createRouter,
-    createWebHistory
+    createWebHashHistory
 } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Login from "../views/Login.vue";
@@ -8,7 +8,7 @@ import Panel from "../views/Panel.vue";
 import Dashboard from "../views/Panels/Dashboard.vue";
 
 const router = createRouter({
-    history: createWebHistory(
+    history: createWebHashHistory(
         import.meta.env.BASE_URL),
     routes: [{
             path: "/:catchAll(.*)",
@@ -74,11 +74,11 @@ const router = createRouter({
                             path: 'Comparison',
                             component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Comparison.vue')
                         }, 
-                        {
-                            name: 'CycleMaterials-Progress',
-                            path: 'Progress',
-                            component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Progress.vue')
-                        }, 
+                        // {
+                        //     name: 'CycleMaterials-Progress',
+                        //     path: 'Progress',
+                        //     component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Progress.vue')
+                        // }, 
                     ],
                 },
                 {

@@ -1,0 +1,221 @@
+<script setup>
+
+import VerticalGraph from '@/components/Modals/Cycle Materials Modal/VerticalGraph.vue';
+
+const props = defineProps({
+    data: Object,
+});
+
+const legend = ['Not delivered to CS, %', 'Delivered to CS, %', 'Transit to city, %', 'Delivered to city, %', 'Transit to TMR, %', 'Delivered to TMR, %', 'Executed, %']
+
+function legendName(item) {
+    return item.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('').slice(0, -2)
+}
+
+</script>
+
+<template lang="pug">
+
+.graph-constructor
+    .graph-constructor-percents
+        .percent(v-for="n in 11" :style="{ top: 100 - (n * 10 - 10) + '%', transform: 'translateY(-50%)' }") {{ n * 10 - 10 }}%
+
+    .graph-constructor-content
+        VerticalGraph(v-for="(graph, key) in data" :data="graph" :animationdelay="key")
+        .backlines
+            .line(v-for="n in 11" :style="{ top: 100 - (n * 10 - 10) + '%', transform: 'translateY(-50%)' }")
+
+
+.graph-legend
+    template(v-for="item in legend")
+        .graph-legend-item(:class="legendName(item)") {{ item }} 
+
+</template>
+
+<style lang="scss" scoped>
+.graph-constructor-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+
+    // w100%
+}
+
+.vertical-graphs {
+    position: relative;
+    z-index: 2;
+}
+
+.backlines {
+    height: 420px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+
+    .line {
+        position: absolute;
+        width: 100%;
+        left: 0;
+
+        &:after {
+            content: '';
+            display: block;
+            height: 1px;
+            flex-grow: 1;
+            background-image: linear-gradient(to right, #333 0%, #333 50%, transparent 50%);
+            background-size: 10px 1px;
+            background-repeat: repeat-x;
+            opacity: .15;
+        }
+    }
+
+}
+
+.graph-constructor-percents {
+    flex-shrink: 0;
+    height: 420px;
+    width: 40px;
+    margin-right: 20px;
+    text-align: right;
+    opacity: .3;
+    position: relative;
+
+    .percent {
+        font-size: 14px;
+        position: absolute;
+        right: 0;
+
+        animation: .6s cubic-bezier(0.55, 0.085, 0.68, 0.53) both slide-fade;
+
+        &:first-child,
+        &:last-child {
+            font-weight: 700;
+        }
+    }
+}
+
+@keyframes slide-fade {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.graph-constructor {
+    margin: 0 auto;
+    margin-top: var(--pdxxl);
+    display: flex;
+    align-items: flex-start;
+    max-width: 100%;
+    overflow: auto hidden;
+    justify-content: flex-start;
+    padding: 20px 0;
+}
+
+.graph-legend {
+    border-radius: var(--radius-8);
+    border: 1px solid #EFEFEF;
+    padding: var(--pdsm) var(--pdlg);
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    max-width: fit-content;
+    margin: 0 auto;
+    margin-top: var(--pdsm);
+    overflow: hidden;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@keyframes legendappear {
+    from {
+        opacity: 0;
+        height: 0px;
+    }
+
+    to {
+        opacity: 1;
+        height: 40px;
+    }
+}
+
+.graph-legend-item {
+    display: flex;
+    align-items: center;
+    color: #333;
+    font-size: 14px;
+    letter-spacing: 0.01rem;
+    overflow: hidden;
+    animation: .2s ease both legendappear .3s;
+
+    &:before {
+        content: '';
+        flex-shrink: 0;
+        display: block;
+        border-radius: var(--radius-4);
+        width: 24px;
+        height: 24px;
+        margin: var(--pdsm);
+    }
+
+    &:not(:last-child) {
+        margin-left: var(--pdlg);
+    }
+
+    &.NotDeliveredToCS {
+        &:before {
+            background-color: #EDD0D099;
+        }
+
+    }
+
+    &.DeliveredToCS {
+        &:before {
+            background-color: #E5E5E5;
+        }
+
+    }
+
+    &.TransitToCity {
+        &:before {
+            background-color: #FFF2CC;
+        }
+
+    }
+
+    &.DeliveredToCity {
+        &:before {
+            background-color: #FFBB00;
+        }
+
+    }
+
+    &.TransitToTMR {
+        &:before {
+            background-color: #E2F0D9;
+        }
+
+    }
+
+    &.DeliveredToTMR {
+        &:before {
+            background-color: #AFCA0B;
+        }
+
+    }
+
+    &.Executed {
+        &:before {
+            background: linear-gradient(180deg, #50AF47 0%, #98CA0B 100%);
+        }
+
+    }
+}
+</style>

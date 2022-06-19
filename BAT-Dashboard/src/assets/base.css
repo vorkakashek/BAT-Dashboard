@@ -26,6 +26,9 @@
     --purple: #5A328A;
     --pink: #E72582;
 
+    --overlay: rgba(0, 79, 159, 0.2);
+
+
     --BAT: linear-gradient(90deg,
             #0e2b63 30.4785%,
             rgba(0, 0, 0, 0) 30.4785%),

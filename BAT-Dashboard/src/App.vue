@@ -71,6 +71,12 @@ hr {
     }
 }
 
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+}
+
 .mgy {
     margin: var(--pdlg) 0;
 }
@@ -149,6 +155,9 @@ hr {
     cursor: zoom-in;
 }
 
+.showmodal {
+    cursor: pointer;
+}
 
 
 </style>

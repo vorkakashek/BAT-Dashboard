@@ -23,6 +23,7 @@ import Multiselect from '@vueform/multiselect';
 import '@vueform/multiselect/themes/default.css';
 // import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'
 import VueEasyLightbox from 'vue-easy-lightbox'
+import ModalConstructor from './components/Modals/ModalConstructor.vue'
 
 
 const app = createApp(App);
@@ -47,4 +48,5 @@ app
     .component('ItemProgressbar', ItemProgressbar)
     .component('ItemProgressbarVertical', ItemProgressbarVertical)
     .component('ComparisonItem', ComparisonItem)
+    .component('ModalConstructor', ModalConstructor)
     .mount("#app");
