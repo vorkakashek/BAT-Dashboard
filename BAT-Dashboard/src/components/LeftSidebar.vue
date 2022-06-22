@@ -8,6 +8,9 @@ export default {
         return {};
     },
     methods: {},
+    mounted() {
+
+    }
 };
 </script>
 
@@ -23,17 +26,18 @@ aside(:class="{ active: sidebarActive }")
                 v-if="item.children !== undefined"
             )
 
-        .sidebar__tag-select(
-            v-if="$route.path.includes(`/panel/${item.link}/`)"
-        )
-            Multiselect(
-                :model-value="item.itemValue",
-                @update:modelValue="updateItems(item.name, $event)",
-                :options="item.itemOptions",
-                mode="tags",
-                :searchable="true",
-                placeholder="Start typing or select..."
-            ) 
+        .sidebar__tag-select#multiselector(v-if="$route.path.includes(`/panel/${item.link}/`)")
+
+            //- Multiselect(
+            //-     v-if="item.itemOptions !== undefined", 
+            //-     :model-value="item.itemValue",
+            //-     @update:modelValue="updateItems(item.name, $event)", 
+            //-     :options="item.itemOptions",
+            //-     mode="tags",
+            //-     :searchable="true",
+            //-     placeholder="Start typing or select..."
+            //- )
+
         transition(name="heightAnim", appear)
             .sidebar__nav-group(
                 v-if="$route.path.includes(`/panel/${item.link}/`) && item.children !== undefined"
@@ -65,11 +69,27 @@ aside(:class="{ active: sidebarActive }")
 .sidebar__tag-select {
     background-color: #dff7ff;
     padding: var(--pdsm);
+
     ::v-deep {
         .multiselect {
             border: none;
             outline: none;
             box-shadow: none;
+
+            &:not(.is-open) {
+                .multiselect-tags-search-wrapper {
+                    &:after {
+                        content: 'Start typing or select...';
+                        font-size: 13px;
+                        font-weight: 700;
+                        opacity: .25;
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        left: 0;
+                    }
+                }
+            }
         }
 
         .multiselect-placeholder {
@@ -101,9 +121,11 @@ aside(:class="{ active: sidebarActive }")
             &::-webkit-scrollbar {
                 width: 4px;
             }
+
             &::-webkit-scrollbar-track {
                 background-color: #e4e4e4;
             }
+
             &::-webkit-scrollbar-thumb {
                 box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             }
@@ -114,6 +136,36 @@ aside(:class="{ active: sidebarActive }")
         }
     }
 }
+
+// ::v-deep  {
+//     &:after {
+//         content: 'Start typing or select...';
+//         font-size: 13px;
+//         font-weight: 700;
+//         opacity: .25;
+//         position: absolute;
+//         top: 50%;
+//         transform: translateY(-50%);
+//         left: 0;
+//     }
+
+//     &:focus {
+//         &:after {
+//             display: none;
+//         }
+//     }
+// }
+
+
+// .multiselect.is-open {
+//     ::v-deep {
+//         .multiselect-tags-search-wrapper {
+//             &:after {
+//                 display: none;
+//             }
+//         }
+//     }
+// }
 
 aside {
     overflow-y: auto;
@@ -126,10 +178,12 @@ aside {
     height: calc(100% - var(--navbar));
     z-index: 99;
     transition: all 0.3s var(--tr-2);
+
     @include respond-to(large) {
         left: -100%;
         top: calc(var(--navbar) / 1.25);
         height: calc(100% - var(--navbar) / 1.25);
+
         &.active {
             left: 0%;
         }
@@ -149,9 +203,11 @@ aside {
     display: block;
     font-size: 14px;
     transition: all 0.3s ease;
+
     &.router-link-active {
         color: var(--blue-light);
     }
+
     &:hover {
         &:not(&.router-link-active) {
             background-color: #dff7ff;
@@ -167,9 +223,11 @@ aside {
     color: var(--inactive);
     text-decoration: none;
     padding: 12px var(--pdlg);
+
     // transition: all .3s ease;
     .icon {
         fill: var(--inactive);
+
         // transition: all .3s ease;
         &.chevron {
             transition: all 0.3s ease;
@@ -178,12 +236,15 @@ aside {
 
     &.router-link-active {
         background-color: var(--blue-light);
+
         .icon {
             fill: #fff;
+
             &:last-child {
                 transform: rotate(90deg);
             }
         }
+
         .sidebar__nav-item-name {
             color: #fff;
         }

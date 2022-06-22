@@ -10,7 +10,7 @@ const props = defineProps({
 
 <template lang="pug">
 
-Transition(name="nested" appear) 
+Transition(name="nested" appear)
     #modal-constructor(v-if="visible")
         .container
             .panel

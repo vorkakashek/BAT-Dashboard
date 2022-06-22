@@ -46,17 +46,6 @@ export default {
                 {
                     link: "ISF",
                     name: "ISF",
-                    itemValue: null,
-                    itemOptions: [
-                        "КЕНТ NANOTEK Cycle'4",
-                        "КЕНТ NANOTEK Cycle'5",
-                        "КЕНТ NANOTEK Cycle'6",
-                        "КЕНТ NANOTEK Cycle'7",
-                        "КЕНТ NANOTEK Cycle'8",
-                        "КЕНТ NANOTEK Cycle'9",
-                        "КЕНТ NANOTEK Cycle'10",
-                        "КЕНТ NANOTEK Cycle'11",
-                    ],
                     children: [
                         {
                             link: "Delivery-Execution",
@@ -75,34 +64,15 @@ export default {
                 {
                     link: "CycleMaterials",
                     name: "CycleMaterials",
-                    itemValue: null,
-                    itemOptions: [
-                        "CycleMaterial Cycle'4",
-                        "CycleMaterial Cycle'5",
-                        "CycleMaterial Cycle'6",
-                        "CycleMaterial Cycle'7",
-                        "CycleMaterial Cycle'8",
-                        "CycleMaterial Cycle'9",
-                        "CycleMaterial Cycle'10",
-                        "CycleMaterial Cycle'11",
-                    ],
                     children: [
                         {
                             link: "Delivery-Execution",
                             name: "Delivery / Execution",
                         },
-                        // {
-                        //     link: "Execution",
-                        //     name: "Execution",
-                        // },
                         {
                             link: "Comparison",
                             name: "Comparison",
                         },
-                        // {
-                        //     link: "Progress",
-                        //     name: "Progress",
-                        // },
                     ],
                 },
                 {
@@ -223,16 +193,15 @@ main
             v-if="$route.path !== '/panel/Dashboard' && $route.path !== '/panel/Projects/Catalog'",
             :multiselects="multiselects"
         )
-        RouterView(v-slot="{ Component, route }")
-            transition(name="fade")
-                div(:key="route.name")
+        RouterView
+            //- transition(name="fade")
+                component(:is="Component")
+                //- div(:key="route.name")
                     component(:is="Component")
 </template>
 
 
 <style lang="scss" scoped>
-
-
 .fade-enter-active {
     transition: opacity 0.2s ease-in .1s;
 }

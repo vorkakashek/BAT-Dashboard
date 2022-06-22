@@ -20,6 +20,13 @@ function dataNumber() {
     return 'background-color: transparent; color: #333; border-color: #333;'
 }
 
+function aroundNumber(num) {
+    if (!Number.isInteger(num)) {
+        return num.toFixed(1)
+    }
+    return num
+}
+
 </script>
 
 
@@ -32,10 +39,10 @@ function dataNumber() {
             template(v-for="(value, key) in data.graph")
                 .graph-item(:style="{ height: value + '%' }" v-if="key !== 'executed' && value !== 0")
                     .graph(:class="key" :style="{ animationDelay: animationdelay * .1 + 's' }")
-                        .percent(v-if="value !== 0" :style="{ animationDelay: animationdelay * .1 + .3 + 's' }") {{ value }} 
+                        .percent(v-if="value !== 0" :style="{ animationDelay: animationdelay * .1 + .3 + 's' }") {{ aroundNumber(value) }}
         .graph-thin
             .graph(:style="{ height: data.graph.executed + '%', animationDelay: animationdelay * .1 + 's' }")
-                .percent(:style="[{ animationDelay: animationdelay * .1 + .3 + 's' }, verticalTransform()]") {{ data.graph.executed }}
+                .percent(:style="[{ animationDelay: animationdelay * .1 + .3 + 's' }, verticalTransform()]") {{ aroundNumber(data.graph.executed) }}
     .week(:class="{ current: data.current }" :style="{ animationDelay: animationdelay * .1 + 's' }")
         .week-label
             span.name {{ data.week }}

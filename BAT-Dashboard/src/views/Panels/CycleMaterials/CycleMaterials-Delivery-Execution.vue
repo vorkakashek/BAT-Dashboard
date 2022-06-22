@@ -1,7 +1,9 @@
 <script setup>
-
 import CycleMaterialsList from "@/components/CycleMaterialsList.vue";
 import CycleMaterialsItem from "@/components/CycleMaterialsItem.vue";
+import Multiselector from "../../../components/Multiselector.vue";
+
+
 
 </script>
 
@@ -149,6 +151,7 @@ vue-easy-lightbox(
     @hide="handleHide"
 )
 
+
 .panel
     TotalProgressbar(:inData="mustSetTotalData", label="Must set total")
         template(#legend)
@@ -171,5 +174,4 @@ vue-easy-lightbox(
 
 
 <style lang="scss" scoped>
-
 </style>

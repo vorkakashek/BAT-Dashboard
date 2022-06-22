@@ -22,8 +22,8 @@ export default {
                         dateStart: '09/05',
                         dateEnd: '15/05',
                         graph: {
-                            notDeliveredToCS: 20,
-                            deliveredToCS: 80,
+                            notDeliveredToCS: 29.711231,
+                            deliveredToCS: 80.31123213,
                             transitToCity: 0,
                             deliveredToCity: 0,
                             transitToTMR: 0,

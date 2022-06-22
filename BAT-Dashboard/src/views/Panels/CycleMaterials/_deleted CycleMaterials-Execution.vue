@@ -107,6 +107,7 @@ export default {
 //-     @hide="handleHide"
 //- )
 
+
 .panel
     TotalProgressbar(:inData="mustSetTotalData", label="Must set total")
         template(#legend)
