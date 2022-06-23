@@ -204,10 +204,10 @@ vue-easy-lightbox(
 .cycle-materials-item.showmodal(@click="() => showmodal()")
     .cycle-materials-item-data {{ item.label }}
     .cycle-materials-item-data
-        img.cycle-materials-item__photo(
+        img.zoom.cycle-materials-item__photo(
             :src="importPhoto(item.photo)",
             v-if="item.photo !== null",
-            @click="() => showSingle()"
+            @click.stop="() => showSingle(importPhoto(item.photo))"
         )
     .cycle-materials-item-data
         ItemProgressbar(:inData="item")
