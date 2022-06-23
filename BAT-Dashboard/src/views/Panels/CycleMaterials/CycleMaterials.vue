@@ -1,7 +1,6 @@
 <script setup>
-import { reactive, watch } from "vue";
-
-const cycleOptions = [
+import { ref, reactive, watch, computed } from "vue";
+const cycleOptions = ref([
     {
         value: 0,
         label: 'ALL SELECTED',
@@ -22,44 +21,58 @@ const cycleOptions = [
         label: 'Cycle Name 3',
         activities: [2, 3, 4]
     },
-];
+    {
+        value: 4,
+        label: 'Cycle Name 4',
+        activities: [5]
+    },
+]);
 
-const activityOptions = [
+const activityOptions = ref([
     {
         value: 0,
         label: 'ALL SELECTED',
-        cycles: [0]
     },
     {
         value: 1,
         label: 'Activity 1',
-        cycles: [1, 2]
     },
     {
         value: 2,
         label: 'Activity 2',
-        cycles: [2, 3]
     },
     {
         value: 3,
         label: 'Activity 3',
-        cycles: [1, 3]
     },
     {
         value: 4,
         label: 'Activity 4',
-        cycles: [1, 2, 3]
     },
-];
-
-// let filteredActivityOptions = activityOptions;
-// let filteredCycleOptions = cycleOptions;
+    {
+        value: 5,
+        label: 'Activity 5',
+    },
+]);
 
 const state = reactive({
     cycleValue: [0],
-    activityValue: [0],
-    filteredActivityOptions: activityOptions,
-    filteredCycleOptions: cycleOptions
+    activityValue: [0]
+});
+
+const activeCycleOptions = computed(() => {
+    return cycleOptions.value.filter((obj) => state.cycleValue.includes(obj.value));
+});
+
+const filteredActivityOptions = computed(() => {
+    return activityOptions.value.filter(({ value }) => {
+        if (value === 0 || state.cycleValue.includes(0)) {
+            return true;
+        }
+        return activeCycleOptions.value.some(({ activities }) => {
+            return activities.includes(value);
+        })
+    });
 });
 
 
@@ -68,18 +81,14 @@ const state = reactive({
         if (value.length < 1) {
             state[key] = [0];
         }
-
-        if (key == 'cycleValue') {
-            // console.log(activityOptions.filter(option => option.cycles.some(e => value.includes(e))));
-            state.filteredActivityOptions = activityOptions.filter(option => option.cycles.some(e => value.includes(e)))
-        }
-
-        if (key == 'activityValue') {
-            console.log(value)
-        }
     });
 });
 
+watch(() => state.cycleValue, () => {
+    state.activityValue = state.activityValue.filter((v) => {
+        return filteredActivityOptions.value.some(({ value }) => v === value);
+    });
+});
 
 function handleSelector(value, nameValue) {
     if (value == 0) {
@@ -90,29 +99,32 @@ function handleSelector(value, nameValue) {
     }
 };
 
-
 </script>
 
 
 <template lang="pug">
 
 Teleport(to="#multiselector")
-    div cycles: {{ state.cycleValue }}
-    div activities: {{ state.activityValue }}
+    .multiselect-label 
+        span CYCLE 
+        | Selection: 
     Multiselect(
         v-model="state.cycleValue", 
         :close-on-select="true", 
-        :options="state.filteredCycleOptions", 
+        :options="cycleOptions", 
         mode="tags",
         @select="handleSelector($event, 'cycleValue')", 
         :searchable="true",
         placeholder="Start typing or select...",
-        :style="{ marginBottom: '8px' }"
+        :style="{ marginBottom: '16px' }",
         )
+    .multiselect-label 
+        span ACTIVITY 
+        | Selection: 
     Multiselect(
         v-model="state.activityValue", 
         :close-on-select="true", 
-        :options="state.filteredActivityOptions", 
+        :options="filteredActivityOptions", 
         mode="tags",
         @select="handleSelector($event, 'activityValue')", 
         :searchable="true",
@@ -123,3 +135,15 @@ Teleport(to="#multiselector")
 RouterView
 
 </template>
+
+<style lang="scss" scoped>
+
+.multiselect-label {
+    font-size: 14px;
+    opacity: .8;
+    span {
+        font-weight: 700;
+    }
+}
+
+</style>

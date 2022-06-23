@@ -1,28 +1,30 @@
-<script>
-import { inject } from "vue";
+<script setup>
+import { computed } from "vue";
 
-export default {
-    inject: ["navItems", "updateItems"],
-    data() {
-        return {};
+const props = defineProps({
+    modelValue: {
+        type: Array,
+        required: true,
     },
-    methods: {
-        importPhoto(photo) {
-            return new URL(
-                `./../../../assets/images/${photo}.jpg`,
-                import.meta.url
-            ).href;
-        },
+    options: {
+        type: Array,
+        required: true,
     },
-    computed: {
-        ProjectsOptions() {
-            const { itemOptions } = this.navItems.find(
-                ({ name }) => name === "Projects"
-            );
-            return itemOptions;
-        },
-    },
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const ProjectsOptions = computed(() => {
+    return props.options.filter(({ value }) => value !== 0);
+});
+
+function importPhoto(photo) {
+    return new URL(
+        `./../../../assets/images/${photo}.jpg`,
+        import.meta.url
+    ).href;
 };
+
 </script>
 
 <template lang="pug">
@@ -31,11 +33,12 @@ export default {
         router-link.project-item(
             v-for="project in ProjectsOptions",
             to="/panel/Projects/Delivery-Execution",
-            @click="updateItems('Projects', [project.value])"
+            @click="emit('update:modelValue', [project.value])"
         )
             .project-item-img
                 img(:src="importPhoto(project.photo)")
             .project-item-name {{ project.label }}
+
 </template>
 
 <style lang="scss" scoped>
@@ -57,6 +60,7 @@ export default {
     align-items: center;
     border-radius: var(--radius-4);
     background-color: #fff;
+
     img {
         width: 100%;
         height: auto;
@@ -72,15 +76,16 @@ export default {
     color: var(--blue-medium);
     padding: var(--pdsm);
     border-radius: var(--radius-4);
-    
+
     background-color: var(--grey);
 
     &:hover {
         color: var(--blue-light);
+
         img {
             width: 94%;
             // height: 110%;
-            
+
         }
     }
 }

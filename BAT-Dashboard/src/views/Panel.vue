@@ -78,17 +78,6 @@ export default {
                 {
                     link: "Semi-permanentMaterials",
                     name: "Semi-permanent materials",
-                    itemValue: null,
-                    itemOptions: [
-                        "Touchpoints Cycle'4",
-                        "Touchpoints Cycle'5",
-                        "Touchpoints Cycle'6",
-                        "Touchpoints Cycle'7",
-                        "Touchpoints Cycle'8",
-                        "Touchpoints Cycle'9",
-                        "Touchpoints Cycle'10",
-                        "Touchpoints Cycle'11",
-                    ],
                     children: [
                         {
                             link: "Delivery-Execution",
@@ -107,39 +96,6 @@ export default {
                 {
                     link: "Projects",
                     name: "Projects",
-                    itemValue: null,
-                    itemOptions: [
-                        {
-                            value: "Lucky Strike Legend",
-                            label: "Lucky Strike Legend",
-                            photo: "project-1",
-                        },
-                        {
-                            value: "Project name 2",
-                            label: "Project name 2",
-                            photo: "project-2",
-                        },
-                        {
-                            value: "Project name 3",
-                            label: "Project name 3",
-                            photo: "project-3",
-                        },
-                        {
-                            value: "Project name 4",
-                            label: "Project name 4",
-                            photo: "project-4",
-                        },
-                        {
-                            value: "Project name 5",
-                            label: "Project name 5",
-                            photo: "project-5",
-                        },
-                        {
-                            value: "Project name 6",
-                            label: "Project name 6",
-                            photo: "project-6",
-                        },
-                    ],
                     children: [
                         {
                             link: "Catalog",

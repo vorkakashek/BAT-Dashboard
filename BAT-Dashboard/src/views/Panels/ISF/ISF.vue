@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref, watch } from "vue";
 
@@ -62,6 +61,4 @@ RouterView
 </template>
 
 <style lang="scss" scoped>
-
-
 </style>

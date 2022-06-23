@@ -207,13 +207,8 @@ vue-easy-lightbox(
         img.cycle-materials-item__photo(
             :src="importPhoto(item.photo)",
             v-if="item.photo !== null",
+            @click="() => showSingle()"
         )
-    //- .cycle-materials-item-data
-    //-     img.zoom.cycle-materials-item__photo(
-    //-         :src="importPhoto(item.photo)",
-    //-         v-if="item.photo !== null",
-    //-         @click="() => showSingle(importPhoto(item.photo))"
-    //-     )
     .cycle-materials-item-data
         ItemProgressbar(:inData="item")
             template(#data)
