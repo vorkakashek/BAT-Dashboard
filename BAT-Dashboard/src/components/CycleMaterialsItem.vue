@@ -11,7 +11,7 @@ export default {
             cycleMaterialsData: {
                 info: {
                     name: 'GC_A_TN_Big_Mini_Sas # Lucky Strike (221100591, 221200665, 221200666, 221200668, 221200669, 221200670, 221200671, 221200672)',
-                    image: '1',
+                    image: '3',
                     totalqty: '15800',
                     centralstorage: '02/05/2022', 
                 },

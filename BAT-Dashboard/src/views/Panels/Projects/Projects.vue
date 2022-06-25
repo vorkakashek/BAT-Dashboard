@@ -38,9 +38,6 @@ const options = [
     },
 ];
 
-// provide('options', options);
-provide('handleSelector', handleSelector);
-
 const itemValue = ref([0]);
 
 watch(itemValue, (value) => {
@@ -57,7 +54,7 @@ function handleSelector(value) {
         itemValue.value = itemValue.value.filter((value) => value !== 0);
     }
 
-    console.log(value)
+    // console.log(value)
 }
 
 </script>
@@ -74,6 +71,6 @@ Teleport(to="#multiselector")
         placeholder="Start typing or select...",
         )
 
-RouterView(v-if="$route.name === 'Projects-Catalog'" :options="options" v-model="itemValue")
+RouterView(v-if="$route.name === 'Projects-Catalog'" :options="options")
 RouterView(v-else)
 </template>

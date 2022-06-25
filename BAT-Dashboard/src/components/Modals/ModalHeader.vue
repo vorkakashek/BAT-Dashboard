@@ -39,6 +39,7 @@ function importImage(photo) {
 
     img {
         border-radius: var(--radius-8);
+        max-width: 280px;
     }
 
     @include respond-to (medium) {
@@ -68,6 +69,7 @@ function importImage(photo) {
 .modal-header-section {
     display: flex;
     align-items: center;
+    flex-grow: 1;
 
     @include respond-to (handlers) {
         flex-wrap: wrap;

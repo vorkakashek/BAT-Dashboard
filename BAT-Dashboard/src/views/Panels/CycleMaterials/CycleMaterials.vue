@@ -1,5 +1,7 @@
 <script setup>
 import { ref, reactive, watch, computed } from "vue";
+import CycleFavoriveToggler from "@/components/CycleFavoriveToggler.vue";
+
 const cycleOptions = ref([
     {
         value: 0,
@@ -9,12 +11,14 @@ const cycleOptions = ref([
     {
         value: 1,
         label: 'Cycle Name 1',
-        activities: [1, 3, 4]
+        activities: [1, 3, 4],
+        favorite: true
     },
     {
         value: 2,
         label: 'Cycle Name 2',
-        activities: [1, 2, 4]
+        activities: [1, 2, 4],
+        favorite: true
     },
     {
         value: 3,
@@ -24,7 +28,8 @@ const cycleOptions = ref([
     {
         value: 4,
         label: 'Cycle Name 4',
-        activities: [5]
+        activities: [5],
+        favorite: true
     },
 ]);
 
@@ -56,8 +61,8 @@ const activityOptions = ref([
 ]);
 
 const state = reactive({
-    cycleValue: [0],
-    activityValue: [0]
+    cycleValue: [0], 
+    activityValue: [0], 
 });
 
 const activeCycleOptions = computed(() => {
@@ -131,6 +136,7 @@ Teleport(to="#multiselector")
         placeholder="Start typing or select...",
         )
 
+CycleFavoriveToggler(:cycleOptions="cycleOptions" v-model="state.cycleValue")
 
 RouterView
 

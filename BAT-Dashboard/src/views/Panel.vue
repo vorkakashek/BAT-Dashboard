@@ -150,10 +150,7 @@ main
             :multiselects="multiselects"
         )
         RouterView
-            //- transition(name="fade")
-                component(:is="Component")
-                //- div(:key="route.name")
-                    component(:is="Component")
+
 </template>
 
 

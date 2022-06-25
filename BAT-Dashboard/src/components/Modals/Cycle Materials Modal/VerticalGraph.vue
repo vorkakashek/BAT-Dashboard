@@ -172,11 +172,12 @@ function aroundNumber(num) {
     // background: #fff;
     padding: 0 1px;
     border-radius: var(--radius-4);
-
+    justify-content: flex-end;
     .graph-item {
         padding: 1px;
         display: flex;
         flex-direction: column-reverse;
+        min-height: 16px;
     }
 
     .graph {

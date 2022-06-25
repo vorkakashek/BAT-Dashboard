@@ -28,16 +28,6 @@ aside(:class="{ active: sidebarActive }")
 
         .sidebar__tag-select#multiselector(v-if="$route.path.includes(`/panel/${item.link}/`)")
 
-            //- Multiselect(
-            //-     v-if="item.itemOptions !== undefined", 
-            //-     :model-value="item.itemValue",
-            //-     @update:modelValue="updateItems(item.name, $event)", 
-            //-     :options="item.itemOptions",
-            //-     mode="tags",
-            //-     :searchable="true",
-            //-     placeholder="Start typing or select..."
-            //- )
-
         transition(name="heightAnim", appear)
             .sidebar__nav-group(
                 v-if="$route.path.includes(`/panel/${item.link}/`) && item.children !== undefined"

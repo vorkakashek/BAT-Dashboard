@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar.vue";
 </script>
 
 <template lang="pug">
+#modal
 RouterView
 </template>
 

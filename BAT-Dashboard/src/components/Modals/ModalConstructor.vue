@@ -1,24 +1,29 @@
 <script setup>
+
 import CycleMaterialsModal from '@/components/Modals/Cycle Materials Modal/modal.vue'
 
 const props = defineProps({
     visible: Boolean,
     modalName: String,
     data: Object,
-})
+});
+
+const emits = defineEmits(["hide"]);
+
 </script>
 
 <template lang="pug">
 
-Transition(name="nested" appear)
-    #modal-constructor(v-if="visible")
-        .container
-            .panel
-                app-icon.close-modal(name="close" size="24" @click="$emit('hide')")
-                .modal-content(v-if="modalName == 'CycleMaterialsModal'")
-                    CycleMaterialsModal(:data="data")
-        .inner#modal-constructor-overlay(@click="$emit('hide')")
-
+Teleport(to="#modal")
+    Transition(name="nested" appear)
+        #modal-constructor(v-if="visible")
+            .container
+                .panel
+                    app-icon.close-modal(name="close" size="24" @click="$emit('hide')")
+                    .modal-content(v-if="modalName == 'CycleMaterialsModal'")
+                        CycleMaterialsModal(:data="data")
+            .inner#modal-constructor-overlay(@click="$emit('hide')")
+        
 </template>
 
 <style lang="scss" scoped>
@@ -103,5 +108,4 @@ Transition(name="nested" appear)
     transition: all 0.3s ease;
     transform: translateY(30px);
 }
-
 </style>

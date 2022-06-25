@@ -1,9 +1,6 @@
 <script setup>
 import CycleMaterialsList from "@/components/CycleMaterialsList.vue";
 import CycleMaterialsItem from "@/components/CycleMaterialsItem.vue";
-import Multiselector from "../../../components/Multiselector.vue";
-
-
 
 </script>
 
