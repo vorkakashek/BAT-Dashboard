@@ -84,8 +84,6 @@ function importPhoto(photo) {
 
         img {
             width: 94%;
-            // height: 110%;
-
         }
     }
 }
@@ -93,7 +91,6 @@ function importPhoto(photo) {
 .project-item-name {
     text-align: center;
     font-weight: 700;
-    // padding: var(--pdlg);
     margin-top: var(--pdsm);
 }
 </style>

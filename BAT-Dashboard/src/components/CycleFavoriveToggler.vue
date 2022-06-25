@@ -1,6 +1,6 @@
 <script setup>
 
-import { reactive } from "vue";
+import { computed } from "vue";
 
 const props = defineProps({
     cycleOptions: {
@@ -13,9 +13,15 @@ const props = defineProps({
     },
 });
 
+const options = computed(() => {
+    return props.cycleOptions.filter(({ favorite }) => favorite)
+});
 
-const state = reactive({
-    options: props.cycleOptions.filter(({ favorite }) => favorite),
+const togglerValue = computed({
+    get: () => {
+        return props.modelValue.filter((e) => e !== 0)
+    },
+    set: (v) => emit("update:modelValue", v),
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -25,9 +31,9 @@ const emit = defineEmits(['update:modelValue']);
 <template lang="pug">
 
 .CycleFavoriveToggler
-    label.toggle-option(v-for="option in state.options")
-        input(type="checkbox" v-model="modelValue" :value="option.value" @change="emit('update:modelValue', [...modelValue].filter((e) => e !== 0))")
-        .toggle-option-label {{ option.label }} 
+    label.toggle-option(v-for="option in options")
+        input(type="checkbox" :value="option.value" v-model="togglerValue")
+        .toggle-option-label {{ option.label }}
 
 </template>
 
@@ -48,6 +54,7 @@ const emit = defineEmits(['update:modelValue']);
     align-items: center;
     position: relative;
     cursor: pointer;
+
     input {
         display: none;
 
@@ -56,6 +63,7 @@ const emit = defineEmits(['update:modelValue']);
                 background-color: var(--blue-light);
                 opacity: 1;
                 color: #fff;
+
                 &:hover {
                     background-color: var(--blue-light-hover);
                 }
@@ -65,10 +73,12 @@ const emit = defineEmits(['update:modelValue']);
 
     &:not(&:last-child) {
         margin-right: 1px;
+
         input:not(:checked)~.toggle-option-label {
             display: flex;
             align-items: center;
             position: relative;
+
             &:after {
                 content: '';
                 display: block;
@@ -90,6 +100,7 @@ const emit = defineEmits(['update:modelValue']);
     font-size: 13px;
     opacity: .6;
     transition: all .3s ease;
+
     &:hover {
         background-color: #cccccc;
     }

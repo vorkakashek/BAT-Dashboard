@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, provide } from "vue";
+import { ref, watch } from "vue";
 
 const options = [
     {
@@ -53,8 +53,6 @@ function handleSelector(value) {
     if (value !== 0 && itemValue.value.includes(0)) {
         itemValue.value = itemValue.value.filter((value) => value !== 0);
     }
-
-    // console.log(value)
 }
 
 </script>
@@ -71,6 +69,6 @@ Teleport(to="#multiselector")
         placeholder="Start typing or select...",
         )
 
-RouterView(v-if="$route.name === 'Projects-Catalog'" :options="options")
+RouterView(v-if="$route.name === 'Projects-Catalog'" :options="options" v-model="itemValue")
 RouterView(v-else)
 </template>
