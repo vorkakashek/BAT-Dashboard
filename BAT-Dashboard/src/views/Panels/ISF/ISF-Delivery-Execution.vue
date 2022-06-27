@@ -31,83 +31,117 @@ export default {
                 {
                     name: "MINI",
                     photo: "MINI",
-                    executed: 2,
-                    delivered: 1359,
-                    notDelivered: 1012,
-                    target: 4000,
                     type: "BWD",
-                },
-                {
-                    name: "PRO",
-                    photo: "PRO",
-                    executed: 1493,
-                    delivered: 2988,
-                    notDelivered: 1012,
-                    target: 4000,
-                    type: "BWD",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "2",
+                        },
+                        {
+                            name: "Delivered",
+                            value: "1359",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "1012",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ],
                 },
                 {
                     name: "MINI",
                     photo: "MINI",
-                    executed: 1344,
-                    delivered: 1359,
-                    notDelivered: 1012,
-                    target: 4000,
                     type: "OHD",
-                },
-                {
-                    name: "PRO",
-                    photo: "PRO",
-                    executed: 10,
-                    delivered: 11,
-                    notDelivered: 1012,
-                    target: 4000,
-                    type: "BWD",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "140",
+                        },
+                        {
+                            name: "Delivered",
+                            value: "1359",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "1012",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ],
                 },
                 {
                     name: "MINI",
                     photo: "MINI",
-                    executed: 400,
-                    delivered: 500,
-                    notDelivered: 1012,
-                    target: 4000,
                     type: "OHD",
-                },
-                {
-                    name: "PRO",
-                    photo: "PRO",
-                    executed: 1493,
-                    delivered: 2988,
-                    notDelivered: 1012,
-                    target: 4000,
-                    type: "OHD",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "140",
+                        },
+                        {
+                            name: "Delivered",
+                            value: "3900",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "1012",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ],
                 },
                 {
                     name: "MINI",
                     photo: "MINI",
-                    executed: 1204,
-                    delivered: 3991,
-                    notDelivered: 1012,
-                    target: 4000,
-                    type: "BWD",
-                },
-                {
-                    name: "PRO",
-                    photo: "PRO",
-                    executed: 1493,
-                    delivered: 2988,
-                    notDelivered: 1012,
-                    target: 4000,
                     type: "OHD",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "140",
+                        },
+                        {
+                            name: "Delivered",
+                            value: "5200",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "1012",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ],
                 },
                 {
-                    name: "SUPER",
-                    photo: "SUPER",
-                    executed: 1493,
-                    delivered: 2988,
-                    notDelivered: 1012,
-                    target: 4000,
+                    name: "MINI",
+                    photo: "MINI",
                     type: "BWD",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "2",
+                        },
+                        {
+                            name: "Delivered",
+                            value: "3870",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "1012",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ],
                 },
             ],
         };
@@ -149,7 +183,7 @@ export default {
 
 <template lang="pug">
 .panel
-    TotalProgressbar(:inData="totalData")
+    TotalProgressbar(:data="totalData")
         template(#legend)
             ProgressbarLegend(:inData="totalData")
 

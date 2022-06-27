@@ -18,6 +18,10 @@ export default {
                     value: 1235,
                 },
                 {
+                    name: "Transit to TMR",
+                    value: 300,
+                },
+                {
                     name: "Delivered to City",
                     value: 3200,
                 },
@@ -40,6 +44,10 @@ export default {
                     value: 4124,
                 },
                 {
+                    name: "Transit to TMR",
+                    value: 300,
+                },
+                {
                     name: "Delivered to City",
                     value: 5900,
                 },
@@ -57,38 +65,92 @@ export default {
                 {
                     label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
                     photo: "1",
-                    executed: 301,
-                    deliveredToTMR: 1204,
-                    deliveredToCity: 3500,
-                    notDelivered: 500,
-                    target: 4000,
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Transit to TMR",
+                            value: "300",
+                        },
+                        {
+                            name: "Delivered to City",
+                            value: "3500",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
                 {
                     label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
                     photo: "1",
-                    executed: 301,
-                    deliveredToTMR: 1204,
-                    deliveredToCity: 3500,
-                    notDelivered: 500,
-                    target: 4000,
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Transit to TMR",
+                            value: "300",
+                        },
+                        {
+                            name: "Delivered to City",
+                            value: "3500",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
                 {
                     label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
                     photo: "1",
-                    executed: 301,
-                    deliveredToTMR: 1204,
-                    deliveredToCity: 3500,
-                    notDelivered: 500,
-                    target: 4000,
-                },
-                {
-                    label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
-                    photo: "1",
-                    executed: 301,
-                    deliveredToTMR: 1204,
-                    deliveredToCity: 3500,
-                    notDelivered: 500,
-                    target: 4000,
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Transit to TMR",
+                            value: "300",
+                        },
+                        {
+                            name: "Delivered to City",
+                            value: "3500",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
             ],
 
@@ -96,20 +158,62 @@ export default {
                 {
                     label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
                     photo: "1",
-                    executed: 301,
-                    deliveredToTMR: 1204,
-                    deliveredToCity: 3500,
-                    notDelivered: 500,
-                    target: 4000,
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Transit to TMR",
+                            value: "300",
+                        },
+                        {
+                            name: "Delivered to City",
+                            value: "3500",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
                 {
                     label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
                     photo: "1",
-                    executed: 301,
-                    deliveredToTMR: 1204,
-                    deliveredToCity: 3500,
-                    notDelivered: 500,
-                    target: 4000,
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Transit to TMR",
+                            value: "300",
+                        },
+                        {
+                            name: "Delivered to City",
+                            value: "3500",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
             ],
 
@@ -150,11 +254,11 @@ vue-easy-lightbox(
 
 
 .panel
-    TotalProgressbar(:inData="mustSetTotalData", label="Must set total")
+    TotalProgressbar(:data="mustSetTotalData", label="Must set total")
         template(#legend)
             ProgressbarLegend(:inData="mustSetTotalData")
 .panel
-    TotalProgressbar(:inData="otherTotal", label="Other total")
+    TotalProgressbar(:data="otherTotal", label="Other total")
         template(#legend)
             ProgressbarLegend(:inData="otherTotal")
 

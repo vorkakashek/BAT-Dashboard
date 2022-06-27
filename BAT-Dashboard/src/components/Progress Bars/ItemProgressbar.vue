@@ -1,261 +1,197 @@
-<script>
-export default {
-    props: {
-        inData: {
-            type: Object,
-            required: true,
-        },
+<script setup>
+
+import { computed } from 'vue';
+
+const props = defineProps({
+    data: {
+        type: Array,
+        required: true,
     },
-    data() {
-        return {};
-    },
-    computed: {
-        ExecutedPercentage() {
-            if (this.inData.executed !== undefined) {
-                return (
-                    this.inData.executed /
-                    (this.inData.target / 100)
-                ).toFixed(1);
-            } else {
-                return false;
-            }
-        },
+});
 
-        DeliveredPercentage() {
-            if (this.inData.delivered !== undefined) {
-                return (
-                    this.inData.delivered /
-                    (this.inData.target / 100)
-                ).toFixed(1);
-            } else {
-                return false;
-            }
-        },
+const bars = computed(() => {
+    return props.data.filter((item) => item.name !== 'Target' && item.name !== 'Not Delivered');
+});
 
-        DeliveredToTMRPercentage() {
-            if (this.inData.deliveredToTMR !== undefined) {
-                return (
-                    this.inData.deliveredToTMR /
-                    (this.inData.target / 100)
-                ).toFixed(1);
-            } else {
-                return false;
-            }
-        },
+const target = computed(() => {
+    return props.data.find((item) => item.name === 'Target').value;
+});
 
-        DeliveredToCityPercentage() {
-            if (this.inData.deliveredToCity !== undefined) {
-                return (
-                    this.inData.deliveredToCity /
-                    (this.inData.target / 100)
-                ).toFixed(1);
-            } else {
-                return false;
-            }
-        },
-    },
-
-    methods: {
-        valueOffset(value) {
-            let val = -50;
-            if (Number(value) < 5) {
-                val = 0;
-            }
-            if (Number(value) > 95) {
-                val = -100;
-            }
-
-            return `transform: translateX(${val}%);`;
-        },
-        collisionFixDeliveredToTMR(
-            DeliveredToTMR,
-            ExecutedPercentage
-        ) {
-            let valY = 0;
-            let valX = -50;
-
-            if (DeliveredToTMR < 5) {
-                valX = 0;
-            }
-
-            if (DeliveredToTMR > 95) {
-                valX = -100;
-            }
-
-            if (
-                (DeliveredToTMR - ExecutedPercentage < 10 &&
-                    DeliveredToTMR - ExecutedPercentage > 0) ||
-                (ExecutedPercentage - DeliveredToTMR < 10 &&
-                    ExecutedPercentage - DeliveredToTMR > 0)
-            ) {
-                valY = -50;
-            }
-
-            if (DeliveredToTMR >= 100) {
-                
-                if (
-                    (DeliveredToTMR - ExecutedPercentage < 10 &&
-                        DeliveredToTMR - ExecutedPercentage > 0) ||
-                    (ExecutedPercentage - DeliveredToTMR < 10 &&
-                        ExecutedPercentage - DeliveredToTMR > 0)
-                ) {
-                    valY = -50;
-                }
-
-                if (ExecutedPercentage >= 100) {
-                    valY = -50;
-                }
-            }
-
-            return `transform: translateX(${valX}%) translateY(${valY}%);`;
-        },
-    },
+function progressbarPercent(bar) {
+    return parseFloat((bar.value / (target.value / 100)).toFixed(1)) + '%'
 };
+
+function progressbarClass(bar) {
+    return bar.name.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('');
+};
+
+function handlerPosition(bar) {
+    if (bar.name === 'Delivered to TMR' || bar.name === 'Transit to TMR' || bar.name === 'Delivered') {
+        return 'bottom';
+    }
+    return 'top';
+}
+
+function translateXFix(bar) {
+    if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) < 3) {
+        return 'transform: translateX(0)';
+    }
+    if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) > 97) {
+        return 'transform: translateX(-100%)';
+    }
+    return 'transform: translateX(-50%)';
+}
+
 </script>
 
 <template lang="pug">
+
+
 .progressbar-container
     .progressbar-wrapper
-        .progressbar
-            //- Executed 
-            .progressbar--bar.green(
-                :style="{ width: ExecutedPercentage + '%' }",
-                v-if="ExecutedPercentage !== false"
-            )
-                .progressbar--bar-value(
-                    :style="valueOffset(ExecutedPercentage)"
-                ) {{ ExecutedPercentage }}%
-
-            //- Delivered
-            .progressbar--bar.green-light(
-                :style="{ width: DeliveredPercentage + '%' }",
-                v-if="DeliveredPercentage !== false"
-            )
-                .progressbar--bar-value(
-                    :style="valueOffset(DeliveredPercentage)"
-                ) {{ DeliveredPercentage }}%
-
-            //- Delivered to TMR
-            .progressbar--bar.yellow(
-                :style="{ width: DeliveredToTMRPercentage + '%' }",
-                v-if="DeliveredToTMRPercentage !== false"
-            )
-                .progressbar--bar-value(
-                    :style="collisionFixDeliveredToTMR(DeliveredToTMRPercentage, ExecutedPercentage)"
-                ) {{ DeliveredToTMRPercentage }}%
-
-            //- Delivered to City
-            .progressbar--bar.green-light(
-                :style="{ width: DeliveredToCityPercentage + '%' }",
-                v-if="DeliveredToCityPercentage !== false"
-            )
-                .progressbar--bar-value(
-                    :style="valueOffset(DeliveredToCityPercentage)"
-                ) {{ DeliveredToCityPercentage }}%
-
+        .progressbar-outer
+            .progressbar-inner(v-for="(bar, index) in bars" :style="['width: ' + progressbarPercent(bar)]" :class="progressbarClass(bar)")
+                .progressbar-value(:class="handlerPosition(bar)" :style="translateXFix(bar)" v-if="bar.value > 0") {{ progressbarPercent(bar) }}
     //- slot using in product cards
     slot(name="data")
 </template>
 
-
 <style lang="scss" scoped>
+@keyframes animateProgressBar {
+    from {
+        max-width: 0%;
+    }
+
+    to {
+        max-width: 100%;
+    }
+}
+
+@keyframes animateValue {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.progressbar-container {
+    display: flex;
+    align-items: center;
+
+    @include respond-to(medium) {
+        flex-wrap: wrap;
+
+        >* {
+            width: 100%;
+        }
+    }
+}
+
 .progressbar-label {
     font-weight: 700;
     color: var(--blue-dark);
     margin-right: var(--pdlg);
     flex-shrink: 0;
+    flex-basis: 7rem;
+
+    @include respond-to(handlers) {
+        width: 100%;
+        margin-right: 0;
+    }
 }
 
-.progressbar--bar-value {
+.progressbar-value {
     position: absolute;
-    // right: 8px;
     left: 100%;
-    transform: translateX(-50%);
-    bottom: 100%;
     font-weight: 900;
+    // transform: translateX(-50%);
     font-size: 13.5px;
     color: #333;
     opacity: 0;
     transition: font-size 0.05s ease;
-    animation: animateOpacity 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.1s;
+    animation: animateValue 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.1s;
     animation-fill-mode: forwards;
-}
 
-.progressbar {
-    position: relative;
-    background-color: #e5e5e5;
-    // border-radius: 100px;
-    border-radius: 4px;
-    width: 100%;
-    // height: 10px;
-    height: 16px;
+    &.top {
+        bottom: calc(100% - 2px);
+    }
 
-    // max-width: calc(360px + var(--index) * 8);
-    @include respond-to(medium) {
-        max-width: 100%;
+    &.bottom {
+        bottom: calc(-100% + 2px);
     }
 }
 
-.progressbar--bar {
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-    background-color: var(--green);
-    // border-radius: 100px;
+.progressbar-outer {
+    position: relative;
+    background-color: #e5e5e5;
     border-radius: 4px;
+    width: 100%;
+    height: 22px;
+
+    @include respond-to(medium) {
+        max-width: 100%;
+    }
+
+    @include respond-to(handlers) {
+        margin: var(--pdxl) 0;
+    }
+}
+
+.progressbar-inner {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    border-radius: var(--radius-4);
     transition: all 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s;
     width: 0;
     max-width: 0;
     animation: animateProgressBar 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s;
     animation-fill-mode: forwards;
 
-    &.green-light {
-        background-color: var(--green-light);
-        z-index: 4;
-        animation-delay: 0s;
-
-        &:not(.tmr) {
-            .progressbar--bar-value {
-                // right: unset;
-                // left: 100%;
-            }
-        }
-        .progressbar--bar-value {
-            color: var(--green-light-darker);
-            bottom: unset;
-            top: 100%;
-        }
-    }
-    &.green {
+    &.Executed {
         background-color: var(--green);
-        z-index: 5;
-        animation-delay: 0.15s;
-        .progressbar--bar-value {
+        z-index: 10;
+
+        .progressbar-value {
             color: var(--green);
         }
     }
-    &.yellow {
-        background-color: var(--yellow);
-        z-index: 3;
-        animation-delay: 0.15s;
-        .progressbar--bar-value {
-            color: var(--orange);
+
+    &.DeliveredToTMR,
+    &.Delivered {
+        background-color: var(--green-light);
+        z-index: 4;
+
+        .progressbar-value {
+            color: var(--green-light-darker);
         }
     }
-}
 
-.progressbar--bar-value {
-    position: absolute;
-}
+    &.TransitToTMR {
+        background-color: #E2F0D9;
+        z-index: 5;
 
-.progressbar-container {
-    display: flex;
+        .progressbar-value {
+            color: #333;
+            bottom: calc(-100% - 8px);
+            font-weight: 400;
+            background-color: #E2F0D9;
+            padding: 0 4px;
+            border-radius: var(--radius-4);
+        }
+    }
 
-    @include respond-to(medium) {
-        flex-wrap: wrap;
+    &.DeliveredToCity {
+        background-color: var(--yellow);
+        z-index: 3;
 
-        > * {
-            width: 100%;
+        .progressbar-value {
+            color: var(--orange);
+            bottom: calc(100% + 8px);
         }
     }
 }
@@ -263,30 +199,11 @@ export default {
 .progressbar-wrapper {
     display: flex;
     align-items: center;
-    // width: 100%;
-    flex-grow: 1;
-    &:hover {
-        .progressbar--bar-value {
-            // font-size: 15px;
-        }
-    }
-}
+    width: 100%;
+    margin: var(--pdlg) 0 var(--pdxxl) 0;
 
-@keyframes animateProgressBar {
-    from {
-        max-width: 0%;
-    }
-    to {
-        max-width: 100%;
-    }
-}
-
-@keyframes animateOpacity {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
+    @include respond-to(handlers) {
+        flex-wrap: wrap;
     }
 }
 </style>

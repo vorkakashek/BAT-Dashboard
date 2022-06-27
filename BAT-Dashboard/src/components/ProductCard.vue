@@ -44,8 +44,8 @@ vue-easy-lightbox(
         v-if="product.photo !== null",
         @click="() => showSingle(importPhoto(product.photo))"
     )
-    ItemProgressbar(:inData="product")
-    ItemData(:inData="product")
+    ItemProgressbar(:data="product.stats")
+    ItemData(:data="product.stats")
 </template>
 
 <style lang="scss" scoped>

@@ -12,12 +12,12 @@ export default {
 <template lang="pug">
 .comparison-item
     .comparison-item-label {{ comparisonData.label }}
-    ItemProgressbar(:inData="comparisonData" v-if="!vertical")
+    ItemProgressbar(:data="comparisonData.stats" v-if="!vertical")
         template(#data)
-            ItemData(:inData="comparisonData")
-    ItemProgressbarVertical(:inData="comparisonData" v-if="vertical")
+            ItemData(:data="comparisonData.stats")
+    ItemProgressbarVertical(:data="comparisonData.stats" v-if="vertical")
         template(#data)
-            ItemData(:inData="comparisonData")
+            ItemData(:data="comparisonData.stats")
 </template>
 
 <style lang="scss" scoped>

@@ -15,7 +15,7 @@ const props = defineProps({
 });
 
 const bars = computed(() => {
-    return props.data.filter((item) => item.name !== 'Target' && item.name !== 'Not Delivered');
+    return props.data.filter((item) => item.name !== 'Target' && item.name !== 'Not Delivered').sort((a,b)=>(a.value - b.value));
 });
 
 const target = computed(() => {
@@ -37,6 +37,10 @@ function handlerPosition(bar) {
     return 'top';
 }
 
+function zIndex(index) {
+    return bars.value.length - index
+}
+
 </script>
 
 <template lang="pug">
@@ -45,7 +49,7 @@ function handlerPosition(bar) {
     .progressbar-wrapper
         .progressbar-label {{ props.label }}
         .progressbar-outer
-            .progressbar-inner(v-for="(bar, index) in bars" :style="['width: ' + progressbarPercent(bar)]" :class="progressbarClass(bar)")
+            .progressbar-inner(v-for="(bar, index) in bars" :style="['width: ' + progressbarPercent(bar), 'z-index: ' + zIndex(index)]" :class="progressbarClass(bar)")
                 .progressbar-value(:class="handlerPosition(bar)" v-if="bar.value > 0") {{ progressbarPercent(bar) }}
 
     //- slot for legend (using in total progressbars)
@@ -163,7 +167,7 @@ function handlerPosition(bar) {
     &.DeliveredToTMR,
     &.Delivered {
         background-color: var(--green-light);
-        z-index: 9;
+        z-index: 4;
 
         .progressbar-value {
             color: var(--green-light-darker);
@@ -172,21 +176,17 @@ function handlerPosition(bar) {
 
     &.TransitToTMR {
         background-color: #E2F0D9;
-        z-index: 8;
+        z-index: 5;
 
         .progressbar-value {
             color: #333;
             bottom: calc(-100% - 8px);
-            font-weight: 400;
-            background-color: #E2F0D9;
-            padding: 0 4px;
-            border-radius: var(--radius-4);
         }
     }
 
     &.DeliveredToCity {
         background-color: var(--yellow);
-        z-index: 7;
+        z-index: 3;
 
         .progressbar-value {
             color: var(--orange);

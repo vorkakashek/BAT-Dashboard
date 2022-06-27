@@ -13,57 +13,57 @@ export default {
                     name: 'GC_A_TN_Big_Mini_Sas # Lucky Strike (221100591, 221200665, 221200666, 221200668, 221200669, 221200670, 221200671, 221200672)',
                     image: '3',
                     totalqty: '15800',
-                    centralstorage: '02/05/2022', 
+                    centralstorage: '02/05/2022',
                 },
                 weeks: [
-                    {
-                        week: 'Week 0',
-                        number: '-4',
-                        dateStart: '09/05',
-                        dateEnd: '15/05',
-                        graph: {
-                            notDeliveredToCS: 29.711231,
-                            deliveredToCS: 80.31123213,
-                            transitToCity: 0,
-                            deliveredToCity: 0,
-                            transitToTMR: 0,
-                            deliveredToTMR: 0,
-                            executed: 0,
-                        }
-                    },
-                    {
-                        week: 'Week 20',
-                        number: '-3',
-                        dateStart: '16/05',
-                        dateEnd: '22/05',
-                        graph: {
-                            notDeliveredToCS: 0,
-                            deliveredToCS: 60,
-                            transitToCity: 20,
-                            deliveredToCity: 20,
-                            transitToTMR: 0,
-                            deliveredToTMR: 0,
-                            executed: 0,
-                        }
-                    },
-                    {
-                        week: 'Week 21',
-                        number: '-2',
-                        dateStart: '23/05',
-                        dateEnd: '29/05',
-                        graph: {
-                            notDeliveredToCS: 0,
-                            deliveredToCS: 30,
-                            transitToCity: 30,
-                            deliveredToCity: 40,
-                            transitToTMR: 0,
-                            deliveredToTMR: 0,
-                            executed: 0,
-                        }
-                    },
+                    // {
+                    //     week: 'Week 0',
+                    //     number: '-4',
+                    //     dateStart: '09/05',
+                    //     dateEnd: '15/05',
+                    //     graph: {
+                    //         notDeliveredToCS: 29.711231,
+                    //         deliveredToCS: 80.31123213,
+                    //         transitToCity: 0,
+                    //         deliveredToCity: 0,
+                    //         transitToTMR: 0,
+                    //         deliveredToTMR: 0,
+                    //         executed: 0,
+                    //     }
+                    // },
+                    // {
+                    //     week: 'Week 20',
+                    //     number: '-3',
+                    //     dateStart: '16/05',
+                    //     dateEnd: '22/05',
+                    //     graph: {
+                    //         notDeliveredToCS: 0,
+                    //         deliveredToCS: 60,
+                    //         transitToCity: 20,
+                    //         deliveredToCity: 20,
+                    //         transitToTMR: 0,
+                    //         deliveredToTMR: 0,
+                    //         executed: 0,
+                    //     }
+                    // },
+                    // {
+                    //     week: 'Week 21',
+                    //     number: '-2',
+                    //     dateStart: '23/05',
+                    //     dateEnd: '29/05',
+                    //     graph: {
+                    //         notDeliveredToCS: 0,
+                    //         deliveredToCS: 30,
+                    //         transitToCity: 30,
+                    //         deliveredToCity: 40,
+                    //         transitToTMR: 0,
+                    //         deliveredToTMR: 0,
+                    //         executed: 0,
+                    //     }
+                    // },
                     {
                         week: 'Week 22.1',
-                        number: '-1',
+                        number: '-4',
                         dateStart: '30/05',
                         dateEnd: '31/05',
                         graph: {
@@ -78,7 +78,7 @@ export default {
                     },
                     {
                         week: 'Week 22.2',
-                        number: '+1',
+                        number: '-3',
                         dateStart: '01/06',
                         dateEnd: '05/06',
                         graph: {
@@ -93,7 +93,7 @@ export default {
                     },
                     {
                         week: 'Week 23',
-                        number: '+2',
+                        number: '-2',
                         dateStart: '06/06',
                         dateEnd: '12/06',
                         graph: {
@@ -108,7 +108,7 @@ export default {
                     },
                     {
                         week: 'Week 24',
-                        number: '+3',
+                        number: '-1',
                         dateStart: '13/06',
                         dateEnd: '19/06',
                         graph: {
@@ -123,7 +123,7 @@ export default {
                     },
                     {
                         week: 'Week 25',
-                        number: '+4',
+                        number: '+1',
                         dateStart: '20/06',
                         dateEnd: '26/06',
                         graph: {
@@ -136,10 +136,9 @@ export default {
                             executed: 50,
                         }
                     },
-
                     {
                         week: 'Week 26',
-                        number: '+5',
+                        number: '+2',
                         current: true,
                         dateStart: '20/06',
                         dateEnd: '26/06',
@@ -151,6 +150,51 @@ export default {
                             transitToTMR: 0,
                             deliveredToTMR: 100,
                             executed: 80,
+                        }
+                    },
+                    {
+                        week: 'Week 27',
+                        number: '+3',
+                        dateStart: '09/05',
+                        dateEnd: '15/05',
+                        graph: {
+                            notDeliveredToCS: 0,
+                            deliveredToCS: 0,
+                            transitToCity: 0,
+                            deliveredToCity: 0,
+                            transitToTMR: 0,
+                            deliveredToTMR: 0,
+                            executed: 0,
+                        }
+                    },
+                    {
+                        week: 'Week 28',
+                        number: '+4',
+                        dateStart: '16/05',
+                        dateEnd: '22/05',
+                        graph: {
+                            notDeliveredToCS: 0,
+                            deliveredToCS: 0,
+                            transitToCity: 0,
+                            deliveredToCity: 0,
+                            transitToTMR: 0,
+                            deliveredToTMR: 0,
+                            executed: 0,
+                        }
+                    },
+                    {
+                        week: 'Week 29',
+                        number: '+5',
+                        dateStart: '23/05',
+                        dateEnd: '29/05',
+                        graph: {
+                            notDeliveredToCS: 0,
+                            deliveredToCS: 0,
+                            transitToCity: 0,
+                            deliveredToCity: 0,
+                            transitToTMR: 0,
+                            deliveredToTMR: 0,
+                            executed: 0,
                         }
                     },
                 ]
@@ -201,6 +245,7 @@ vue-easy-lightbox(
     @hide="handleHide"
 )
 
+
 .cycle-materials-item.showmodal(@click="() => showmodal()")
     .cycle-materials-item-data {{ item.label }}
     .cycle-materials-item-data
@@ -210,18 +255,18 @@ vue-easy-lightbox(
             @click.stop="() => showSingle(importPhoto(item.photo))"
         )
     .cycle-materials-item-data
-        ItemProgressbar(:inData="item")
+        ItemProgressbar(:data="item.stats")
             template(#data)
-                ItemData(:inData="item")
+                ItemData(:data="item.stats")
 </template>
 
 
 <style lang="scss" scoped>
-
 .panel {
     margin-left: var(--pdlg);
     margin-right: var(--pdlg);
 }
+
 .cycle-materials-item__photo {
     max-width: 100%;
     width: 100%;
@@ -269,8 +314,10 @@ vue-easy-lightbox(
 }
 
 .product-card-infographics {
-    flex-grow: 1;
-    flex-basis: 0;
+    @include respond-to (xlarge) {
+        margin-top: var(--pdlg);
+        width: 100%;
+    }
 }
 
 ::v-deep {

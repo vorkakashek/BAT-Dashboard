@@ -41,6 +41,7 @@ const emit = defineEmits(['update:modelValue']);
 .CycleFavoriveToggler {
     display: flex;
     width: fit-content;
+    flex-wrap: wrap;
     align-items: center;
     margin: var(--pdlg) 0;
     border-radius: 100px;

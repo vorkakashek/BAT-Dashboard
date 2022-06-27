@@ -40,6 +40,7 @@ function importImage(photo) {
     img {
         border-radius: var(--radius-8);
         max-width: 280px;
+        max-height: 80px;
     }
 
     @include respond-to (medium) {
@@ -81,6 +82,7 @@ function importImage(photo) {
     color: #333;
     margin-left: var(--pdlg);
     margin-right: auto;
+    max-width: 50rem;
 
     @include respond-to (handlers) {
         width: 100%;

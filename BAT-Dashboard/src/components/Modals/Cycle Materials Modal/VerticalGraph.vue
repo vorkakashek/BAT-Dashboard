@@ -1,4 +1,6 @@
 <script setup>
+import { computed } from "@vue/runtime-core";
+
 
 const props = defineProps({
     data: Object,
@@ -11,29 +13,32 @@ function verticalTransform() {
         value = -100;
     }
     return 'transform:' + ' translateY(' + value + '%)';
-}
+};
 
 function dataNumber() {
     if (Number(props.data.number) > 0) {
-        return 'background-color: #797979; color: #fff; border-color: #797979;'
+        return 'background-color: #797979; color: #fff; border-color: #797979;';
     }
-    return 'background-color: transparent; color: #333; border-color: #333;'
-}
+    return 'background-color: transparent; color: #333; border-color: #333;';
+};
 
 function aroundNumber(num) {
     if (!Number.isInteger(num)) {
-        return num.toFixed(1)
+        return num.toFixed(1);
     }
-    return num
-}
+    return num;
+};
+
+const ghost = computed(() => {
+    return !(Object.values(props.data.graph).some((value) => value > 0));
+});
 
 </script>
 
 
 <template lang="pug">
 
-
-.vertical-graph
+.vertical-graph(:class="{ ghost: ghost }")
     .graph-wrap
         .graph-thick
             template(v-for="(value, key) in data.graph")
@@ -173,6 +178,7 @@ function aroundNumber(num) {
     padding: 0 1px;
     border-radius: var(--radius-4);
     justify-content: flex-end;
+
     .graph-item {
         padding: 1px;
         display: flex;
@@ -250,7 +256,7 @@ function aroundNumber(num) {
         margin-left: var(--pdlg);
     }
 
-    &:hover {
+    &:not(.ghost):hover {
         background-color: rgba(177, 177, 177, 0.163);
 
         .graph-thin {
@@ -268,6 +274,27 @@ function aroundNumber(num) {
                     color: #333;
                 }
             }
+        }
+    }
+
+    &.ghost {
+        .graph-thick {
+            background-color: var(--grey-medium);
+        }
+
+        .graph-thin {
+            .percent {
+                background-color: var(--inactive);
+                opacity: .3 !important;
+
+                &:after {
+                    border-right: 4px solid var(--inactive);
+                }
+            }
+        }
+
+        .week {
+            opacity: .5 !important;
         }
     }
 }

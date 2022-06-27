@@ -7,6 +7,7 @@ export default {
     data() {
         return {
             ISFFilter: "ALL",
+            filteredOptions: null,
             visible: false,
             index: 0,
             imgs: "",
@@ -31,45 +32,47 @@ export default {
             comparisonData: [
                 {
                     label: "MBU",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3000,
+                    type: "OHD",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
                 {
                     label: "NW",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3400,
-                },
-                {
-                    label: "South",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 4100,
-                },
-                {
-                    label: "Volga-Centre",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 2400,
-                },
-                {
-                    label: "Ural",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 2000,
-                },
-                {
-                    label: "Siberia-FE",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 4000,
+                    type: "BWD",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
             ],
         };
@@ -102,6 +105,25 @@ export default {
         updateISFFilter(value) {
             this.ISFFilter = value;
         },
+        handleFilter() {
+            if (this.ISFFilter !== "ALL") {
+                this.filteredOptions = null;
+                this.filteredOptions = this.comparisonData.filter(
+                    (item) => item.type == this.ISFFilter
+                );
+            } else {
+                this.filteredOptions = null;
+                this.filteredOptions = this.comparisonData;
+            }
+        },
+    },
+    watch: {
+        ISFFilter: function () {
+            this.handleFilter();
+        },
+    },
+    mounted() {
+        this.handleFilter();
     },
 };
 </script>
@@ -116,7 +138,7 @@ vue-easy-lightbox(
 )
 
 .panel
-    TotalProgressbar(:inData="totalData")
+    TotalProgressbar(:data="totalData")
         template(#legend)
             ProgressbarLegend(:inData="totalData")
 
@@ -130,11 +152,10 @@ vue-easy-lightbox(
             ISFFilter
             .comparison-items
                 ComparisonItem(
-                    v-for="item in comparisonData",
+                    v-for="item in filteredOptions",
                     :comparisonData="item"
                 )
 </template>
 
 <style lang="scss" scoped>
-
 </style>

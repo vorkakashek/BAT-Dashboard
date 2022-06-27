@@ -1,87 +1,80 @@
-<script>
-export default {
-    props: ["inData"],
+<script setup>
+
+const props = defineProps({
+    data: {
+        type: Array,
+        required: true,
+    },
+});
+
+function handlerClass(name) {
+    return name.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('');
 };
+
 </script>
 
 <template lang="pug">
 .product-card-infographics
-    .executed(v-if="inData.executed !== undefined")
-        span Executed:
-        | {{ inData.executed }}
-    .delivered(v-if="inData.delivered !== undefined")
-        span Delivered:
-        | {{ inData.delivered }}
-    .delivered-to-city(v-if="inData.deliveredToCity !== undefined") 
-        span Delivered to City:
-        | {{ inData.deliveredToCity }}
-
-    .delivered-to-tmr(v-if="inData.deliveredToTMR !== undefined") 
-        span Delivered to TMR:
-        | {{ inData.deliveredToTMR }}
-        
-    .not-delivered(v-if="inData.notDelivered !== undefined") 
-        span Not Delivered:
-        | {{ inData.notDelivered }}
-    .not-delivered(v-if="inData.notExecuted !== undefined") 
-        span Not Executed:
-        | {{ inData.notExecuted }}
-    .target(v-if="inData.target !== undefined") 
-        span Target:  
-        | [ {{ inData.target }} ]
+    .stat(v-for="item in data" :class="handlerClass(item.name)")
+        span.stat-name {{ item.name }}
+        span.stat-value {{ item.value }}
 </template>
 
 <style lang="scss" scoped>
 .product-card-infographics {
-    display: flex;
-    flex-wrap: wrap;
     background-color: var(--grey);
     padding: var(--pdsm);
     border-radius: var(--radius-4);
-    > * {
-        font-weight: 700;
-        font-size: 15px;
-        display: flex;
-        align-items: center;
-        width: 100%;
-    }
+    min-width: fit-content;
+}
 
-    span {
-        margin-right: auto;
-    }
+.stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14.5px;
+    letter-spacing: .025rem;
 
-    .executed {
+    &.Executed {
         color: var(--green);
     }
 
-    .delivered {
+    &.Delivered,
+    &.DeliveredToTMR {
         color: var(--green-light-darker);
     }
 
-    .delivered-to-city {
-        color: var(--green-light-darker);
+    &.TransitToTMR {
+        color: #333;
+
+        .stat-value {
+            font-weight: 400;
+            background-color: #E2F0D9;
+            padding: 0 4px;
+            border-radius: var(--radius-4);
+        }
     }
 
-    .delivered-to-tmr {
+    &.DeliveredToCity {
         color: var(--orange);
     }
 
-    .not-delivered {
-        color: var(--inactive);
+    &.NotDelivered {
+        opacity: .5;
     }
 
-    .target {
-        background: var(--grey);
+    &.Target {
+        margin-top: var(--pdsm);
+        background-color: var(--color-target);
         padding: var(--pd) var(--pdsm);
         border-radius: var(--radius-4);
-        text-align: center;
-        margin-top: var(--pdlg);
-
-        display: block;
-        // justify-content: space-between;
-        // background: var(--blue-light) !important;
-        background-color: var(--color-target) !important;
         color: #333;
     }
+
+}
+
+.stat-value {
+    margin-left: var(--pdxxl);
+    font-weight: 900;
 }
 </style>

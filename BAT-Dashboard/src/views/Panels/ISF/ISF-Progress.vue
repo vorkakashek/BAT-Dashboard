@@ -7,6 +7,7 @@ export default {
     data() {
         return {
             ISFFilter: "ALL",
+            filteredOptions: null,
             totalData: [
                 {
                     name: "Executed",
@@ -27,40 +28,50 @@ export default {
             ],
             comparisonData: [
                 {
-                    label: "CycleMaterial Cycle4",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3000,
+                    label: "MBU",
+                    type: "OHD",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
                 {
-                    label: "CycleMaterial Cycle5",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3400,
+                    label: "NW",
+                    type: "BWD",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
-                {
-                    label: "CycleMaterial Cycle6",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 4100,
-                },
-                {
-                    label: "CycleMaterial Cycle6",
-                    executed: 4,
-                    delivered: 5,
-                    notDelivered: 641,
-                    target: 4100,
-                },
-                {
-                    label: "CycleMaterial Cycle6",
-                    executed: 4089,
-                    delivered: 4090,
-                    notDelivered: 641,
-                    target: 4100,
-                },
+
             ],
         };
     },
@@ -74,13 +85,32 @@ export default {
         updateISFFilter(value) {
             this.ISFFilter = value;
         },
+        handleFilter() {
+            if (this.ISFFilter !== "ALL") {
+                this.filteredOptions = null;
+                this.filteredOptions = this.comparisonData.filter(
+                    (item) => item.type == this.ISFFilter
+                );
+            } else {
+                this.filteredOptions = null;
+                this.filteredOptions = this.comparisonData;
+            }
+        },
+    },
+    watch: {
+        ISFFilter: function () {
+            this.handleFilter();
+        },
+    },
+    mounted() {
+        this.handleFilter();
     },
 };
 </script>
 
 <template lang="pug">
 .panel
-    TotalProgressbar(:inData="totalData")
+    TotalProgressbar(:data="totalData")
         template(#legend)
             ProgressbarLegend(:inData="totalData")
 
@@ -88,11 +118,9 @@ export default {
     h2 Total
     ISFFilter
     .comparison-items
-        
-        ComparisonItem(v-for="item in comparisonData" :comparisonData="item" :vertical="true")
+        ComparisonItem(v-for="item in filteredOptions" :comparisonData="item" :vertical="true")
 </template>
 
 
 <style lang="scss" scoped>
-
 </style>

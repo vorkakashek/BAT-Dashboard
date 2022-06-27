@@ -1,21 +1,16 @@
 <script setup>
 
-import { computed } from 'vue';
+import { computed, ref, onMounted, onBeforeUpdate } from 'vue';
 
 const props = defineProps({
     data: {
         type: Array,
         required: true,
     },
-    label: {
-        type: String,
-        required: false,
-        default: 'Total',
-    }
 });
 
 const bars = computed(() => {
-    return props.data.filter((item) => item.name !== 'Target' && item.name !== 'Not Delivered');
+    return props.data.filter((item) => item.name !== 'Target' && item.name !== 'Not Delivered').sort((a, b) => (a.value - b.value));
 });
 
 const target = computed(() => {
@@ -32,24 +27,56 @@ function progressbarClass(bar) {
 
 function handlerPosition(bar) {
     if (bar.name === 'Delivered to TMR' || bar.name === 'Transit to TMR' || bar.name === 'Delivered') {
-        return 'bottom';
+        return 'right';
     }
-    return 'top';
+    return 'left';
 }
+
+function zIndex(index) {
+    return bars.value.length - index
+}
+
+function translateYFix(bar) {
+    if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) < 3) {
+        return 'transform: translateY(0)';
+    }
+    if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) > 97) {
+        return 'transform: translateY(-100%)';
+    }
+    return 'transform: translateY(-50%)';
+}
+
+// const refs = ref([]);
+
+// const setRefs = (el) => {
+//     refs.value.push(el);
+// };
+
+// onBeforeUpdate(() => {
+//     divs.value = []
+// });
+
+// onMounted(() => {
+//     if (refs.value.find((item) => item.matches('.DeliveredToCity')) && refs.value.find((item) => item.matches('.Executed'))) {
+//         let offset = refs.value.find((item) => item.matches('.Executed')).querySelector('.progressbar-value').offsetWidth;
+//         refs.value.find((item) => item.matches('.DeliveredToCity')).querySelector('.progressbar-value').style.marginRight = offset + 'px';
+//     }
+//     if (refs.value.find((item) => item.matches('.DeliveredToTMR')) && refs.value.find((item) => item.matches('.TransitToTMR'))) {
+//         let offset = refs.value.find((item) => item.matches('.TransitToTMR')).querySelector('.progressbar-value').offsetWidth;
+//         refs.value.find((item) => item.matches('.DeliveredToTMR')).querySelector('.progressbar-value').style.marginLeft = offset + 'px';
+//     }
+// });
 
 </script>
 
 <template lang="pug">
 
+
 .progressbar-container
     .progressbar-wrapper
-        .progressbar-label {{ props.label }}
         .progressbar-outer
-            .progressbar-inner(v-for="(bar, index) in bars" :style="['width: ' + progressbarPercent(bar)]" :class="progressbarClass(bar)")
-                .progressbar-value(:class="handlerPosition(bar)" v-if="bar.value > 0") {{ progressbarPercent(bar) }}
-
-    //- slot for legend (using in total progressbars)
-    slot(name="legend")
+            .progressbar-inner(v-for="(bar, index) in bars" :style="['height: ' + progressbarPercent(bar), 'z-index: ' + zIndex(index)]" :class="progressbarClass(bar)")
+                .progressbar-value(:class="handlerPosition(bar)" :style="[translateYFix(bar)]" v-if="bar.value > 0") {{ progressbarPercent(bar) }}
     //- slot using in product cards
     slot(name="data")
 </template>
@@ -57,11 +84,11 @@ function handlerPosition(bar) {
 <style lang="scss" scoped>
 @keyframes animateProgressBar {
     from {
-        max-width: 0%;
+        max-height: 0%;
     }
 
     to {
-        max-width: 100%;
+        max-height: 100%;
     }
 }
 
@@ -77,16 +104,7 @@ function handlerPosition(bar) {
 
 .progressbar-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
-
-    @include respond-to(medium) {
-        flex-wrap: wrap;
-
-        >* {
-            width: 100%;
-        }
-    }
 }
 
 .progressbar-label {
@@ -104,9 +122,7 @@ function handlerPosition(bar) {
 
 .progressbar-value {
     position: absolute;
-    left: 100%;
     font-weight: 900;
-    transform: translate(-50%);
     font-size: 13.5px;
     color: #333;
     opacity: 0;
@@ -114,12 +130,12 @@ function handlerPosition(bar) {
     animation: animateValue 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.1s;
     animation-fill-mode: forwards;
 
-    &.top {
-        bottom: calc(100% - 2px);
+    &.left {
+        right: calc(100% + 2px);
     }
 
-    &.bottom {
-        bottom: calc(-100% + 2px);
+    &.right {
+        left: calc(100% + 2px);
     }
 }
 
@@ -127,27 +143,23 @@ function handlerPosition(bar) {
     position: relative;
     background-color: #e5e5e5;
     border-radius: 4px;
-    width: 100%;
-    height: 22px;
-
-    @include respond-to(medium) {
-        max-width: 100%;
-    }
-
+    height: 200px;
+    width: 32px;
     @include respond-to(handlers) {
         margin: var(--pdxl) 0;
     }
 }
 
 .progressbar-inner {
-    height: 100%;
+    width: 100%;
     position: absolute;
     left: 0;
+    bottom: 0;
     z-index: 1;
     border-radius: var(--radius-4);
     transition: all 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s;
-    width: 0;
-    max-width: 0;
+    height: 0;
+    max-height: 0;
     animation: animateProgressBar 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s;
     animation-fill-mode: forwards;
 
@@ -163,7 +175,7 @@ function handlerPosition(bar) {
     &.DeliveredToTMR,
     &.Delivered {
         background-color: var(--green-light);
-        z-index: 9;
+        z-index: 4;
 
         .progressbar-value {
             color: var(--green-light-darker);
@@ -172,25 +184,21 @@ function handlerPosition(bar) {
 
     &.TransitToTMR {
         background-color: #E2F0D9;
-        z-index: 8;
+        z-index: 5;
 
         .progressbar-value {
             color: #333;
             bottom: calc(-100% - 8px);
-            font-weight: 400;
-            background-color: #E2F0D9;
-            padding: 0 4px;
-            border-radius: var(--radius-4);
         }
     }
 
     &.DeliveredToCity {
         background-color: var(--yellow);
-        z-index: 7;
+        z-index: 3;
 
         .progressbar-value {
             color: var(--orange);
-            bottom: calc(100% + 8px);
+            margin-right: 38px;
         }
     }
 }
@@ -198,6 +206,7 @@ function handlerPosition(bar) {
 .progressbar-wrapper {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 100%;
     margin: var(--pdlg) 0 var(--pdxxl) 0;
 

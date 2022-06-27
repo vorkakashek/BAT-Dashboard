@@ -99,12 +99,12 @@ function legendName(item) {
 @keyframes slide-fade {
     from {
         opacity: 0;
-        transform: translateX(-100%);
+        transform: translateX(-100%) translateY(-50%);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) translateY(-50%);
     }
 }
 

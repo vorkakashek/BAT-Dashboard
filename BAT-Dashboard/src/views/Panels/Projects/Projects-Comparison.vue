@@ -23,45 +23,47 @@ export default {
             comparisonData: [
                 {
                     label: "MBU",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3000,
+                    type: "OHD",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
                 {
                     label: "NW",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3400,
-                },
-                {
-                    label: "South",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 4100,
-                },
-                {
-                    label: "Volga-Centre",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 2400,
-                },
-                {
-                    label: "Ural",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 2000,
-                },
-                {
-                    label: "Siberia-FE",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 4000,
+                    type: "BWD",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
             ],
             visible: false,
@@ -103,7 +105,7 @@ vue-easy-lightbox(
 )
 
 .panel
-    TotalProgressbar(:inData="totalData")
+    TotalProgressbar(:data="totalData")
         template(#legend)
             ProgressbarLegend(:inData="totalData")
 
@@ -117,5 +119,4 @@ vue-easy-lightbox(
 </template>
 
 <style lang="scss" scoped>
-
 </style>

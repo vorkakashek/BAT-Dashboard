@@ -36,18 +36,17 @@ export default {
 .progressbar-legend {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     flex-shrink: 0;
-    margin-left: var(--pdxl);
+    border-radius: var(--radius-8);
+    border: 1px solid #EFEFEF;
+    padding: var(--pdsm) var(--pdlg) 0 var(--pdlg);
 
     @include respond-to(medium) {
         margin-left: 0;
         margin-top: var(--pdsm);
         width: 100%;
-        .progressbar-legend__item {
-            &.Target {
-                margin-left: auto;
-            }
-        }
     }
 
     @include respond-to(handlers) {
@@ -68,13 +67,16 @@ export default {
 }
 
 .progressbar-legend__item {
-    text-align: center;
+    // text-align: center;
     display: flex;
     align-items: center;
     flex-shrink: 0;
+    // padding: var(--pdsm) var(--pdlg);
+    margin-bottom: var(--pdsm);
 
     &:not(.Target) {
         margin-right: var(--pdlg);
+
         &:before {
             content: "";
             display: block;
@@ -96,14 +98,19 @@ export default {
 
     &.DeliveredtoCity {
         &:before {
-            
-            background-color: var(--green-light);
+
+            background-color: var(--yellow);
         }
     }
 
     &.DeliveredtoTMR {
         &:before {
-            background-color: var(--yellow);
+            background-color: var(--green-light);
+        }
+    }
+    &.TransittoTMR {
+        &:before {
+            background-color: #E2F0D9;
         }
     }
 
@@ -112,26 +119,30 @@ export default {
             background-color: #e5e5e5;
         }
     }
+
     &.Executed {
         &:before {
             background-color: var(--green);
         }
     }
+
     &.Target {
         margin-left: var(--pdxl);
-        background-color: var(--grey);
+        background-color: var(--color-target);
         padding: var(--pdsm) var(--pdlg);
         border-radius: var(--radius-8);
-        .progressbar-legend__item-value {
-            &:after {
-                content: "]";
-            }
-            &:before {
-                content: "[";
-            }
-        }
+        
+        // .progressbar-legend__item-value {
+        //     &:after {
+        //         content: "]";
+        //     }
+        //     &:before {
+        //         content: "[";
+        //     }
+        // }
         .progressbar-legend__item-name {
-            font-weight: 700;
+            // font-weight: 700;
+            margin-bottom: var(--pd);
         }
     }
 

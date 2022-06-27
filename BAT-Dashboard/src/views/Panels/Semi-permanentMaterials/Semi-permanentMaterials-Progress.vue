@@ -22,25 +22,46 @@ export default {
             ],
             comparisonData: [
                 {
-                    label: "CycleMaterial Cycle4",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3000,
+                    label: "MBU",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
                 {
-                    label: "CycleMaterial Cycle5",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 3400,
-                },
-                {
-                    label: "CycleMaterial Cycle6",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 641,
-                    target: 4100,
+                    label: "NW",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "301",
+                        },
+                        {
+                            name: "Delivered to TMR",
+                            value: "1204",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "500",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ]
                 },
             ],
         };
@@ -50,7 +71,7 @@ export default {
 
 <template lang="pug">
 .panel
-    TotalProgressbar(:inData="totalData")
+    TotalProgressbar(:data="totalData")
         template(#legend)
             ProgressbarLegend(:inData="totalData")
 
@@ -62,5 +83,4 @@ export default {
 
 
 <style lang="scss" scoped>
-
 </style>

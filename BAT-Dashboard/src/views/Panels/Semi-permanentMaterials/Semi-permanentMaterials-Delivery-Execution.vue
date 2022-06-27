@@ -20,71 +20,50 @@ export default {
                     value: 4000,
                 },
             ],
-
             products: [
                 {
-                    name: "GLO_Modular Dispenser",
-                    photo: "1",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 2641,
-                    target: 4000,
-                },
-                {
-                    name: "GLO_Premium Dispenser",
-                    photo: "2",
-                    executed: 1493,
-                    delivered: 2988,
-                    notDelivered: 2641,
-                    target: 4000,
-                },
-                {
-                    name: "GLO_Modular Dispenser",
-                    photo: "3",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 2641,
-                    target: 4000,
-                },
-                {
-                    name: "GLO_Premium Dispenser",
-                    photo: "4",
-                    executed: 1493,
-                    delivered: 2988,
-                    notDelivered: 2641,
-                    target: 4000,
-                },
-                {
-                    name: "GLO_Device Premium Presenter 2 sku",
-                    photo: "2",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 2641,
-                    target: 4000,
-                },
-                {
                     name: "GLO_Shelf Stopper",
-                    photo: "1",
-                    executed: 1493,
-                    delivered: 2988,
-                    notDelivered: 2641,
-                    target: 4000,
+                    photo: "4",
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "2",
+                        },
+                        {
+                            name: "Delivered",
+                            value: "1359",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "1012",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ],
                 },
                 {
                     name: "GLO_Device Premium Presenter 2 sku",
                     photo: "3",
-                    executed: 1204,
-                    delivered: 1359,
-                    notDelivered: 2641,
-                    target: 4000,
-                },
-                {
-                    name: "GLO_Shelf Stopper",
-                    photo: "4",
-                    executed: 1493,
-                    delivered: 2988,
-                    notDelivered: 2641,
-                    target: 4000,
+                    stats: [
+                        {
+                            name: "Executed",
+                            value: "2",
+                        },
+                        {
+                            name: "Delivered",
+                            value: "1359",
+                        },
+                        {
+                            name: "Not Delivered",
+                            value: "1012",
+                        },
+                        {
+                            name: "Target",
+                            value: "4000",
+                        },
+                    ],
                 },
             ],
         };
@@ -96,7 +75,7 @@ export default {
 <template lang="pug">
 //- Filters
 .panel
-    TotalProgressbar(:inData="totalData")
+    TotalProgressbar(:data="totalData")
         template(#legend)
             ProgressbarLegend(:inData="totalData")
 
