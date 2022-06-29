@@ -23,18 +23,25 @@ const target = computed(() => {
 });
 
 function progressbarPercent(bar) {
-    return parseFloat((bar.value / (target.value / 100)).toFixed(1)) + '%'
+    return parseFloat((bar.value / (target.value / 100)).toFixed(1))
 };
 
 function progressbarClass(bar) {
     return bar.name.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('');
 };
 
-function handlerPosition(bar) {
+function handlerPosY(bar) {
     if (bar.name === 'Delivered to TMR' || bar.name === 'Transit to TMR' || bar.name === 'Delivered') {
         return 'bottom';
     }
     return 'top';
+}
+
+function translateXFix(bar) {
+    if (+progressbarPercent(bar) > 97 ) {
+        return 'transform: translateX(-100%)'
+    }
+    return 'transform: translateX(-50%)'
 }
 
 </script>
@@ -45,8 +52,8 @@ function handlerPosition(bar) {
     .progressbar-wrapper
         .progressbar-label {{ props.label }}
         .progressbar-outer
-            .progressbar-inner(v-for="(bar, index) in bars" :style="['width: ' + progressbarPercent(bar)]" :class="progressbarClass(bar)")
-                .progressbar-value(:class="handlerPosition(bar)" v-if="bar.value > 0") {{ progressbarPercent(bar) }}
+            .progressbar-inner(v-for="(bar, index) in bars" :style="[`width: ${progressbarPercent(bar)}%`]" :class="progressbarClass(bar)")
+                .progressbar-value(:class="handlerPosY(bar)" :style="[translateXFix(bar)]" v-if="bar.value > 0") {{progressbarPercent(bar)}}%
 
     //- slot for legend (using in total progressbars)
     slot(name="legend")
@@ -106,7 +113,7 @@ function handlerPosition(bar) {
     position: absolute;
     left: 100%;
     font-weight: 900;
-    transform: translate(-50%);
+    // transform: translate(-50%);
     font-size: 13.5px;
     color: #333;
     opacity: 0;

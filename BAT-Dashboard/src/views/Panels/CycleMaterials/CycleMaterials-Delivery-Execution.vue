@@ -49,7 +49,7 @@ export default {
                 },
                 {
                     name: "Delivered to City",
-                    value: 5900,
+                    value: 9000,
                 },
                 {
                     name: "Not Delivered",
@@ -110,7 +110,7 @@ export default {
                         },
                         {
                             name: "Delivered to City",
-                            value: "3500",
+                            value: "6000",
                         },
                         {
                             name: "Not Delivered",
