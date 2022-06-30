@@ -19,12 +19,9 @@ const options = computed(() => {
 
 const togglerValue = computed({
     get: () => {
-        if (props.modelValue.filter((e) => e !== 0).length > 1) {
-            return props.modelValue.filter((e) => e !== 0);
-        }
-        return props.modelValue.filter((e) => e !== 0)[0]
+        return props.modelValue.filter((e) => e !== 0)
     },
-    set: (v) => emit("update:modelValue", [v]),
+    set: (v) => emit("update:modelValue", v),
 });
 
 
@@ -36,7 +33,7 @@ const emit = defineEmits(['update:modelValue']);
 
 .CycleFavoriveToggler
     label.toggle-option(v-for="option in options")
-        input(type="radio" :value="option.value" v-model="togglerValue")
+        input(type="checkbox" :value="option.value" v-model="togglerValue")
         .toggle-option-label {{ option.label }}
 
 </template>

@@ -1,34 +1,24 @@
 <script setup>
 
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 
 const props = defineProps({
     cycleOptions: {
         type: Array,
         required: true,
     },
-    modelValue: {
-        type: Array,
-        required: true,
-    },
 });
+
+const togglerValue = ref([]);
 
 const options = computed(() => {
     return props.cycleOptions.filter(({ favorite }) => favorite)
 });
 
-const togglerValue = computed({
-    get: () => {
-        if (props.modelValue.filter((e) => e !== 0).length > 1) {
-            return props.modelValue.filter((e) => e !== 0);
-        }
-        return props.modelValue.filter((e) => e !== 0)[0]
-    },
-    set: (v) => emit("update:modelValue", [v]),
+const emit = defineEmits(['change']);
+watch(() => togglerValue.value, () => {
+    emit("change", [togglerValue.value]);
 });
-
-
-const emit = defineEmits(['update:modelValue']);
 
 </script>
 

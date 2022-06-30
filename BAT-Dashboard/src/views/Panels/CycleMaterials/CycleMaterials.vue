@@ -61,8 +61,8 @@ const activityOptions = ref([
 ]);
 
 const state = reactive({
-    cycleValue: [0], 
-    activityValue: [0], 
+    cycleValue: [0],
+    activityValue: [0],
 });
 
 const activeCycleOptions = computed(() => {
@@ -90,16 +90,19 @@ const filteredActivityOptions = computed(() => {
 });
 
 watch(() => state.cycleValue, () => {
+    // filtering Activity Options
     state.activityValue = state.activityValue.filter((v) => {
         return filteredActivityOptions.value.some(({ value }) => v === value);
     });
 });
 
+
 function handleSelector(value, nameValue) {
+    console.log(value)
     if (value == 0) {
         state[nameValue] = [0];
     }
-    if (value !== 0 && state[nameValue].includes(0)) {
+    else if (value !== 0 && state[nameValue].includes(0)) {
         state[nameValue] = state[nameValue].filter((value) => value !== 0);
     }
 };
@@ -112,7 +115,7 @@ function handleSelector(value, nameValue) {
 Teleport(to="#multiselector")
     .multiselect-label 
         span CYCLE 
-        | Selection: 
+        | Selection: {{ state.togglerValue }}
     Multiselect(
         v-model="state.cycleValue", 
         :close-on-select="true", 
@@ -137,19 +140,19 @@ Teleport(to="#multiselector")
         )
 
 CycleFavoriveToggler(:cycleOptions="cycleOptions" v-model="state.cycleValue")
+//- CycleFavoriveToggler(:cycleOptions="cycleOptions" @change="state.cycleValue = $event")
 
 RouterView
 
 </template>
 
 <style lang="scss" scoped>
-
 .multiselect-label {
     font-size: 14px;
     opacity: .8;
+
     span {
         font-weight: 700;
     }
 }
-
 </style>
