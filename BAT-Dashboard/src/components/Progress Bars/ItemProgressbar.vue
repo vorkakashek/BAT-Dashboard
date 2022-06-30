@@ -164,7 +164,7 @@ function translateXFix(bar) {
     &.DeliveredToTMR,
     &.Delivered {
         background-color: var(--green-light);
-        z-index: 4;
+        z-index: 9;
 
         .progressbar-value {
             color: var(--green-light-darker);
@@ -173,11 +173,12 @@ function translateXFix(bar) {
 
     &.TransitToTMR {
         background-color: #E2F0D9;
-        z-index: 5;
+        z-index: 8;
 
         .progressbar-value {
             color: #333;
-            bottom: calc(-100% - 8px);
+            // bottom: calc(-100% - 8px);
+            bottom: calc(-100% - 14px);
             font-weight: 400;
             background-color: #E2F0D9;
             padding: 0 4px;
@@ -187,7 +188,7 @@ function translateXFix(bar) {
 
     &.DeliveredToCity {
         background-color: var(--yellow);
-        z-index: 3;
+        z-index: 7;
 
         .progressbar-value {
             color: var(--orange);

@@ -128,11 +128,11 @@ export default {
                     stats: [
                         {
                             name: "Executed",
-                            value: "301",
+                            value: "1",
                         },
                         {
                             name: "Delivered to TMR",
-                            value: "1204",
+                            value: "300",
                         },
                         {
                             name: "Transit to TMR",
