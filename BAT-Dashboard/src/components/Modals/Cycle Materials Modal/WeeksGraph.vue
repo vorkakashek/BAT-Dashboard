@@ -63,12 +63,10 @@ const targetPos = computed(() => {
     width: 100%;
     height: 1px;
     background-color: #333;
-    opacity: .2;
     user-select: none;
     transition: all .2s ease;
 
     &:hover {
-        opacity: 1;
 
         .graph-constructor-target-value {
             box-shadow: 0px 2px 4px rgba(207, 207, 207, 0.55);

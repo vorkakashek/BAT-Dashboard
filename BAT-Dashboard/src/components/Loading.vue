@@ -6,6 +6,11 @@ const props = defineProps({
         type: Boolean,
         required: false,
         default: true,
+    },
+    text: {
+        type: String,
+        required: false,
+        default: 'Loading',
     }
 })
 
@@ -16,6 +21,9 @@ const delay = (index) => {
     } return `animation-delay: ${val}s`
 }
 
+const letters = computed(() => {
+    return props.text.split('')
+})
 
 
 </script>
@@ -23,8 +31,11 @@ const delay = (index) => {
 <template lang="pug">
     
 #preloader(:class="{ 'full-size': fullSize }")
-    .preloader-outer
-        .preloader-inner(v-for="(n, index) in 4")
+    .preloader-frame
+        .preloader-outer
+            .preloader-inner(v-for="(n, index) in 4")
+        .preloader-text 
+            .preloader-text-letter(v-for="letter in letters") {{ letter }}
 
 </template>
 
@@ -50,12 +61,30 @@ const delay = (index) => {
     }
 }
 
-.preloader-outer {
-    display: flex;
-    align-items: center;
+.preloader-frame {
     background-color: #fff;
     padding: 10px 30px;
     border-radius: var(--radius-8);
+}
+
+.preloader-outer {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.preloader-text {
+    text-align: center;
+    margin-top: var(--pdsm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preloader-text-letter {
+    &:not(:last-child) {
+        margin-right: 1px;
+    }
 }
 
 .preloader-inner {
@@ -157,6 +186,7 @@ const delay = (index) => {
     40% {
         transform: rotate(-180deg);
     }
+
     78% {
         transform: rotate(-180deg);
         background-color: #5a328a;
@@ -165,11 +195,11 @@ const delay = (index) => {
     82% {
         background-color: #cecece;
     }
-    
+
     94% {
         background-color: #cecece;
     }
-    
+
     95% {
         transform: rotate(-360deg);
         background-color: var(--pink);
