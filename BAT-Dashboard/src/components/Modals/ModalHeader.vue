@@ -22,6 +22,9 @@ function importImage(photo) {
             .header-data 
                 span Total qty
                 span {{ data.totalqty }}
+            .header-data(v-if="data.target !== undefined")
+                span Target
+                span {{ data.target }}
             .header-data 
                 span Central storage
                 span {{ data.centralstorage }}
@@ -41,6 +44,7 @@ function importImage(photo) {
         border-radius: var(--radius-8);
         max-width: 280px;
         max-height: 80px;
+        box-shadow: var(--shadow);
     }
 
     @include respond-to (medium) {
@@ -96,7 +100,8 @@ function importImage(photo) {
     background-color: #fff;
     text-align: center;
     padding: var(--pdsm) var(--pdlg);
-    margin-left: var(--pdlg);
+    margin-left: var(--pdsm);
+    box-shadow: var(--shadow);
 
     span {
         display: block;
@@ -116,7 +121,7 @@ function importImage(photo) {
     @include respond-to (handlers) {
         margin-left: 0;
 
-        &:last-child {
+        &:not(:first-child) {
             margin-left: var(--pdlg);
         }
     }

@@ -44,21 +44,25 @@ function translateXFix(bar) {
     return 'transform: translateX(-50%)'
 }
 
+function hideEmpty(data) {
+    return data.some(({value}) => value > 0);
+}
+
 </script>
 
 <template lang="pug">
+.panel(v-if="hideEmpty(props.data)")
+    .progressbar-container
+        .progressbar-wrapper
+            .progressbar-label {{ props.label }}
+            .progressbar-outer
+                .progressbar-inner(v-for="(bar, index) in bars" :style="[`width: ${progressbarPercent(bar)}%`]" :class="progressbarClass(bar)")
+                    .progressbar-value(:class="handlerPosY(bar)" :style="[translateXFix(bar)]" v-if="bar.value > 0") {{progressbarPercent(bar)}}%
 
-.progressbar-container
-    .progressbar-wrapper
-        .progressbar-label {{ props.label }}
-        .progressbar-outer
-            .progressbar-inner(v-for="(bar, index) in bars" :style="[`width: ${progressbarPercent(bar)}%`]" :class="progressbarClass(bar)")
-                .progressbar-value(:class="handlerPosY(bar)" :style="[translateXFix(bar)]" v-if="bar.value > 0") {{progressbarPercent(bar)}}%
-
-    //- slot for legend (using in total progressbars)
-    slot(name="legend")
-    //- slot using in product cards
-    slot(name="data")
+        //- slot for legend (using in total progressbars)
+        slot(name="legend")
+        //- slot using in product cards
+        slot(name="data")
 </template>
 
 <style lang="scss" scoped>
@@ -183,7 +187,7 @@ function translateXFix(bar) {
 
         .progressbar-value {
             color: #333;
-            bottom: calc(-100% - 8px);
+            bottom: calc(-100% - 12px);
             font-weight: 400;
             background-color: #E2F0D9;
             padding: 0 4px;

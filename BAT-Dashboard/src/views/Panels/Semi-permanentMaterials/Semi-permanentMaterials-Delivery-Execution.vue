@@ -73,11 +73,10 @@ export default {
 
 
 <template lang="pug">
-//- Filters
-.panel
-    TotalProgressbar(:data="totalData")
-        template(#legend)
-            ProgressbarLegend(:inData="totalData")
+
+TotalProgressbar(:data="totalData")
+    template(#legend)
+        ProgressbarLegend(:inData="totalData")
 
 .panel
     ProductCards

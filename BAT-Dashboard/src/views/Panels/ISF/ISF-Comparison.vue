@@ -137,10 +137,9 @@ vue-easy-lightbox(
     @hide="handleHide"
 )
 
-.panel
-    TotalProgressbar(:data="totalData")
-        template(#legend)
-            ProgressbarLegend(:inData="totalData")
+TotalProgressbar(:data="totalData")
+    template(#legend)
+        ProgressbarLegend(:inData="totalData")
 
 .panel
     h2 ISF

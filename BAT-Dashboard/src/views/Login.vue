@@ -3,22 +3,22 @@ export default {
     name: "login",
     data() {
         return {
-            email: "",
+            login: "",
             password: "",
-            emailErrors: [],
+            loginErrors: [],
             passwordErrors: [],
-            emailfocused: false,
+            loginfocused: false,
             passfocused: false,
         };
     },
     computed: {
         formReady() {
-            return !this.emailErrors.length && !this.passwordErrors.length;
+            return !this.loginErrors.length && !this.passwordErrors.length;
         },
     },
     methods: {
         onsubmit() {
-            this.emailErrors = this.email ? [] : ["Email is required"];
+            this.loginErrors = this.login ? [] : ["Login is required"];
             this.passwordErrors = this.password ? [] : ["Password is required"];
             if (!this.formReady) {
                 return;
@@ -49,19 +49,19 @@ export default {
                     .auth-panel__tab-name Login
                     hr
                 form(@submit.prevent="onsubmit")
-                    .error(v-if="!!emailErrors.length") {{ emailErrors[0] }}
+                    .error(v-if="!!loginErrors.length") {{ loginErrors[0] }}
                     .error(v-if="!!passwordErrors.length") {{ passwordErrors[0] }}
                     label.auth-input
                         transition(name="authInputLabel", appear)
                             span.auth-input__label(
-                                v-bind:class="{ focused: emailfocused || email !== '' }"
-                            ) email
+                                v-bind:class="{ focused: loginfocused || login !== '' }"
+                            ) login
                         transition(name="input", appear)
                             input(
-                                v-model="email",
-                                type="email",
-                                @focus="emailfocused = true",
-                                @blur="emailfocused = false"
+                                v-model="login",
+                                type="login",
+                                @focus="loginfocused = true",
+                                @blur="loginfocused = false"
                             )
                     label.auth-input
                         transition(name="authInputLabel", appear style="animation-delay: .5s")

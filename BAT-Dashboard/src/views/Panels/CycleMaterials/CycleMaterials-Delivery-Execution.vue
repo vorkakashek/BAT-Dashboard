@@ -37,29 +37,55 @@ export default {
             otherTotal: [
                 {
                     name: "Executed",
-                    value: 139,
+                    value: 0,
                 },
                 {
                     name: "Delivered to TMR",
-                    value: 4124,
+                    value: 0,
                 },
                 {
                     name: "Transit to TMR",
-                    value: 300,
+                    value: 0,
                 },
                 {
                     name: "Delivered to City",
-                    value: 9000,
+                    value: 0,
                 },
                 {
                     name: "Not Delivered",
-                    value: 1100,
+                    value: 0,
                 },
                 {
                     name: "Target",
-                    value: 7000,
+                    value: 0,
                 },
             ],
+            // otherTotal: [
+            //     {
+            //         name: "Executed",
+            //         value: 139,
+            //     },
+            //     {
+            //         name: "Delivered to TMR",
+            //         value: 4124,
+            //     },
+            //     {
+            //         name: "Transit to TMR",
+            //         value: 300,
+            //     },
+            //     {
+            //         name: "Delivered to City",
+            //         value: 9000,
+            //     },
+            //     {
+            //         name: "Not Delivered",
+            //         value: 1100,
+            //     },
+            //     {
+            //         name: "Target",
+            //         value: 7000,
+            //     },
+            // ],
 
             mustSetProducts: [
                 {
@@ -253,14 +279,13 @@ vue-easy-lightbox(
 )
 
 
-.panel
-    TotalProgressbar(:data="mustSetTotalData", label="Must set total")
-        template(#legend)
-            ProgressbarLegend(:inData="mustSetTotalData")
-.panel
-    TotalProgressbar(:data="otherTotal", label="Other total")
-        template(#legend)
-            ProgressbarLegend(:inData="otherTotal")
+
+TotalProgressbar(:data="mustSetTotalData", label="Must set total")
+    template(#legend)
+        ProgressbarLegend(:inData="mustSetTotalData")
+TotalProgressbar(:data="otherTotal", label="Other total")
+    template(#legend)
+        ProgressbarLegend(:inData="otherTotal")
 
 .panel
     CycleMaterialsList(:labels="['Must set', 'Image', 'Execution status']")

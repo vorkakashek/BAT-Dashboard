@@ -182,10 +182,10 @@ export default {
 
 
 <template lang="pug">
-.panel
-    TotalProgressbar(:data="totalData")
-        template(#legend)
-            ProgressbarLegend(:inData="totalData")
+
+TotalProgressbar(:data="totalData")
+    template(#legend)
+        ProgressbarLegend(:inData="totalData")
 
 .panel
     ISFFilter

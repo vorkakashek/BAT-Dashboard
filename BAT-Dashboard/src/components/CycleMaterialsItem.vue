@@ -11,56 +11,13 @@ export default {
             cycleMaterialsData: {
                 info: {
                     name: 'GC_A_TN_Big_Mini_Sas # Lucky Strike (221100591, 221200665, 221200666, 221200668, 221200669, 221200670, 221200671, 221200672)',
-                    image: '3',
-                    totalqty: '15800',
+                    image: 3,
+                    targetPercent: 89.3,
+                    target: 13400,
+                    totalqty: 15800,
                     centralstorage: '02/05/2022',
                 },
                 weeks: [
-                    // {
-                    //     week: 'Week 0',
-                    //     number: '-4',
-                    //     dateStart: '09/05',
-                    //     dateEnd: '15/05',
-                    //     graph: {
-                    //         notDeliveredToCS: 29.711231,
-                    //         deliveredToCS: 80.31123213,
-                    //         transitToCity: 0,
-                    //         deliveredToCity: 0,
-                    //         transitToTMR: 0,
-                    //         deliveredToTMR: 0,
-                    //         executed: 0,
-                    //     }
-                    // },
-                    // {
-                    //     week: 'Week 20',
-                    //     number: '-3',
-                    //     dateStart: '16/05',
-                    //     dateEnd: '22/05',
-                    //     graph: {
-                    //         notDeliveredToCS: 0,
-                    //         deliveredToCS: 60,
-                    //         transitToCity: 20,
-                    //         deliveredToCity: 20,
-                    //         transitToTMR: 0,
-                    //         deliveredToTMR: 0,
-                    //         executed: 0,
-                    //     }
-                    // },
-                    // {
-                    //     week: 'Week 21',
-                    //     number: '-2',
-                    //     dateStart: '23/05',
-                    //     dateEnd: '29/05',
-                    //     graph: {
-                    //         notDeliveredToCS: 0,
-                    //         deliveredToCS: 30,
-                    //         transitToCity: 30,
-                    //         deliveredToCity: 40,
-                    //         transitToTMR: 0,
-                    //         deliveredToTMR: 0,
-                    //         executed: 0,
-                    //     }
-                    // },
                     {
                         week: 'Week 22.1',
                         number: '-4',

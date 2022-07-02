@@ -88,11 +88,11 @@ export default {
 </script>
 
 <template lang="pug">
-.panel
-    TotalProgressbar(:inData="totalData")
-        template(#legend)
-            ProgressbarLegend(:inData="totalData")
 
+TotalProgressbar(:inData="totalData")
+    template(#legend)
+        ProgressbarLegend(:inData="totalData")
+        
 .panel
     h2 Total
     .comparison-items
