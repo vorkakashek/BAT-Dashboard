@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 
 const props = defineProps({
-    fullSize: {
+    fullsize: {
         type: Boolean,
         required: false,
         default: true,
@@ -10,14 +10,14 @@ const props = defineProps({
     text: {
         type: String,
         required: false,
-        default: 'Loading',
+        default: 'Loading...',
     }
 })
 
 const delay = (index) => {
     let val = 0
     if (index > 0) {
-        val = index * .2
+        val = index * .05
     } return `animation-delay: ${val}s`
 }
 
@@ -30,34 +30,70 @@ const letters = computed(() => {
 
 <template lang="pug">
     
-#preloader(:class="{ 'full-size': fullSize }")
+#preloader(:class="{ 'full-size': fullsize }")
     .preloader-frame
         .preloader-outer
-            .preloader-inner(v-for="(n, index) in 4")
+            .preloader-inner(v-for="n in 4")
         .preloader-text 
-            .preloader-text-letter(v-for="letter in letters") {{ letter }}
+            .preloader-text-letter(v-for="(letter, index) in letters" :style="[delay(index)]") {{ letter }}
 
 </template>
 
 
 <style lang="scss" scoped>
+@keyframes jump {
+    0% {
+        transform: translateY(0);
+    }
+
+    4% {
+        transform: translateY(-40%);
+    }
+
+    8% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+
+    25% {
+        opacity: .5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: .5;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
 #preloader {
-    position: absolute;
     z-index: 9999;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.331);
     display: flex;
     align-items: center;
     justify-content: center;
-
     user-select: none;
     cursor: default;
 
     &.full-size {
         position: fixed;
+        background: rgba(0, 0, 0, 0.331);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    &:not(.full-size) {
+        .preloader-frame {
+            
+        }
+        
     }
 }
 
@@ -65,6 +101,7 @@ const letters = computed(() => {
     background-color: #fff;
     padding: 10px 30px;
     border-radius: var(--radius-8);
+    box-shadow: var(--shadow);
 }
 
 .preloader-outer {
@@ -82,6 +119,9 @@ const letters = computed(() => {
 }
 
 .preloader-text-letter {
+    animation: jump 5s cubic-bezier(0.83, 0.51, 0.27, 1.55) infinite 2s;
+    animation: jump 5s cubic-bezier(0.32, -1.5, 0.88, 1) infinite 2s;
+
     &:not(:last-child) {
         margin-right: 1px;
     }
@@ -115,12 +155,14 @@ const letters = computed(() => {
         transform-origin: center right;
         animation: spin3 3s linear infinite;
         animation-delay: .3s;
+        background-color: #50AF47;
     }
 
     &:nth-child(4) {
         transform-origin: center right;
         animation: spin4 3s linear infinite;
         animation-delay: .4s;
+        background-color: #FFBB00;
     }
 }
 
@@ -221,10 +263,20 @@ const letters = computed(() => {
 
     27% {
         transform: rotate(0deg);
+        background-color: #50AF47;
+    }
+
+    29% {
+        background-color: #cecece;
+    }
+
+    38% {
+        background-color: #cecece;
     }
 
     40% {
         transform: rotate(180deg);
+        background-color: #afca0b;
     }
 
     45% {
@@ -237,10 +289,20 @@ const letters = computed(() => {
 
     62% {
         transform: rotate(180deg);
+        background-color: #afca0b;
+    }
+
+    64% {
+        background-color: #cecece;
+    }
+
+    73% {
+        background-color: #cecece;
     }
 
     75% {
         transform: rotate(360deg);
+        background-color: #50AF47;
     }
 
     80% {
@@ -263,14 +325,21 @@ const letters = computed(() => {
 
     38% {
         transform: rotate(0deg);
+        background-color: #FFBB00;
+    }
+
+    40% {
+        background-color: #cecece;
     }
 
     60% {
         transform: rotate(-360deg);
+        background-color: #cecece;
     }
 
     65% {
         transform: rotate(-370deg);
+        background-color: #FFBB00;
     }
 
     75% {

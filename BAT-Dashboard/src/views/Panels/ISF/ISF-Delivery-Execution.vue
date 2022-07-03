@@ -187,11 +187,12 @@ TotalProgressbar(:data="totalData")
     template(#legend)
         ProgressbarLegend(:inData="totalData")
 
-.panel
-    ISFFilter
-    ProductCards
-        template(#items)
-            ProductCard(v-for="product in filteredOptions", :product="product")
+Loading(:fullsize="false")
+//- .panel
+//-     ISFFilter
+//-     ProductCards
+//-         template(#items)
+//-             ProductCard(v-for="product in filteredOptions", :product="product")
 </template>
 
 <style lang="scss" scoped>
