@@ -41,6 +41,7 @@ function handleSelector(value) {
         itemValue.value = itemValue.value.filter((value) => value !== 0);
     }
 }
+
 </script>
 
 
@@ -57,6 +58,7 @@ Teleport(to="#multiselector")
         )
 
 RouterView
+
 
 </template>
 

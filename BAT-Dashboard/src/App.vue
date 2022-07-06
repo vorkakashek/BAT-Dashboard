@@ -161,5 +161,32 @@ hr {
     cursor: pointer;
 }
 
+.image-zoom {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(55, 55, 55, 0.33);
+    border-radius: var(--radius-8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s ease;
+    .icon {
+        fill: #fff !important;
+        cursor: zoom-in;
+        transition: all .1s var(--tr-2);
+    }
+    &:hover {
+        background-color: rgba(55, 55, 55, 0.5);
+        .icon {
+            transform: scale(1.25);
+            // width: 34px;
+        }
+    }
+}
+
 
 </style>

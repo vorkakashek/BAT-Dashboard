@@ -1,39 +1,30 @@
-<script>
-export default {
-    name: "login",
-    data() {
-        return {
-            login: "",
-            password: "",
-            loginErrors: [],
-            passwordErrors: [],
-            loginfocused: false,
-            passfocused: false,
-        };
-    },
-    computed: {
-        formReady() {
-            return !this.loginErrors.length && !this.passwordErrors.length;
-        },
-    },
-    methods: {
-        onsubmit() {
-            this.loginErrors = this.login ? [] : ["Login is required"];
-            this.passwordErrors = this.password ? [] : ["Password is required"];
-            if (!this.formReady) {
-                return;
-            }
-            this.$router.push({ name: "Dashboard" });
-        },
+<script setup>
+import { computed, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 
-        startAnimation() {
-            // document.querySelector()
-        },
-    },
-    mounted() {
-        this.startAnimation();
-    },
-};
+
+const state = reactive({
+    login: "",
+    password: "",
+    loginErrors: [],
+    passwordErrors: [],
+    loginfocused: false,
+    passfocused: false,
+})
+
+const router = useRouter()
+
+const formReady = computed(() => !state.loginErrors.length && !state.passwordErrors.length)
+
+function onsubmit() {
+    state.loginErrors = state.login ? [] : ["Login is required"]
+    state.passwordErrors = state.password ? [] : ["Password is required"]
+    if (!formReady.value) {
+        return
+    }
+    router.push('Dashboard')
+}
+
 </script>
 
 
@@ -49,37 +40,36 @@ export default {
                     .auth-panel__tab-name Login
                     hr
                 form(@submit.prevent="onsubmit")
-                    .error(v-if="!!loginErrors.length") {{ loginErrors[0] }}
-                    .error(v-if="!!passwordErrors.length") {{ passwordErrors[0] }}
+                    .error(v-if="!!state.loginErrors.length") {{ state.loginErrors[0] }}
+                    .error(v-if="!!state.passwordErrors.length") {{ state.passwordErrors[0] }}
                     label.auth-input
                         transition(name="authInputLabel", appear)
                             span.auth-input__label(
-                                v-bind:class="{ focused: loginfocused || login !== '' }"
+                                v-bind:class="{ focused: state.loginfocused || state.login !== '' }"
                             ) login
                         transition(name="input", appear)
                             input(
-                                v-model="login",
+                                v-model="state.login",
                                 type="login",
-                                @focus="loginfocused = true",
-                                @blur="loginfocused = false"
+                                @focus="state.loginfocused = true",
+                                @blur="state.loginfocused = false"
                             )
                     label.auth-input
                         transition(name="authInputLabel", appear style="animation-delay: .5s")
                             span.auth-input__label(
-                                v-bind:class="{ focused: passfocused || password !== '' }"
+                                v-bind:class="{ focused: state.passfocused || state.password !== '' }"
                             ) password
                         transition(name="input", appear style="animation-delay: .4s")
                             input(
-                                v-model="password",
+                                v-model="state.password",
                                 type="password",
-                                @focus="passfocused = true",
-                                @blur="passfocused = false"
+                                @focus="state.passfocused = true",
+                                @blur="state.passfocused = false"
                             )
                     Btn(text="Login", @click="onsubmit", centered) 
 </template>
 
 <style lang="scss" scoped>
-
 .auth-panel__wrap {
     width: 100vw;
     height: 100vh;
@@ -107,6 +97,7 @@ export default {
     overflow: hidden;
     color: #fff;
     position: relative;
+
     &:after {
         content: "";
         position: absolute;
@@ -141,6 +132,7 @@ input {
     outline: none;
     transition: all 0.3s ease;
     border-radius: var(--radius-4);
+
     &:focus {
         background-color: var(--grey-medium);
     }
@@ -163,6 +155,7 @@ input {
     letter-spacing: 0.05rem;
     transition: top 0.35s var(--tr-1);
     color: var(--blue-dark);
+
     &.focused {
         top: -50%;
     }
@@ -233,5 +226,4 @@ input {
         width: 100%;
     }
 }
-
 </style>

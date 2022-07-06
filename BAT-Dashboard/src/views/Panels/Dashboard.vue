@@ -1,32 +1,30 @@
-<script>
-export default {
-    data() {
-        return {
-            tiles: [
-                {
-                    link: 'ISF',
-                    name: 'ISF',
-                    class: 'blue-medium',
-                },
-                {
-                    link: 'Semi-permanentMaterials',
-                    name: 'Semi-permanent materials',
-                    class: 'pink',
-                },
-                {
-                    link: 'CycleMaterials',
-                    name: 'Cycle Materials',
-                    class: 'orange',
-                },
-                {
-                    link: 'Projects',
-                    name: 'Projects',
-                    class: 'green',
-                },
-            ]
-        }
-    }
-}
+<script setup>
+
+import { ref } from 'vue'
+
+const tiles = ref([
+    {
+        link: 'ISF',
+        name: 'ISF',
+        class: 'blue-medium',
+    },
+    {
+        link: 'Semi-permanentMaterials',
+        name: 'Semi-permanent materials',
+        class: 'pink',
+    },
+    {
+        link: 'CycleMaterials',
+        name: 'Cycle Materials',
+        class: 'orange',
+    },
+    {
+        link: 'Projects',
+        name: 'Projects',
+        class: 'green',
+    },
+])
+
 </script>
 
 <template lang="pug">
@@ -44,6 +42,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     margin: -8px;
+
     @include respond-to (large) {
         margin: -4px;
     }
@@ -69,7 +68,7 @@ export default {
     text-decoration: none;
     transition: all 0.3s ease;
     padding: 16px;
-    padding-left: 100px;    
+    padding-left: 100px;
 
     &:hover {
         box-shadow: var(--shadow-large);
@@ -80,45 +79,56 @@ export default {
             fill: var(--blue-medium);
             fill: #fff;
         }
+
         .dashboard-tile__name {
             color: var(--blue-medium);
         }
+
         .dashboard-tile__icon {
             background-color: var(--blue-medium);
         }
     }
+
     &.orange {
         .icon {
             fill: var(--orange);
             fill: #fff;
         }
+
         .dashboard-tile__name {
             color: var(--orange);
         }
+
         .dashboard-tile__icon {
             background-color: var(--orange);
         }
     }
+
     &.pink {
         .icon {
             fill: var(--pink);
             fill: #fff;
         }
+
         .dashboard-tile__name {
             color: var(--pink);
         }
+
         .dashboard-tile__icon {
             background-color: var(--pink);
         }
     }
+
     &.green {
         .icon {
             fill: var(--green);
             fill: #fff;
         }
+
         .dashboard-tile__name {
             color: var(--green);
         }
+
         .dashboard-tile__icon {
             background-color: var(--green);
         }
@@ -154,12 +164,13 @@ export default {
     // text-align: center;
     max-width: 18rem;
     text-align: left;
+
     @include respond-to(large) {
         margin-left: unset;
         margin-top: 16px;
         text-align: center;
     }
-    
+
 }
 
 .dashboard-tile__icon {
@@ -170,6 +181,7 @@ export default {
     height: calc(var(--index) * 2.5 + 10px);
     width: calc(var(--index) * 2.5 + 10px);
     flex-shrink: 0;
+
     .icon {
         height: calc(var(--index) * 1 + 10px);
         width: calc(var(--index) * 1 + 10px);

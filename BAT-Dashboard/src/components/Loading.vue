@@ -91,7 +91,10 @@ const letters = computed(() => {
     }
     &:not(.full-size) {
         .preloader-frame {
-            
+            width: 100%;
+        }
+        .preloader-outer {
+            justify-content: center;
         }
         
     }

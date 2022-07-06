@@ -1,139 +1,115 @@
 <script setup>
-import { computed } from "vue";
-</script>
+import { computed, ref, reactive } from "vue";
 
-<script>
-export default {
-    data() {
-        return {
-            ISFFilter: "ALL",
-            filteredOptions: null,
-            visible: false,
-            index: 0,
-            imgs: "",
-            totalData: [
-                {
-                    name: "Executed",
-                    value: 1235,
-                },
-                {
-                    name: "Delivered",
-                    value: 3200,
-                },
-                {
-                    name: "Not Delivered",
-                    value: 800,
-                },
-                {
-                    name: "Target",
-                    value: 4000,
-                },
-            ],
-            comparisonData: [
-                {
-                    label: "MBU",
-                    type: "OHD",
-                    stats: [
-                        {
-                            name: "Executed",
-                            value: "301",
-                        },
-                        {
-                            name: "Delivered to TMR",
-                            value: "1204",
-                        },
-                        {
-                            name: "Not Delivered",
-                            value: "500",
-                        },
-                        {
-                            name: "Target",
-                            value: "4000",
-                        },
-                    ]
-                },
-                {
-                    label: "NW",
-                    type: "BWD",
-                    stats: [
-                        {
-                            name: "Executed",
-                            value: "301",
-                        },
-                        {
-                            name: "Delivered to TMR",
-                            value: "1204",
-                        },
-                        {
-                            name: "Not Delivered",
-                            value: "500",
-                        },
-                        {
-                            name: "Target",
-                            value: "4000",
-                        },
-                    ]
-                },
-            ],
-        };
+const state = reactive({
+    visible: false,
+    index: 0,
+    imgs: "",
+})
+
+const ISFFilterOptions = ref(['ALL', 'BWD', 'OHD']);
+const ISFFilterValue = ref('ALL');
+
+const totalData = ref([
+    {
+        name: "Executed",
+        value: 1235,
     },
-    provide() {
-        return {
-            ISFFilter: computed(() => this.ISFFilter),
-            updateISFFilter: this.updateISFFilter,
-        };
+    {
+        name: "Delivered",
+        value: 3200,
     },
-    computed: {
-        importPhoto() {
-            return new URL(
-                `./../../../assets/images/ISF/PRO.jpg`,
-                import.meta.url
-            ).href;
-        },
+    {
+        name: "Not Delivered",
+        value: 800,
     },
-    methods: {
-        showSingle() {
-            this.imgs = this.importPhoto;
-            this.show();
-        },
-        show() {
-            this.visible = true;
-        },
-        handleHide() {
-            this.visible = false;
-        },
-        updateISFFilter(value) {
-            this.ISFFilter = value;
-        },
-        handleFilter() {
-            if (this.ISFFilter !== "ALL") {
-                this.filteredOptions = null;
-                this.filteredOptions = this.comparisonData.filter(
-                    (item) => item.type == this.ISFFilter
-                );
-            } else {
-                this.filteredOptions = null;
-                this.filteredOptions = this.comparisonData;
-            }
-        },
+    {
+        name: "Target",
+        value: 4000,
     },
-    watch: {
-        ISFFilter: function () {
-            this.handleFilter();
-        },
+])
+
+const itemList = ref([
+    {
+        label: "MBU",
+        type: "OHD",
+        stats: [
+            {
+                name: "Executed",
+                value: "301",
+            },
+            {
+                name: "Delivered to TMR",
+                value: "1204",
+            },
+            {
+                name: "Not Delivered",
+                value: "500",
+            },
+            {
+                name: "Target",
+                value: "4000",
+            },
+        ]
     },
-    mounted() {
-        this.handleFilter();
+    {
+        label: "NW",
+        type: "BWD",
+        stats: [
+            {
+                name: "Executed",
+                value: "301",
+            },
+            {
+                name: "Delivered to TMR",
+                value: "1204",
+            },
+            {
+                name: "Not Delivered",
+                value: "500",
+            },
+            {
+                name: "Target",
+                value: "4000",
+            },
+        ]
     },
-};
+])
+
+const filteredList = computed(() => itemList.value.filter(({ type }) => {
+    if (ISFFilterValue.value === 'ALL') {
+        return true
+    }
+    return type === ISFFilterValue.value
+}))
+
+const importPhoto = computed(() => {
+    return new URL(
+        `./../../../assets/images/ISF/PRO.jpg`,
+        import.meta.url
+    ).href;
+})
+
+function showSingle() {
+    state.imgs = importPhoto.value
+    state.visible = true
+}
+
+function show() {
+    state.visible = true
+}
+
+function handleHide() {
+    state.visible = false
+}
 </script>
 
 
 <template lang="pug">
 vue-easy-lightbox(
-    :visible="visible",
-    :imgs="imgs",
-    :index="index",
+    :visible="state.visible",
+    :imgs="state.imgs",
+    :index="state.index",
     @hide="handleHide"
 )
 
@@ -148,12 +124,9 @@ TotalProgressbar(:data="totalData")
             img.zoom(:src="importPhoto", @click="() => showSingle()")
 
         .comparison-content
-            ISFFilter
+            ISFFilter(:options="ISFFilterOptions" v-model="ISFFilterValue")
             .comparison-items
-                ComparisonItem(
-                    v-for="item in filteredOptions",
-                    :comparisonData="item"
-                )
+                ComparisonItem(v-for="item in filteredList", :comparisonData="item")
 </template>
 
 <style lang="scss" scoped>

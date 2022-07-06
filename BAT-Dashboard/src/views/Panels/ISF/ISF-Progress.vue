@@ -1,111 +1,82 @@
 <script setup>
-import { computed } from "vue";
-</script>
+import { computed, ref } from "vue";
 
-<script>
-export default {
-    data() {
-        return {
-            ISFFilter: "ALL",
-            filteredOptions: null,
-            totalData: [
-                {
-                    name: "Executed",
-                    value: 1235,
-                },
-                {
-                    name: "Delivered",
-                    value: 3200,
-                },
-                {
-                    name: "Not Delivered",
-                    value: 800,
-                },
-                {
-                    name: "Target",
-                    value: 4000,
-                },
-            ],
-            comparisonData: [
-                {
-                    label: "MBU",
-                    type: "OHD",
-                    stats: [
-                        {
-                            name: "Executed",
-                            value: "301",
-                        },
-                        {
-                            name: "Delivered to TMR",
-                            value: "1204",
-                        },
-                        {
-                            name: "Not Delivered",
-                            value: "500",
-                        },
-                        {
-                            name: "Target",
-                            value: "4000",
-                        },
-                    ]
-                },
-                {
-                    label: "NW",
-                    type: "BWD",
-                    stats: [
-                        {
-                            name: "Executed",
-                            value: "301",
-                        },
-                        {
-                            name: "Delivered to TMR",
-                            value: "1204",
-                        },
-                        {
-                            name: "Not Delivered",
-                            value: "500",
-                        },
-                        {
-                            name: "Target",
-                            value: "4000",
-                        },
-                    ]
-                },
+const ISFFilterOptions = ref(['ALL', 'BWD', 'OHD']);
+const ISFFilterValue = ref('ALL');
 
-            ],
-        };
+const totalData = ref([
+    {
+        name: "Executed",
+        value: 1235,
     },
-    provide() {
-        return {
-            ISFFilter: computed(() => this.ISFFilter),
-            updateISFFilter: this.updateISFFilter,
-        };
+    {
+        name: "Delivered",
+        value: 3200,
     },
-    methods: {
-        updateISFFilter(value) {
-            this.ISFFilter = value;
-        },
-        handleFilter() {
-            if (this.ISFFilter !== "ALL") {
-                this.filteredOptions = null;
-                this.filteredOptions = this.comparisonData.filter(
-                    (item) => item.type == this.ISFFilter
-                );
-            } else {
-                this.filteredOptions = null;
-                this.filteredOptions = this.comparisonData;
-            }
-        },
+    {
+        name: "Not Delivered",
+        value: 800,
     },
-    watch: {
-        ISFFilter: function () {
-            this.handleFilter();
-        },
+    {
+        name: "Target",
+        value: 4000,
     },
-    mounted() {
-        this.handleFilter();
+])
+
+const itemList = ref([
+    {
+        label: "MBU",
+        type: "OHD",
+        stats: [
+            {
+                name: "Executed",
+                value: "301",
+            },
+            {
+                name: "Delivered to TMR",
+                value: "1204",
+            },
+            {
+                name: "Not Delivered",
+                value: "500",
+            },
+            {
+                name: "Target",
+                value: "4000",
+            },
+        ]
     },
-};
+    {
+        label: "NW",
+        type: "BWD",
+        stats: [
+            {
+                name: "Executed",
+                value: "301",
+            },
+            {
+                name: "Delivered to TMR",
+                value: "1204",
+            },
+            {
+                name: "Not Delivered",
+                value: "500",
+            },
+            {
+                name: "Target",
+                value: "4000",
+            },
+        ]
+    },
+])
+
+const filteredList = computed(() => itemList.value.filter(({ type }) => {
+    if (ISFFilterValue.value === 'ALL') {
+        return true
+    }
+    return type === ISFFilterValue.value
+}))
+
 </script>
 
 <template lang="pug">
@@ -116,11 +87,8 @@ TotalProgressbar(:data="totalData")
 
 .panel
     h2 Total
-    ISFFilter
+    ISFFilter(:options="ISFFilterOptions" v-model="ISFFilterValue")
     .comparison-items
-        ComparisonItem(v-for="item in filteredOptions" :comparisonData="item" :vertical="true")
+        ComparisonItem(v-for="item in filteredList" :comparisonData="item" :vertical="true")
+
 </template>
-
-
-<style lang="scss" scoped>
-</style>

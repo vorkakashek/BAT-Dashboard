@@ -1,104 +1,107 @@
-<script>
-export default {
-    data() {
-        return {
-            totalData: [
-                {
-                    name: "Executed",
-                    value: 1235,
-                },
-                {
-                    name: "Delivered",
-                    value: 3200,
-                },
-                {
-                    name: "Not Delivered",
-                    value: 800,
-                },
-                {
-                    name: "Target",
-                    value: 4000,
-                },
-            ],
-            comparisonData: [
-                {
-                    label: "MBU",
-                    type: "OHD",
-                    stats: [
-                        {
-                            name: "Executed",
-                            value: "301",
-                        },
-                        {
-                            name: "Delivered to TMR",
-                            value: "1204",
-                        },
-                        {
-                            name: "Not Delivered",
-                            value: "500",
-                        },
-                        {
-                            name: "Target",
-                            value: "4000",
-                        },
-                    ]
-                },
-                {
-                    label: "NW",
-                    type: "BWD",
-                    stats: [
-                        {
-                            name: "Executed",
-                            value: "301",
-                        },
-                        {
-                            name: "Delivered to TMR",
-                            value: "1204",
-                        },
-                        {
-                            name: "Not Delivered",
-                            value: "500",
-                        },
-                        {
-                            name: "Target",
-                            value: "4000",
-                        },
-                    ]
-                },
-            ],
-            visible: false,
-            index: 0,
-            imgs: "",
-        };
-    },
-    computed: {
-        importPhoto() {
-            return new URL(`./../../../assets/images/Touchpoints/1.jpg`, import.meta.url)
-                .href;
-        },
-    },
+<script setup>
+import { computed, watch, ref, reactive } from "vue";
 
-    methods: {
-        showSingle() {
-            this.imgs = this.importPhoto;
-            this.show();
-        },
-        show() {
-            this.visible = true;
-        },
-        handleHide() {
-            this.visible = false;
-        },
-    }
-};
+const state = reactive({
+    visible: false,
+    index: 0,
+    imgs: "",
+})
+
+const totalData = ref([
+    {
+        name: "Executed",
+        value: 1235,
+    },
+    {
+        name: "Delivered",
+        value: 3200,
+    },
+    {
+        name: "Not Delivered",
+        value: 800,
+    },
+    {
+        name: "Target",
+        value: 4000,
+    },
+])
+
+const itemList = ref([
+    {
+        label: "MBU",
+        type: "OHD",
+        stats: [
+            {
+                name: "Executed",
+                value: "301",
+            },
+            {
+                name: "Delivered to TMR",
+                value: "1204",
+            },
+            {
+                name: "Not Delivered",
+                value: "500",
+            },
+            {
+                name: "Target",
+                value: "4000",
+            },
+        ]
+    },
+    {
+        label: "NW",
+        type: "BWD",
+        stats: [
+            {
+                name: "Executed",
+                value: "301",
+            },
+            {
+                name: "Delivered to TMR",
+                value: "1204",
+            },
+            {
+                name: "Not Delivered",
+                value: "500",
+            },
+            {
+                name: "Target",
+                value: "4000",
+            },
+        ]
+    },
+])
+
+
+const importPhoto = computed(() => {
+    return new URL(
+        `./../../../assets/images/Cycle Materials/2.jpg`,
+        import.meta.url
+    ).href;
+})
+
+function showSingle() {
+    state.imgs = importPhoto.value
+    state.visible = true
+}
+
+function show() {
+    state.visible = true
+}
+
+function handleHide() {
+    state.visible = false
+}
+
 </script>
 
 
 <template lang="pug">
 vue-easy-lightbox(
-    :visible="visible",
-    :imgs="imgs",
-    :index="index",
+    :visible="state.visible",
+    :imgs="state.imgs",
+    :index="state.index",
     @hide="handleHide"
 )
 
@@ -113,7 +116,7 @@ TotalProgressbar(:data="totalData")
         .comparison-aside
             img.zoom(:src="importPhoto" @click="() => showSingle()")
         .comparison-items
-            ComparisonItem(v-for="item in comparisonData" :comparisonData="item")
+            ComparisonItem(v-for="item in itemList" :comparisonData="item")
 </template>
 
 <style lang="scss" scoped>
