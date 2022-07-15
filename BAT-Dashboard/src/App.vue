@@ -166,8 +166,8 @@ hr {
     top: 0;
     right: 0;
     z-index: 10;
-    width: 35px;
-    height: 35px;
+    width: 34px;
+    height: 34px;
     background-color: rgba(55, 55, 55, 0.33);
     border-radius: var(--radius-8);
     display: flex;
@@ -183,7 +183,6 @@ hr {
         background-color: rgba(55, 55, 55, 0.5);
         .icon {
             transform: scale(1.25);
-            // width: 34px;
         }
     }
 }

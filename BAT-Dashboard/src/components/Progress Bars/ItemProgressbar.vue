@@ -10,11 +10,21 @@ const props = defineProps({
 });
 
 const bars = computed(() => {
-    return props.data.filter((item) => item.name !== 'Target' && item.name !== 'Not Delivered');
+    return props.data.filter(({ name }) =>
+        name !== 'Target' &&
+        name !== 'Not Delivered' &&
+        name !== 'Potential' &&
+        name !== 'Stock'
+    );
 });
 
 const target = computed(() => {
-    return props.data.find((item) => item.name === 'Target').value;
+    if (props.data.find(({ name }) => name === 'Target') !== undefined) {
+        return props.data.find(({ name }) => name === 'Target').value;
+    }
+    if (props.data.find(({ name }) => name === 'Potential') !== undefined) {
+        return props.data.find(({ name }) => name === 'Potential').value;
+    }
 });
 
 function progressbarPercent(bar) {
@@ -201,7 +211,7 @@ function translateXFix(bar) {
     display: flex;
     align-items: center;
     width: 100%;
-    margin: var(--pdlg) 0 var(--pdxxl) 0;
+    // margin: var(--pdlg) 0 var(--pdxxl) 0;
 
     @include respond-to(handlers) {
         flex-wrap: wrap;

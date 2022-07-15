@@ -1,26 +1,37 @@
-<script>
-export default {
-    props: {
-        inData: {
-            type: Array,
-            required: true,
-        },
+<script setup>
+
+import { computed } from 'vue'
+
+const props = defineProps({
+    inData: {
+        type: Array,
+        required: true
     },
-    data() {
-        return {};
-    },
-    methods: {
-        deleteSpaces(item) {
-            return item.name.replace(/\s+/g, '');
-        }
-    }
-};
+})
+
+// if data has 'Potential', create new Array of data
+const newData = computed(() => {
+    return props.inData
+})
+
+// Summary func
+// const handlerSumm = (arr) => {
+//     let sum = 0
+//     arr.forEach(el => {
+//         sum += el.value
+//     })
+//     return sum
+// }
+
+// Create new Object for data
+// const newObj = (name, value) => { return { name, value }}
+
+const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
+
 </script>
 
 
 <template lang="pug">
-//- Object.keys(inData)[index]
-
 .progressbar-legend
     .progressbar-legend__item(
         v-for="item in inData",
@@ -67,14 +78,13 @@ export default {
 }
 
 .progressbar-legend__item {
-    // text-align: center;
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    // padding: var(--pdsm) var(--pdlg);
     margin-bottom: var(--pdsm);
+    order: 99;
 
-    &:not(.Target) {
+    &:not(.Target, .Potential) {
         margin-right: var(--pdlg);
 
         &:before {
@@ -91,12 +101,16 @@ export default {
     }
 
     &.Delivered {
+        order: 5;
+
         &:before {
             background-color: var(--green-light);
         }
     }
 
     &.DeliveredtoCity {
+        order: 4;
+
         &:before {
 
             background-color: var(--yellow);
@@ -104,44 +118,47 @@ export default {
     }
 
     &.DeliveredtoTMR {
+        order: 2;
+
         &:before {
             background-color: var(--green-light);
         }
     }
+
     &.TransittoTMR {
+        order: 3;
+
         &:before {
             background-color: #E2F0D9;
         }
     }
 
-    &.NotDelivered {
+    &.NotDelivered,
+    &.Stock {
+        order: 6;
+
         &:before {
             background-color: #e5e5e5;
         }
     }
 
     &.Executed {
+        order: 1;
+
         &:before {
             background-color: var(--green);
         }
     }
 
-    &.Target {
+    &.Target,
+    &.Potential {
+        order: 10;
         margin-left: var(--pdxl);
         background-color: var(--color-target);
         padding: var(--pdsm) var(--pdlg);
         border-radius: var(--radius-8);
-        
-        // .progressbar-legend__item-value {
-        //     &:after {
-        //         content: "]";
-        //     }
-        //     &:before {
-        //         content: "[";
-        //     }
-        // }
+
         .progressbar-legend__item-name {
-            // font-weight: 700;
             margin-bottom: var(--pd);
         }
     }

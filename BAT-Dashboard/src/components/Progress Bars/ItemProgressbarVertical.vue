@@ -1,6 +1,6 @@
 <script setup>
 
-import { computed, ref, onMounted, onBeforeUpdate } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps({
     data: {
@@ -10,11 +10,21 @@ const props = defineProps({
 });
 
 const bars = computed(() => {
-    return props.data.filter((item) => item.name !== 'Target' && item.name !== 'Not Delivered');
+    return props.data.filter(({ name }) =>
+        name !== 'Target' &&
+        name !== 'Not Delivered' &&
+        name !== 'Potential' &&
+        name !== 'Stock'
+    );
 });
 
 const target = computed(() => {
-    return props.data.find((item) => item.name === 'Target').value;
+    if (props.data.find(({ name }) => name === 'Target') !== undefined) {
+        return props.data.find(({ name }) => name === 'Target').value;
+    }
+    if (props.data.find(({ name }) => name === 'Potential') !== undefined) {
+        return props.data.find(({ name }) => name === 'Potential').value;
+    }
 });
 
 function progressbarPercent(bar) {
@@ -32,12 +42,11 @@ function handlerPosition(bar) {
     return 'left';
 }
 
-
 function translateYFix(bar) {
     if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) < 3) {
         return 'transform: translateY(0)';
     }
-    if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) > 97) {
+    else if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) > 97) {
         return 'transform: translateY(-100%)';
     }
     return 'transform: translateY(-50%)';

@@ -18,6 +18,7 @@ function handlerClass(name) {
     .stat(v-for="item in data" :class="handlerClass(item.name)")
         span.stat-name {{ item.name }}
         span.stat-value {{ item.value }}
+
 </template>
 
 <style lang="scss" scoped>
@@ -37,15 +38,18 @@ function handlerClass(name) {
 
     &.Executed {
         color: var(--green);
+        order: 1;
     }
 
     &.Delivered,
     &.DeliveredToTMR {
         color: var(--green-light-darker);
+        order: 6;
     }
 
     &.TransitToTMR {
         color: #333;
+        order: 7;
 
         .stat-value {
             font-weight: 400;
@@ -57,18 +61,23 @@ function handlerClass(name) {
 
     &.DeliveredToCity {
         color: var(--orange);
+        order: 8;
     }
 
-    &.NotDelivered {
+    &.NotDelivered,
+    &.Stock {
         opacity: .5;
+        order: 9;
     }
 
-    &.Target {
+    &.Target,
+    &.Potential {
         margin-top: var(--pdsm);
         background-color: var(--color-target);
         padding: var(--pd) var(--pdsm);
         border-radius: var(--radius-4);
         color: #333;
+        order: 10;
     }
 
 }

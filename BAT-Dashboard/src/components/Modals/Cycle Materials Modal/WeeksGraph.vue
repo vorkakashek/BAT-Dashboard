@@ -1,6 +1,6 @@
 <script setup>
 
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import VerticalGraph from '@/components/Modals/Cycle Materials Modal/VerticalGraph.vue';
 
@@ -8,10 +8,10 @@ const props = defineProps({
     data: Object,
 });
 
-const legend = ['Not delivered to CS, %', 'Delivered to CS, %', 'Transit to city, %', 'Delivered to city, %', 'Transit to TMR, %', 'Delivered to TMR, %', 'Executed, %']
+const selectedWeek = ref(null)
 
 function legendName(item) {
-    return item.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('').slice(0, -2)
+    return item.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('')
 }
 
 const targetPos = computed(() => {
@@ -21,6 +21,14 @@ const targetPos = computed(() => {
     return null
 })
 
+const expandStats = (key) => {
+    if (selectedWeek.value === key) {
+        selectedWeek.value = null
+    } else {
+        selectedWeek.value = key
+    }
+}
+
 </script>
 
 <template lang="pug">
@@ -29,21 +37,26 @@ const targetPos = computed(() => {
     .graph-constructor-target-outer(v-if="targetPos !== null")
         .graph-constructor-target(:style="['bottom:' + targetPos + '%']")
             .graph-constructor-target-value {{ targetPos }}%
-            .graph-constructor-target-name Target
+            .graph-constructor-target-name Target: {{ data.info.target }}
 
     .graph-constructor-percents
         .percent(v-for="n in 11" :style="{ top: 100 - (n * 10 - 10) + '%', transform: 'translateY(-50%)' }") {{ n * 10 - 10 }}%
-
     .graph-constructor-content
-        VerticalGraph(v-for="(graph, key) in data.weeks" :data="graph" :animationdelay="key")
+        VerticalGraph(v-for="(graph, key) in data.weeks" :data="graph" :itemKey="key" :class="{ selected: key === selectedWeek }" @click="expandStats(key)")
         .backlines
-            .line(v-for="n in 11" :style="{ top: 100 - (n * 10 - 10) + '%', transform: 'translateY(-50%)' }")
+            .line(v-for="n in 11" :style="{ top: 100 - (n * 10 - 10) + '%', transform: 'translateY(-50%)' }") 
 
 
 .graph-legend
-    template(v-for="item in legend")
-        .graph-legend-item(:class="legendName(item)") {{ item }} 
-
+    
+    .graph-legend-group
+        .graph-legend-item(v-for="(item, key) in data.weeks[0].graph")
+            .graph-legend-name(:class="legendName(key)") {{ key }}
+            .graph-legend-stats(v-if="selectedWeek !== null")
+                .graph-legend-stats-qty {{ data.weeks[selectedWeek].graph[key].qty }} 
+                    span pcs
+                .graph-legend-stats-percent {{ data.weeks[selectedWeek].graph[key].percent }} 
+                    span %
 </template>
 
 <style lang="scss" scoped>
@@ -55,6 +68,7 @@ const targetPos = computed(() => {
     width: 100%;
     user-select: none;
 }
+
 .graph-constructor-target {
     position: absolute;
     bottom: 0%;
@@ -200,24 +214,33 @@ const targetPos = computed(() => {
 }
 
 .graph-legend {
+    overflow: hidden;
+}
+
+.selected-week {
+    text-align: center;
+    margin: 0 auto var(--pdsm) auto;
+    padding: var(--pd) var(--pdlg);
+    background-color: var(--blue-light);
+    max-width: fit-content;
     border-radius: var(--radius-8);
-    border: 1px solid #EFEFEF;
-    padding: var(--pdsm) var(--pdlg);
+    font-weight: 700;
+    color: #fff;
+}
+
+.graph-legend-group {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    max-width: fit-content;
-    margin: 0 auto;
-    margin-top: var(--pdsm);
-    overflow: hidden;
     flex-wrap: wrap;
     justify-content: center;
+    margin-bottom: calc(var(--pdsm) * -1);
 }
 
 @keyframes legendappear {
     from {
         opacity: 0;
-        height: 0px;
+        max-height: 0%;
     }
 
     to {
@@ -227,6 +250,30 @@ const targetPos = computed(() => {
 }
 
 .graph-legend-item {
+    padding: var(--pdsm);
+    transition: all .5s ease;
+    border: 1px solid #e9e9e9;
+    border-radius: var(--radius-8);
+    margin-bottom: var(--pdsm);
+    &:not(:last-child) {
+        margin-left: var(--pdsm);
+    }
+}
+
+.graph-legend-stats {
+    font-size: 14px;
+    padding: 0 var(--pdsm);
+    background-color: #f5f5f5;
+    border-radius: var(--radius-8);
+}
+
+.graph-legend-stats-qty,
+.graph-legend-stats-percent {
+    font-weight: 700;
+    text-align: center;
+}
+
+.graph-legend-name {
     display: flex;
     align-items: center;
     color: #333;
@@ -234,6 +281,7 @@ const targetPos = computed(() => {
     letter-spacing: 0.01rem;
     overflow: hidden;
     animation: .2s ease both legendappear .3s;
+    margin: 0 var(--pdsm);
 
     &:before {
         content: '';
@@ -242,12 +290,10 @@ const targetPos = computed(() => {
         border-radius: var(--radius-4);
         width: 24px;
         height: 24px;
-        margin: var(--pdsm);
+        margin-right: var(--pdsm);
     }
 
-    &:not(:last-child) {
-        margin-left: var(--pdlg);
-    }
+
 
     &.NotDeliveredToCS {
         &:before {

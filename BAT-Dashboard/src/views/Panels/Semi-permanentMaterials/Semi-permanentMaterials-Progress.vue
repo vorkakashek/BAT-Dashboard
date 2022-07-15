@@ -1,23 +1,15 @@
 <script setup>
 
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const totalData = ref([
     {
         name: "Executed",
-        value: 1235,
+        value: 222,
     },
     {
-        name: "Delivered",
-        value: 3200,
-    },
-    {
-        name: "Not Delivered",
-        value: 800,
-    },
-    {
-        name: "Target",
-        value: 4000,
+        name: "Stock",
+        value: 777,
     },
 ])
 
@@ -27,19 +19,11 @@ const itemList = ref([
         stats: [
             {
                 name: "Executed",
-                value: "301",
+                value: 80,
             },
             {
-                name: "Delivered to TMR",
-                value: "1204",
-            },
-            {
-                name: "Not Delivered",
-                value: "500",
-            },
-            {
-                name: "Target",
-                value: "4000",
+                name: "Stock",
+                value: 20,
             },
         ]
     },
@@ -48,36 +32,53 @@ const itemList = ref([
         stats: [
             {
                 name: "Executed",
-                value: "301",
+                value: 80,
             },
             {
-                name: "Delivered to TMR",
-                value: "1204",
-            },
-            {
-                name: "Not Delivered",
-                value: "500",
-            },
-            {
-                name: "Target",
-                value: "4000",
+                name: "Stock",
+                value: 20,
             },
         ]
     },
 ])
 
+const newTotalData = computed(() => {
+    if (totalData.value.find(({ name }) => name === 'Target') === undefined) {
+        return [...totalData.value, newObj('Potential', handlerSumm(totalData.value))]
+    } return totalData.value
+})
+
+const newItemList = computed(() => {
+    if (itemList.value.find(({ stats }) => stats.find(({ name }) => name === 'Target')) === undefined) {
+        itemList.value.forEach(e => e.stats = [...e.stats, newObj('Potential', handlerSumm(e.stats))])
+        return itemList.value
+    }
+    return itemList.value
+})
+
+// Summary of all values func
+const handlerSumm = (arr) => {
+    let sum = 0
+    arr.forEach(el => {
+        sum += el.value
+    })
+    return sum
+}
+
+const newObj = (name, value) => { return { name, value } }
+
 </script>
 
 <template lang="pug">
 
-TotalProgressbar(:data="totalData")
+TotalProgressbar(:data="newTotalData")
     template(#legend)
-        ProgressbarLegend(:inData="totalData")
+        ProgressbarLegend(:inData="newTotalData")
 
 .panel
     h2 Total
     .comparison-items
-        ComparisonItem(v-for="item in itemList" :comparisonData="item" :vertical="true")
+        ComparisonItem(v-for="item in newItemList" :comparisonData="item" :vertical="true")
 </template>
 
 

@@ -1,49 +1,53 @@
-<script>
-export default {
-    data() {
-        return {
-            visible: false,
-            menuActive: false,
-        };
-    },
-    props: ["navActive"],
-    methods: {
-        onResize() {
-            this.itemSize =
-                document.documentElement.clientWidth < 1200
-                    ? (this.visible = true)
-                    : (this.visible = false);
-        },
-        navClick() {
-            (this.menuActive = !this.menuActive),
-                this.navActive({
-                    menuActive: this.menuActive,
-                });
-        },
-    },
-    created() {
-        window.addEventListener("resize", this.onResize);
-        this.onResize();
-    },
-    beforeDestroy() {
-        window.removeEventListener("resize", this.onResize);
-    },
-};
+<script setup>
+
+import { reactive, onBeforeMount, onBeforeUnmount } from 'vue'
+
+const props = defineProps(['navActive'])
+
+const state = reactive({
+    visible: false,
+    menuActive: false,
+})
+
+const navClick = () => {
+    state.menuActive = !state.menuActive
+    props.navActive({ menuActive: state.menuActive, })
+}
+
+const onResize = () => {
+    let w = window.innerWidth
+    if (w < 1200) {
+        state.visible = true
+    } else {
+        state.visible = false
+    }
+}
+
+onBeforeMount(() => {
+    window.addEventListener("resize", onResize)
+    onResize()
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener("resize", onResize);
+})
+
 </script>
 
 <template lang="pug">
 nav
     .nav-btn.fajc(
-        v-if="visible",
+        v-if="state.visible",
         @click="navClick",
-        :class="{ active: menuActive }"
+        :class="{ active: state.menuActive }"
     )
         app-icon(name="nav-btn", size="20")
 
     .logo Merchandising Dashboard
 
-    a.export-excel.fajc(href="#", v-if="$route.path !== '/panel/Dashboard' && $route.path !== '/panel/Projects/Catalog'")
-        app-icon(name="excel", size="40")
+    #export-excel
+    //- a.export-excel.fajc(href="#", v-if="$route.path !== '/panel/Dashboard' && $route.path !== '/panel/Projects/Catalog'")
+    //-     app-icon(name="excel", size="40")
 
     router-link.user.fajc(to="/login")
         .user-login username
@@ -64,6 +68,7 @@ nav {
     z-index: 999;
     display: flex;
     align-items: center;
+
     @include respond-to(large) {
         height: calc(var(--navbar) / 1.25);
     }
@@ -81,6 +86,7 @@ nav {
     @include respond-to (large) {
         margin-left: 16px;
     }
+
     @include respond-to (handlers) {
         margin-left: 0;
     }
@@ -92,7 +98,7 @@ nav {
     margin-right: 8px;
     // color: var(--blue-light);
     color: #333;
-    
+
     @include respond-to (handlers) {
         display: none;
     }
@@ -110,6 +116,7 @@ nav {
     margin-right: var(--layout-pd);
     color: var(--blue-dark);
     line-height: 1;
+
     &:after {
         content: "";
         width: calc(100% - var(--pdlg) * 2);
@@ -119,7 +126,7 @@ nav {
         z-index: 1;
         background: var(--BAT);
     }
-    
+
 
     @include respond-to (large) {
         margin-right: auto;
@@ -131,6 +138,7 @@ nav {
         padding: 0 8px;
         width: fit-content;
         font-size: calc(5px + var(--index) * 0.75);
+
         &:after {
             width: calc(100% - 16px);
         }
@@ -158,23 +166,6 @@ nav {
 
     @include respond-to(large) {
         margin-left: var(--pdsm);
-    }
-}
-
-.export-excel {
-    &:hover {
-        opacity: 0.75;
-    }
-
-    @include respond-to(large) {
-        height: 36px;
-        width: 36px;
-        margin-left: auto;
-        margin-right: 8px;
-        .icon {
-            height: 36px;
-            width: 36px;
-        }
     }
 }
 </style>

@@ -58,6 +58,10 @@ function handleSelector(value) {
 </script>
 
 <template lang="pug">
+
+Teleport(to="#export-excel")
+    ExportExcel(disabled v-if="$route.path !== '/panel/Projects/Catalog'")
+
 Teleport(to="#multiselector")
     Multiselect(
         v-model="itemValue", 

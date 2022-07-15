@@ -45,6 +45,9 @@ function handleSelector(value) {
 
 <template lang="pug">
 
+Teleport(to="#export-excel")
+    ExportExcel(disabled)
+
 Teleport(to="#multiselector")
     Multiselect(
         v-model="itemValue", 

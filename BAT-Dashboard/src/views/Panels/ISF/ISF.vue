@@ -1,12 +1,8 @@
 <script setup>
 import { ref, watch } from "vue";
-
+import FavoriveToggler from "@/components/FavoriveToggler.vue";
 
 const options = [
-    {
-        value: 0,
-        label: 'ALL SELECTED'
-    },
     {
         value: 1,
         label: 'Item 1'
@@ -17,28 +13,22 @@ const options = [
     },
     {
         value: 3,
-        label: 'Item 3'
+        label: 'Item 3',
+        favorite: true,
     },
     {
         value: 4,
-        label: 'Item 3 asdas das asd'
+        label: 'Item 3 last',
+        favorite: true,
     },
 ];
 
-const itemValue = ref([0]);
+const itemValue = ref([options.length]);
 
-watch(itemValue, (value) => {
-    if (value.length < 1) {
-        itemValue.value = [0]
-    }
-})
-
-function handleSelector(value) {
-    if (value == 0) {
-        itemValue.value = [0]
-    }
-    if (value !== 0 && itemValue.value.includes(0)) {
-        itemValue.value = itemValue.value.filter((value) => value !== 0);
+const handlerOpen = (value) => itemValue.value = []
+const handlerClose = () => {
+    if (itemValue.value.length < 1) {
+        itemValue.value = [options.length]
     }
 }
 
@@ -52,10 +42,14 @@ Teleport(to="#multiselector")
         :close-on-select="true", 
         :options="options", 
         mode="tags",
-        @select="handleSelector",
+        :max="1",
+        @open="handlerOpen",
+        @close="handlerClose",
+        :canClear='false',
         :searchable="true",
-        placeholder="Start typing or select...",
         )
+
+FavoriveToggler(:options="options" v-model="itemValue")
 
 RouterView
 

@@ -1,37 +1,38 @@
-<script>
-export default {
-    props: ["product"],
-    data() {
-        return {
-            visible: false,
-            index: 0,
-            imgs: "",
-        };
+<script setup>
+
+import { computed, reactive } from 'vue'
+
+const props = defineProps({
+    product: {
+        type: Object,
+        required: true,
     },
-    methods: {
-        importPhoto(photo) {
-            return new URL(`./../assets/images/${photo}.jpg`, import.meta.url)
-                .href;
-        },
-        showSingle(path) {
-            this.imgs = path;
-            this.show();
-        },
-        show() {
-            this.visible = true;
-        },
-        handleHide() {
-            this.visible = false;
-        },
-    },
-};
+})
+
+const state = reactive({
+    visible: false,
+    index: 0,
+    imgs: '',
+})
+
+const importPhoto = (photo) => new URL(`./../assets/images/${photo}.jpg`, import.meta.url).href;
+
+const showSingle = (path) => {
+    state.imgs = path;
+    show();
+}
+
+const show = () => state.visible = true
+
+const handleHide = () => state.visible = false
+
 </script>
 
 <template lang="pug">
 vue-easy-lightbox(
-    :visible="visible",
-    :imgs="imgs",
-    :index="index",
+    :visible="state.visible",
+    :imgs="state.imgs",
+    :index="state.index",
     @hide="handleHide"
 )
 

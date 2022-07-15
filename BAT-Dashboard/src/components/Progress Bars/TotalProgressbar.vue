@@ -11,16 +11,36 @@ const props = defineProps({
         type: String,
         required: false,
         default: 'Total',
-    }
+    },
 });
 
 const bars = computed(() => {
-    return props.data.filter((item) => item.name !== 'Target' && item.name !== 'Not Delivered');
+    return props.data.filter((item) =>
+        item.name !== 'Target' &&
+        item.name !== 'Not Delivered' &&
+        item.name !== 'Stock' &&
+        item.name !== 'Potential'
+    );
 });
 
 const target = computed(() => {
-    return props.data.find((item) => item.name === 'Target').value;
+    if (props.data.find((item) => item.name === 'Target') !== undefined) {
+        return props.data.find((item) => item.name === 'Target').value;
+    }
+    else if (props.data.find((item) => item.name === 'Potential') !== undefined) {
+        return props.data.find((item) => item.name === 'Potential').value;
+    }
+    // return handlerSumm(props.data) // this is will be 'Potential' in [ ProgressbarLegend.vue ]
 });
+
+// Summary of all values func
+const handlerSumm = (arr) => {
+    let sum = 0
+    arr.forEach(el => {
+        sum += el.value
+    })
+    return sum
+}
 
 function progressbarPercent(bar) {
     return parseFloat((bar.value / (target.value / 100)).toFixed(1))
@@ -38,26 +58,27 @@ function handlerPosY(bar) {
 }
 
 function translateXFix(bar) {
-    if (+progressbarPercent(bar) > 97 ) {
+    if (+progressbarPercent(bar) > 97) {
         return 'transform: translateX(-100%)'
     }
     return 'transform: translateX(-50%)'
 }
 
 function hideEmpty(data) {
-    return data.some(({value}) => value > 0);
+    return data.some(({ value }) => value > 0);
 }
 
 </script>
 
 <template lang="pug">
 .panel(v-if="hideEmpty(props.data)")
+    //- div {{props.data}}
     .progressbar-container
         .progressbar-wrapper
             .progressbar-label {{ props.label }}
             .progressbar-outer
                 .progressbar-inner(v-for="(bar, index) in bars" :style="[`width: ${progressbarPercent(bar)}%`]" :class="progressbarClass(bar)")
-                    .progressbar-value(:class="handlerPosY(bar)" :style="[translateXFix(bar)]" v-if="bar.value > 0") {{progressbarPercent(bar)}}%
+                    .progressbar-value(:class="handlerPosY(bar)" :style="[translateXFix(bar)]" v-if="bar.value > 0") {{ progressbarPercent(bar) }}%
 
         //- slot for legend (using in total progressbars)
         slot(name="legend")

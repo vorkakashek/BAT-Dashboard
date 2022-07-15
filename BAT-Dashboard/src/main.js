@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 
 import Btn from "./components/Btn.vue";
+import ExportExcel from "./components/ExportExcel.vue";
 import AppIcon from "./components/AppIcon.vue";
 
 import Filters from "@/components/Filters.vue";
@@ -38,6 +39,7 @@ app
     .use(VueEasyLightbox)
     .component('Multiselect', Multiselect)
     .component('Btn', Btn)
+    .component('ExportExcel', ExportExcel)
     .component('Filters', Filters)
     .component('ProductCards', ProductCards)
     .component('ProductCard', ProductCard)

@@ -54,7 +54,7 @@ function importImage(photo) {
             width: 100%;
             max-height: 100px;
             object-fit: contain;
-            margin-bottom: var(--pdlg);
+            margin: 0 auto var(--pdlg) auto;
         }
     }
 

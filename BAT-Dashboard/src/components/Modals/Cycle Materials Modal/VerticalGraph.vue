@@ -1,15 +1,21 @@
 <script setup>
 import { computed } from "@vue/runtime-core";
 
-
 const props = defineProps({
-    data: Object,
-    animationdelay: Number,
-});
+    data: {
+        type: Object,
+        required: true,
+    },
+    itemKey: {
+        type: Number,
+        required: false,
+        default: 0,
+    },
+})
 
 function verticalTransform() {
     var value = -50;
-    if (props.data.graph.executed < 5) {
+    if (props.data.graph['Executed'].percent < 5) {
         value = -100;
     }
     return 'transform:' + ' translateY(' + value + '%)';
@@ -30,8 +36,12 @@ function aroundNumber(num) {
 };
 
 const ghost = computed(() => {
-    return !(Object.values(props.data.graph).some((value) => value > 0));
+    return !(Object.values(props.data.graph).some(({ percent }) => percent > 0));
 });
+
+const handlerClass = (item) => {
+    return item.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('')
+}
 
 </script>
 
@@ -41,19 +51,20 @@ const ghost = computed(() => {
 .vertical-graph(:class="{ ghost: ghost }")
     .graph-wrap
         .graph-thick
-            template(v-for="(value, key) in data.graph")
-                .graph-item(:style="{ height: value + '%' }" v-if="key !== 'executed' && value !== 0")
-                    .graph(:class="key" :style="{ animationDelay: animationdelay * .1 + 's' }")
-                        .percent(v-if="value !== 0" :style="{ animationDelay: animationdelay * .1 + .3 + 's' }") {{ aroundNumber(value) }}
+            template(v-for="(item, key) in data.graph")
+                .graph-item(:style="{ height: item.percent + '%' }" v-if="key !== 'Executed' && item.percent !== 0")
+                    .graph(:class="handlerClass(key)" :style="{ animationDelay: itemKey * .1 + 's' }")
+                        .percent(v-if="item.percent !== 0" :style="{ animationDelay: itemKey * .1 + .3 + 's' }") {{ aroundNumber(item.percent) }}
         .graph-thin
-            .graph(:style="{ height: data.graph.executed + '%', animationDelay: animationdelay * .1 + 's' }")
-                .percent(:style="[{ animationDelay: animationdelay * .1 + .3 + 's' }, verticalTransform()]") {{ aroundNumber(data.graph.executed) }}
-    .week(:class="{ current: data.current }" :style="{ animationDelay: animationdelay * .1 + 's' }")
+            .graph(:style="{ height: data.graph['Executed'].percent + '%', animationDelay: itemKey * .1 + 's' }")
+                .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform()]") {{ aroundNumber(data.graph['Executed'].percent) }}
+
+    .week(:class="{ current: data.current }" :style="{ animationDelay: itemKey * .1 + 's' }")
         .week-label
             span.name {{ data.week }}
             span.number(:style="dataNumber()") {{ data.number }}
         .week-dates {{ data.dateStart }} — {{ data.dateEnd }}
-
+ 
 
 </template>
 
@@ -140,7 +151,6 @@ const ghost = computed(() => {
         color: #fff;
         font-weight: 900;
         font-size: 13px;
-
         animation: .5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both thinpercent;
 
         &:after {
@@ -174,7 +184,6 @@ const ghost = computed(() => {
     margin-right: 2px;
     display: flex;
     flex-direction: column;
-    // background: #fff;
     padding: 0 1px;
     border-radius: var(--radius-4);
     justify-content: flex-end;
@@ -187,7 +196,6 @@ const ghost = computed(() => {
     }
 
     .graph {
-        // height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -195,37 +203,36 @@ const ghost = computed(() => {
         border-radius: var(--radius-4);
         animation: .3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both grow;
 
-        &.notDeliveredToCS {
+        &.NotDeliveredtoCS {
             background-color: #EDD0D099;
             order: 0;
-            // animation-delay: .5s;
 
             .percent {
                 opacity: .7;
             }
         }
 
-        &.deliveredToCS {
+        &.DeliveredToCS {
             background-color: #E5E5E5;
             order: 1;
         }
 
-        &.transitToCity {
+        &.TransitToCity {
             background-color: #FFF2CC;
             order: 2;
         }
 
-        &.deliveredToCity {
+        &.DeliveredToCity {
             background-color: #FFBB00;
             order: 3;
         }
 
-        &.transitToTMR {
+        &.TransitToTMR {
             background-color: #E2F0D9;
             order: 4;
         }
 
-        &.deliveredToTMR {
+        &.DeliveredToTMR {
             background-color: #AFCA0B;
             order: 5;
         }
@@ -251,12 +258,14 @@ const ghost = computed(() => {
     min-width: 107px;
     border-radius: var(--radius-8);
     transition: all .3s ease;
+    cursor: pointer;
 
     &:not(:last-child) {
         margin-left: var(--pdlg);
     }
 
-    &:not(.ghost):hover {
+    &:not(.ghost, .selected):hover,
+    &.selected {
         background-color: rgba(177, 177, 177, 0.163);
 
         .graph-thin {
@@ -277,7 +286,82 @@ const ghost = computed(() => {
         }
     }
 
+    &.selected {
+        &:before {
+            content: 'click to deselect';
+            display: block;
+            white-space: nowrap;
+            text-transform: uppercase;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            letter-spacing: .05rem;
+            color: #333;
+            opacity: 0;
+            bottom: calc(100%);
+            transition: all .2s ease;
+        }
+
+        .week {
+            &:not(.current) {
+                background-color: var(--blue-light);
+
+                .week-label {
+                    color: #fff;
+
+                    .number {
+                        background-color: #fff !important;
+                        border-color: #fff !important;
+                        color: var(--blue-light) !important;
+                    }
+                }
+
+                .week-dates {
+                    color: #fff;
+                }
+            }
+
+            &.current {
+                border-color: var(--blue-light);
+
+                &:after {
+                    color: var(--blue-light);
+                }
+
+                .week-label {
+                    color: var(--blue-light);
+
+                    .number {
+                        background-color: var(--blue-light) !important;
+                        border-color: var(--blue-light) !important;
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            &:before {
+                content: 'click to deselect';
+                display: block;
+                white-space: nowrap;
+                text-transform: uppercase;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 11px;
+                letter-spacing: .05rem;
+                color: #333;
+                opacity: 1;
+                bottom: calc(100% + 4px);
+            }
+        }
+    }
+
     &.ghost {
+        user-select: none;
+        pointer-events: none;
+
         .graph-thick {
             background-color: var(--grey-medium);
         }

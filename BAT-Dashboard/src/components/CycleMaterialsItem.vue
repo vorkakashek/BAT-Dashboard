@@ -1,6 +1,7 @@
 <script setup>
 
 import { ref, reactive } from 'vue'
+import ExportExcel from './ExportExcel.vue';
 
 const props = defineProps(['item'])
 
@@ -27,13 +28,34 @@ const itemList = ref({
             dateStart: '30/05',
             dateEnd: '31/05',
             graph: {
-                notDeliveredToCS: 0,
-                deliveredToCS: 10,
-                transitToCity: 40,
-                deliveredToCity: 20,
-                transitToTMR: 20,
-                deliveredToTMR: 10,
-                executed: 0,
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 436,
+                    percent: 10,
+                },
+                'Transit to city': {
+                    qty: 43590,
+                    percent: 40,
+                },
+                'Delivered to city': {
+                    qty: 234,
+                    percent: 20,
+                },
+                'Transit to TMR': {
+                    qty: 645,
+                    percent: 20,
+                },
+                'Delivered to TMR': {
+                    qty: 52,
+                    percent: 10,
+                },
+                'Executed': {
+                    qty: 0,
+                    percent: 0,
+                },
             }
         },
         {
@@ -42,13 +64,34 @@ const itemList = ref({
             dateStart: '01/06',
             dateEnd: '05/06',
             graph: {
-                notDeliveredToCS: 0,
-                deliveredToCS: 0,
-                transitToCity: 20,
-                deliveredToCity: 40,
-                transitToTMR: 10,
-                deliveredToTMR: 30,
-                executed: 25,
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to city': {
+                    qty: 4352,
+                    percent: 20,
+                },
+                'Delivered to city': {
+                    qty: 345,
+                    percent: 40,
+                },
+                'Transit to TMR': {
+                    qty: 634,
+                    percent: 10,
+                },
+                'Delivered to TMR': {
+                    qty: 7345,
+                    percent: 30,
+                },
+                'Executed': {
+                    qty: 3452,
+                    percent: 25,
+                },
             }
         },
         {
@@ -57,13 +100,34 @@ const itemList = ref({
             dateStart: '06/06',
             dateEnd: '12/06',
             graph: {
-                notDeliveredToCS: 0,
-                deliveredToCS: 0,
-                transitToCity: 10,
-                deliveredToCity: 20,
-                transitToTMR: 20,
-                deliveredToTMR: 50,
-                executed: 40,
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to city': {
+                    qty: 563,
+                    percent: 10,
+                },
+                'Delivered to city': {
+                    qty: 34534,
+                    percent: 20,
+                },
+                'Transit to TMR': {
+                    qty: 547,
+                    percent: 20,
+                },
+                'Delivered to TMR': {
+                    qty: 568,
+                    percent: 50,
+                },
+                'Executed': {
+                    qty: 345,
+                    percent: 40,
+                },
             }
         },
         {
@@ -72,13 +136,34 @@ const itemList = ref({
             dateStart: '13/06',
             dateEnd: '19/06',
             graph: {
-                notDeliveredToCS: 0,
-                deliveredToCS: 0,
-                transitToCity: 0,
-                deliveredToCity: 10,
-                transitToTMR: 30,
-                deliveredToTMR: 60,
-                executed: 45,
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to city': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to city': {
+                    qty: 123,
+                    percent: 10,
+                },
+                'Transit to TMR': {
+                    qty: 2315,
+                    percent: 30,
+                },
+                'Delivered to TMR': {
+                    qty: 23145,
+                    percent: 60,
+                },
+                'Executed': {
+                    qty: 1345,
+                    percent: 45,
+                },
             }
         },
         {
@@ -87,13 +172,34 @@ const itemList = ref({
             dateStart: '20/06',
             dateEnd: '26/06',
             graph: {
-                notDeliveredToCS: 0,
-                deliveredToCS: 0,
-                transitToCity: 0,
-                deliveredToCity: 10,
-                transitToTMR: 20,
-                deliveredToTMR: 70,
-                executed: 50,
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to city': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to city': {
+                    qty: 39,
+                    percent: 10,
+                },
+                'Transit to TMR': {
+                    qty: 5123,
+                    percent: 20,
+                },
+                'Delivered to TMR': {
+                    qty: 89345,
+                    percent: 70,
+                },
+                'Executed': {
+                    qty: 521513,
+                    percent: 50,
+                },
             }
         },
         {
@@ -103,13 +209,34 @@ const itemList = ref({
             dateStart: '20/06',
             dateEnd: '26/06',
             graph: {
-                notDeliveredToCS: 0,
-                deliveredToCS: 0,
-                transitToCity: 0,
-                deliveredToCity: 0,
-                transitToTMR: 0,
-                deliveredToTMR: 100,
-                executed: 80,
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to city': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to city': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to TMR': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to TMR': {
+                    qty: 59349,
+                    percent: 100,
+                },
+                'Executed': {
+                    qty: 53452,
+                    percent: 80,
+                },
             }
         },
         {
@@ -118,13 +245,34 @@ const itemList = ref({
             dateStart: '09/05',
             dateEnd: '15/05',
             graph: {
-                notDeliveredToCS: 0,
-                deliveredToCS: 0,
-                transitToCity: 0,
-                deliveredToCity: 0,
-                transitToTMR: 0,
-                deliveredToTMR: 0,
-                executed: 0,
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to city': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to city': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to TMR': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to TMR': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Executed': {
+                    qty: 0,
+                    percent: 0,
+                },
             }
         },
         {
@@ -133,13 +281,34 @@ const itemList = ref({
             dateStart: '16/05',
             dateEnd: '22/05',
             graph: {
-                notDeliveredToCS: 0,
-                deliveredToCS: 0,
-                transitToCity: 0,
-                deliveredToCity: 0,
-                transitToTMR: 0,
-                deliveredToTMR: 0,
-                executed: 0,
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to city': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to city': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to TMR': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to TMR': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Executed': {
+                    qty: 0,
+                    percent: 0,
+                },
             }
         },
         {
@@ -148,16 +317,82 @@ const itemList = ref({
             dateStart: '23/05',
             dateEnd: '29/05',
             graph: {
-                notDeliveredToCS: 0,
-                deliveredToCS: 0,
-                transitToCity: 0,
-                deliveredToCity: 0,
-                transitToTMR: 0,
-                deliveredToTMR: 0,
-                executed: 0,
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to city': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to city': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit to TMR': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to TMR': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Executed': {
+                    qty: 0,
+                    percent: 0,
+                },
             }
         },
-    ]
+        // {
+        //     week: 'Week 27',
+        //     number: '+3',
+        //     dateStart: '09/05',
+        //     dateEnd: '15/05',
+        //     graph: {
+        //         notDeliveredToCS: 0,
+        //         deliveredToCS: 0,
+        //         transitToCity: 0,
+        //         deliveredToCity: 0,
+        //         transitToTMR: 0,
+        //         deliveredToTMR: 0,
+        //         executed: 0,
+        //     }
+        // },
+        // {
+        //     week: 'Week 28',
+        //     number: '+4',
+        //     dateStart: '16/05',
+        //     dateEnd: '22/05',
+        //     graph: {
+        //         notDeliveredToCS: 0,
+        //         deliveredToCS: 0,
+        //         transitToCity: 0,
+        //         deliveredToCity: 0,
+        //         transitToTMR: 0,
+        //         deliveredToTMR: 0,
+        //         executed: 0,
+        //     }
+        // },
+        // {
+        //     week: 'Week 29',
+        //     number: '+5',
+        //     dateStart: '23/05',
+        //     dateEnd: '29/05',
+        //     graph: {
+        //         notDeliveredToCS: 0,
+        //         deliveredToCS: 0,
+        //         transitToCity: 0,
+        //         deliveredToCity: 0,
+        //         transitToTMR: 0,
+        //         deliveredToTMR: 0,
+        //         executed: 0,
+        //     }
+        // },
+    ],
 })
 
 const importPhoto = (photo) => new URL(`./../assets/images/Cycle Materials/${photo}.jpg`, import.meta.url).href
@@ -199,7 +434,7 @@ vue-easy-lightbox(
     @hide="handleHide"
 )
 
-.cycle-materials-item.showmodal(@click="() => showmodal()")
+.cycle-materials-item.showmodal(@click="() => showmodal()" :class="{ new : item.new }")
     .cycle-materials-item-data {{ item.label }}
     .cycle-materials-item-data
         .cycle-materials-item__photo
@@ -213,6 +448,22 @@ vue-easy-lightbox(
 </template>
 
 <style lang="scss" scoped>
+.new {
+    &:after {
+        content: 'new';
+        position: absolute;
+        left: var(--pdsm);
+        top: var(--pdsm);
+        background-color: rgb(239, 127, 127);
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #fff;
+        font-size: 13px;
+        padding: 0 var(--pdsm);
+        border-radius: var(--radius-8);
+        letter-spacing: .05rem;
+    }
+}
 
 .panel {
     margin-left: var(--pdlg);
@@ -229,10 +480,6 @@ vue-easy-lightbox(
     @include respond-to(medium) {
         width: auto;
         margin: 0 auto;
-    }
-
-    .image-zoom {
-
     }
 }
 

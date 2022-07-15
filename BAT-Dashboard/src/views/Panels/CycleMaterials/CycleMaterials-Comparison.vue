@@ -118,6 +118,10 @@ function handleHide() {
 
 
 <template lang="pug">
+
+//- Teleport(to="#export-excel")
+//-     ExportExcel(disabled)
+
 vue-easy-lightbox(
     :visible="state.visible",
     :imgs="state.imgs",

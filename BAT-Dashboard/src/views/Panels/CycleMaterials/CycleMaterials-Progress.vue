@@ -87,6 +87,9 @@ const itemList = ref([
 
 <template lang="pug">
 
+Teleport(to="#export-excel")
+    ExportExcel(disabled)
+
 TotalProgressbar(:inData="totalData")
     template(#legend)
         ProgressbarLegend(:inData="totalData")

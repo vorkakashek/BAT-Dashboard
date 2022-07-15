@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, watch, computed } from "vue";
-import CycleFavoriveToggler from "@/components/CycleFavoriveToggler.vue";
+import FavoriveToggler from "@/components/FavoriveToggler.vue";
 
 const cycleOptions = ref([
     {
@@ -98,7 +98,7 @@ watch(() => state.cycleValue, () => {
 
 
 function handleSelector(value, nameValue) {
-    console.log(value)
+    // console.log(value)
     if (value == 0) {
         state[nameValue] = [0];
     }
@@ -111,6 +111,10 @@ function handleSelector(value, nameValue) {
 
 
 <template lang="pug">
+
+
+Teleport(to="#export-excel")
+    ExportExcel(disabled)
 
 Teleport(to="#multiselector")
     .multiselect-label 
@@ -139,8 +143,7 @@ Teleport(to="#multiselector")
         placeholder="Start typing or select...",
         )
 
-CycleFavoriveToggler(:cycleOptions="cycleOptions" v-model="state.cycleValue")
-//- CycleFavoriveToggler(:cycleOptions="cycleOptions" @change="state.cycleValue = $event")
+FavoriveToggler(:options="cycleOptions" v-model="state.cycleValue")
 
 RouterView
 

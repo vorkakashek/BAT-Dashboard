@@ -152,6 +152,9 @@ const filteredList = computed(() => itemList.value.filter(({ type }) => {
 
 <template lang="pug">
 
+Teleport(to="#export-excel")
+    ExportExcel()
+
 TotalProgressbar(:data="totalData")
     template(#legend)
         ProgressbarLegend(:inData="totalData")
