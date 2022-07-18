@@ -481,6 +481,10 @@ vue-easy-lightbox(
         width: auto;
         margin: 0 auto;
     }
+
+    img {
+        max-width: 100%;
+    }
 }
 
 .cycle-materials-item {
