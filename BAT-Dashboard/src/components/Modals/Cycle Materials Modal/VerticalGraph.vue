@@ -203,7 +203,7 @@ const handlerClass = (item) => {
         border-radius: var(--radius-4);
         animation: .3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both grow;
 
-        &.NotDeliveredtoCS {
+        &.NotDeliveredToCS {
             background-color: #EDD0D099;
             order: 0;
 
