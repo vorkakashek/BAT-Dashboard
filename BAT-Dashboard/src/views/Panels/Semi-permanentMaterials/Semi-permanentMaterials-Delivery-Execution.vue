@@ -31,6 +31,20 @@ const itemList = ref([
             },
         ],
     },
+    {
+        name: "GLO_Device Premium Presenter 2 sku sad asd asd asd asdasdasdasd asd",
+        photo: "3",
+        stats: [
+            {
+                name: "Executed",
+                value: 80,
+            },
+            {
+                name: "Stock",
+                value: 20,
+            },
+        ],
+    },
 ])
 
 const totalData = ref([

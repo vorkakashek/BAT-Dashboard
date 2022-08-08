@@ -61,6 +61,9 @@ vue-easy-lightbox(
     padding: var(--pdsm);
     transition: all 0.25s ease;
 
+    display: flex;
+    flex-direction: column;
+
     &:hover {
         box-shadow: var(--shadow);
     }
@@ -69,6 +72,7 @@ vue-easy-lightbox(
 .product-card__header {
     display: flex;
     justify-content: space-between;
+    margin-bottom: auto;
 }
 
 .product-card__header-type {
