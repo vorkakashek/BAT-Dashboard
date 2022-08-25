@@ -8,20 +8,25 @@ defineProps({
         type: Boolean,
         required: false,
         default: false,
+    },
+    color: {
+        type: String,
+        required: false,
+        default: 'var(--blue-light)'
     }
 });
 </script>
 
 <template lang="pug">
 
-button.main-button(:class="{ centered: centered }") {{ text }}
+button.main-button(:class="{ centered: centered }" :style="{ backgroundColor: color }") {{ text }}
 
 </template>
 
 <style lang="scss" scoped>
 
 .main-button {
-    background-color: var(--blue-light);
+    // background-color: var(--blue-light);
     display: block;
     box-shadow: none;
     outline: none;

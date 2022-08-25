@@ -1,14 +1,38 @@
 <script setup>
 
 import CycleMaterialsModal from '@/components/Modals/Cycle Materials Modal/modal.vue'
+import ExportExcel from '@/components/Modals/ExportExcel/modal.vue'
+
+import { ref } from 'vue'
+
 
 const props = defineProps({
-    visible: Boolean,
     modalName: String,
     data: Object,
+    dialog: {
+        type: Boolean,
+        required: false,
+        default: false,
+    }
 });
 
-const emits = defineEmits(["hide"]);
+const visible = ref(false)
+
+const emits = defineEmits(["show"]);
+
+const show = () => {
+    visible.value = true
+    document.querySelector('body').style.overflow = "hidden"
+}
+
+defineExpose({
+    show,
+})
+
+const hide = () => {
+    visible.value = false
+    document.querySelector('body').removeAttribute("style")
+}
 
 </script>
 
@@ -16,13 +40,20 @@ const emits = defineEmits(["hide"]);
 
 Teleport(to="#modal")
     Transition(name="nested" appear)
-        #modal-constructor(v-if="visible")
+        #modal-constructor(v-if="visible" :class="{ dialog: dialog }")
             .container
                 .panel
-                    app-icon.close-modal(name="close" size="24" @click="$emit('hide')")
-                    .modal-content(v-if="modalName == 'CycleMaterialsModal'")
-                        CycleMaterialsModal(:data="data")
-            .inner#modal-constructor-overlay(@click="$emit('hide')")
+                    //- app-icon.close-modal(name="close" size="24" @click="$emit('hide')")
+                    app-icon.close-modal(name="close" size="24" @click="hide()")
+                    .modal-content
+                        //- For Items in Cycle Materials
+                        template(v-if="modalName == 'CycleMaterialsModal'")
+                            CycleMaterialsModal(:data="data")
+                        //- For Excel Icon
+                        template(v-if="modalName == 'ExportExcel'")
+                            ExportExcel(@hide="hide()")
+
+            .inner#modal-constructor-overlay(@click="hide()")
         
 </template>
 
@@ -57,6 +88,27 @@ Teleport(to="#modal")
 
     @include respond-to (handlers) {
         padding: var(--pdsm);
+    }
+
+    &.dialog {
+        padding: 20vh 20vw;
+
+        .container {
+            width: fit-content;
+            min-width: 300px;
+        }
+
+        .panel {
+            padding: var(--pdxxl)
+        }
+
+        @include respond-to (medium) {
+            padding: var(--pdlg);
+        }
+
+        @include respond-to (handlers) {
+            padding: var(--pdsm);
+        }
     }
 }
 

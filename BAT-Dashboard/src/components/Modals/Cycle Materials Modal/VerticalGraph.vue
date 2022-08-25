@@ -50,9 +50,13 @@ const handlerClass = (item) => {
 
 .vertical-graph(:class="{ ghost: ghost }")
     .graph-wrap
+        .graph-thin.InStock
+            .graph(:style="{ height: data.graph['In Stock'].percent + '%', animationDelay: itemKey * .1 + 's' }")
+                .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform()]") {{ aroundNumber(data.graph['In Stock'].percent) }}
+
         .graph-thick
             template(v-for="(item, key) in data.graph")
-                .graph-item(:style="{ height: item.percent + '%' }" v-if="key !== 'Executed' && item.percent !== 0")
+                .graph-item(:style="{ height: item.percent + '%' }" v-if="key !== 'Executed' && key !== 'In Stock' && item.percent !== 0")
                     .graph(:class="handlerClass(key)" :style="{ animationDelay: itemKey * .1 + 's' }")
                         .percent(v-if="item.percent !== 0" :style="{ animationDelay: itemKey * .1 + .3 + 's' }") {{ aroundNumber(item.percent) }}
         .graph-thin
@@ -149,7 +153,7 @@ const handlerClass = (item) => {
         background-color: var(--green);
         padding: 0 4px;
         color: #fff;
-        font-weight: 900;
+        font-weight: 400;
         font-size: 13px;
         animation: .5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both thinpercent;
 
@@ -176,12 +180,29 @@ const handlerClass = (item) => {
         flex-direction: column-reverse;
         animation: .75s cubic-bezier(0.55, 0.085, 0.68, 0.53) both grow2;
     }
+
+    &.InStock {
+        .graph {
+            background: linear-gradient(180deg, #478caf 0%, #0bb6ca 100%);
+        }
+        .percent {
+            left: unset;
+            right: 18px;
+            background-color: #478caf;
+            &:after {
+                border-right: unset;
+                border-left: 4px solid #478caf;
+                left: unset;
+                right: -4px;
+            }
+        }
+    }
 }
 
 .graph-thick {
     width: 40px;
     height: 100%;
-    margin-right: 2px;
+    margin: 0 2px;
     display: flex;
     flex-direction: column;
     padding: 0 1px;
@@ -261,7 +282,7 @@ const handlerClass = (item) => {
     cursor: pointer;
 
     &:not(:last-child) {
-        margin-left: var(--pdlg);
+        margin-left: calc(var(--pdlg) + 8px);
     }
 
     &:not(.ghost, .selected):hover,

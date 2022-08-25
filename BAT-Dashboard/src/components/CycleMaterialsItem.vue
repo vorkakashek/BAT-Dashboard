@@ -7,7 +7,7 @@ const props = defineProps(['item'])
 
 const state = reactive({
     visible: false,
-    modalVisible: false,
+    // modalVisible: false,
     index: 0,
     imgs: "",
 })
@@ -52,6 +52,10 @@ const itemList = ref({
                     qty: 52,
                     percent: 10,
                 },
+                'In Stock': {
+                    qty: 206,
+                    percent: 45,
+                },
                 'Executed': {
                     qty: 0,
                     percent: 0,
@@ -87,6 +91,10 @@ const itemList = ref({
                 'Delivered to TMR': {
                     qty: 7345,
                     percent: 30,
+                },
+                'In Stock': {
+                    qty: 206,
+                    percent: 45,
                 },
                 'Executed': {
                     qty: 3452,
@@ -124,6 +132,10 @@ const itemList = ref({
                     qty: 568,
                     percent: 50,
                 },
+                'In Stock': {
+                    qty: 206,
+                    percent: 45,
+                },
                 'Executed': {
                     qty: 345,
                     percent: 40,
@@ -160,6 +172,10 @@ const itemList = ref({
                     qty: 23145,
                     percent: 60,
                 },
+                'In Stock': {
+                    qty: 206,
+                    percent: 45,
+                },
                 'Executed': {
                     qty: 1345,
                     percent: 45,
@@ -195,6 +211,10 @@ const itemList = ref({
                 'Delivered to TMR': {
                     qty: 89345,
                     percent: 70,
+                },
+                'In Stock': {
+                    qty: 206,
+                    percent: 45,
                 },
                 'Executed': {
                     qty: 521513,
@@ -233,6 +253,10 @@ const itemList = ref({
                     qty: 59349,
                     percent: 100,
                 },
+                'In Stock': {
+                    qty: 206,
+                    percent: 45,
+                },
                 'Executed': {
                     qty: 53452,
                     percent: 80,
@@ -266,6 +290,10 @@ const itemList = ref({
                     percent: 0,
                 },
                 'Delivered to TMR': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'In Stock': {
                     qty: 0,
                     percent: 0,
                 },
@@ -305,6 +333,10 @@ const itemList = ref({
                     qty: 0,
                     percent: 0,
                 },
+                'In Stock': {
+                    qty: 0,
+                    percent: 0,
+                },
                 'Executed': {
                     qty: 0,
                     percent: 0,
@@ -341,57 +373,16 @@ const itemList = ref({
                     qty: 0,
                     percent: 0,
                 },
+                'In Stock': {
+                    qty: 0,
+                    percent: 0,
+                },
                 'Executed': {
                     qty: 0,
                     percent: 0,
                 },
             }
         },
-        // {
-        //     week: 'Week 27',
-        //     number: '+3',
-        //     dateStart: '09/05',
-        //     dateEnd: '15/05',
-        //     graph: {
-        //         notDeliveredToCS: 0,
-        //         deliveredToCS: 0,
-        //         transitToCity: 0,
-        //         deliveredToCity: 0,
-        //         transitToTMR: 0,
-        //         deliveredToTMR: 0,
-        //         executed: 0,
-        //     }
-        // },
-        // {
-        //     week: 'Week 28',
-        //     number: '+4',
-        //     dateStart: '16/05',
-        //     dateEnd: '22/05',
-        //     graph: {
-        //         notDeliveredToCS: 0,
-        //         deliveredToCS: 0,
-        //         transitToCity: 0,
-        //         deliveredToCity: 0,
-        //         transitToTMR: 0,
-        //         deliveredToTMR: 0,
-        //         executed: 0,
-        //     }
-        // },
-        // {
-        //     week: 'Week 29',
-        //     number: '+5',
-        //     dateStart: '23/05',
-        //     dateEnd: '29/05',
-        //     graph: {
-        //         notDeliveredToCS: 0,
-        //         deliveredToCS: 0,
-        //         transitToCity: 0,
-        //         deliveredToCity: 0,
-        //         transitToTMR: 0,
-        //         deliveredToTMR: 0,
-        //         executed: 0,
-        //     }
-        // },
     ],
 })
 
@@ -406,26 +397,13 @@ const showSingle = (path) => {
 
 const handleHide = () => state.visible = false
 
-const showmodal = () => {
-    state.modalVisible = true
-    document.querySelector('body').style.overflow = "hidden"
-}
-
-const hideModal = () => {
-    state.modalVisible = false
-    document.querySelector('body').removeAttribute("style")
-}
+const modal = ref(null)
 
 </script>
 
 <template lang="pug">
 
-ModalConstructor(
-    :visible="state.modalVisible",
-    modalName="CycleMaterialsModal",
-    @hide="hideModal", 
-    :data="itemList"
-)
+ModalConstructor(modalName="CycleMaterialsModal", :data="itemList", ref="modal")
 
 vue-easy-lightbox(
     :visible="state.visible",
@@ -434,7 +412,7 @@ vue-easy-lightbox(
     @hide="handleHide"
 )
 
-.cycle-materials-item.showmodal(@click="() => showmodal()" :class="{ new : item.new }")
+.cycle-materials-item.showmodal(@click="() => modal.show()" :class="{ new: item.new }")
     .cycle-materials-item-data {{ item.label }}
     .cycle-materials-item-data
         .cycle-materials-item__photo

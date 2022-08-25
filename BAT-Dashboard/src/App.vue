@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar.vue";
 <template lang="pug">
 //- Loading
 #modal
+#warn
 RouterView
 </template>
 

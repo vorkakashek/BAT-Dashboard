@@ -1,5 +1,7 @@
 <script setup>
 
+import { ref } from 'vue'
+
 const props = defineProps({
     disabled: {
         type: Boolean,
@@ -13,17 +15,23 @@ const props = defineProps({
     }
 })
 
+const modal = ref()
+
 </script>
 
 <template lang="pug">
-    
-a.export-excel(:href="props.link" :class="{ disabled }")
+
+ModalConstructor(modalName="ExportExcel", ref="modal", :dialog="true")
+
+.export-excel(:href="props.link" :class="{ disabled }" @click="modal.show")
     app-icon(name="excel", size="40")
+
 
 </template>
 
 <style lang="scss" scoped>
 .export-excel {
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;

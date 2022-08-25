@@ -48,7 +48,6 @@ const expandStats = (key) => {
 
 
 .graph-legend
-    
     .graph-legend-group
         .graph-legend-item(v-for="(item, key) in data.weeks[0].graph")
             .graph-legend-name(:class="legendName(key)") {{ key }}
@@ -335,6 +334,12 @@ const expandStats = (key) => {
             background-color: #AFCA0B;
         }
 
+    }
+
+    &.InStock {
+        &:before {
+            background: linear-gradient(180deg, #478caf 0%, #0bb6ca 100%);
+        }
     }
 
     &.Executed {

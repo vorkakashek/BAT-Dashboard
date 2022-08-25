@@ -26,6 +26,7 @@ import '@vueform/multiselect/themes/default.css';
 import VueEasyLightbox from 'vue-easy-lightbox'
 import ModalConstructor from './components/Modals/ModalConstructor.vue'
 import Loading from './components/Loading.vue'
+import Warn from './components/Warn/Warn.vue'
 
 
 const app = createApp(App);
@@ -53,4 +54,5 @@ app
     .component('ComparisonItem', ComparisonItem)
     .component('ModalConstructor', ModalConstructor)
     .component('Loading', Loading)
+    .component('Warn', Warn)
     .mount("#app");
