@@ -2,12 +2,18 @@
 import { RouterLink, RouterView } from "vue-router";
 import LeftSidebar from "@/components/LeftSidebar.vue";
 import Navbar from "@/components/Navbar.vue";
+// import { useReportStore } from "@/store/store"
+
+// const store = useReportStore()
+
 </script>
 
 <template lang="pug">
 //- Loading
 #modal
 #warn
+notifications(position="bottom right" width="380px")
+
 RouterView
 </template>
 
@@ -186,6 +192,24 @@ hr {
             transform: scale(1.25);
         }
     }
+}
+
+// 
+
+.notification-title {
+    font-size: 18px;
+}
+
+.notification-content {
+    font-size: 15px;
+}
+
+.vue-notification {
+    cursor: pointer;
+    // &.info {
+    //     background: var(--yellow);
+    //     border-left: 5px solid var(--orange);
+    // }
 }
 
 

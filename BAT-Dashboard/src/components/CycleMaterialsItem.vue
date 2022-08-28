@@ -7,7 +7,6 @@ const props = defineProps(['item'])
 
 const state = reactive({
     visible: false,
-    // modalVisible: false,
     index: 0,
     imgs: "",
 })

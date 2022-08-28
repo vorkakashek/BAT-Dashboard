@@ -26,10 +26,11 @@ import '@vueform/multiselect/themes/default.css';
 import VueEasyLightbox from 'vue-easy-lightbox'
 import ModalConstructor from './components/Modals/ModalConstructor.vue'
 import Loading from './components/Loading.vue'
-import Warn from './components/Warn/Warn.vue'
+import Notifications from '@kyvg/vue3-notification'
+import { createPinia } from 'pinia'
 
 
-const app = createApp(App);
+const app = createApp(App).use(createPinia()).use(Notifications);
 
 
 app.use(router);
@@ -54,5 +55,4 @@ app
     .component('ComparisonItem', ComparisonItem)
     .component('ModalConstructor', ModalConstructor)
     .component('Loading', Loading)
-    .component('Warn', Warn)
     .mount("#app");

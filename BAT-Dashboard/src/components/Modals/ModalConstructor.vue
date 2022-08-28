@@ -2,6 +2,7 @@
 
 import CycleMaterialsModal from '@/components/Modals/Cycle Materials Modal/modal.vue'
 import ExportExcel from '@/components/Modals/ExportExcel/modal.vue'
+import ReportDownload from '@/components/Modals/ReportDownload/modal.vue'
 
 import { ref } from 'vue'
 
@@ -52,6 +53,9 @@ Teleport(to="#modal")
                         //- For Excel Icon
                         template(v-if="modalName == 'ExportExcel'")
                             ExportExcel(@hide="hide()")
+                        //- For Report Downloader
+                        template(v-if="modalName == 'ReportDownload'")
+                            ReportDownload(@hide="hide()")
 
             .inner#modal-constructor-overlay(@click="hide()")
         
@@ -65,9 +69,11 @@ Teleport(to="#modal")
     top: var(--pdsm);
     cursor: pointer;
     transition: all .2s ease;
+    fill: var(--inactive);
 
     &:hover {
-        transform: rotate(90deg);
+        // transform: rotate(90deg);
+        fill: var(--red);
     }
 }
 

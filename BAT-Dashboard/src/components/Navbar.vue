@@ -1,6 +1,9 @@
 <script setup>
 
 import { reactive, onBeforeMount, onBeforeUnmount } from 'vue'
+import Downloader from '@/components/Downloader.vue'
+import { useReportStore } from "@/store/store"
+const store = useReportStore()
 
 const props = defineProps(['navActive'])
 
@@ -46,6 +49,7 @@ nav
     .logo Merchandising Dashboard
 
     #export-excel
+    Downloader(v-if="store.amount_requested > 0 || store.amount_ready > 0")
 
     router-link.user.fajc(to="/login")
         .user-login username
