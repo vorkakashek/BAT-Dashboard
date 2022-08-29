@@ -206,10 +206,6 @@ hr {
 
 .vue-notification {
     cursor: pointer;
-    // &.info {
-    //     background: var(--yellow);
-    //     border-left: 5px solid var(--orange);
-    // }
 }
 
 
