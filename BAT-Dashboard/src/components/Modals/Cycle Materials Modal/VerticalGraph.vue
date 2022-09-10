@@ -13,11 +13,13 @@ const props = defineProps({
     },
 })
 
-function verticalTransform() {
-    var value = -50;
-    if (props.data.graph['Executed'].percent < 5) {
+function verticalTransform(name) {
+    let value = -50;
+
+    if (props.data.graph[name].percent < 5) {
         value = -100;
     }
+
     return 'transform:' + ' translateY(' + value + '%)';
 };
 
@@ -52,7 +54,7 @@ const handlerClass = (item) => {
     .graph-wrap
         .graph-thin.InStock
             .graph(:style="{ height: data.graph['In Stock'].percent + '%', animationDelay: itemKey * .1 + 's' }")
-                .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform()]") {{ aroundNumber(data.graph['In Stock'].percent) }}
+                .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform('In Stock')]") {{ aroundNumber(data.graph['In Stock'].percent) }}
 
         .graph-thick
             template(v-for="(item, key) in data.graph")
@@ -61,7 +63,7 @@ const handlerClass = (item) => {
                         .percent(v-if="item.percent !== 0" :style="{ animationDelay: itemKey * .1 + .3 + 's' }") {{ aroundNumber(item.percent) }}
         .graph-thin
             .graph(:style="{ height: data.graph['Executed'].percent + '%', animationDelay: itemKey * .1 + 's' }")
-                .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform()]") {{ aroundNumber(data.graph['Executed'].percent) }}
+                .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform('Executed')]") {{ aroundNumber(data.graph['Executed'].percent) }}
 
     .week(:class="{ current: data.current }" :style="{ animationDelay: itemKey * .1 + 's' }")
         .week-label
@@ -160,7 +162,7 @@ const handlerClass = (item) => {
         &:after {
             content: '';
             position: absolute;
-            left: -4px;
+            left: -3px;
             top: 50%;
             transform: translateY(-50%);
             display: block;
@@ -185,15 +187,17 @@ const handlerClass = (item) => {
         .graph {
             background: linear-gradient(180deg, #478caf 0%, #0bb6ca 100%);
         }
+
         .percent {
             left: unset;
             right: 18px;
             background-color: #478caf;
+
             &:after {
                 border-right: unset;
                 border-left: 4px solid #478caf;
                 left: unset;
-                right: -4px;
+                right: -3px;
             }
         }
     }

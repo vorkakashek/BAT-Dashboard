@@ -231,11 +231,11 @@ TotalProgressbar(:data="otherTotal", label="Other total")
         ProgressbarLegend(:inData="otherTotal")
 
 .panel
-    CycleMaterialsList(:labels="['Must set', 'Image', 'Execution status']")
+    CycleMaterialsList(:labels="['Must set', 'Image', 'Execution status']" v-if="mustSetProducts.length > 0")
         template(#item)
             CycleMaterialsItem(v-for="item in mustSetProducts" :item="item")
 
-    CycleMaterialsList(:labels="['Other', 'Image', 'Execution status']")
+    CycleMaterialsList(:labels="['Other', 'Image', 'Execution status']" v-if="otherProducts.length > 0")
         template(#item)
             CycleMaterialsItem(v-for="item in otherProducts" :item="item")
 </template>

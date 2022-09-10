@@ -52,8 +52,8 @@ const itemList = ref({
                     percent: 10,
                 },
                 'In Stock': {
-                    qty: 206,
-                    percent: 45,
+                    qty: 642,
+                    percent: 98,
                 },
                 'Executed': {
                     qty: 0,
