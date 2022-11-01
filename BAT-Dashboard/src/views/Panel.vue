@@ -94,6 +94,24 @@ export default {
                     ],
                 },
                 {
+                    link: "Headers",
+                    name: "Headers",
+                    children: [
+                        {
+                            link: "Delivery-Execution",
+                            name: "Delivery / Execution",
+                        },
+                        {
+                            link: "Comparison",
+                            name: "Comparison",
+                        },
+                        {
+                            link: "Progress",
+                            name: "Progress",
+                        },
+                    ],
+                },
+                {
                     link: "Projects",
                     name: "Projects",
                     children: [

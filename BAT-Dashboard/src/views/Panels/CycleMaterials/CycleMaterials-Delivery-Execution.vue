@@ -58,6 +58,7 @@ const otherTotal = ref([
     },
 ])
 
+// Product lists:
 const mustSetProducts = ref([
     {
         label: "GC A TN Insert for Crtystal # LS Surf (211800080 / 211800081 / 211800082)",
@@ -219,9 +220,6 @@ const otherProducts = ref([
 
 
 <template lang="pug">
-
-//- Teleport(to="#export-excel")
-//-     ExportExcel(disabled)
 
 TotalProgressbar(:data="mustSetTotalData", label="Must set total")
     template(#legend)

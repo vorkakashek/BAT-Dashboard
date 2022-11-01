@@ -1,6 +1,10 @@
 <script setup>
 import { ref, reactive, watch, computed } from "vue";
 import FavoriveToggler from "@/components/FavoriveToggler.vue";
+import SalesChannelFilter from "@/components/SalesChannelFilter.vue";
+
+import { useSalesChannelFilter } from "@/store/store";
+const store = useSalesChannelFilter();
 
 const cycleOptions = ref([
     {
@@ -112,6 +116,8 @@ function handleSelector(value, nameValue) {
 <template lang="pug">
 
 
+div {{ state.SalesChannelFilter_Value}}
+
 Teleport(to="#export-excel")
     ExportExcel(disabled)
 
@@ -166,7 +172,9 @@ Teleport(to="#multiselector")
     //-     placeholder="Start typing or select...",
     //-     )
 
-FavoriveToggler(:options="cycleOptions" v-model="state.cycleValue")
+.filter-group
+    FavoriveToggler(:options="cycleOptions" v-model="state.cycleValue")
+    SalesChannelFilter(:options="store.SalesChannelFilter_Options")
 
 RouterView
 
@@ -179,6 +187,20 @@ RouterView
 
     span {
         font-weight: 700;
+    }
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: var(--pdlg);
+    > * {
+        margin: 0 !important;
+        margin-bottom: var(--pdlg) !important;
+        &:not(:last-child) {
+            margin-right: var(--pdlg) !important;
+        }
     }
 }
 </style>

@@ -37,7 +37,9 @@ const expandStats = (key) => {
     .graph-constructor-target-outer(v-if="targetPos !== null")
         .graph-constructor-target(:style="['bottom:' + targetPos + '%']")
             .graph-constructor-target-value {{ targetPos }}%
-            .graph-constructor-target-name Target: {{ data.info.target }}
+            .graph-constructor-target-name Target: 
+                br
+                | {{ data.info.target }}
 
     .graph-constructor-percents
         .percent(v-for="n in 11" :style="{ top: 100 - (n * 10 - 10) + '%', transform: 'translateY(-50%)' }") {{ n * 10 - 10 }}%

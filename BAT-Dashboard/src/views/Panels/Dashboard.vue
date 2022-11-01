@@ -7,21 +7,31 @@ const tiles = ref([
         link: 'ISF',
         name: 'ISF',
         class: 'blue-medium',
+        disabled: false,
     },
     {
         link: 'Semi-permanentMaterials',
         name: 'Semi-permanent materials',
         class: 'pink',
+        disabled: false,
     },
     {
         link: 'CycleMaterials',
         name: 'Cycle Materials',
         class: 'orange',
+        disabled: false,
+    },
+    {
+        link: 'Headers',
+        name: 'Headers',
+        class: 'purple',
+        disabled: false,
     },
     {
         link: 'Projects',
         name: 'Projects',
         class: 'green',
+        disabled: true,
     },
 ])
 
@@ -29,7 +39,7 @@ const tiles = ref([
 
 <template lang="pug">
 .dashboard-tile__group
-    .dashboard-tile__wrap(v-for="tile in tiles")
+    .dashboard-tile__wrap(v-for="tile in tiles" :class="{ 'disabled': tile.disabled }")
         router-link.dashboard-tile(:to="`/panel/${tile.link}`" :class="tile.class")
             .dashboard-tile__icon.fajc 
                 app-icon(:name="tile.link", size="30")
@@ -55,6 +65,21 @@ const tiles = ref([
 
     @include respond-to (large) {
         padding: 4px;
+    }
+
+    &.disabled {
+        pointer-events: none;
+        user-select: none;
+        opacity: .5;
+        .dashboard-tile {
+            background: rgb(231, 231, 231);
+            .dashboard-tile__icon {
+                background-color: var(--inactive);
+            }
+            .dashboard-tile__name {
+                color: var(--inactive);
+            }
+        }
     }
 }
 
@@ -116,6 +141,21 @@ const tiles = ref([
 
         .dashboard-tile__icon {
             background-color: var(--pink);
+        }
+    }
+
+    &.purple {
+        .icon {
+            fill: var(--purple);
+            fill: #fff;
+        }
+
+        .dashboard-tile__name {
+            color: var(--purple);
+        }
+
+        .dashboard-tile__icon {
+            background-color: var(--purple);
         }
     }
 
