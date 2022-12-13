@@ -1,6 +1,6 @@
 <script setup>
 
-import { computed } from "vue";
+import { computed } from 'vue'
 
 const props = defineProps({
     options: {
@@ -8,57 +8,41 @@ const props = defineProps({
         required: true,
     },
     modelValue: {
-        type: Array,
-        required: true,
+        type: String,
+        required: true
     },
-});
+})
 
-const options = computed(() => {
-    return props.options.filter(({ favorite }) => favorite)
-});
+const emit = defineEmits(['update:modelValue'])
 
 const togglerValue = computed({
-    get: () => {
-        // if (props.modelValue.filter((e) => e !== 0).length > 1) {
-        //     return props.modelValue.filter((e) => e !== 0);
-        // }
-        // return props.modelValue.filter((e) => e !== 0)[0]
-        if (props.modelValue.length > 1) {
-            return props.modelValue
-        }
-        return props.modelValue[0]
-    },
-    set: (v) => emit("update:modelValue", [v]),
+    get: () => props.modelValue,
+    set: (v) => emit("update:modelValue", v),
 });
-
-
-const emit = defineEmits(['update:modelValue']);
 
 </script>
 
 <template lang="pug">
-
-.FavoriveToggler
-    label.toggle-option(v-for="option in options")
-        input(type="radio" :value="option.value" v-model="togglerValue")
-        .toggle-option-label {{ option.label }}
-
+.CMFilter
+    label.CMFilter-option(v-for="option in options")
+        input(type="radio" :value="option" v-model="togglerValue")
+        .CMFilter-option-label {{ option }}
 </template>
 
 <style lang="scss" scoped>
-.FavoriveToggler {
+.CMFilter {
     display: flex;
     width: fit-content;
     flex-wrap: wrap;
     align-items: center;
-    margin: var(--pdlg) 0;
+    margin-bottom: var(--pdlg);
     border-radius: 100px;
     background-color: #fff;
     border: 1px solid #E1E1E1;
     overflow: hidden;
 }
 
-.toggle-option {
+.CMFilter-option {
     display: flex;
     align-items: center;
     position: relative;
@@ -68,7 +52,7 @@ const emit = defineEmits(['update:modelValue']);
         display: none;
 
         &:checked {
-            &~.toggle-option-label {
+            &~.CMFilter-option-label {
                 background-color: var(--blue-light);
                 opacity: 1;
                 color: #fff;
@@ -83,7 +67,7 @@ const emit = defineEmits(['update:modelValue']);
     &:not(&:last-child) {
         margin-right: 1px;
 
-        input:not(:checked)~.toggle-option-label {
+        input:not(:checked)~.CMFilter-option-label {
             display: flex;
             align-items: center;
             position: relative;
@@ -102,7 +86,7 @@ const emit = defineEmits(['update:modelValue']);
     }
 }
 
-.toggle-option-label {
+.CMFilter-option-label {
     padding: var(--pdsm) 12px;
     border-radius: var(--radius-4);
     font-weight: 700;

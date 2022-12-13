@@ -72,6 +72,27 @@ const letters = computed(() => {
         transform: translateY(0%);
     }
 }
+@keyframes opacity {
+    0% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: .5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: .5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
 
 #preloader {
     z-index: 9999;
@@ -122,8 +143,9 @@ const letters = computed(() => {
 }
 
 .preloader-text-letter {
-    animation: jump 5s cubic-bezier(0.83, 0.51, 0.27, 1.55) infinite 2s;
-    animation: jump 5s cubic-bezier(0.32, -1.5, 0.88, 1) infinite 2s;
+    // animation: jump 5s cubic-bezier(0.83, 0.51, 0.27, 1.55) infinite 2s;
+    // animation: jump 5s cubic-bezier(0.32, -1.5, 0.88, 1) infinite 2s;
+    animation: opacity 5s cubic-bezier(0.32, -1.5, 0.88, 1) infinite 2s;
 
     &:not(:last-child) {
         margin-right: 1px;

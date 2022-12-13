@@ -38,13 +38,21 @@ onBeforeUnmount(() => {
 </script>
 
 <template lang="pug">
-nav
+nav(:class="{ active: state.menuActive }")
     .nav-btn.fajc(
         v-if="state.visible",
         @click="navClick",
         :class="{ active: state.menuActive }"
     )
-        app-icon(name="nav-btn", size="20")
+        //- app-icon(name="nav-btn", size="20")
+        .nav-btn-name 
+            span Menu
+            span Close
+        span
+        span
+        span
+        span
+
 
     .logo Merchandising Dashboard
 
@@ -55,10 +63,36 @@ nav
         .user-login username
         app-icon(name="log-out", size="40")
         
-
+#overlay(@click="navClick")
 </template>
 
 <style lang="scss" scoped>
+#overlay {
+    position: fixed;
+    z-index: 20;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(59, 150, 255, 0.301);
+    backdrop-filter: blur(8px);
+    z-index: -1000;
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+    transition: opacity .3s ease 0s;
+    
+}
+
+nav.active {
+    ~#overlay {
+        z-index: 20;
+        opacity: 1;
+        user-select: auto;
+        pointer-events: auto;
+        transition: opacity .3s ease .1s;
+    }
+}
 nav {
     position: fixed;
     top: 0;
@@ -149,25 +183,132 @@ nav {
 
 .nav-btn {
     margin-left: var(--pdlg);
-    width: 36px;
-    height: 36px;
-    background: var(--grey);
+    width: 42px;
+    height: 42px;
+    // background: var(--grey);
+    background-color: var(--blue-dark);
     border-radius: var(--radius-8);
     flex-shrink: 0;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all .3s ease;
 
     .icon {
         transition: all 0.3s var(--tr-2);
     }
 
+
+
+    >span {
+        width: 24px;
+        height: 2px;
+        display: block;
+        background-color: #fff;
+        margin: 4px 0;
+        position: absolute;
+        transition: all .3s ease;
+        // left: 9px;
+
+        // margin-top: 8px;
+        &:nth-child(2) {
+            // display: none;
+            top: 8px;
+            left: 9px;
+        }
+
+        &:nth-child(3) {
+            // display: none;
+            top: 14px;
+            left: 9px;
+        }
+
+        &:nth-child(4) {
+            transform: rotate(45deg);
+            width: 14px;
+            left: 60px;
+            top: 60px;
+            // display: none;
+        }
+
+        &:nth-child(5) {
+            transform: rotate(-45deg);
+            width: 14px;
+            left: -20px;
+            bottom: -20px;
+        }
+    }
+
     &.active {
-        .icon {
-            transform: rotate(-180deg);
-            fill: var(--blue-light);
+        background-color: var(--blue-medium);
+
+        >span {
+            &:nth-child(2) {
+                left: -150%;
+            }
+
+            &:nth-child(3) {
+                left: 150%;
+            }
+
+            &:nth-child(4) {
+
+                transform: rotate(45deg);
+                left: 14px;
+                top: 12px;
+
+            }
+
+            &:nth-child(5) {
+                // display: none;
+                transform: rotate(-45deg);
+                left: 14px;
+                bottom: 20px;
+            }
+        }
+
+        .nav-btn-name {
+            >span {
+                &:nth-child(1) {
+                    position: absolute;
+                    left: -100%;
+                    transform: translateX(-50%);
+                }
+
+                &:nth-child(2) {
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
         }
     }
 
     @include respond-to(large) {
         margin-left: var(--pdsm);
+    }
+}
+
+.nav-btn-name {
+    text-transform: uppercase;
+    font-size: 8px;
+    letter-spacing: .075rem;
+    color: #fff;
+    position: absolute;
+    bottom: 4px;
+    width: 100%;
+    overflow: hidden;
+    height: 13px;
+
+    >span {
+        position: absolute;
+        transform: translateX(-50%);
+        transition: all .3s ease;
+        &:nth-child(1) {
+            left: 50%;
+        }
+
+        &:nth-child(2) {
+            left: 200%;
+        }
     }
 }
 </style>

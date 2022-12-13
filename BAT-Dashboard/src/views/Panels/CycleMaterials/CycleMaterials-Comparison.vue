@@ -1,5 +1,7 @@
 <script setup>
+
 import { computed, ref, reactive } from "vue";
+import CMFilter from '@/components/CMFilter.vue';
 
 const state = reactive({
     visible: false,
@@ -62,10 +64,11 @@ const itemList = ref([
                 name: "Target",
                 value: "4000",
             },
-        ]
+        ],
     },
     {
         label: "NW",
+        type: 'OTHER',
         stats: [
             {
                 name: "Executed",
@@ -91,9 +94,72 @@ const itemList = ref([
                 name: "Target",
                 value: "4000",
             },
-        ]
+        ],
+    },
+    {
+        label: "NW",
+        type: 'OTHER',
+        stats: [
+            {
+                name: "Executed",
+                value: "301",
+            },
+            {
+                name: "Delivered to TMR",
+                value: "1204",
+            },
+            {
+                name: "Transit to TMR",
+                value: "300",
+            },
+            {
+                name: "Delivered to City",
+                value: "3500",
+            },
+            {
+                name: "Not Delivered",
+                value: "500",
+            },
+            {
+                name: "Target",
+                value: "4000",
+            },
+        ],
+    },
+    {
+        label: "NW",
+        type: 'MUST SET',
+        stats: [
+            {
+                name: "Executed",
+                value: "301",
+            },
+            {
+                name: "Delivered to TMR",
+                value: "1204",
+            },
+            {
+                name: "Transit to TMR",
+                value: "300",
+            },
+            {
+                name: "Delivered to City",
+                value: "3500",
+            },
+            {
+                name: "Not Delivered",
+                value: "500",
+            },
+            {
+                name: "Target",
+                value: "4000",
+            },
+        ],
     },
 ])
+
+const CMFilterOptions = ref(['ALL', 'MUST SET', 'OTHER'])
+const CMFilterValue = ref('ALL')
 
 const importPhoto = computed(() => {
     return new URL(
@@ -114,13 +180,19 @@ function show() {
 function handleHide() {
     state.visible = false
 }
+
+// Фильтруем список карточек по 'type'
+let itemList_filtered = computed(() => itemList.value.filter(({ type }) => {
+    if (CMFilterValue.value === 'ALL') {
+        return true
+    }
+    return type === CMFilterValue.value
+}))
+
 </script>
 
 
 <template lang="pug">
-
-//- Teleport(to="#export-excel")
-//-     ExportExcel(disabled)
 
 vue-easy-lightbox(
     :visible="state.visible",
@@ -135,9 +207,10 @@ TotalProgressbar(:data="totalData")
 
 .panel
     h2 Cycle Materials
+    CMFilter(:options="CMFilterOptions" v-model="CMFilterValue")
     .comparison-wrap
         .comparison-aside
             img.zoom(:src="importPhoto", @click="() => showSingle()")
         .comparison-items
-            ComparisonItem(v-for="item in itemList" :comparisonData="item")
+            ComparisonItem(v-for="item in itemList_filtered" :comparisonData="item")
 </template>

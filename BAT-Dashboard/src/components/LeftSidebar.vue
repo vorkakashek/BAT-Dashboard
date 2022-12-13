@@ -36,9 +36,13 @@ aside(:class="{ active: sidebarActive }")
                     v-for="child in item.children",
                     :to="`/panel/${item.link}/${child.link}`"
                 ) {{ child.name }}
+
+
 </template>
 
 <style lang="scss" scoped>
+
+
 .heightAnim-enter-active {
     animation: heightAnim 0.75s ease;
     animation-delay: 0;
