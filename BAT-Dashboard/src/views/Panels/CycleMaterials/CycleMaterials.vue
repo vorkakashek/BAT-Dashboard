@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, watch, computed } from "vue";
-import FavoriveToggler from "@/components/FavoriveToggler.vue";
+import FavoriteToggler from "@/components/FavoriteToggler.vue";
 import SalesChannelFilter from "@/components/SalesChannelFilter.vue";
 
 import { useSalesChannelFilter } from "@/store/store";
@@ -173,7 +173,7 @@ Teleport(to="#multiselector")
     //-     )
 
 .filter-group
-    FavoriveToggler(:options="cycleOptions" v-model="state.cycleValue")
+    FavoriteToggler(:options="cycleOptions" v-model="state.cycleValue")
     SalesChannelFilter(:options="store.SalesChannelFilter_Options")
 
 RouterView

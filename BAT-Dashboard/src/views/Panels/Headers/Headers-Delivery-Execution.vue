@@ -1,5 +1,10 @@
 <script setup>
-import { computed, ref } from "vue";
+import { ref } from "vue";
+import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
+
+// Indep/Local RKA
+const RKAFilterOptions = ref(['Indep/Local', 'RKA']);
+const RKAFilterValue = ref(['Indep/Local', 'RKA']);
 
 const totalData = ref([
     {
@@ -24,6 +29,7 @@ const itemList = ref([
     {
         name: "MINI",
         photo: "headers-1",
+        type_rka: "Local",
         stats: [
             {
                 name: "Executed",
@@ -46,6 +52,7 @@ const itemList = ref([
     {
         name: "MINI",
         photo: "headers-1",
+        type_rka: "RKA",
         stats: [
             {
                 name: "Executed",
@@ -68,6 +75,7 @@ const itemList = ref([
     {
         name: "MINI",
         photo: "headers-1",
+        type_rka: "Indep",
         stats: [
             {
                 name: "Executed",
@@ -90,6 +98,7 @@ const itemList = ref([
     {
         name: "MINI",
         photo: "headers-1",
+        type_rka: "RKA",
         stats: [
             {
                 name: "Executed",
@@ -112,6 +121,7 @@ const itemList = ref([
     {
         name: "MINI",
         photo: "headers-1",
+        type_rka: "Local",
         stats: [
             {
                 name: "Executed",
@@ -145,6 +155,7 @@ TotalProgressbar(:data="totalData")
         ProgressbarLegend(:inData="totalData")
 
 .panel
+    FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
     ProductCards
         template(#items)
             ProductCard(v-for="product in itemList", :product="product")

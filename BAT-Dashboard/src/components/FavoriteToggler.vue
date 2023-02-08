@@ -38,7 +38,7 @@ const emit = defineEmits(['update:modelValue']);
 
 <template lang="pug">
 
-.FavoriveToggler
+.FavoriteToggler
     label.toggle-option(v-for="option in options")
         input(type="radio" :value="option.value" v-model="togglerValue")
         .toggle-option-label {{ option.label }}
@@ -46,7 +46,7 @@ const emit = defineEmits(['update:modelValue']);
 </template>
 
 <style lang="scss" scoped>
-.FavoriveToggler {
+.FavoriteToggler {
     display: flex;
     width: fit-content;
     flex-wrap: wrap;

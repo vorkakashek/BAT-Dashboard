@@ -39,6 +39,7 @@ const totalData = ref([
 const itemList = ref([
     {
         label: "MBU",
+        type: 'OTHER',
         stats: [
             {
                 name: "Executed",
@@ -181,7 +182,7 @@ function handleHide() {
     state.visible = false
 }
 
-// Фильтруем список карточек по 'type'
+// Фильтруем список карточек по 'type'n
 let itemList_filtered = computed(() => itemList.value.filter(({ type }) => {
     if (CMFilterValue.value === 'ALL') {
         return true

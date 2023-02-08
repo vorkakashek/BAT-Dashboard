@@ -11,6 +11,7 @@ export const useReportStore = defineStore('reportStore', {
         amount_requested: 1, // Кол-во запросов на репорты
         amount_ready: 2, // Репорты готовые к скачиванию
         amount_new: 1, // Кол-во новых репортов, готовых к скачиванию
+        alaram_express: useStorage('alaram_express', true),
     }),
     actions: {
         increment() {
@@ -19,6 +20,9 @@ export const useReportStore = defineStore('reportStore', {
         clear() {
             this.amount_new = 0 // Когда открываем модалку с репортам, очищаем "новые"
         },
+        shown() {
+            this.alaram_express = false // когда показали юзеру уведомление
+        }
     },
 })
 

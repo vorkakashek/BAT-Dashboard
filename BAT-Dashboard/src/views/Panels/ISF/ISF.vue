@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch } from "vue";
-import FavoriveToggler from "@/components/FavoriveToggler.vue";
+import FavoriteToggler from "@/components/FavoriteToggler.vue";
 
 const options = [
     {
@@ -31,7 +31,6 @@ const handlerClose = () => {
         itemValue.value = [options.length]
     }
 }
-
 </script>
 
 
@@ -49,7 +48,7 @@ Teleport(to="#multiselector")
         :searchable="true",
         )
 
-FavoriveToggler(:options="options" v-model="itemValue")
+FavoriteToggler(:options="options" v-model="itemValue")
 
 RouterView
 

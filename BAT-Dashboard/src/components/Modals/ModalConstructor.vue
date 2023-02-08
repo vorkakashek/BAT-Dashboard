@@ -3,6 +3,7 @@
 import CycleMaterialsModal from '@/components/Modals/Cycle Materials Modal/modal.vue'
 import ExportExcel from '@/components/Modals/ExportExcel/modal.vue'
 import ReportDownload from '@/components/Modals/ReportDownload/modal.vue'
+import AlarmExpress from '@/components/Modals/AlarmExpress/modal.vue'
 
 import { ref } from 'vue'
 
@@ -14,7 +15,15 @@ const props = defineProps({
         type: Boolean,
         required: false,
         default: false,
-    }
+    },
+    title: {
+        type: String,
+        required: false
+    },
+    msg: {
+        type: String,
+        required: false
+    },
 });
 
 const visible = ref(false)
@@ -56,6 +65,10 @@ Teleport(to="#modal")
                         //- For Report Downloader
                         template(v-if="modalName == 'ReportDownload'")
                             ReportDownload(@hide="hide()")
+                        //- For AlarmExpress
+                        template(v-if="modalName == 'AlarmExpress'")
+                            AlarmExpress(@hide="hide()" :title="title" :msg="msg")
+
 
             .inner#modal-constructor-overlay(@click="hide()")
         

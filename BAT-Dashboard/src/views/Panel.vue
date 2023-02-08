@@ -1,8 +1,26 @@
 <script setup>
+import { useReportStore } from "@/store/store"
 import Navbar from "@/components/Navbar.vue";
 import LeftSidebar from "@/components/LeftSidebar.vue";
 import { RouterLink, RouterView } from "vue-router";
 import { computed } from "vue";
+import { ref, onMounted } from "vue";
+
+const clicked = ref(false),
+    modal = ref(),
+    store = useReportStore()
+
+// контент для Alarm-сообщения
+let modal_msg = 'ipsum, dolor sit amet consectetur adipisicing elit. Culpa consequuntur illum nihil blanditiis iste vel vero obcaecati omnis cumque error! Cumque vitae tempore vero doloremque eos error, in possimus temporibus.',
+    modal_title = 'Title'
+
+// показываем модалку с уведомлением один раз, сохраняя в localStorage
+onMounted(() => {
+    if (store.alaram_express === true) {
+        modal.value.show()
+    }
+})
+
 </script>
 
 <script>
@@ -161,6 +179,7 @@ export default {
 <template lang="pug">
 Navbar(:navActive="navActive")
 LeftSidebar(:sidebarActive="menuActive")
+ModalConstructor(modalName="AlarmExpress", ref="modal", :dialog="true", :title="modal_title", :msg="modal_msg")
 main
     .container
         Filters(
@@ -168,7 +187,6 @@ main
             :multiselects="multiselects"
         )
         RouterView
-
 </template>
 
 

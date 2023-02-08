@@ -1,3 +1,4 @@
+import { createPinia } from 'pinia'
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -20,6 +21,7 @@ import ProductCard from "./components/ProductCard.vue";
 
 import ItemData from "./components/Progress Bars/ItemData.vue";
 import ISFFilter from "./components/ISFFilter.vue";
+import FilterToggler from "./components/FilterToggler.vue";
 import Multiselect from '@vueform/multiselect';
 import '@vueform/multiselect/themes/default.css';
 // import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'
@@ -27,7 +29,7 @@ import VueEasyLightbox from 'vue-easy-lightbox'
 import ModalConstructor from './components/Modals/ModalConstructor.vue'
 import Loading from './components/Loading.vue'
 import Notifications from '@kyvg/vue3-notification'
-import { createPinia } from 'pinia'
+
 
 
 const app = createApp(App).use(createPinia()).use(Notifications);
@@ -47,6 +49,7 @@ app
     .component('ProductCard', ProductCard)
     .component('ItemData', ItemData)
     .component('ISFFilter', ISFFilter)
+    .component('FilterToggler', FilterToggler)
     .component('app-icon', AppIcon)
     .component('TotalProgressbar', TotalProgressbar)
     .component('ProgressbarLegend', ProgressbarLegend)

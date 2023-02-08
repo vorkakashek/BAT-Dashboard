@@ -1,8 +1,17 @@
 <script setup>
 import { computed, ref } from "vue";
+import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
 
 const ISFFilterOptions = ref(['ALL', 'BWD', 'OHD']);
 const ISFFilterValue = ref('ALL');
+
+// CAPEX OPEX
+const PEXFilterOptions = ref(['ALL', 'CAPEX', 'OPEX']);
+const PEXFilterValue = ref('ALL');
+
+// Indep/Local RKA
+const RKAFilterOptions = ref(['Indep/Local', 'RKA']);
+const RKAFilterValue = ref(['Indep/Local', 'RKA']);
 
 const totalData = ref([
     {
@@ -28,6 +37,8 @@ const itemList = ref([
         name: "MINI",
         photo: "MINI",
         type: "BWD",
+        type_pex: "OPEX",
+        type_rka: "RKA",
         stats: [
             {
                 name: "Executed",
@@ -51,6 +62,8 @@ const itemList = ref([
         name: "MINI",
         photo: "MINI",
         type: "OHD",
+        type_pex: "OPEX",
+        type_rka: "Local",
         stats: [
             {
                 name: "Executed",
@@ -74,6 +87,8 @@ const itemList = ref([
         name: "MINI",
         photo: "MINI",
         type: "OHD",
+        type_pex: "CAPEX",
+        type_rka: "Indep",
         stats: [
             {
                 name: "Executed",
@@ -97,6 +112,8 @@ const itemList = ref([
         name: "MINI",
         photo: "MINI",
         type: "OHD",
+        type_pex: "CAPEX",
+        type_rka: "RKA",
         stats: [
             {
                 name: "Executed",
@@ -120,6 +137,8 @@ const itemList = ref([
         name: "MINI",
         photo: "MINI",
         type: "BWD",
+        type_pex: "OPEX",
+        type_rka: "Indep",
         stats: [
             {
                 name: "Executed",
@@ -141,12 +160,9 @@ const itemList = ref([
     },
 ])
 
-const filteredList = computed(() => itemList.value.filter(({ type }) => {
-    if (ISFFilterValue.value === 'ALL') {
-        return true
-    }
-    return type === ISFFilterValue.value
-}))
+// const filteredList = computed(() => itemList.value.filter(({ type, type_pex }) => {
+//     return ISFFilterValue.value === 'ALL' ? true : type === ISFFilterValue.value && type_pex === PEXFilterValue.value
+// }))
 
 </script>
 
@@ -160,11 +176,14 @@ TotalProgressbar(:data="totalData")
         ProgressbarLegend(:inData="totalData")
 
 .panel
-    ISFFilter(:options="ISFFilterOptions" v-model="ISFFilterValue")
+    FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")
+    FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
+    FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
     ProductCards
         template(#items)
-            ProductCard(v-for="product in filteredList", :product="product")
+            ProductCard(v-for="product in itemList", :product="product")
 </template>
 
 <style lang="scss" scoped>
+
 </style>

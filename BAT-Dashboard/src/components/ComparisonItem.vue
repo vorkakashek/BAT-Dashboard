@@ -1,12 +1,41 @@
-<script>
-export default {
-    props: ["comparisonData", "vertical"],
-    data() {
-        return {
+<script setup>
+// export default {
+//     props: ["comparisonData", "vertical"],
+//     data() {
+//         return {
 
-        };
+//         };
+//     },
+// };
+import { computed } from 'vue'
+
+const props = defineProps({
+    comparisonData: {
+        type: Object,
+        required: true
     },
-};
+    vertical: {
+        type: Boolean,
+        required: false,
+        default: false,
+    }
+})
+
+const product_vals = computed(() => {
+    let product_keys = Object.keys(props.comparisonData).filter((e) => e.includes('type')),
+        arr = []
+
+    Object.entries(props.comparisonData).forEach((el) => {
+        product_keys.forEach((k) => {
+            if (el.includes(k)) {
+                arr.push(el[1])
+                // console.log(el[1])
+            }
+        })
+    })
+    return arr
+})
+
 </script>
 
 <template lang="pug">
@@ -19,9 +48,12 @@ export default {
     ItemProgressbarVertical(:data="comparisonData.stats" v-if="vertical")
         template(#data)
             ItemData(:data="comparisonData.stats")
-    .comparison-item-type(v-if="comparisonData.type")
-        label TYPE: 
-        span {{ comparisonData.type }}
+    .comparison-item-type(v-if="product_vals.length > 0")
+        label TYPE:
+        span(v-for="item in product_vals") {{ item }}
+        //- span {{ comparisonData.type }}
+        //- span {{ comparisonData.type_pex }}
+        //- span {{ comparisonData.type_rka }}
 </template>
 
 <style lang="scss" scoped>
@@ -39,11 +71,13 @@ export default {
         padding: .25rem .5rem;
         border-radius: 4px;
         font-size: 13px;
+        margin-left: 4px;
     }
 
     >label {
         font-weight: 700;
         font-size: 12px;
+        margin-right: auto;
     }
 }
 

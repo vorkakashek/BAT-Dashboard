@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref, reactive } from "vue";
+import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
 
 const state = reactive({
     visible: false,
@@ -21,6 +22,7 @@ const totalData = ref([
 const itemList = ref([
     {
         label: "MBU",
+        type_rla: "",
         stats: [
             {
                 name: "Executed",
@@ -34,6 +36,35 @@ const itemList = ref([
     },
     {
         label: "NW",
+        type_rla: "",
+        stats: [
+            {
+                name: "Executed",
+                value: 80,
+            },
+            {
+                name: "Stock",
+                value: 20,
+            },
+        ]
+    },
+    {
+        label: "MBU",
+        type_rla: "",
+        stats: [
+            {
+                name: "Executed",
+                value: 80,
+            },
+            {
+                name: "Stock",
+                value: 20,
+            },
+        ]
+    },
+    {
+        label: "NW",
+        type_rla: "",
         stats: [
             {
                 name: "Executed",
@@ -47,6 +78,9 @@ const itemList = ref([
     },
 ])
 
+// Indep/Local RKA
+const RKAFilterOptions = ref(['Indep/Local', 'RKA']);
+const RKAFilterValue = ref(['Indep/Local', 'RKA']);
 
 const importPhoto = computed(() => new URL(`./../../../assets/images/Cycle Materials/2.jpg`, import.meta.url).href)
 
@@ -109,8 +143,10 @@ TotalProgressbar(:data="newTotalData")
     .comparison-wrap
         .comparison-aside
             img.zoom(:src="importPhoto" @click="() => showSingle()")
-        .comparison-items
-            ComparisonItem(v-for="item in newItemList" :comparisonData="item")
+        .comparison-content
+            FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
+            .comparison-items
+                ComparisonItem(v-for="item in newItemList" :comparisonData="item")
 </template>
 
 <style lang="scss" scoped>
