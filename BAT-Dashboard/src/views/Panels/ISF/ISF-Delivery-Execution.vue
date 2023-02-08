@@ -1,6 +1,21 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, onMounted, watch } from "vue";
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
+import { useFiltersStore } from "@/store/store"
+
+const store = useFiltersStore()
+
+onMounted(() => {
+    if (store.isf_togglers.find(e => e.name === 'isf_2').value !== 'unset') {
+        ISFFilterValue.value = store.isf_togglers.find(e => e.name === 'isf_2').value
+    }
+    if (store.isf_togglers.find(e => e.name === 'isf_3').value !== 'unset') {
+        PEXFilterValue.value = store.isf_togglers.find(e => e.name === 'isf_3').value
+    }
+    if (store.isf_togglers.find(e => e.name === 'isf_4').value !== 'unset') {
+        RKAFilterValue.value = store.isf_togglers.find(e => e.name === 'isf_4').value
+    }
+})
 
 const ISFFilterOptions = ref(['ALL', 'BWD', 'OHD']);
 const ISFFilterValue = ref('ALL');
@@ -160,9 +175,21 @@ const itemList = ref([
     },
 ])
 
-// const filteredList = computed(() => itemList.value.filter(({ type, type_pex }) => {
-//     return ISFFilterValue.value === 'ALL' ? true : type === ISFFilterValue.value && type_pex === PEXFilterValue.value
-// }))
+watch(() => ISFFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(ISFFilterValue.value, 'isf_2')
+    }
+})
+watch(() => PEXFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(PEXFilterValue.value, 'isf_3')
+    }
+})
+watch(() => RKAFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(RKAFilterValue.value, 'isf_4')
+    }
+})
 
 </script>
 

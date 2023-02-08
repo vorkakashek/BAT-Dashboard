@@ -1,5 +1,14 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, onMounted, watch } from "vue";
+import { useFiltersStore } from "@/store/store"
+
+const store = useFiltersStore()
+
+onMounted(() => {
+    if (store.isf_togglers.find(e => e.name === 'isf_8').value !== 'unset') {
+        ISFFilterValue.value = store.isf_togglers.find(e => e.name === 'isf_8').value
+    }
+})
 
 const ISFFilterOptions = ref(['ALL', 'BWD', 'OHD']);
 const ISFFilterValue = ref('ALL');
@@ -70,12 +79,18 @@ const itemList = ref([
     },
 ])
 
-const filteredList = computed(() => itemList.value.filter(({ type }) => {
-    if (ISFFilterValue.value === 'ALL') {
-        return true
+// const filteredList = computed(() => itemList.value.filter(({ type }) => {
+//     if (ISFFilterValue.value === 'ALL') {
+//         return true
+//     }
+//     return type === ISFFilterValue.value
+// }))
+
+watch(() => ISFFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(ISFFilterValue.value, 'isf_8')
     }
-    return type === ISFFilterValue.value
-}))
+})
 
 </script>
 
@@ -92,6 +107,6 @@ TotalProgressbar(:data="totalData")
     h2 Total
     ISFFilter(:options="ISFFilterOptions" v-model="ISFFilterValue")
     .comparison-items
-        ComparisonItem(v-for="item in filteredList" :comparisonData="item" :vertical="true")
+        ComparisonItem(v-for="item in itemList" :comparisonData="item" :vertical="true")
 
 </template>

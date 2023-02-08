@@ -1,6 +1,21 @@
 <script setup>
-import { computed, ref, reactive } from "vue";
+import { computed, ref, reactive, onMounted, watch } from "vue";
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
+import { useFiltersStore } from "@/store/store"
+
+const store = useFiltersStore()
+
+onMounted(() => {
+    if (store.isf_togglers.find(e => e.name === 'isf_5').value !== 'unset') {
+        ISFFilterValue.value = store.isf_togglers.find(e => e.name === 'isf_5').value
+    }
+    if (store.isf_togglers.find(e => e.name === 'isf_6').value !== 'unset') {
+        PEXFilterValue.value = store.isf_togglers.find(e => e.name === 'isf_6').value
+    }
+    if (store.isf_togglers.find(e => e.name === 'isf_7').value !== 'unset') {
+        RKAFilterValue.value = store.isf_togglers.find(e => e.name === 'isf_7').value
+    }
+})
 
 const state = reactive({
     visible: false,
@@ -114,28 +129,6 @@ const itemList = ref([
     },
 ])
 
-// const filteredList = computed(() => itemList.value.filter(({ type, type_pex, type_rka }) => {
-//     // if (ISFFilterValue.value === 'ALL') {
-//     //     return true
-//     // }
-//     // return type === ISFFilterValue.value
-//     // if (ISFFilterValue.value === 'ALL') {
-//     //     return true
-//     // } if (type === ISFFilterValue.value type_pex === PEXFilterValue.value) {
-
-//     // }
-//     // if (ISFFilterValue.value === 'ALL') {
-//     //     if (PEXFilterValue.value === 'ALL') {
-
-//     //     }
-//     // }
-
-//     // return ISFFilterValue.value === 'ALL' ? true :
-//     //     RKAFilterValue.value === 'Indep/Local' ? type_rka === 'Indep' || type_rka === 'Local' :
-//     //         RKAFilterValue.value === 'RKA' ? type_rka === 'RKA' :
-//     //             type === ISFFilterValue.value || type_pex === PEXFilterValue.value
-// }))
-
 const importPhoto = computed(() => {
     return new URL(
         `./../../../assets/images/ISF/PRO.jpg`,
@@ -155,6 +148,22 @@ function show() {
 function handleHide() {
     state.visible = false
 }
+
+watch(() => ISFFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(ISFFilterValue.value, 'isf_5')
+    }
+})
+watch(() => PEXFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(PEXFilterValue.value, 'isf_6')
+    }
+})
+watch(() => RKAFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(RKAFilterValue.value, 'isf_7')
+    }
+})
 </script>
 
 

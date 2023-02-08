@@ -26,6 +26,61 @@ export const useReportStore = defineStore('reportStore', {
     },
 })
 
+export const useFiltersStore = defineStore('filtersStore', {
+    state: () => ({
+        isf_togglers: [
+            // ISF togglers
+            {
+                name: 'isf_1', // дропдаун в сайд меню
+                value: 'unset'
+            },
+            // ISF delivery/execution
+            {
+                name: 'isf_2', // BWD / OHD
+                value: 'unset'
+            },
+            {
+                name: 'isf_3', // CAPEX / OPEX
+                value: 'unset'
+            },
+            {
+                name: 'isf_4', // IndepLocal / RKA
+                value: 'unset'
+            },
+            // ISF Comparison
+            {
+                name: 'isf_5', // BWD / OHD
+                value: 'unset'
+            },
+            {
+                name: 'isf_6', // CAPEX / OPEX
+                value: 'unset'
+            },
+            {
+                name: 'isf_7', // IndepLocal / RKA
+                value: 'unset'
+            },
+            // ISF Progress
+            {
+                name: 'isf_8', // BWD / OHD
+                value: 'unset'
+            },
+        ],
+        cycle_togglers: [
+            // CycleMaterials togglers
+            {
+                name: 'cycle_1', // BWD / OHD
+                value: 'unset'
+            },
+        ]
+    }),
+    actions: {
+        save(new_val, name) {
+            this.isf_togglers.find(e => e.name === name).value = new_val
+        },
+    }
+})
+
 export const useSalesChannelFilter = defineStore('salesChannelStore', {
     state: () => ({
         SalesChannelFilter_Options: ['Independent', 'National', 'Regional'], // Опции для CycleMaterials - SalesChannelFilter

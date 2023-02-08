@@ -4,11 +4,138 @@ import Navbar from "@/components/Navbar.vue";
 import LeftSidebar from "@/components/LeftSidebar.vue";
 import { RouterLink, RouterView } from "vue-router";
 import { computed } from "vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, provide } from "vue";
 
 const clicked = ref(false),
     modal = ref(),
-    store = useReportStore()
+    store = useReportStore(),
+    menuActive = ref(false)
+
+const multiselects = ref([
+    {
+        value: null,
+        options: ["Unit long name 1", "Unit 2", "Unit 3", "Unit 4"],
+        placeholder: "Unit",
+    },
+
+    {
+        value: null,
+        options: ["Region 1", "Region 2", "Region 3", "Region 4"],
+        placeholder: "Region",
+    },
+    {
+        value: null,
+        options: ["City 1", "City 2", "City 3", "City 4"],
+        placeholder: "City",
+    },
+    {
+        value: null,
+        options: ["CM 1", "CM 2", "CM 3", "CM 4"],
+        placeholder: "CM",
+    },
+    {
+        value: null,
+        options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
+        placeholder: "TMR",
+    },
+])
+
+const navItems = ref([
+    {
+        link: "Dashboard",
+        name: "Dashboard",
+    },
+    {
+        link: "ISF",
+        name: "ISF",
+        children: [
+            {
+                link: "Delivery-Execution",
+                name: "Delivery / Execution",
+            },
+            {
+                link: "Comparison",
+                name: "Comparison",
+            },
+            {
+                link: "Progress",
+                name: "Progress",
+            },
+        ],
+    },
+    {
+        link: "CycleMaterials",
+        name: "CycleMaterials",
+        children: [
+            {
+                link: "Delivery-Execution",
+                name: "Delivery / Execution",
+            },
+            {
+                link: "Comparison",
+                name: "Comparison",
+            },
+        ],
+    },
+    {
+        link: "Semi-permanentMaterials",
+        name: "Semi-permanent materials",
+        children: [
+            {
+                link: "Delivery-Execution",
+                name: "Delivery / Execution",
+            },
+            {
+                link: "Comparison",
+                name: "Comparison",
+            },
+            {
+                link: "Progress",
+                name: "Progress",
+            },
+        ],
+    },
+    {
+        link: "Headers",
+        name: "Headers",
+        children: [
+            {
+                link: "Delivery-Execution",
+                name: "Delivery / Execution",
+            },
+            {
+                link: "Comparison",
+                name: "Comparison",
+            },
+            {
+                link: "Progress",
+                name: "Progress",
+            },
+        ],
+    },
+    {
+        link: "Projects",
+        name: "Projects",
+        children: [
+            {
+                link: "Catalog",
+                name: "Projects Catalog",
+            },
+            {
+                link: "Delivery-Execution",
+                name: "Delivery / Execution",
+            },
+            {
+                link: "Comparison",
+                name: "Comparison",
+            },
+            {
+                link: "Progress",
+                name: "Progress",
+            },
+        ],
+    },
+])
 
 // контент для Alarm-сообщения
 let modal_msg = 'ipsum, dolor sit amet consectetur adipisicing elit. Culpa consequuntur illum nihil blanditiis iste vel vero obcaecati omnis cumque error! Cumque vitae tempore vero doloremque eos error, in possimus temporibus.',
@@ -27,131 +154,7 @@ onMounted(() => {
 export default {
     data() {
         return {
-            menuActive: false,
-            multiselects: [
-                {
-                    value: null,
-                    options: ["Unit long name 1", "Unit 2", "Unit 3", "Unit 4"],
-                    placeholder: "Unit",
-                },
 
-                {
-                    value: null,
-                    options: ["Region 1", "Region 2", "Region 3", "Region 4"],
-                    placeholder: "Region",
-                },
-                {
-                    value: null,
-                    options: ["City 1", "City 2", "City 3", "City 4"],
-                    placeholder: "City",
-                },
-                {
-                    value: null,
-                    options: ["CM 1", "CM 2", "CM 3", "CM 4"],
-                    placeholder: "CM",
-                },
-                {
-                    value: null,
-                    options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
-                    placeholder: "TMR",
-                },
-            ],
-            navItems: [
-                {
-                    link: "Dashboard",
-                    name: "Dashboard",
-                },
-                {
-                    link: "ISF",
-                    name: "ISF",
-                    children: [
-                        {
-                            link: "Delivery-Execution",
-                            name: "Delivery / Execution",
-                        },
-                        {
-                            link: "Comparison",
-                            name: "Comparison",
-                        },
-                        {
-                            link: "Progress",
-                            name: "Progress",
-                        },
-                    ],
-                },
-                {
-                    link: "CycleMaterials",
-                    name: "CycleMaterials",
-                    children: [
-                        {
-                            link: "Delivery-Execution",
-                            name: "Delivery / Execution",
-                        },
-                        {
-                            link: "Comparison",
-                            name: "Comparison",
-                        },
-                    ],
-                },
-                {
-                    link: "Semi-permanentMaterials",
-                    name: "Semi-permanent materials",
-                    children: [
-                        {
-                            link: "Delivery-Execution",
-                            name: "Delivery / Execution",
-                        },
-                        {
-                            link: "Comparison",
-                            name: "Comparison",
-                        },
-                        {
-                            link: "Progress",
-                            name: "Progress",
-                        },
-                    ],
-                },
-                {
-                    link: "Headers",
-                    name: "Headers",
-                    children: [
-                        {
-                            link: "Delivery-Execution",
-                            name: "Delivery / Execution",
-                        },
-                        {
-                            link: "Comparison",
-                            name: "Comparison",
-                        },
-                        {
-                            link: "Progress",
-                            name: "Progress",
-                        },
-                    ],
-                },
-                {
-                    link: "Projects",
-                    name: "Projects",
-                    children: [
-                        {
-                            link: "Catalog",
-                            name: "Projects Catalog",
-                        },
-                        {
-                            link: "Delivery-Execution",
-                            name: "Delivery / Execution",
-                        },
-                        {
-                            link: "Comparison",
-                            name: "Comparison",
-                        },
-                        {
-                            link: "Progress",
-                            name: "Progress",
-                        },
-                    ],
-                },
-            ],
         };
     },
     provide() {

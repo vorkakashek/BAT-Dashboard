@@ -1,6 +1,15 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, onMounted, watch } from "vue";
 import FavoriteToggler from "@/components/FavoriteToggler.vue";
+import { useFiltersStore } from "@/store/store"
+
+const store = useFiltersStore()
+
+onMounted(() => {
+    if (store.isf_togglers.find(e => e.name === 'isf_1').value !== 'unset') {
+        itemValue.value = [store.isf_togglers.find(e => e.name === 'isf_1').value]
+    }
+})
 
 const options = [
     {
@@ -26,11 +35,19 @@ const options = [
 const itemValue = ref([options.length]);
 
 const handlerOpen = (value) => itemValue.value = []
+
 const handlerClose = () => {
     if (itemValue.value.length < 1) {
         itemValue.value = [options.length]
     }
 }
+
+watch(() => itemValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(itemValue.value[0], 'isf_1')
+    }
+})
+
 </script>
 
 
@@ -56,4 +73,5 @@ RouterView
 </template>
 
 <style lang="scss" scoped>
+
 </style>
