@@ -6,28 +6,28 @@ import { useFiltersStore } from "@/store/store"
 const store = useFiltersStore()
 
 onMounted(() => {
-    if (store.isf_togglers.find(e => e.name === 'isf_1').value !== 'unset') {
-        itemValue.value = [store.isf_togglers.find(e => e.name === 'isf_1').value]
+    if (store.togglers.find(e => e.name === 'isf_1').value !== 'unset') {
+        itemValue.value = [store.togglers.find(e => e.name === 'isf_1').value]
     }
 })
 
 const options = [
     {
         value: 1,
-        label: 'Item 1'
+        label: 'Cycle Name 1'
     },
     {
         value: 2,
-        label: 'Item 2'
+        label: 'Cycle Name 2'
     },
     {
         value: 3,
-        label: 'Item 3',
+        label: 'Cycle Name 3',
         favorite: true,
     },
     {
         value: 4,
-        label: 'Item 3 last',
+        label: 'Cycle Name 3 (last)',
         favorite: true,
     },
 ];

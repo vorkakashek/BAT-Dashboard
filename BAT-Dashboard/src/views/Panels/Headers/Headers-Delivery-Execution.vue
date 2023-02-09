@@ -1,6 +1,14 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch, onMounted } from "vue";
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
+import { useFiltersStore } from "@/store/store";
+const store = useFiltersStore();
+
+onMounted(() => {
+    if (store.togglers.find(e => e.name === 'headers_2').value !== 'unset') {
+        RKAFilterValue.value = store.togglers.find(e => e.name === 'headers_2').value
+    }
+})
 
 // Indep/Local RKA
 const RKAFilterOptions = ref(['Indep/Local', 'RKA']);
@@ -142,6 +150,12 @@ const itemList = ref([
         ],
     },
 ])
+
+watch(() => RKAFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(RKAFilterValue.value, 'headers_2')
+    }
+})
 
 </script>
 

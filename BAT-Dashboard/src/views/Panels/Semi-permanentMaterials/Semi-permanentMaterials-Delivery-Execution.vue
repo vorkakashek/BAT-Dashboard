@@ -1,7 +1,16 @@
 <script setup>
 
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
+
+import { useFiltersStore } from "@/store/store";
+const store = useFiltersStore();
+
+onMounted(() => {
+    if (store.togglers.find(e => e.name === 'semiperm_2').value !== 'unset') {
+        RKAFilterValue.value = store.togglers.find(e => e.name === 'semiperm_2').value
+    }
+})
 
 const itemList = ref([
     {
@@ -99,6 +108,12 @@ function handleSelector(value) {
         itemValue.value = itemValue.value.filter((value) => value !== 0);
     }
 }
+
+watch(() => RKAFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(RKAFilterValue.value, 'semiperm_2')
+    }
+})
 
 </script>
 

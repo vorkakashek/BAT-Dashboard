@@ -1,6 +1,14 @@
 <script setup>
-import { computed, ref, reactive } from "vue";
+import { computed, ref, reactive, watch, onMounted } from "vue";
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
+import { useFiltersStore } from "@/store/store";
+const store = useFiltersStore();
+
+onMounted(() => {
+    if (store.togglers.find(e => e.name === 'headers_3').value !== 'unset') {
+        RKAFilterValue.value = store.togglers.find(e => e.name === 'headers_3').value
+    }
+})
 
 const state = reactive({
     visible: false,
@@ -119,6 +127,12 @@ function show() {
 function handleHide() {
     state.visible = false
 }
+watch(() => RKAFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(RKAFilterValue.value, 'headers_3')
+    }
+})
+
 </script>
 
 

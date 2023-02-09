@@ -1,24 +1,32 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import FavoriteToggler from "@/components/FavoriteToggler.vue";
+import { useFiltersStore } from "@/store/store";
+const store = useFiltersStore();
+
+onMounted(() => {
+    if (store.togglers.find(e => e.name === 'headers_1').value !== 'unset') {
+        itemValue.value = store.togglers.find(e => e.name === 'headers_1').value
+    }
+})
 
 const options = [
     {
         value: 1,
-        label: 'Item 1'
+        label: 'Cycle Name 1'
     },
     {
         value: 2,
-        label: 'Item 2'
+        label: 'Cycle Name 2'
     },
     {
         value: 3,
-        label: 'Item 3',
+        label: 'Cycle Name 3',
         favorite: true,
     },
     {
         value: 4,
-        label: 'Item 3 last',
+        label: 'Cycle Name 4 (last)',
         favorite: true,
     },
 ];
@@ -31,6 +39,12 @@ const handlerClose = () => {
         itemValue.value = [options.length]
     }
 }
+
+watch(() => itemValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(itemValue.value, 'headers_1')
+    }
+})
 
 </script>
 

@@ -5,8 +5,8 @@ import { useFiltersStore } from "@/store/store"
 const store = useFiltersStore()
 
 onMounted(() => {
-    if (store.isf_togglers.find(e => e.name === 'isf_8').value !== 'unset') {
-        ISFFilterValue.value = store.isf_togglers.find(e => e.name === 'isf_8').value
+    if (store.togglers.find(e => e.name === 'isf_8').value !== 'unset') {
+        ISFFilterValue.value = store.togglers.find(e => e.name === 'isf_8').value
     }
 })
 

@@ -1,10 +1,27 @@
 <script setup>
-import { ref, reactive, watch, computed } from "vue";
+import { ref, reactive, watch, computed, onMounted } from "vue";
 import FavoriteToggler from "@/components/FavoriteToggler.vue";
-import SalesChannelFilter from "@/components/SalesChannelFilter.vue";
+import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
+// import SalesChannelFilter from "@/components/SalesChannelFilter.vue"; надо удалить из компонентов проекта
 
-import { useSalesChannelFilter } from "@/store/store";
-const store = useSalesChannelFilter();
+import { useFiltersStore } from "@/store/store";
+const store = useFiltersStore();
+
+onMounted(() => {
+    if (store.togglers.find(e => e.name === 'cycle_1').value !== 'unset') {
+        state.cycleValue = [store.togglers.find(e => e.name === 'cycle_1').value]
+    }
+    if (store.togglers.find(e => e.name === 'cycle_2').value !== 'unset') {
+        state.activityValue = store.togglers.find(e => e.name === 'cycle_2').value
+    }
+    if (store.togglers.find(e => e.name === 'cycle_3').value !== 'unset') {
+        RKAFilterValue.value = store.togglers.find(e => e.name === 'cycle_3').value
+    }
+})
+
+// Indep/Local RKA
+const RKAFilterOptions = ref(['Indep/Local', 'RKA']);
+const RKAFilterValue = ref(['Indep/Local', 'RKA']);
 
 const cycleOptions = ref([
     {
@@ -87,15 +104,21 @@ watch(() => state.cycleValue, (val) => {
     state.activityValue = state.activityValue.filter((v) => {
         return filteredActivityOptions.value.some(({ value }) => v === value);
     });
-
+    store.save(state.cycleValue[0], 'cycle_1')
 });
 
 watch(() => state.activityValue, (val) => {
     if (val.length < 1) {
         state.activityValue = [0]
     }
+    store.save(state.activityValue, 'cycle_2')
 })
 
+watch(() => RKAFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(RKAFilterValue.value, 'cycle_3')
+    }
+})
 
 function handleSelector(value, nameValue) {
     if (nameValue === 'cycleValue') {
@@ -174,7 +197,8 @@ Teleport(to="#multiselector")
 
 .filter-group
     FavoriteToggler(:options="cycleOptions" v-model="state.cycleValue")
-    SalesChannelFilter(:options="store.SalesChannelFilter_Options")
+    FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
+    //- SalesChannelFilter(:options="store.SalesChannelFilter_Options")
 
 RouterView
 

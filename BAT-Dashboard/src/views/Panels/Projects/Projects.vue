@@ -1,5 +1,13 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
+import { useFiltersStore } from "@/store/store";
+const store = useFiltersStore();
+
+onMounted(() => {
+    if (store.togglers.find(e => e.name === 'projects_1').value !== 'unset') {
+        itemValue.value = store.togglers.find(e => e.name === 'projects_1').value
+    }
+})
 
 const options = [
     {
@@ -55,6 +63,12 @@ function handleSelector(value) {
     }
 }
 
+
+watch(() => itemValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(itemValue.value, 'projects_1')
+    }
+})
 </script>
 
 <template lang="pug">

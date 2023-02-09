@@ -11,131 +11,131 @@ const clicked = ref(false),
     store = useReportStore(),
     menuActive = ref(false)
 
-const multiselects = ref([
-    {
-        value: null,
-        options: ["Unit long name 1", "Unit 2", "Unit 3", "Unit 4"],
-        placeholder: "Unit",
-    },
+// const multiselects = ref([
+//     {
+//         value: null,
+//         options: ["Unit long name 1", "Unit 2", "Unit 3", "Unit 4"],
+//         placeholder: "Unit",
+//     },
 
-    {
-        value: null,
-        options: ["Region 1", "Region 2", "Region 3", "Region 4"],
-        placeholder: "Region",
-    },
-    {
-        value: null,
-        options: ["City 1", "City 2", "City 3", "City 4"],
-        placeholder: "City",
-    },
-    {
-        value: null,
-        options: ["CM 1", "CM 2", "CM 3", "CM 4"],
-        placeholder: "CM",
-    },
-    {
-        value: null,
-        options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
-        placeholder: "TMR",
-    },
-])
+//     {
+//         value: null,
+//         options: ["Region 1", "Region 2", "Region 3", "Region 4"],
+//         placeholder: "Region",
+//     },
+//     {
+//         value: null,
+//         options: ["City 1", "City 2", "City 3", "City 4"],
+//         placeholder: "City",
+//     },
+//     {
+//         value: null,
+//         options: ["CM 1", "CM 2", "CM 3", "CM 4"],
+//         placeholder: "CM",
+//     },
+//     {
+//         value: null,
+//         options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
+//         placeholder: "TMR",
+//     },
+// ])
 
-const navItems = ref([
-    {
-        link: "Dashboard",
-        name: "Dashboard",
-    },
-    {
-        link: "ISF",
-        name: "ISF",
-        children: [
-            {
-                link: "Delivery-Execution",
-                name: "Delivery / Execution",
-            },
-            {
-                link: "Comparison",
-                name: "Comparison",
-            },
-            {
-                link: "Progress",
-                name: "Progress",
-            },
-        ],
-    },
-    {
-        link: "CycleMaterials",
-        name: "CycleMaterials",
-        children: [
-            {
-                link: "Delivery-Execution",
-                name: "Delivery / Execution",
-            },
-            {
-                link: "Comparison",
-                name: "Comparison",
-            },
-        ],
-    },
-    {
-        link: "Semi-permanentMaterials",
-        name: "Semi-permanent materials",
-        children: [
-            {
-                link: "Delivery-Execution",
-                name: "Delivery / Execution",
-            },
-            {
-                link: "Comparison",
-                name: "Comparison",
-            },
-            {
-                link: "Progress",
-                name: "Progress",
-            },
-        ],
-    },
-    {
-        link: "Headers",
-        name: "Headers",
-        children: [
-            {
-                link: "Delivery-Execution",
-                name: "Delivery / Execution",
-            },
-            {
-                link: "Comparison",
-                name: "Comparison",
-            },
-            {
-                link: "Progress",
-                name: "Progress",
-            },
-        ],
-    },
-    {
-        link: "Projects",
-        name: "Projects",
-        children: [
-            {
-                link: "Catalog",
-                name: "Projects Catalog",
-            },
-            {
-                link: "Delivery-Execution",
-                name: "Delivery / Execution",
-            },
-            {
-                link: "Comparison",
-                name: "Comparison",
-            },
-            {
-                link: "Progress",
-                name: "Progress",
-            },
-        ],
-    },
-])
+// const navItems = ref([
+//     {
+//         link: "Dashboard",
+//         name: "Dashboard",
+//     },
+//     {
+//         link: "ISF",
+//         name: "ISF",
+//         children: [
+//             {
+//                 link: "Delivery-Execution",
+//                 name: "Delivery / Execution",
+//             },
+//             {
+//                 link: "Comparison",
+//                 name: "Comparison",
+//             },
+//             {
+//                 link: "Progress",
+//                 name: "Progress",
+//             },
+//         ],
+//     },
+//     {
+//         link: "CycleMaterials",
+//         name: "CycleMaterials",
+//         children: [
+//             {
+//                 link: "Delivery-Execution",
+//                 name: "Delivery / Execution",
+//             },
+//             {
+//                 link: "Comparison",
+//                 name: "Comparison",
+//             },
+//         ],
+//     },
+//     {
+//         link: "Semi-permanentMaterials",
+//         name: "Semi-permanent materials",
+//         children: [
+//             {
+//                 link: "Delivery-Execution",
+//                 name: "Delivery / Execution",
+//             },
+//             {
+//                 link: "Comparison",
+//                 name: "Comparison",
+//             },
+//             {
+//                 link: "Progress",
+//                 name: "Progress",
+//             },
+//         ],
+//     },
+//     {
+//         link: "Headers",
+//         name: "Headers",
+//         children: [
+//             {
+//                 link: "Delivery-Execution",
+//                 name: "Delivery / Execution",
+//             },
+//             {
+//                 link: "Comparison",
+//                 name: "Comparison",
+//             },
+//             {
+//                 link: "Progress",
+//                 name: "Progress",
+//             },
+//         ],
+//     },
+//     {
+//         link: "Projects",
+//         name: "Projects",
+//         children: [
+//             {
+//                 link: "Catalog",
+//                 name: "Projects Catalog",
+//             },
+//             {
+//                 link: "Delivery-Execution",
+//                 name: "Delivery / Execution",
+//             },
+//             {
+//                 link: "Comparison",
+//                 name: "Comparison",
+//             },
+//             {
+//                 link: "Progress",
+//                 name: "Progress",
+//             },
+//         ],
+//     },
+// ])
 
 // контент для Alarm-сообщения
 let modal_msg = 'ipsum, dolor sit amet consectetur adipisicing elit. Culpa consequuntur illum nihil blanditiis iste vel vero obcaecati omnis cumque error! Cumque vitae tempore vero doloremque eos error, in possimus temporibus.',
@@ -143,7 +143,7 @@ let modal_msg = 'ipsum, dolor sit amet consectetur adipisicing elit. Culpa conse
 
 // показываем модалку с уведомлением один раз, сохраняя в localStorage
 onMounted(() => {
-    if (store.alaram_express === true) {
+    if (store.alarm_express === true) {
         modal.value.show()
     }
 })
@@ -154,7 +154,130 @@ onMounted(() => {
 export default {
     data() {
         return {
+            navItems: [
+                {
+                    link: "Dashboard",
+                    name: "Dashboard",
+                },
+                {
+                    link: "ISF",
+                    name: "ISF",
+                    children: [
+                        {
+                            link: "Delivery-Execution",
+                            name: "Delivery / Execution",
+                        },
+                        {
+                            link: "Comparison",
+                            name: "Comparison",
+                        },
+                        {
+                            link: "Progress",
+                            name: "Progress",
+                        },
+                    ],
+                },
+                {
+                    link: "CycleMaterials",
+                    name: "CycleMaterials",
+                    children: [
+                        {
+                            link: "Delivery-Execution",
+                            name: "Delivery / Execution",
+                        },
+                        {
+                            link: "Comparison",
+                            name: "Comparison",
+                        },
+                    ],
+                },
+                {
+                    link: "Semi-permanentMaterials",
+                    name: "Semi-permanent materials",
+                    children: [
+                        {
+                            link: "Delivery-Execution",
+                            name: "Delivery / Execution",
+                        },
+                        {
+                            link: "Comparison",
+                            name: "Comparison",
+                        },
+                        {
+                            link: "Progress",
+                            name: "Progress",
+                        },
+                    ],
+                },
+                {
+                    link: "Headers",
+                    name: "Headers",
+                    children: [
+                        {
+                            link: "Delivery-Execution",
+                            name: "Delivery / Execution",
+                        },
+                        {
+                            link: "Comparison",
+                            name: "Comparison",
+                        },
+                        {
+                            link: "Progress",
+                            name: "Progress",
+                        },
+                    ],
+                },
+                {
+                    link: "Projects",
+                    name: "Projects",
+                    children: [
+                        {
+                            link: "Catalog",
+                            name: "Projects Catalog",
+                        },
+                        {
+                            link: "Delivery-Execution",
+                            name: "Delivery / Execution",
+                        },
+                        {
+                            link: "Comparison",
+                            name: "Comparison",
+                        },
+                        {
+                            link: "Progress",
+                            name: "Progress",
+                        },
+                    ],
+                },
+            ],
+            multiselects: [
+                {
+                    value: null,
+                    options: ["Unit long name 1", "Unit 2", "Unit 3", "Unit 4"],
+                    placeholder: "Unit",
+                },
 
+                {
+                    value: null,
+                    options: ["Region 1", "Region 2", "Region 3", "Region 4"],
+                    placeholder: "Region",
+                },
+                {
+                    value: null,
+                    options: ["City 1", "City 2", "City 3", "City 4"],
+                    placeholder: "City",
+                },
+                {
+                    value: null,
+                    options: ["CM 1", "CM 2", "CM 3", "CM 4"],
+                    placeholder: "CM",
+                },
+                {
+                    value: null,
+                    options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
+                    placeholder: "TMR",
+                },
+            ]
         };
     },
     provide() {

@@ -6,14 +6,14 @@ import { useFiltersStore } from "@/store/store"
 const store = useFiltersStore()
 
 onMounted(() => {
-    if (store.isf_togglers.find(e => e.name === 'isf_2').value !== 'unset') {
-        ISFFilterValue.value = store.isf_togglers.find(e => e.name === 'isf_2').value
+    if (store.togglers.find(e => e.name === 'isf_2').value !== 'unset') {
+        ISFFilterValue.value = store.togglers.find(e => e.name === 'isf_2').value
     }
-    if (store.isf_togglers.find(e => e.name === 'isf_3').value !== 'unset') {
-        PEXFilterValue.value = store.isf_togglers.find(e => e.name === 'isf_3').value
+    if (store.togglers.find(e => e.name === 'isf_3').value !== 'unset') {
+        PEXFilterValue.value = store.togglers.find(e => e.name === 'isf_3').value
     }
-    if (store.isf_togglers.find(e => e.name === 'isf_4').value !== 'unset') {
-        RKAFilterValue.value = store.isf_togglers.find(e => e.name === 'isf_4').value
+    if (store.togglers.find(e => e.name === 'isf_4').value !== 'unset') {
+        RKAFilterValue.value = store.togglers.find(e => e.name === 'isf_4').value
     }
 })
 

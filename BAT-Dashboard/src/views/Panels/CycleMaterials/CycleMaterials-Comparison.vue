@@ -1,7 +1,15 @@
 <script setup>
 
-import { computed, ref, reactive } from "vue";
+import { computed, ref, reactive, onMounted, watch } from "vue";
 import CMFilter from '@/components/CMFilter.vue';
+import { useFiltersStore } from "@/store/store";
+const store = useFiltersStore();
+
+onMounted(() => {
+    if (store.togglers.find(e => e.name === 'cycle_4').value !== 'unset') {
+        CMFilterValue.value = store.togglers.find(e => e.name === 'cycle_4').value
+    }
+})
 
 const state = reactive({
     visible: false,
@@ -182,13 +190,11 @@ function handleHide() {
     state.visible = false
 }
 
-// Фильтруем список карточек по 'type'n
-let itemList_filtered = computed(() => itemList.value.filter(({ type }) => {
-    if (CMFilterValue.value === 'ALL') {
-        return true
+watch(() => CMFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(CMFilterValue.value, 'cycle_4')
     }
-    return type === CMFilterValue.value
-}))
+})
 
 </script>
 
@@ -208,10 +214,11 @@ TotalProgressbar(:data="totalData")
 
 .panel
     h2 Cycle Materials
-    CMFilter(:options="CMFilterOptions" v-model="CMFilterValue")
     .comparison-wrap
         .comparison-aside
             img.zoom(:src="importPhoto", @click="() => showSingle()")
-        .comparison-items
-            ComparisonItem(v-for="item in itemList_filtered" :comparisonData="item")
+        .comparison-content
+            CMFilter(:options="CMFilterOptions" v-model="CMFilterValue")
+            .comparison-items
+                ComparisonItem(v-for="item in itemList" :comparisonData="item")
 </template>
