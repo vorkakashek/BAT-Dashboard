@@ -64,8 +64,11 @@ function handlerClass(name) {
         order: 8;
     }
 
-    &.NotDelivered,
-    &.Stock {
+    // &.Stock {
+    //     color: var(--blue-bright);
+    // }
+
+    &.NotDelivered {
         opacity: .5;
         order: 9;
     }

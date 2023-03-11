@@ -7,6 +7,7 @@
 //         };
 //     },
 // };
+import ItemProgressbar from "@/components/Progress Bars/ItemProgressbar.vue";
 import { computed } from 'vue'
 
 const props = defineProps({
@@ -42,18 +43,18 @@ const product_vals = computed(() => {
 .comparison-item
     .comparison-item-label {{ comparisonData.label }}
 
-    ItemProgressbar(:data="comparisonData.stats" v-if="!vertical")
-        template(#data)
-            ItemData(:data="comparisonData.stats")
-    ItemProgressbarVertical(:data="comparisonData.stats" v-if="vertical")
-        template(#data)
-            ItemData(:data="comparisonData.stats")
+    slot(name="progressbar")
+        ItemProgressbar(:data="comparisonData.stats" v-if="!vertical")
+    slot(name="data")
+        ItemData(:data="comparisonData.stats")
+
+        //- ItemProgressbarVertical(:data="comparisonData.stats" v-if="vertical")
+        //-     template(#data)
+        //-         ItemData(:data="comparisonData.stats")
     .comparison-item-type(v-if="product_vals.length > 0")
         label TYPE:
         span(v-for="item in product_vals") {{ item }}
-        //- span {{ comparisonData.type }}
-        //- span {{ comparisonData.type_pex }}
-        //- span {{ comparisonData.type_rka }}
+
 </template>
 
 <style lang="scss" scoped>
@@ -110,6 +111,7 @@ const product_vals = computed(() => {
     padding: var(--pdsm) var(--pdlg);
     border-radius: var(--radius-4);
     text-align: center;
+    margin-bottom: 32px;
 }
 
 .progressbar-container {
@@ -122,29 +124,43 @@ const product_vals = computed(() => {
     }
 }
 
-.product-card-infographics {
-    background-color: #fafafa;
-    padding: var(--pdsm);
-    border-radius: var(--radius-4);
-    margin-top: var(--pdlg);
-    width: 100%;
+:deep(.product-card-infographics) {
+    margin-top: 32px;
 
     @include respond-to(xlarge-plus) {
-        // margin-right: var(--pdxl);
-
         flex-grow: 1;
         flex-basis: 0;
     }
 }
 
-::v-deep {
-    .progressbar-wrapper {
-        margin: calc(var(--pdxl) * 1.5) 0 var(--pdxl) 0;
-        width: 100%;
+// .product-card-infographics {
+//     background-color: #fafafa;
+//     padding: var(--pdsm);
+//     border-radius: var(--radius-4);
+//     margin-top: var(--pdlg);
+//     width: 100%;
+//     margin-top: 32px;
 
-        @include respond-to(xlarge-plus) {
-            flex-grow: 3;
-        }
-    }
-}
+//     @include respond-to(xlarge-plus) {
+//         // margin-right: var(--pdxl);
+
+//         flex-grow: 1;
+//         flex-basis: 0;
+//     }
+// }
+
+// :deep(.progressbar-container) {
+//     margin-top: 24px;
+// }
+
+// ::v-deep {
+//     .progressbar-wrapper {
+//         margin: calc(var(--pdxl) * 1.5) 0 var(--pdxl) 0;
+//         width: 100%;
+
+//         @include respond-to(xlarge-plus) {
+//             flex-grow: 3;
+//         }
+//     }
+// }
 </style>

@@ -129,6 +129,30 @@ const router = createRouter({
                 ],
             },
             {
+                name: 'Equipment',
+                path: 'Equipment',
+                redirect: { name: 'Equipment-Delivery-Execution' },
+                params: true,
+                component: () => import('../views/Panels/Equipment/Equipment.vue'),
+                children: [
+                    {
+                        name: 'Equipment-Delivery-Execution',
+                        path: 'Delivery-Execution',
+                        component: () => import('../views/Panels/Equipment/Equipment-Delivery-Execution.vue')
+                    },
+                    {
+                        name: 'Equipment-Comparison',
+                        path: 'Comparison',
+                        component: () => import('../views/Panels/Equipment/Equipment-Comparison.vue')
+                    },
+                    // {
+                    //     name: 'Equipment-Progress',
+                    //     path: 'Progress',
+                    //     component: () => import('../views/Panels/Equipment/Equipment-Progress.vue')
+                    // },
+                ],
+            },
+            {
                 name: 'Projects',
                 path: 'Projects',
                 redirect: { name: 'Projects-Catalog' },

@@ -28,6 +28,13 @@ const tiles = ref([
         disabled: false,
     },
     {
+        link: 'Equipment',
+        name: 'Equipment in PP',
+        class: 'blue-bright',
+        disabled: false,
+        new: true,
+    },
+    {
         link: 'Projects',
         name: 'Projects',
         class: 'green',
@@ -39,7 +46,7 @@ const tiles = ref([
 
 <template lang="pug">
 .dashboard-tile__group
-    .dashboard-tile__wrap(v-for="tile in tiles" :class="{ 'disabled': tile.disabled }")
+    .dashboard-tile__wrap(v-for="tile in tiles" :class="{ 'disabled': tile.disabled, 'new': tile.new }")
         router-link.dashboard-tile(:to="`/panel/${tile.link}`" :class="tile.class")
             .dashboard-tile__icon.fajc 
                 app-icon(:name="tile.link", size="30")
@@ -49,18 +56,24 @@ const tiles = ref([
 
 <style lang="scss" scoped>
 .dashboard-tile__group {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    // flex-wrap: wrap;
     margin: -8px;
 
     @include respond-to (large) {
         margin: -4px;
     }
+
+    @include respond-to (small) {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .dashboard-tile__wrap {
-    height: calc(var(--index) * 10 + 50px);
-    width: calc(50%);
+    // height: calc(var(--index) * 10 + 50px);
+    height: calc(var(--index) * 8 + 50px);
+    // width: calc(100% / 3);
     padding: 8px;
 
     @include respond-to (large) {
@@ -71,13 +84,42 @@ const tiles = ref([
         pointer-events: none;
         user-select: none;
         opacity: .5;
+
         .dashboard-tile {
             background: rgb(231, 231, 231);
+
             .dashboard-tile__icon {
                 background-color: var(--inactive);
             }
+
             .dashboard-tile__name {
                 color: var(--inactive);
+            }
+        }
+    }
+
+    &.new {
+        position: relative;
+
+        &:after {
+            content: 'new';
+            display: inline-block;
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            opacity: .7;
+            // border: 2px solid #27292e;
+            background-color: rgba(39, 41, 46, 0.05);
+            color: #27292e;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: .1rem;
+            border-radius: 8px;
+            padding: 2px 8px;
+
+            @include respond-to (small) {
+                font-size: 9px;
             }
         }
     }
@@ -86,6 +128,8 @@ const tiles = ref([
 .dashboard-tile {
     display: flex;
     // height: 260px;
+    flex-direction: column;
+    justify-content: center;
     height: 100%;
     align-items: center;
     background: #fff;
@@ -93,7 +137,7 @@ const tiles = ref([
     text-decoration: none;
     transition: all 0.3s ease;
     padding: 16px;
-    padding-left: 100px;
+    // padding-left: 100px;
 
     &:hover {
         box-shadow: var(--shadow-large);
@@ -111,6 +155,21 @@ const tiles = ref([
 
         .dashboard-tile__icon {
             background-color: var(--blue-medium);
+        }
+    }
+
+    &.blue-bright {
+        .icon {
+            fill: var(--blue-bright);
+            fill: #fff;
+        }
+
+        .dashboard-tile__name {
+            color: var(--blue-bright);
+        }
+
+        .dashboard-tile__icon {
+            background-color: var(--blue-bright);
         }
     }
 
@@ -198,12 +257,18 @@ const tiles = ref([
 
 .dashboard-tile__name {
     font-weight: 900;
-    font-size: calc(4px + var(--index) * .85);
-    margin-left: var(--pdlg);
+    // font-size: calc(4px + var(--index) * .85);
+    font-size: calc(4px + var(--index) * .7);
+    letter-spacing: .01rem;
+    font-weight: 600;
+    // margin-left: var(--pdlg);
+    margin-top: 24px;
+    text-align: center;
     line-height: 1.2;
     // text-align: center;
     max-width: 18rem;
-    text-align: left;
+    // text-align: left;
+    // height: 58px;
 
     @include respond-to(large) {
         margin-left: unset;
@@ -215,16 +280,15 @@ const tiles = ref([
 
 .dashboard-tile__icon {
     border-radius: var(--radius-8);
-    width: 54px;
-    height: 54px;
+    // width: 54px;
+    // height: 54px;
     display: flex;
-    height: calc(var(--index) * 2.5 + 10px);
-    width: calc(var(--index) * 2.5 + 10px);
+    height: calc(var(--index) * 2 + 10px);
+    width: calc(var(--index) * 2 + 10px);
     flex-shrink: 0;
 
     .icon {
         height: calc(var(--index) * 1 + 10px);
         width: calc(var(--index) * 1 + 10px);
     }
-}
-</style>
+}</style>

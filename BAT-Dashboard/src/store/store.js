@@ -1,10 +1,5 @@
-import {
-    defineStore
-} from 'pinia'
-
+import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
-
-import { computed } from 'vue'
 
 export const useReportStore = defineStore('reportStore', {
     state: () => ({
@@ -118,6 +113,19 @@ export const useFiltersStore = defineStore('filtersStore', {
             {
                 name: 'projects_1', // Дропдаун Headers в сайд меню
                 value: 'unset'
+            },
+            // Equipment togglers
+            {
+                name: 'equipment_1', // Дропдаун Equipment в сайд меню
+                value: 'unset',
+            },
+            {
+                name: 'equipment_2', // BWD Vitrine 
+                value: 'unset',
+            },
+            {
+                name: 'equipment_3', // IndepLocal / RKA 
+                value: 'unset',
             },
         ],
     }),

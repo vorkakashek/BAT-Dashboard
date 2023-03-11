@@ -153,7 +153,7 @@ TotalProgressbar(:data="totalData")
         ProgressbarLegend(:inData="totalData")
 
 .panel
-    h2 ISF
+    h2 Headers
     .comparison-wrap
         .comparison-aside
             img.zoom(:src="importPhoto", @click="() => showSingle()")

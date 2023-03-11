@@ -142,12 +142,22 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
         }
     }
 
+    // &.Stock {
+    //     &:before {
+    //         background-color: var(--blue-bright);
+    //     }
+    // }
+
     &.Executed {
         order: 1;
 
         &:before {
             background-color: var(--green);
         }
+    }
+
+    &.NotExecuted {
+        order: 3;
     }
 
     &.Target,

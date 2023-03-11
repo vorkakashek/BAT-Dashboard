@@ -59,7 +59,9 @@ vue-easy-lightbox(
         v-if="product.photo !== null",
         @click="() => showSingle(importPhoto(product.photo))"
     )
-    ItemProgressbar(:data="product.stats")
+    //- ItemProgressbar(:data="product.stats")
+    slot(name="progressbar")
+        ItemProgressbar(:data="product.stats")
     ItemData(:data="product.stats")
     .type(v-if="product_vals.length > 0")
         label Type: 
@@ -135,10 +137,12 @@ vue-easy-lightbox(
     width: 100%;
     height: 200px;
     object-fit: contain;
-    margin: var(--pdlg) 0 var(--pdxl) 0;
+    // margin: var(--pdlg) 0 var(--pdxl) 0;
+    margin-bottom: 32px;
 }
 
-.progressbar-container {
-    margin: var(--pdxl) 0 var(--pdxxl) 0;
-}
+// .progressbar-container {
+//     // margin: var(--pdxl) 0 var(--pdxxl) 0;
+    
+// }
 </style>

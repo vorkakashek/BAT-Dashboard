@@ -31,7 +31,7 @@ const totalData = ref([
 const itemList = ref([
     {
         label: "MBU",
-        type_rla: "",
+        type_rka: "Local",
         stats: [
             {
                 name: "Executed",
@@ -45,7 +45,7 @@ const itemList = ref([
     },
     {
         label: "NW",
-        type_rla: "",
+        type_rka: "RKA",
         stats: [
             {
                 name: "Executed",
@@ -59,7 +59,7 @@ const itemList = ref([
     },
     {
         label: "MBU",
-        type_rla: "",
+        type_rka: "RKA",
         stats: [
             {
                 name: "Executed",
@@ -73,7 +73,7 @@ const itemList = ref([
     },
     {
         label: "NW",
-        type_rla: "",
+        type_rka: "Indep",
         stats: [
             {
                 name: "Executed",

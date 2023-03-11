@@ -7,22 +7,35 @@ const props = defineProps({
         type: Array,
         required: true,
     },
+    ignore: {
+        type: Array,
+        required: false,
+        default: ['Target', 'Not Delivered', 'Potential', 'Stock'],
+    },
+    rtl: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
+    label: {
+        type: String,
+        required: false,
+    },
+    total: {
+        type: Boolean,
+        required: false,
+    }
 });
 
 const bars = computed(() => {
-    return props.data.filter(({ name }) =>
-        name !== 'Target' &&
-        name !== 'Not Delivered' &&
-        name !== 'Potential' &&
-        name !== 'Stock'
-    );
+    return props.data.filter((el) => !props.ignore.includes(el.name))
 });
 
 const target = computed(() => {
     if (props.data.find(({ name }) => name === 'Target') !== undefined) {
         return props.data.find(({ name }) => name === 'Target').value;
     }
-    if (props.data.find(({ name }) => name === 'Potential') !== undefined) {
+    else if (props.data.find(({ name }) => name === 'Potential') !== undefined) {
         return props.data.find(({ name }) => name === 'Potential').value;
     }
 });
@@ -44,12 +57,23 @@ function handlerPosition(bar) {
 
 function translateXFix(bar) {
     if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) < 3) {
-        return 'transform: translateX(0)';
+        if (!props.rtl) {
+            return 'transform: translateX(0)';
+        }
     }
     if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) > 97) {
-        return 'transform: translateX(-100%)';
+        if (!props.rtl) {
+            return 'transform: translateX(-100%)';
+        } else {
+            return 'transform: translateX(100%)';
+        }
     }
-    return 'transform: translateX(-50%)';
+    if (!props.rtl) {
+        return 'transform: translateX(-50%)';
+    } else {
+        return 'transform: translateX(50%)';
+    }
+
 }
 
 </script>
@@ -57,8 +81,9 @@ function translateXFix(bar) {
 <template lang="pug">
 
 
-.progressbar-container
+.progressbar-container(:class="{ 'rtl': rtl }")
     .progressbar-wrapper
+        .progressbar-label(v-if="props.label || props.total") {{ props.label }}
         .progressbar-outer
             .progressbar-inner(v-for="(bar, index) in bars" :style="['width: ' + progressbarPercent(bar)]" :class="progressbarClass(bar)")
                 .progressbar-value(:class="handlerPosition(bar)" :style="translateXFix(bar)" v-if="bar.value > 0") {{ progressbarPercent(bar) }}
@@ -90,12 +115,45 @@ function translateXFix(bar) {
 .progressbar-container {
     display: flex;
     align-items: center;
+    width: 100%;
+    // margin-bottom: 16px;
+    // margin: 24px 0 0 0;
+    margin-bottom: 24px;
+
+    &:not(:first-child) {
+        // margin-top: 24px;
+    }
 
     @include respond-to(medium) {
         flex-wrap: wrap;
 
         >* {
             width: 100%;
+        }
+    }
+
+    ~.rtl {
+        margin-top: -20px;
+        margin-bottom: 24px;
+
+        .progressbar-label {
+            @include respond-to(handlers) {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &.rtl {
+        .progressbar-inner {
+            left: unset;
+            right: 0;
+        }
+
+        .progressbar-value {
+            left: unset;
+            right: 100%;
+            bottom: unset;
+            top: calc(100% - 2px);
         }
     }
 }
@@ -110,6 +168,9 @@ function translateXFix(bar) {
     @include respond-to(handlers) {
         width: 100%;
         margin-right: 0;
+        height: unset !important;
+        margin-bottom: 24px;
+        flex-grow: 1;
     }
 }
 
@@ -146,7 +207,7 @@ function translateXFix(bar) {
     }
 
     @include respond-to(handlers) {
-        margin: var(--pdxl) 0;
+        // margin: var(--pdxl) 0;
     }
 }
 
@@ -178,6 +239,14 @@ function translateXFix(bar) {
 
         .progressbar-value {
             color: var(--green-light-darker);
+        }
+    }
+
+    &.Stock {
+        background-color: var(--blue-bright);
+
+        .progressbar-value {
+            color: var(--blue-bright);
         }
     }
 

@@ -228,6 +228,24 @@ export default {
                     ],
                 },
                 {
+                    link: "Equipment",
+                    name: "Equipment in PP",
+                    children: [
+                        {
+                            link: "Delivery-Execution",
+                            name: "Delivery / Execution",
+                        },
+                        {
+                            link: "Comparison",
+                            name: "Comparison",
+                        },
+                        // {
+                        //     link: "Progress",
+                        //     name: "Progress",
+                        // },
+                    ],
+                },
+                {
                     link: "Projects",
                     name: "Projects",
                     children: [
@@ -346,5 +364,27 @@ main
 .slide-fade-leave-to {
     transform: translateY(40px);
     opacity: 0;
+}
+
+:deep(.multiselect-option) {
+    position: relative;
+    padding-right: 40px;
+
+    .tag {
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 11px;
+        font-weight: 700;
+        border-radius: 4px;
+        background-color: #e9f4ff;
+        padding: 0 6px;
+        color: #7c8e99;
+
+        &.current {
+            background-color: #b2d4f7;
+        }
+    }
 }
 </style>

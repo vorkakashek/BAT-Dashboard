@@ -1,6 +1,7 @@
 <script setup>
 
-import { computed } from 'vue';
+import { computed } from 'vue'
+import ItemProgressbar from '@/components/Progress Bars/ItemProgressbar.vue'
 
 const props = defineProps({
     data: {
@@ -12,57 +13,13 @@ const props = defineProps({
         required: false,
         default: 'Total',
     },
+    total: {
+        type: Boolean,
+        required: false,
+        default: false,
+    }
 });
 
-const bars = computed(() => {
-    return props.data.filter((item) =>
-        item.name !== 'Target' &&
-        item.name !== 'Not Delivered' &&
-        item.name !== 'Stock' &&
-        item.name !== 'Potential'
-    );
-});
-
-const target = computed(() => {
-    if (props.data.find((item) => item.name === 'Target') !== undefined) {
-        return props.data.find((item) => item.name === 'Target').value;
-    }
-    else if (props.data.find((item) => item.name === 'Potential') !== undefined) {
-        return props.data.find((item) => item.name === 'Potential').value;
-    }
-    // return handlerSumm(props.data) // this is will be 'Potential' in [ ProgressbarLegend.vue ]
-});
-
-// Summary of all values func
-const handlerSumm = (arr) => {
-    let sum = 0
-    arr.forEach(el => {
-        sum += el.value
-    })
-    return sum
-}
-
-function progressbarPercent(bar) {
-    return parseFloat((bar.value / (target.value / 100)).toFixed(1))
-};
-
-function progressbarClass(bar) {
-    return bar.name.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('');
-};
-
-function handlerPosY(bar) {
-    if (bar.name === 'Delivered to TMR' || bar.name === 'Transit to TMR' || bar.name === 'Delivered') {
-        return 'bottom';
-    }
-    return 'top';
-}
-
-function translateXFix(bar) {
-    if (+progressbarPercent(bar) > 97) {
-        return 'transform: translateX(-100%)'
-    }
-    return 'transform: translateX(-50%)'
-}
 
 function hideEmpty(data) {
     return data.some(({ value }) => value > 0);
@@ -72,14 +29,10 @@ function hideEmpty(data) {
 
 <template lang="pug">
 .panel(v-if="hideEmpty(props.data)")
-    //- div {{props.data}}
     .progressbar-container
-        .progressbar-wrapper
-            .progressbar-label {{ props.label }}
-            .progressbar-outer
-                .progressbar-inner(v-for="(bar, index) in bars" :style="[`width: ${progressbarPercent(bar)}%`]" :class="progressbarClass(bar)")
-                    .progressbar-value(:class="handlerPosY(bar)" :style="[translateXFix(bar)]" v-if="bar.value > 0") {{ progressbarPercent(bar) }}%
-
+        //- slot for progress bar
+        slot(name="progressbar")
+            ItemProgressbar(:data="props.data" :label="props.label" :total="props.total")
         //- slot for legend (using in total progressbars)
         slot(name="legend")
         //- slot using in product cards
@@ -111,6 +64,7 @@ function hideEmpty(data) {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 12px;
 
     @include respond-to(medium) {
         flex-wrap: wrap;
@@ -127,6 +81,8 @@ function hideEmpty(data) {
     margin-right: var(--pdlg);
     flex-shrink: 0;
     flex-basis: 7rem;
+    justify-self: flex-start;
+    align-self: flex-start;
 
     @include respond-to(handlers) {
         width: 100%;

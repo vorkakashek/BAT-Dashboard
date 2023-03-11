@@ -25,29 +25,33 @@ const RKAFilterValue = ref(['Indep/Local', 'RKA']);
 
 const cycleOptions = ref([
     {
-        value: 0,
-        label: 'Cycle Name 1',
-        activities: [1, 3, 4],
-        favorite: true
+        value: 3,
+        label: 'Cycle Name 4',
+        activities: [5],
+        favorite: true,
+        year: '2023'
+    },
+    {
+        value: 2,
+        label: 'Cycle Name 3',
+        activities: [2, 3, 4],
+        year: '2023'
     },
     {
         value: 1,
         label: 'Cycle Name 2',
         activities: [1, 2, 4],
-        favorite: true
+        favorite: true,
+        year: '2022'
     },
     {
-        value: 2,
-        label: 'Cycle Name 3',
-        activities: [2, 3, 4]
+        value: 0,
+        label: 'Cycle Name 1',
+        activities: [1, 3, 4],
+        favorite: true,
+        year: '2022'
     },
-    {
-        value: 3,
-        label: 'Cycle Name 4',
-        activities: [5],
-        favorite: true
-    },
-]);
+])
 
 const activityOptions = ref([
     {
@@ -133,6 +137,11 @@ function handleSelector(value, nameValue) {
     }
 }
 
+let currentYear = (y) => {
+    let now = new Date()
+    return Number(y) === now.getFullYear() ? true : false
+}
+
 </script>
 
 
@@ -160,6 +169,9 @@ Teleport(to="#multiselector")
         placeholder="Start typing or select...",
         :style="{ marginBottom: '16px' }",
         )
+        template(v-slot:option="{ option }")
+            span {{ option.label }}
+            span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
     .multiselect-label 
         span ACTIVITY 
         | Selection: 
@@ -172,6 +184,9 @@ Teleport(to="#multiselector")
         :searchable="true",
         placeholder="Start typing or select...",
         )
+        template(v-slot:option="{ option }")
+            span {{ option.label }}
+            span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
     //- Multiselect(
     //-     v-model="state.cycleValue", 
     //-     :close-on-select="true", 
@@ -219,9 +234,11 @@ RouterView
     align-items: center;
     flex-wrap: wrap;
     margin-top: var(--pdlg);
-    > * {
+
+    >* {
         margin: 0 !important;
         margin-bottom: var(--pdlg) !important;
+
         &:not(:last-child) {
             margin-right: var(--pdlg) !important;
         }

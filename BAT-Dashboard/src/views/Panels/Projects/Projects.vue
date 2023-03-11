@@ -12,37 +12,44 @@ onMounted(() => {
 const options = [
     {
         value: 0,
-        label: 'ALL SELECTED'
+        label: 'ALL SELECTED',
+        year: '2023'
     },
     {
         value: "1",
         label: "Lucky Strike Legend",
         photo: "project-1",
+        year: '2023'
     },
     {
         value: "2",
         label: "Project name 2",
         photo: "project-2",
+        year: '2023'
     },
     {
         value: "3",
         label: "Project name 3",
         photo: "project-3",
+        year: '2023'
     },
     {
         value: "4",
         label: "Project name 4",
         photo: "project-4",
+        year: '2023'
     },
     {
         value: "5",
         label: "Project name 5",
         photo: "project-5",
+        year: '2022'
     },
     {
         value: "6",
         label: "Project name 6",
         photo: "project-6",
+        year: '2022'
     },
 ];
 
@@ -63,12 +70,16 @@ function handleSelector(value) {
     }
 }
 
-
 watch(() => itemValue.value, (val) => {
     if (val.length !== undefined) {
         store.save(itemValue.value, 'projects_1')
     }
 })
+
+let currentYear = (y) => {
+    let now = new Date()
+    return Number(y) === now.getFullYear() ? true : false
+}
 </script>
 
 <template lang="pug">
@@ -86,6 +97,9 @@ Teleport(to="#multiselector")
         :searchable="true",
         placeholder="Start typing or select...",
         )
+        template(v-slot:option="{ option }")
+            span {{ option.label }}
+            span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
 
 RouterView(v-if="$route.name === 'Projects-Catalog'" :options="options" v-model="itemValue")
 RouterView(v-else)

@@ -13,21 +13,25 @@ onMounted(() => {
 const options = [
     {
         value: 1,
-        label: 'Cycle Name 1'
+        label: 'Cycle Name 1',
+        year: '2023'
     },
     {
         value: 2,
-        label: 'Cycle Name 2'
+        label: 'Cycle Name 2',
+        year: '2022'
     },
     {
         value: 3,
         label: 'Cycle Name 3',
         favorite: true,
+        year: '2022'
     },
     {
         value: 4,
-        label: 'Cycle Name 4 (last)',
+        label: 'Cycle Name 4',
         favorite: true,
+        year: '2022'
     },
 ];
 
@@ -46,6 +50,11 @@ watch(() => itemValue.value, (val) => {
     }
 })
 
+let currentYear = (y) => {
+    let now = new Date()
+    return Number(y) === now.getFullYear() ? true : false
+}
+
 </script>
 
 
@@ -62,6 +71,9 @@ Teleport(to="#multiselector")
         :canClear='false',
         :searchable="true",
         )
+        template(v-slot:option="{ option }")
+            span {{ option.label }}
+            span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
 
 FavoriteToggler(:options="options" v-model="itemValue")
 
@@ -70,5 +82,4 @@ RouterView
 
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
