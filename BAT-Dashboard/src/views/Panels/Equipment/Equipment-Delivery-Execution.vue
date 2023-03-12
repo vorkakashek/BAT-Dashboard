@@ -132,7 +132,7 @@ let itemList = ref([
             },
             {
                 name: "Stock",
-                value: "1230",
+                value: "3980",
             },
             {
                 name: "Target",

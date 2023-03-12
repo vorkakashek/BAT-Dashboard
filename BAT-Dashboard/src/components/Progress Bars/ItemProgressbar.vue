@@ -56,22 +56,20 @@ function handlerPosition(bar) {
 }
 
 function translateXFix(bar) {
-    if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) < 3) {
-        if (!props.rtl) {
-            return 'transform: translateX(0)';
-        }
+    if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) < 4) {
+        return 'transform: translateX(0%)'
     }
     if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) > 97) {
         if (!props.rtl) {
-            return 'transform: translateX(-100%)';
+            return 'transform: translateX(-100%)'
         } else {
-            return 'transform: translateX(100%)';
+            return 'transform: translateX(100%)'
         }
     }
     if (!props.rtl) {
-        return 'transform: translateX(-50%)';
+        return 'transform: translateX(-50%)'
     } else {
-        return 'transform: translateX(50%)';
+        return 'transform: translateX(50%)'
     }
 
 }
