@@ -1,6 +1,16 @@
 <script setup>
 import { computed, ref, reactive, watch, onMounted } from "vue"
+
 import FilterToggler from "@/components/FilterToggler.vue"
+
+// v2
+import TotalProgressbarConstructor from "@/components/Progress Bars/Total Progressbar/TotalProgressbarConstructor.vue"
+import Progressbar from "@/components/Progress Bars/Total Progressbar/Progressbar.vue"
+import ProgressbarRTL from "@/components/Progress Bars/Total Progressbar/ProgressbarRTL.vue"
+import ItemProgressbar from "@/components/Progress Bars/Item Progressbar/ItemProgressbar.vue"
+import ItemProgressbarRTL from "@/components/Progress Bars/Item Progressbar/ItemProgressbarRTL.vue"
+import ItemLegend from "@/components/Progress Bars/Item Progressbar/ItemLegend.vue"
+
 import { useFiltersStore } from "@/store/store"
 
 const store = useFiltersStore();
@@ -21,168 +31,421 @@ const state = reactive({
 const BWDFilterOptions = ref(['ALL', 'BWD', 'VITRINE']);
 const BWDFilterValue = ref('ALL');
 
-let total_data_1 = ref([
-    {
-        name: "Executed",
-        value: 1235,
-    },
-    {
-        name: "Not Executed",
-        value: 800,
-    },
-    {
-        name: "Stock",
-        value: 2345,
-    },
-    {
-        name: "Target",
-        value: 4000,
-    },
-])
+let total_1 = ref({
+    label: 'Total BWD Multicategory',
+    data: [
+        [
+            {
+                name: "Executed",
+                value: 1200,
+            },
+            {
+                name: "Not Executed",
+                value: 800,
+            },
+            {
+                name: "Target",
+                value: 4000,
+            },
+        ],
+        [
+            {
+                name: "Stock",
+                value: 2000,
+            },
+            {
+                name: "No Stock",
+                value: 800,
+            },
+            {
+                name: "Target",
+                value: 4000,
+            },
+        ]
+    ]
+})
 
-let total_data_2 = ref([
-    {
-        name: "Executed",
-        value: 1235,
-    },
-    {
-        name: "Not Executed",
-        value: 800,
-    },
-    {
-        name: "Stock",
-        value: 2345,
-    },
-    {
-        name: "Target",
-        value: 4000,
-    },
-])
+let total_2 = ref({
+    label: "Total Vitrine / Taylor made",
+    data: [
+        [
+            {
+                name: "Executed",
+                value: 1000,
+            },
+            {
+                name: "Not Executed",
+                value: 800,
+            },
+            {
+                name: "Target",
+                value: 4000,
+            },
+        ],
+        [
+            {
+                name: "Stock",
+                value: 2000,
+            },
+            {
+                name: "No Stock",
+                value: 1000,
+            },
+            {
+                name: "Target",
+                value: 4000,
+            },
+        ]
+    ]
+})
 
-let total_data_3 = ref([
-    {
-        name: "Executed",
-        value: 1235,
-    },
-    {
-        name: "Not Executed",
-        value: 800,
-    },
-    {
-        name: "Target",
-        value: 4000,
-    },
-])
+let total_3 = ref({
+    label: "Total BWD + Vitrine",
+    data: [
+        [
+            {
+                name: "Executed",
+                value: 1200,
+            },
+            {
+                name: "Not Executed",
+                value: 800,
+            },
+            {
+                name: "Target",
+                value: 4000,
+            },
+        ],
+        [
+            {
+                name: "Stock",
+                value: 2800,
+            },
+            {
+                name: "No Stock",
+                value: 0,
+            },
+            {
+                name: "Target",
+                value: 4000,
+            },
+        ]
+    ]
+})
+
+// let itemList = ref([
+//     {
+//         name: "GLO_Vitrine_PP_1000 (правый)",
+//         photo: "equipment-1",
+//         type_bwd: "VITRINE",
+//         stats: [
+//             [
+//                 {
+//                     name: "Executed",
+//                     value: "3000",
+//                 },
+//                 {
+//                     name: "Not Executed",
+//                     value: "1000",
+//                 },
+//                 {
+//                     name: "Target",
+//                     value: "4000",
+//                 }
+//             ],
+//             [
+//                 {
+//                     name: "Stock",
+//                     value: "500",
+//                 },
+//                 {
+//                     name: "No Stock",
+//                     value: "500",
+//                 },
+//                 {
+//                     name: "Target",
+//                     value: "4000",
+//                 }
+//             ],
+//         ]
+//     },
+//     {
+//         name: "GLO_Vitrine_PP_1000 (левый)",
+//         photo: "equipment-1",
+//         type_bwd: "BWD",
+//         stats: [
+//             [
+//                 {
+//                     name: "Executed",
+//                     value: "1000",
+//                 },
+//                 {
+//                     name: "Not Executed",
+//                     value: "3000",
+//                 },
+//                 {
+//                     name: "Target",
+//                     value: "4000",
+//                 },
+//             ],
+//             [
+//                 {
+//                     name: "Stock",
+//                     value: "2000",
+//                 },
+//                 {
+//                     name: "No Stock",
+//                     value: "1000",
+//                 },
+//                 {
+//                     name: "Target",
+//                     value: "4000",
+//                 },
+//             ]
+//         ],
+//     },
+//     {
+//         name: "GLO_Vitrine_PP_1500 (правый)",
+//         photo: "equipment-1",
+//         type_bwd: "BWD",
+//         stats: [
+//             [
+//                 {
+//                     name: "Executed",
+//                     value: "1500",
+//                 },
+//                 {
+//                     name: "Not Executed",
+//                     value: "2500",
+//                 },
+//                 {
+//                     name: "Target",
+//                     value: "4000",
+//                 },
+//             ],
+//             [
+//                 {
+//                     name: "Stock",
+//                     value: "3000",
+//                 },
+//                 {
+//                     name: "No Stock",
+//                     value: "0",
+//                 },
+//                 {
+//                     name: "Target",
+//                     value: "4000",
+//                 },
+//             ]
+//         ],
+//     },
+//     {
+//         name: "GLO_Vitrine_PP_1500 (правый)",
+//         photo: "equipment-1",
+//         type_bwd: "BWD",
+//         stats: [
+//             [
+//                 {
+//                     name: "Executed",
+//                     value: "1500",
+//                 },
+//                 {
+//                     name: "Not Executed",
+//                     value: "2500",
+//                 },
+//                 {
+//                     name: "Target",
+//                     value: "4000",
+//                 },
+//             ],
+//             [
+//                 {
+//                     name: "Stock",
+//                     value: "3000",
+//                 },
+//                 {
+//                     name: "No Stock",
+//                     value: "0",
+//                 },
+//                 {
+//                     name: "Target",
+//                     value: "4000",
+//                 },
+//             ]
+//         ],
+//     },
+//     {
+//         name: "GLO_Vitrine_PP_1500 (правый)",
+//         photo: "equipment-1",
+//         type_bwd: "BWD",
+//         stats: [
+//             [
+//                 {
+//                     name: "Executed",
+//                     value: "1500",
+//                 },
+//                 {
+//                     name: "Not Executed",
+//                     value: "2500",
+//                 },
+//                 {
+//                     name: "Target",
+//                     value: "4000",
+//                 },
+//             ],
+//             [
+//                 {
+//                     name: "Stock",
+//                     value: "3000",
+//                 },
+//                 {
+//                     name: "No Stock",
+//                     value: "0",
+//                 },
+//                 {
+//                     name: "Target",
+//                     value: "4000",
+//                 },
+//             ]
+//         ],
+//     },
+// ])
 
 let itemList = ref([
     {
         label: "MBU",
         type_bwd: "VITRINE",
         stats: [
-            {
-                name: "Executed",
-                value: "3470",
-            },
-            {
-                name: "Not Executed",
-                value: "1012",
-            },
-            {
-                name: "Stock",
-                value: "30",
-            },
-            {
-                name: "Target",
-                value: "4000",
-            },
+            [
+                {
+                    name: "Executed",
+                    value: "3470",
+                },
+                {
+                    name: "Not Executed",
+                    value: "1012",
+                },
+                {
+                    name: "Target",
+                    value: "4000",
+                },
+            ],
+            [
+                {
+                    name: "Stock",
+                    value: "30",
+                },
+                {
+                    name: "No Stock",
+                    value: "500",
+                },
+                {
+                    name: "Target",
+                    value: "4000",
+                },
+            ]
         ],
     },
     {
         label: "NW",
         type_bwd: "BWD",
         stats: [
-            {
-                name: "Executed",
-                value: "1101",
-            },
-            {
-                name: "Not Executed",
-                value: "1012",
-            },
-            {
-                name: "Stock",
-                value: "632",
-            },
-            {
-                name: "Target",
-                value: "4000",
-            },
+            [
+                {
+                    name: "Executed",
+                    value: "2000",
+                },
+                {
+                    name: "Not Executed",
+                    value: "2000",
+                },
+                {
+                    name: "Target",
+                    value: "4000",
+                },
+            ],
+            [
+                {
+                    name: "Stock",
+                    value: "1000",
+                },
+                {
+                    name: "No Stock",
+                    value: "1000",
+                },
+                {
+                    name: "Target",
+                    value: "4000",
+                },
+            ]
         ],
     },
     {
         label: "VOLGA",
-        type_bwd: "BWD",
-        stats: [
-            {
-                name: "Executed",
-                value: "140",
-            },
-            {
-                name: "Not Executed",
-                value: "1012",
-            },
-            {
-                name: "Stock",
-                value: "1230",
-            },
-            {
-                name: "Target",
-                value: "4000",
-            },
-        ],
-    },
-    {
-        label: "URAL",
         type_bwd: "VITRINE",
         stats: [
-            {
-                name: "Executed",
-                value: "1982",
-            },
-            {
-                name: "Not Executed",
-                value: "1012",
-            },
-            {
-                name: "Stock",
-                value: "3123",
-            },
-            {
-                name: "Target",
-                value: "4000",
-            },
+            [
+                {
+                    name: "Executed",
+                    value: "10",
+                },
+                {
+                    name: "Not Executed",
+                    value: "3090",
+                },
+                {
+                    name: "Target",
+                    value: "4000",
+                },
+            ],
+            [
+                {
+                    name: "Stock",
+                    value: "10",
+                },
+                {
+                    name: "No Stock",
+                    value: "3980",
+                },
+                {
+                    name: "Target",
+                    value: "4000",
+                },
+            ]
         ],
     },
     {
-        label: "SIBERIA",
-        type_bwd: "BWD",
+        label: "VOLGA",
+        type_bwd: "VITRINE",
         stats: [
-            {
-                name: "Executed",
-                value: "2031",
-            },
-            {
-                name: "Not Executed",
-                value: "1012",
-            },
-            {
-                name: "Stock",
-                value: "123",
-            },
-            {
-                name: "Target",
-                value: "4000",
-            },
+            [
+                {
+                    name: "Executed",
+                    value: "10",
+                },
+                {
+                    name: "Not Executed",
+                    value: "3090",
+                },
+                {
+                    name: "Target",
+                    value: "4000",
+                },
+            ],
+            [
+                {
+                    name: "Stock",
+                    value: "3980",
+                },
+                {
+                    name: "No Stock",
+                    value: "10",
+                },
+                {
+                    name: "Target",
+                    value: "4000",
+                },
+            ]
         ],
     },
 ])
@@ -228,25 +491,20 @@ vue-easy-lightbox(
     @hide="handleHide"
 )
 
-TotalProgressbar(:data="total_data_1")
+TotalProgressbarConstructor(:data="total_1")
     template(#progressbar)
-        ItemProgressbar(:data="total_data_1" :ignore="['Not Executed', 'Stock', 'Target']" label="Total BWD Multicategory" total)
-        ItemProgressbar(:data="total_data_1" :ignore="['Executed', 'Not Executed', 'Target']" rtl total)
-    template(#legend)
-        ProgressbarLegend(:inData="total_data_1")
+        Progressbar(:data="total_1.data[0]")
+        ProgressbarRTL(:data="total_1.data[1]") 
 
-TotalProgressbar(:data="total_data_2")
+TotalProgressbarConstructor(:data="total_2")
     template(#progressbar)
-        ItemProgressbar(:data="total_data_2" :ignore="['Not Executed', 'Stock', 'Target']" label="Total Vitrine / Taylor made" total)
-        ItemProgressbar(:data="total_data_2" :ignore="['Executed', 'Not Executed', 'Target']" rtl total)
-    template(#legend)
-        ProgressbarLegend(:inData="total_data_2")
+        Progressbar(:data="total_2.data[0]")
+        ProgressbarRTL(:data="total_2.data[1]") 
 
-TotalProgressbar(:data="total_data_3")
+TotalProgressbarConstructor(:data="total_3")
     template(#progressbar)
-        ItemProgressbar(:data="total_data_3" :ignore="['Not Executed', 'Target']" label="Total BWD + Vitrine" total)
-    template(#legend)
-        ProgressbarLegend(:inData="total_data_3")
+        Progressbar(:data="total_3.data[0]")
+        ProgressbarRTL(:data="total_3.data[1]") 
 
 .panel
     h2 Equipment in PP
@@ -259,14 +517,13 @@ TotalProgressbar(:data="total_data_3")
             .comparison-items
                 ComparisonItem(v-for="item in itemList", :comparisonData="item")
                     template(#progressbar)
-                        ItemProgressbar(:data="item.stats" :ignore="['Target', 'Not Executed', 'Stock']")
-                        ItemProgressbar(:data="item.stats" :ignore="['Target', 'Not Executed', 'Executed']" rtl)
+                        ItemProgressbar(:data="item.stats[0]")
+                        ItemProgressbarRTL(:data="item.stats[1]")
                     template(#data)
-                        ItemData(:data="item.stats")
+                        ItemLegend(:data="item.stats")
 </template>
 
 <style lang="scss" scoped>
-
 :deep(.stat) {
     &.Stock {
         color: var(--blue-bright);
@@ -278,6 +535,4 @@ TotalProgressbar(:data="total_data_3")
         background-color: var(--blue-bright);
     }
 }
-
-
 </style>

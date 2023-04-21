@@ -150,7 +150,7 @@ vue-easy-lightbox(
 
 TotalProgressbar(:data="newTotalData")
     template(#legend)
-        ProgressbarLegend(:inData="newTotalData")
+        ProgressbarLegend(:data="newTotalData")
 
 .panel
     h2 Touchpoints

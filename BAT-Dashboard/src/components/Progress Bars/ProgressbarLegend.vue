@@ -3,28 +3,11 @@
 import { computed } from 'vue'
 
 const props = defineProps({
-    inData: {
+    data: {
         type: Array,
         required: true
     },
 })
-
-// if data has 'Potential', create new Array of data
-const newData = computed(() => {
-    return props.inData
-})
-
-// Summary func
-// const handlerSumm = (arr) => {
-//     let sum = 0
-//     arr.forEach(el => {
-//         sum += el.value
-//     })
-//     return sum
-// }
-
-// Create new Object for data
-// const newObj = (name, value) => { return { name, value }}
 
 const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
 
@@ -34,7 +17,7 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
 <template lang="pug">
 .progressbar-legend
     .progressbar-legend__item(
-        v-for="item in inData",
+        v-for="item in data",
         :class="deleteSpaces(item)"
     )
         .progressbar-legend__item-desc
@@ -50,25 +33,35 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
     justify-content: center;
     flex-wrap: wrap;
     flex-shrink: 0;
-    border-radius: var(--radius-8);
-    border: 1px solid #EFEFEF;
-    padding: var(--pdsm) var(--pdlg) 0 var(--pdlg);
+    // margin-left: 12px;
+    margin-top: 24px;
 
-    @include respond-to(medium) {
-        margin-left: 0;
-        margin-top: var(--pdsm);
-        width: 100%;
+    @include respond-to(xlarge) {
+        flex-wrap: wrap;
+        width: 30%;
+        max-width: 100%;
+        justify-content: flex-start;
+
+        .progressbar-legend__item {
+            margin-bottom: 4px;
+        }
     }
 
-    @include respond-to(handlers) {
-        flex-wrap: wrap;
+    @include respond-to(medium) {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 24px;
+        justify-content: center;
     }
 }
 
 .progressbar-legend__item-name {
-    font-size: 15px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
     line-height: 1;
-    opacity: 0.75;
+    letter-spacing: .05rem;
+    color: #0E2B63;
 }
 
 .progressbar-legend__item-value {
@@ -81,21 +74,20 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    margin-bottom: var(--pdsm);
     order: 99;
 
     &:not(.Target, .Potential) {
-        margin-right: var(--pdlg);
+        margin-right: 12px;
 
         &:before {
             content: "";
             display: block;
             vertical-align: middle;
             border-radius: var(--radius-8);
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
             background-color: #e5e5e5;
-            margin-right: 10px;
+            margin-right: 8px;
             flex-shrink: 0;
         }
     }
@@ -142,11 +134,11 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
         }
     }
 
-    // &.Stock {
-    //     &:before {
-    //         background-color: var(--blue-bright);
-    //     }
-    // }
+    &.NoStock {
+        &:before {
+            background-color: #A7CBF0;
+        }
+    }
 
     &.Executed {
         order: 1;
@@ -162,15 +154,21 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
 
     &.Target,
     &.Potential {
-        order: 10;
-        margin-left: var(--pdxl);
         background-color: var(--color-target);
-        padding: var(--pdsm) var(--pdlg);
+        padding: 4px 8px;
         border-radius: var(--radius-8);
 
         .progressbar-legend__item-name {
             margin-bottom: var(--pd);
         }
+    }
+
+    &.Potential {
+        order: 10;
+    }
+
+    &.Target {
+        order: 99;
     }
 
     @include respond-to(handlers) {

@@ -4,6 +4,7 @@ import CycleMaterialsModal from '@/components/Modals/Cycle Materials Modal/modal
 import ExportExcel from '@/components/Modals/ExportExcel/modal.vue'
 import ReportDownload from '@/components/Modals/ReportDownload/modal.vue'
 import AlarmExpress from '@/components/Modals/AlarmExpress/modal.vue'
+import ProductCardModal from '@/components/Modals/ProductCardModal/modal.vue'
 
 import { ref } from 'vue'
 
@@ -24,7 +25,12 @@ const props = defineProps({
         type: String,
         required: false
     },
-});
+    styles: {
+        type: String,
+        required: false,
+        default: ''
+    }
+}); 
 
 const visible = ref(false)
 
@@ -51,7 +57,7 @@ const hide = () => {
 Teleport(to="#modal")
     Transition(name="nested" appear)
         #modal-constructor(v-if="visible" :class="{ dialog: dialog }")
-            .container
+            .container(:style="styles")
                 .panel
                     //- app-icon.close-modal(name="close" size="24" @click="$emit('hide')")
                     app-icon.close-modal(name="close" size="24" @click="hide()")
@@ -68,6 +74,9 @@ Teleport(to="#modal")
                         //- For AlarmExpress
                         template(v-if="modalName == 'AlarmExpress'")
                             AlarmExpress(@hide="hide()" :title="title" :msg="msg")
+                        //- For ProductCardModal
+                        template(v-if="modalName == 'ProductCardModal'")
+                            ProductCardModal(@hide="hide()" :title="title" :data="data")
 
 
             .inner#modal-constructor-overlay(@click="hide()")
@@ -97,6 +106,8 @@ Teleport(to="#modal")
     left: 0;
     width: 100vw;
     height: 100vh;
+
+    display: flex;
 
     overflow-y: auto;
     padding: var(--pdlg);

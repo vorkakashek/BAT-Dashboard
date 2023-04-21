@@ -92,7 +92,7 @@ Teleport(to="#export-excel")
 
 TotalProgressbar(:inData="totalData")
     template(#legend)
-        ProgressbarLegend(:inData="totalData")
+        ProgressbarLegend(:data="totalData")
 
 .panel
     h2 Total

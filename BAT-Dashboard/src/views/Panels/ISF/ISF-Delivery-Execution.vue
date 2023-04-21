@@ -200,7 +200,7 @@ Teleport(to="#export-excel")
 
 TotalProgressbar(:data="totalData")
     template(#legend)
-        ProgressbarLegend(:inData="totalData")
+        ProgressbarLegend(:data="totalData")
 
 .panel
     FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")

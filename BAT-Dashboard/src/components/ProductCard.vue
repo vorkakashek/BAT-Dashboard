@@ -1,11 +1,12 @@
 <script setup>
-import { computed, reactive } from 'vue'
+import { computed, reactive, ref } from 'vue'
+// import ItemProgressbar_v2 from '@/components/Progress Bars/ItemProgressbar_v2.vue';
 
 const props = defineProps({
     product: {
         type: Object,
         required: true,
-    },
+    }
 })
 
 const state = reactive({
@@ -40,6 +41,14 @@ const product_vals = computed(() => {
     return arr
 })
 
+let modal = ref()
+let clicked = ref(false)
+
+let showModal = () => {
+    clicked.value = true
+    modal.value.show()
+}
+
 </script>
 
 <template lang="pug">
@@ -50,25 +59,69 @@ vue-easy-lightbox(
     @hide="handleHide"
 )
 
+ModalConstructor(modalName="ProductCardModal", :data="product", ref="modal", :dialog="false", styles="max-width: 900px; margin: auto;")
+
+//- (:class="{ interactive: product.info}")
+
 .product-card
     .product-card__header
         .product-card__header-name {{ product.name }}
         .product-card__header-type {{ product.type }}
+    .product-card__photo_wrap(v-if="product.info && product.info.photo !== undefined")
+        .details_icon
+            app-icon(name="details")
+        img.product-card__photo.interactive(
+            :src="importPhoto(product.photo)",
+            @click="() => showModal()",
+        )
     img.zoom.product-card__photo(
         :src="importPhoto(product.photo)",
-        v-if="product.photo !== null",
+        v-else-if="product.photo !== undefined",
         @click="() => showSingle(importPhoto(product.photo))"
     )
-    //- ItemProgressbar(:data="product.stats")
     slot(name="progressbar")
-        ItemProgressbar(:data="product.stats")
-    ItemData(:data="product.stats")
+        .progressbar_outer
+            ItemProgressbar(:data="product.stats")
+    slot(name="legend")
+        ItemData(:data="product.stats")
     .type(v-if="product_vals.length > 0")
         label Type: 
         span(v-for="item in product_vals") {{ item }}
 </template>
 
 <style lang="scss" scoped>
+img.interactive {
+    cursor: pointer;
+}
+
+.progressbar_outer {
+    margin-bottom: 24px;
+}
+
+.details_icon {
+    padding: 2px 4px;
+    background-color: var(--grey-light);
+    display: inline-flex;
+    border-radius: 4px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    z-index: 10;
+}
+
+.product-card__photo_wrap {
+    position: relative;
+    img {
+        transition: all .3s ease;
+    }
+
+    &:hover {
+        img {
+            opacity: .75;
+        }
+    }
+}
+
 .type {
     text-align: center;
     text-transform: uppercase;
@@ -94,7 +147,8 @@ vue-easy-lightbox(
 }
 
 .product-card-infographics {
-    margin-top: var(--pdlg);
+    // margin-top: var(--pdlg);
+    margin-top: 4px;
 }
 
 .product-card {
@@ -110,12 +164,22 @@ vue-easy-lightbox(
     &:hover {
         box-shadow: var(--shadow);
     }
+
+    &.interactive {
+        // &:hover {
+        //     .product-card__header-name {
+        //         background-color: var(--blue-dark);
+        //         color: #fff;
+        //     }
+        // }
+    }
 }
 
 .product-card__header {
     display: flex;
     justify-content: space-between;
     margin-bottom: auto;
+    margin-bottom: 12px;
 }
 
 .product-card__header-type {
@@ -131,6 +195,7 @@ vue-easy-lightbox(
     color: var(--blue-dark);
     display: inline-block;
     padding: var(--pd) var(--pdsm);
+    transition: all .3s ease;
 }
 
 .product-card__photo {
@@ -143,6 +208,6 @@ vue-easy-lightbox(
 
 // .progressbar-container {
 //     // margin: var(--pdxl) 0 var(--pdxxl) 0;
-    
+
 // }
 </style>

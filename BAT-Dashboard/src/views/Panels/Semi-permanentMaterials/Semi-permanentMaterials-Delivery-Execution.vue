@@ -122,7 +122,7 @@ watch(() => RKAFilterValue.value, (val) => {
 
 TotalProgressbar(:data="newTotalData")
     template(#legend)
-        ProgressbarLegend(:inData="newTotalData")
+        ProgressbarLegend(:data="newTotalData")
 
 .panel
     FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")

@@ -75,7 +75,7 @@ const itemList = ref([
 
 TotalProgressbar(:data="totalData")
     template(#legend)
-        ProgressbarLegend(:inData="totalData")
+        ProgressbarLegend(:data="totalData")
 
 .panel
     ProductCards

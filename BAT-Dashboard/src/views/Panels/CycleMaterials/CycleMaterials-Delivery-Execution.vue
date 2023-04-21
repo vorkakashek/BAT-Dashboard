@@ -223,10 +223,10 @@ const otherProducts = ref([
 
 TotalProgressbar(:data="mustSetTotalData", label="Must set total")
     template(#legend)
-        ProgressbarLegend(:inData="mustSetTotalData")
+        ProgressbarLegend(:data="mustSetTotalData")
 TotalProgressbar(:data="otherTotal", label="Other total")
     template(#legend)
-        ProgressbarLegend(:inData="otherTotal")
+        ProgressbarLegend(:data="otherTotal")
 
 .panel
     CycleMaterialsList(:labels="['Must set', 'Image', 'Execution status']" v-if="mustSetProducts.length > 0")

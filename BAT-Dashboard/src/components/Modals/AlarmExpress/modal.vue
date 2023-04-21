@@ -30,7 +30,7 @@ h2 {{ title }}
 
 .modal-text {{ msg }}
 .modal-btns
-    Btn(text="Okay" @click="$emit('hide'), acceptHadnler()")
+    Btn(text="OK" @click="$emit('hide'), acceptHadnler()")
 
 
 </template>

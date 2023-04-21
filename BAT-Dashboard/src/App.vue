@@ -24,8 +24,12 @@ body {
     background: var(--bgc);
 }
 
-#app {
+// #app {}
+
+strong {
+    font-weight: 700;
 }
+
 
 main {
     max-width: 100%;
@@ -72,6 +76,7 @@ hr {
     background-color: #fff;
     padding: var(--pdlg);
     border: 1px solid #eeeeee;
+
     h2 {
         font-weight: 900;
         color: var(--blue-medium);
@@ -97,6 +102,7 @@ hr {
     height: 100%;
     gap: 16px;
     align-content: stretch;
+
     @include respond-to(handlers) {
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     }
@@ -110,6 +116,7 @@ hr {
     display: flex;
     align-items: flex-start;
     position: relative;
+
     img {
         width: 200px;
         object-fit: contain;
@@ -125,6 +132,7 @@ hr {
 
     .comparison-aside {
         margin-right: var(--pdxl);
+
         @include respond-to(large) {
             margin-right: 0;
         }
@@ -133,10 +141,12 @@ hr {
 
 .comparison-content {
     width: 100%;
+
     @include respond-to (large) {
         display: flex;
         flex-direction: column;
         align-items: center;
+
         .ISFFilter {
             margin: 0 auto;
         }
@@ -151,13 +161,15 @@ hr {
     height: 100%;
     gap: 16px;
     align-content: stretch;
+
     @include respond-to(large) {
         margin-top: var(--pdlg);
     }
+
     @include respond-to (handlers) {
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     }
-    
+
 }
 
 .zoom {
@@ -181,13 +193,16 @@ hr {
     align-items: center;
     justify-content: center;
     transition: all .3s ease;
+
     .icon {
         fill: #fff !important;
         cursor: zoom-in;
         transition: all .1s var(--tr-2);
     }
+
     &:hover {
         background-color: rgba(55, 55, 55, 0.5);
+
         .icon {
             transform: scale(1.25);
         }
@@ -206,7 +221,4 @@ hr {
 
 .vue-notification {
     cursor: pointer;
-}
-
-
-</style>
+}</style>

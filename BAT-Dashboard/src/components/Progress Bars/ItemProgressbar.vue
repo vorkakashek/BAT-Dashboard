@@ -116,7 +116,7 @@ function translateXFix(bar) {
     width: 100%;
     // margin-bottom: 16px;
     // margin: 24px 0 0 0;
-    margin-bottom: 24px;
+    // margin-bottom: 24px;
 
     &:not(:first-child) {
         // margin-top: 24px;
@@ -247,6 +247,14 @@ function translateXFix(bar) {
             color: var(--blue-bright);
         }
     }
+
+    // &.NoStock {
+    //     background-color: #A7CBF0;
+
+    //     .progressbar-value {
+    //         color: #7697BC;
+    //     }
+    // }
 
     &.TransitToTMR {
         background-color: #E2F0D9;
