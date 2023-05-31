@@ -74,11 +74,11 @@ ModalConstructor(modalName="ProductCardModal", :data="product", ref="modal", :di
             :src="importPhoto(product.photo)",
             @click="() => showModal()",
         )
-    img.zoom.product-card__photo(
-        :src="importPhoto(product.photo)",
-        v-else-if="product.photo !== undefined",
-        @click="() => showSingle(importPhoto(product.photo))"
-    )
+    .product-card__photo_wrap(v-else-if="product.photo !== undefined")
+        img.zoom.product-card__photo(
+            :src="importPhoto(product.photo)",
+            @click="() => showSingle(importPhoto(product.photo))"
+        )
     slot(name="progressbar")
         .progressbar_outer
             ItemProgressbar(:data="product.stats")
@@ -111,6 +111,9 @@ img.interactive {
 
 .product-card__photo_wrap {
     position: relative;
+    margin-bottom: 32px;
+    height: 200px;
+    margin-top: auto;
     img {
         transition: all .3s ease;
     }
@@ -203,7 +206,7 @@ img.interactive {
     height: 200px;
     object-fit: contain;
     // margin: var(--pdlg) 0 var(--pdxl) 0;
-    margin-bottom: 32px;
+    // margin-bottom: 32px;
 }
 
 // .progressbar-container {

@@ -24,12 +24,9 @@ body {
     background: var(--bgc);
 }
 
-// #app {}
-
 strong {
     font-weight: 700;
 }
-
 
 main {
     max-width: 100%;

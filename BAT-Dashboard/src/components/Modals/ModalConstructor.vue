@@ -84,6 +84,11 @@ Teleport(to="#modal")
 </template>
 
 <style lang="scss" scoped>
+.modal-content {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
 .close-modal {
     position: absolute;
     z-index: 100;
@@ -155,6 +160,7 @@ Teleport(to="#modal")
 
 .panel {
     margin: 0;
+    margin-bottom: 16px;
 }
 
 .nested-enter-active,
