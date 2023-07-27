@@ -338,6 +338,18 @@ const expandStats = (key) => {
 
     }
 
+    &.Transit {
+        &:before {
+            background-color: #E2F0D9;
+        }
+    }
+
+    &.Delivered {
+        &:before {
+            background-color: #AFCA0B;
+        }
+    }
+
     &.InStock {
         &:before {
             background: linear-gradient(180deg, #478caf 0%, #0bb6ca 100%);
