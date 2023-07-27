@@ -59,9 +59,8 @@ let showModalGraph = () => {
 const manyPhotos = computed(() => props.product.info && props.product.info.photo !== undefined)
 
 let showPhoto = () => {
-    manyPhotos ? showModal() : showSingle(importPhoto(props.product.photo))
+    manyPhotos.value ? showModal() : showSingle(importPhoto(props.product.photo))
 }
-
 
 </script>
 
