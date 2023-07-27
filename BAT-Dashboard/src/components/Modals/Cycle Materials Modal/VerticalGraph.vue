@@ -252,9 +252,19 @@ const handlerClass = (item) => {
             order: 3;
         }
 
+        &.Transit {
+            background-color: #E2F0D9;
+            order: 4;
+        }
+
         &.TransitToTMR {
             background-color: #E2F0D9;
             order: 4;
+        }
+
+        &.Delivered {
+            background-color: #AFCA0B;
+            order: 5;
         }
 
         &.DeliveredToTMR {

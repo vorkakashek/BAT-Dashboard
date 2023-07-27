@@ -136,6 +136,19 @@ img.interactive {
     &-graph {
         left: auto;
         right: 8px;
+        cursor: pointer;
+        background-color: var(--blue-light);
+        width: 28px;
+        height: 28px;
+        align-items: center;
+        justify-content: center;
+        transition: all .3s ease;
+        :deep(.icon) {
+            fill: white
+        }
+        &:hover {
+            background-color: var(--blue-light-hover);
+        }
     }
 }
 
