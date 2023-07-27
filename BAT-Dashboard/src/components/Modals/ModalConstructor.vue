@@ -5,6 +5,7 @@ import ExportExcel from '@/components/Modals/ExportExcel/modal.vue'
 import ReportDownload from '@/components/Modals/ReportDownload/modal.vue'
 import AlarmExpress from '@/components/Modals/AlarmExpress/modal.vue'
 import ProductCardModal from '@/components/Modals/ProductCardModal/modal.vue'
+import ProductCardModalGraph from '@/components/Modals/ProductCardModal/modalGraph.vue'
 
 import { ref } from 'vue'
 
@@ -65,6 +66,9 @@ Teleport(to="#modal")
                         //- For Items in Cycle Materials
                         template(v-if="modalName == 'CycleMaterialsModal'")
                             CycleMaterialsModal(:data="data")
+                        //- For Items in ProductCardModalGraph
+                        template(v-if="modalName == 'ProductCardModalGraph'")
+                            ProductCardModalGraph(:data="data")
                         //- For Excel Icon
                         template(v-if="modalName == 'ExportExcel'")
                             ExportExcel(@hide="hide()")

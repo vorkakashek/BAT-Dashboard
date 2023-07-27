@@ -127,12 +127,24 @@ export const useFiltersStore = defineStore('filtersStore', {
                 name: 'equipment_3', // IndepLocal / RKA 
                 value: 'unset',
             },
+            // Optional togglers
+            {
+                name: 'optional_1',
+                value: false,
+            }
         ],
     }),
     actions: {
         save(new_val, name) {
             this.togglers.find(e => e.name === name).value = new_val
         },
+        add(new_val, name) {
+            if(this.togglers.find(e => e.name === name) ? true : false) this.togglers.find(e => e.name === name).value = new_val
+            else this.togglers.push({
+                name: name,
+                value: new_val
+            })
+        }
     }
 })
 

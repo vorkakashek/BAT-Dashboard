@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, watch, computed, onMounted } from "vue";
 import FavoriteToggler from "@/components/FavoriteToggler.vue";
+import OptionalToggler from "@/components/OptionalToggler.vue";
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
 // import SalesChannelFilter from "@/components/SalesChannelFilter.vue"; надо удалить из компонентов проекта
 
@@ -52,6 +53,22 @@ const cycleOptions = ref([
         year: '2022'
     },
 ])
+
+const optionalOptions = ref([
+    {
+        value: 'optional_1',
+        label: 'Name 1',
+    },
+    {
+        value: 'optional_2',
+        label: 'Name 2',
+    },
+    {
+        value: 'optional_3',
+        label: 'Name 3',
+    },
+])
+const optionalValue = ref(['optional_2'])
 
 const activityOptions = ref([
     {
@@ -121,6 +138,11 @@ watch(() => state.activityValue, (val) => {
 watch(() => RKAFilterValue.value, (val) => {
     if (val.length !== undefined) {
         store.save(RKAFilterValue.value, 'cycle_3')
+    }
+})
+watch(() => optionalValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.add(optionalValue.value, 'optional_3')
     }
 })
 
@@ -213,6 +235,8 @@ Teleport(to="#multiselector")
 .filter-group
     FavoriteToggler(:options="cycleOptions" v-model="state.cycleValue")
     FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
+    OptionalToggler(v-if="optionalOptions && optionalOptions.length > 0" :options="optionalOptions" v-model="optionalValue")
+    
     //- SalesChannelFilter(:options="store.SalesChannelFilter_Options")
 
 RouterView

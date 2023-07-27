@@ -26,6 +26,7 @@ const show = () => state.visible = true
 
 const handleHide = () => state.visible = false
 
+
 const product_vals = computed(() => {
     let product_keys = Object.keys(props.product).filter((e) => e.includes('type')),
         arr = []
@@ -42,12 +43,25 @@ const product_vals = computed(() => {
 })
 
 let modal = ref()
+let modalGraph = ref()
 let clicked = ref(false)
 
 let showModal = () => {
     clicked.value = true
     modal.value.show()
 }
+
+let showModalGraph = () => {
+    clicked.value = true
+    modalGraph.value.show()
+}
+
+const manyPhotos = computed(() => props.product.info && props.product.info.photo !== undefined)
+
+let showPhoto = () => {
+    manyPhotos ? showModal() : showSingle(importPhoto(props.product.photo))
+}
+
 
 </script>
 
@@ -60,6 +74,7 @@ vue-easy-lightbox(
 )
 
 ModalConstructor(modalName="ProductCardModal", :data="product", ref="modal", :dialog="false", styles="max-width: 900px; margin: auto;")
+ModalConstructor(modalName="ProductCardModalGraph", :data="product.graph", ref="modalGraph")
 
 //- (:class="{ interactive: product.info}")
 
@@ -67,18 +82,29 @@ ModalConstructor(modalName="ProductCardModal", :data="product", ref="modal", :di
     .product-card__header
         .product-card__header-name {{ product.name }}
         .product-card__header-type {{ product.type }}
-    .product-card__photo_wrap(v-if="product.info && product.info.photo !== undefined")
-        .details_icon
+    .product-card__photo_wrap
+        .details_icon(v-if="manyPhotos")
             app-icon(name="details")
-        img.product-card__photo.interactive(
+        .details_icon.details_icon-graph(
+                v-if='product.graph'
+                @click="() => showModalGraph()"
+            )
+            app-icon(name="bar_chart_4_bars")
+        img.product-card__photo(
             :src="importPhoto(product.photo)",
-            @click="() => showModal()",
+            :class="{'interactive': manyPhotos, 'zoom': product.photo !== undefined}"
+            @click="showPhoto()",
         )
-    .product-card__photo_wrap(v-else-if="product.photo !== undefined")
-        img.zoom.product-card__photo(
-            :src="importPhoto(product.photo)",
-            @click="() => showSingle(importPhoto(product.photo))"
-        )
+    //- .product-card__photo_wrap(v-else-if="product.photo !== undefined")
+    //-     .details_icon.details_icon-graph(
+    //-             @click="() => showModalGraph()"
+    //-             v-if='product.graph'
+    //-         )
+    //-         app-icon(name="details")
+    //-     img.zoom.product-card__photo(
+    //-         :src="importPhoto(product.photo)",
+    //-         @click="() => showSingle(importPhoto(product.photo))"
+    //-     )
     slot(name="progressbar")
         .progressbar_outer
             ItemProgressbar(:data="product.stats")
@@ -107,6 +133,10 @@ img.interactive {
     left: 8px;
     top: 8px;
     z-index: 10;
+    &-graph {
+        left: auto;
+        right: 8px;
+    }
 }
 
 .product-card__photo_wrap {

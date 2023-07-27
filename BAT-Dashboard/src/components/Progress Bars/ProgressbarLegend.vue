@@ -34,7 +34,7 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
     flex-wrap: wrap;
     flex-shrink: 0;
     // margin-left: 12px;
-    margin-top: 24px;
+    margin-top: 32px;
 
     @include respond-to(xlarge) {
         flex-wrap: wrap;
