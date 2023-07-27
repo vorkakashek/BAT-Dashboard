@@ -9,6 +9,7 @@ import { useFiltersStore } from "@/store/store";
 const store = useFiltersStore();
 
 onMounted(() => {
+    optionalValue.value = ['']
     if (store.togglers.find(e => e.name === 'cycle_1').value !== 'unset') {
         state.cycleValue = [store.togglers.find(e => e.name === 'cycle_1').value]
     }
@@ -17,6 +18,9 @@ onMounted(() => {
     }
     if (store.togglers.find(e => e.name === 'cycle_3').value !== 'unset') {
         RKAFilterValue.value = store.togglers.find(e => e.name === 'cycle_3').value
+    }
+    if (store.togglers.find(e => e.name === 'cycle_5').value !== 'unset') {
+        optionalValue.value = store.togglers.find(e => e.name === 'cycle_5').value
     }
 })
 
@@ -68,7 +72,7 @@ const optionalOptions = ref([
         label: 'Name 3',
     },
 ])
-const optionalValue = ref(['optional_2'])
+const optionalValue = ref([''])
 
 const activityOptions = ref([
     {
@@ -142,7 +146,7 @@ watch(() => RKAFilterValue.value, (val) => {
 })
 watch(() => optionalValue.value, (val) => {
     if (val.length !== undefined) {
-        store.add(optionalValue.value, 'optional_3')
+        store.save(optionalValue.value, 'cycle_5')
     }
 })
 

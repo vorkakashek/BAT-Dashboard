@@ -79,6 +79,11 @@ export const useFiltersStore = defineStore('filtersStore', {
                 name: 'cycle_4', // Must Set / Other
                 value: 'unset'
             },
+            // CycleMaterials - Optionals
+            {
+                name: 'cycle_5', // Optionals
+                value: 'unset'
+            },
             // Semi-permanentMaterials togglers
             {
                 name: 'semiperm_1', // Дропдаун Semi-permanentMaterials в сайд меню
@@ -138,13 +143,6 @@ export const useFiltersStore = defineStore('filtersStore', {
         save(new_val, name) {
             this.togglers.find(e => e.name === name).value = new_val
         },
-        add(new_val, name) {
-            if(this.togglers.find(e => e.name === name) ? true : false) this.togglers.find(e => e.name === name).value = new_val
-            else this.togglers.push({
-                name: name,
-                value: new_val
-            })
-        }
     }
 })
 
