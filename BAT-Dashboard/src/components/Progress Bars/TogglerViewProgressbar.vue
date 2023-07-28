@@ -42,15 +42,15 @@ watch(viewType, (val) => {
         margin-left: 48px;
         order: 100;
         &-graph {
-            &:hover {
+            order: -1;
             .details_icon {
                 background-color: var(--blue-light);
-                order: -1;
+                &:hover {
                     background-color: var(--blue-light-hover);
                 }
-                :deep(.icon) {
-                    fill: white
-                }
+            }
+            :deep(.icon) {
+                fill: white
             }
         }
     }
@@ -58,6 +58,10 @@ watch(viewType, (val) => {
         margin: 0px 0px 0px auto;
         &__wrapper {
             width: 100%;
+            &-graph {
+                order: 1;
+                margin-bottom: var(--pdsm);
+            }
         }
     }
 }
