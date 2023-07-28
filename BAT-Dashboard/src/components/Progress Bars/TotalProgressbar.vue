@@ -21,7 +21,7 @@ const props = defineProps({
     viewType: {
         type: String,
         required: false,
-        default: '',
+        default: 'bar',
     }
 });
 
@@ -37,7 +37,7 @@ function hideEmpty(data) {
     .progressbar-container
         //- slot for progress bar
         slot(name="progressbar")
-            ItemProgressbar(:data="props.data" :label="props.label" :total="props.total" v-if="viewType !== ''&& viewType ==='bar'")
+            ItemProgressbar(:data="props.data" :label="props.label" :total="props.total" v-if="viewType ==='bar'")
         //- slot for legend (using in total progressbars)
         slot(name="legend")
         //- slot using in product cards
@@ -92,6 +92,22 @@ function hideEmpty(data) {
     @include respond-to(handlers) {
         width: 100%;
         margin-right: 0;
+    }
+}
+
+.progressbar-label {
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin-right: var(--pdlg);
+    flex-shrink: 0;
+    flex-basis: 7rem;
+
+    @include respond-to(handlers) {
+        width: 100%;
+        margin-right: 0;
+        height: unset !important;
+        margin-bottom: 24px;
+        flex-grow: 1;
     }
 }
 

@@ -1,12 +1,19 @@
 <script setup>
-
-import { computed } from 'vue'
+import TogglerViewProgressbar from './TogglerViewProgressbar.vue'
 
 const props = defineProps({
     data: {
         type: Array,
         required: true
     },
+    type: {
+        type: String,
+        required: false,
+    },
+    label: {
+        type: String,
+        required: false
+    }
 })
 
 const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
@@ -15,7 +22,8 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
 
 
 <template lang="pug">
-.progressbar-legend
+.progressbar-legend(:class="{'progressbar-legend--progress-bar': type === 'progress-bar'}")
+    .progressbar-label(v-if="props.label") {{ props.label }}
     .progressbar-legend__item(
         v-for="item in data",
         :class="deleteSpaces(item)"
@@ -23,7 +31,7 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
         .progressbar-legend__item-desc
             .progressbar-legend__item-name {{ item.name }}
             .progressbar-legend__item-value {{ item.value }}
-
+    TogglerViewProgressbar(v-if="type === 'progress-bar'" type="bar")
 </template>
 
 <style lang="scss" scoped>
@@ -35,6 +43,10 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
     flex-shrink: 0;
     // margin-left: 12px;
     margin-top: 32px;
+
+    &--progress-bar {
+        width: 100%;
+    }
 
     @include respond-to(xlarge) {
         flex-wrap: wrap;
@@ -52,6 +64,18 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
         margin-left: 0;
         margin-top: 24px;
         justify-content: center;
+    }
+}
+
+.progressbar-label {
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin-right: auto;
+    @include respond-to(handlers) {
+        width: 100%;
+        margin-right: 0;
+        height: unset !important;
+        flex-grow: 1;
     }
 }
 

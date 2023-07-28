@@ -55,7 +55,7 @@ const handlerClass = (item) => {
 
 <template lang="pug">
 
-.vertical-graph(:class="{ ghost: ghost }")
+.vertical-graph(:class="{ ghost: ghost, 'vertical-graph--progress-bar': type === 'progress-bar' }")
     .graph-wrap(:class="{'graph-wrap--progress-bar': type === 'progress-bar'}")
         .graph-thin.InStock(v-if="type !== 'progress-bar'")
             .graph(:style="{ height: data.graph['In Stock'].percent + '%', animationDelay: itemKey * .1 + 's' }")
@@ -75,7 +75,7 @@ const handlerClass = (item) => {
             span.name {{ data.week }}
             span.number(:style="dataNumber()") {{ data.number }}
         .week-dates {{ data.dateStart }} — {{ data.dateEnd }}
- 
+
 
 </template>
 
@@ -423,6 +423,10 @@ const handlerClass = (item) => {
         .week {
             opacity: .5 !important;
         }
+    }
+
+    &--progress-bar {
+        min-width: 125px;
     }
 }
 

@@ -1,6 +1,12 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import WeeksGraph from '@/components/Modals/Cycle Materials Modal/WeeksGraph.vue'
+import { useFiltersStore } from "@/store/store";
+const store = useFiltersStore();
+
+onMounted(() => {
+    viewType.value = store.togglers.find(e => e.name === 'viewType_1').value
+})
 
 const totalData = ref([
     {
@@ -369,6 +375,11 @@ const itemList = ref([
 ])
 
 const viewType = ref('bar')
+
+watch(store.togglers, (val) => {
+    viewType.value = val.find(e => e.name === 'viewType_1').value
+})
+
 </script>
 
 <template lang="pug">
@@ -376,16 +387,10 @@ const viewType = ref('bar')
 Teleport(to="#export-excel")
     ExportExcel()
 
-TotalProgressbar(:data="totalData" :viewType="viewType")
+TotalProgressbar(:data="totalData" label="hidden" :viewType="viewType")
     template(#legend)
-        .details_icon(
-            v-if='totalGraph'
-            :class="{'details_icon-graph': viewType === 'graph'}"
-            @click="viewType = viewType === 'bar' ? 'graph' : 'bar'"
-        )
-            app-icon(name="bar_chart_4_bars")
-        ProgressbarLegend(:data="totalData" v-if="viewType === 'bar'")
-        WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'")
+        WeeksGraph(:data="totalGraph" label="Total" type="progress-bar" v-if="viewType === 'graph'")
+        ProgressbarLegend(:data="totalData" label="Total" type="progress-bar" v-if="viewType === 'bar'")
 
 
 .panel
@@ -396,33 +401,5 @@ TotalProgressbar(:data="totalData" :viewType="viewType")
 </template>
 
 <style scoped lang="scss">
-.details_icon {
-    padding: 2px 4px;
-    background-color: var(--grey-light);
-    display: inline-flex;
-    border-radius: 4px;
-    position: absolute;
-    z-index: 10;
-    top: -20px;
-    right: 0px;
-    cursor: pointer;
-    width: 28px;
-    height: 28px;
-    align-items: center;
-    justify-content: center;
-    transition: all .3s ease;
-    
-    &:hover {
-        background-color: var(--grey-medium);
-    }
-    &-graph {
-        background-color: var(--blue-light);
-        &:hover {
-            background-color: var(--blue-light-hover);
-        }
-        :deep(.icon) {
-            fill: white
-        }
-    }
-}
+
 </style>

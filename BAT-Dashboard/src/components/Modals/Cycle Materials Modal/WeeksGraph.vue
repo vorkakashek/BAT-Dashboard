@@ -1,7 +1,7 @@
 <script setup>
 
 import { computed, ref } from 'vue';
-
+import TogglerViewProgressbar from '@/components/Progress Bars/TogglerViewProgressbar.vue';
 import VerticalGraph from '@/components/Modals/Cycle Materials Modal/VerticalGraph.vue';
 
 const props = defineProps({
@@ -10,6 +10,10 @@ const props = defineProps({
         type: String,
         required: false,
         default: "",
+    },
+    label: {
+        type: String,
+        required: false
     }
 });
 
@@ -54,7 +58,8 @@ const expandStats = (key) => {
             .line(v-for="n in 11" :style="{ top: 100 - (n * 10 - 10) + '%', transform: 'translateY(-50%)' }") 
 
 
-.graph-legend
+.graph-legend(:class="{'graph-legend--progress-bar': type === 'progress-bar'}")
+    .progressbar-label(v-if="props.label") {{ props.label }}
     .graph-legend-group
         .graph-legend-item(v-for="(item, key) in data.weeks[0].graph")
             .graph-legend-name(:class="legendName(key)") {{ key }}
@@ -63,6 +68,8 @@ const expandStats = (key) => {
                     span pcs
                 .graph-legend-stats-percent {{ data.weeks[selectedWeek].graph[key].percent }} 
                     span %
+        TogglerViewProgressbar(v-if="type === 'progress-bar'" type="graph")
+
 </template>
 
 <style lang="scss" scoped>
@@ -232,6 +239,24 @@ const expandStats = (key) => {
 
 .graph-legend {
     overflow: hidden;
+    &--progress-bar {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+.progressbar-label {
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin-right: auto;
+    @include respond-to(handlers) {
+        width: 100%;
+        margin-right: 0;
+        height: unset !important;
+        flex-grow: 1;
+    }
 }
 
 .selected-week {

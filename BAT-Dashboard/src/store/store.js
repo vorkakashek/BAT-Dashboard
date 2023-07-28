@@ -136,6 +136,11 @@ export const useFiltersStore = defineStore('filtersStore', {
             {
                 name: 'optional_1',
                 value: false,
+            },
+            // View togglers
+            {
+                name: 'viewType_1',
+                value: 'bar',
             }
         ],
     }),
