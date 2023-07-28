@@ -6,6 +6,11 @@ import VerticalGraph from '@/components/Modals/Cycle Materials Modal/VerticalGra
 
 const props = defineProps({
     data: Object,
+    type: {
+        type: String,
+        required: false,
+        default: "",
+    }
 });
 
 const selectedWeek = ref(null)
@@ -34,18 +39,18 @@ const expandStats = (key) => {
 <template lang="pug">
 
 .graph-constructor
-    .graph-constructor-target-outer(v-if="targetPos !== null")
+    .graph-constructor-target-outer(v-if="targetPos !== null" :class="{'graph-constructor-target-outer--progress-bar': type === 'progress-bar'}")
         .graph-constructor-target(:style="['bottom:' + targetPos + '%']")
             .graph-constructor-target-value {{ targetPos }}%
             .graph-constructor-target-name Target: 
                 br
                 | {{ data.info.target }}
 
-    .graph-constructor-percents
+    .graph-constructor-percents(:class="{'graph-constructor-percents--progress-bar': type === 'progress-bar'}")
         .percent(v-for="n in 11" :style="{ top: 100 - (n * 10 - 10) + '%', transform: 'translateY(-50%)' }") {{ n * 10 - 10 }}%
     .graph-constructor-content
-        VerticalGraph(v-for="(graph, key) in data.weeks" :data="graph" :itemKey="key" :class="{ selected: key === selectedWeek }" @click="expandStats(key)")
-        .backlines
+        VerticalGraph(v-for="(graph, key) in data.weeks" :data="graph" :itemKey="key" :type="type" :class="{ selected: key === selectedWeek }" @click="expandStats(key)")
+        .backlines(:class="{'backlines--progress-bar': type === 'progress-bar'}")
             .line(v-for="n in 11" :style="{ top: 100 - (n * 10 - 10) + '%', transform: 'translateY(-50%)' }") 
 
 
@@ -68,6 +73,9 @@ const expandStats = (key) => {
     height: 420px;
     width: 100%;
     user-select: none;
+    &--progress-bar {
+        height: 210px;
+    }
 }
 
 .graph-constructor-target {
@@ -165,6 +173,10 @@ const expandStats = (key) => {
         }
     }
 
+    &--progress-bar {
+        height: 210px;
+    }
+
 }
 
 .graph-constructor-percents {
@@ -187,6 +199,10 @@ const expandStats = (key) => {
         &:last-child {
             font-weight: 700;
         }
+    }
+
+    &--progress-bar {
+        height: 210px;
     }
 }
 

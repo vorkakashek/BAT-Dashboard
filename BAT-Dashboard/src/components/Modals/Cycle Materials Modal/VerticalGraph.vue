@@ -11,6 +11,11 @@ const props = defineProps({
         required: false,
         default: 0,
     },
+    type: {
+        type: String,
+        required: false,
+        default: "",
+    }
 })
 
 function verticalTransform(name) {
@@ -51,8 +56,8 @@ const handlerClass = (item) => {
 <template lang="pug">
 
 .vertical-graph(:class="{ ghost: ghost }")
-    .graph-wrap
-        .graph-thin.InStock
+    .graph-wrap(:class="{'graph-wrap--progress-bar': type === 'progress-bar'}")
+        .graph-thin.InStock(v-if="type !== 'progress-bar'")
             .graph(:style="{ height: data.graph['In Stock'].percent + '%', animationDelay: itemKey * .1 + 's' }")
                 .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform('In Stock')]") {{ aroundNumber(data.graph['In Stock'].percent) }}
 
@@ -61,7 +66,7 @@ const handlerClass = (item) => {
                 .graph-item(:style="{ height: item.percent + '%' }" v-if="key !== 'Executed' && key !== 'In Stock' && item.percent !== 0")
                     .graph(:class="handlerClass(key)" :style="{ animationDelay: itemKey * .1 + 's' }")
                         .percent(v-if="item.percent !== 0" :style="{ animationDelay: itemKey * .1 + .3 + 's' }") {{ aroundNumber(item.percent) }}
-        .graph-thin
+        .graph-thin(v-if="type !== 'progress-bar'")
             .graph(:style="{ height: data.graph['Executed'].percent + '%', animationDelay: itemKey * .1 + 's' }")
                 .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform('Executed')]") {{ aroundNumber(data.graph['Executed'].percent) }}
 
@@ -285,6 +290,9 @@ const handlerClass = (item) => {
     height: 420px;
     display: flex;
     justify-content: center;
+    &--progress-bar {
+        height: 210px;
+    }
 }
 
 .vertical-graph {
