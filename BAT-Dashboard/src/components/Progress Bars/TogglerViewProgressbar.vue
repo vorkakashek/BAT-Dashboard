@@ -16,11 +16,11 @@ watch(viewType, (val) => {
 </script>
 
 <template lang="pug">
-.details_icon(
-    :class="{'details_icon-graph': viewType === 'graph'}"
-    @click="viewType = viewType === 'bar' ? 'graph' : 'bar'"
-)
-    app-icon(name="bar_chart_4_bars")
+.details_icon__wrapper(:class="{'details_icon__wrapper-graph': viewType === 'graph'}")
+    .details_icon(
+        @click="viewType = viewType === 'bar' ? 'graph' : 'bar'"
+    )
+        app-icon(name="bar_chart_4_bars")
 </template>
 
 <style scoped lang="scss">
@@ -35,19 +35,29 @@ watch(viewType, (val) => {
     align-items: center;
     justify-content: center;
     transition: all .3s ease;
-    order: 100;
-    margin-left: 48px;
     &:hover {
         background-color: var(--grey-medium);
     }
-    &-graph {
-        background-color: var(--blue-light);
-        order: -1;
-        &:hover {
-            background-color: var(--blue-light-hover);
+    &__wrapper {
+        margin-left: 48px;
+        order: 100;
+        &-graph {
+            &:hover {
+            .details_icon {
+                background-color: var(--blue-light);
+                order: -1;
+                    background-color: var(--blue-light-hover);
+                }
+                :deep(.icon) {
+                    fill: white
+                }
+            }
         }
-        :deep(.icon) {
-            fill: white
+    }
+    @include respond-to(small) {
+        margin: 0px 0px 0px auto;
+        &__wrapper {
+            width: 100%;
         }
     }
 }

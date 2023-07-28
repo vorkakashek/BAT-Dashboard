@@ -244,6 +244,7 @@ const expandStats = (key) => {
         align-items: center;
         width: 100%;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
 }
 
@@ -256,6 +257,9 @@ const expandStats = (key) => {
         margin-right: 0;
         height: unset !important;
         flex-grow: 1;
+    }
+    @include respond-to(small) {
+        width: 100%;
     }
 }
 

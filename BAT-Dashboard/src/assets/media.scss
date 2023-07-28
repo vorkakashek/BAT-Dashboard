@@ -82,6 +82,12 @@ $xxl: 1400px;
             @content;
         }
     }
+
+    @else {
+        @media screen and (max-width: $media) {
+            @content
+        }
+    }
 }
 
 

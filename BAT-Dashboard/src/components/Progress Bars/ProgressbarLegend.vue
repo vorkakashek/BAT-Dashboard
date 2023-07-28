@@ -48,7 +48,7 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
     
     @include respond-to(xlarge) {
         flex-wrap: wrap;
-        width: 30%;
+        // width: 30%;
         max-width: 100%;
         justify-content: flex-start;
 
@@ -74,6 +74,9 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
         margin-right: 0;
         height: unset !important;
         flex-grow: 1;
+    }
+    @include respond-to(small) {
+        width: 100%;
     }
 }
 
