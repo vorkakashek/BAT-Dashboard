@@ -280,12 +280,12 @@ vue-easy-lightbox(
 
 
 
-TotalProgressbar(:data="mustSetTotalData", label="Must set total")
+TotalProgressbar(:data="mustSetTotalData")
     template(#legend)
-        ProgressbarLegend(:inData="mustSetTotalData")
-TotalProgressbar(:data="otherTotal", label="Other total")
+        ProgressbarLegend(:inData="mustSetTotalData", label="Must set total")
+TotalProgressbar(:data="otherTotal")
     template(#legend)
-        ProgressbarLegend(:inData="otherTotal")
+        ProgressbarLegend(:inData="otherTotal", label="Other total")
 
 .panel
     CycleMaterialsList(:labels="['Must set', 'Image', 'Execution status']")

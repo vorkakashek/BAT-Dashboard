@@ -109,13 +109,13 @@ export default {
 
 
 .panel
-    TotalProgressbar(:inData="mustSetTotalData", label="Must set total")
+    TotalProgressbar(:inData="mustSetTotalData")
         template(#legend)
-            ProgressbarLegend(:inData="mustSetTotalData")
+            ProgressbarLegend(:inData="mustSetTotalData", label="Must set total")
 .panel
-    TotalProgressbar(:inData="otherTotal", label="Other total")
+    TotalProgressbar(:inData="otherTotal")
         template(#legend)
-            ProgressbarLegend(:inData="otherTotal")
+            ProgressbarLegend(:inData="otherTotal", label="Other total")
 
 .panel
     CycleMaterialsList(:labels="['Must set', 'Image', 'Execution status']")

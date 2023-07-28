@@ -221,12 +221,12 @@ const otherProducts = ref([
 
 <template lang="pug">
 
-TotalProgressbar(:data="mustSetTotalData", label="Must set total")
+TotalProgressbar(:data="mustSetTotalData")
     template(#legend)
-        ProgressbarLegend(:data="mustSetTotalData")
-TotalProgressbar(:data="otherTotal", label="Other total")
+        ProgressbarLegend(:data="mustSetTotalData", label="Must set total")
+TotalProgressbar(:data="otherTotal")
     template(#legend)
-        ProgressbarLegend(:data="otherTotal")
+        ProgressbarLegend(:data="otherTotal", label="Other total")
 
 .panel
     CycleMaterialsList(:labels="['Must set', 'Image', 'Execution status']" v-if="mustSetProducts.length > 0")

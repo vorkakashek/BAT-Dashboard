@@ -387,7 +387,7 @@ watch(store.togglers, (val) => {
 Teleport(to="#export-excel")
     ExportExcel()
 
-TotalProgressbar(:data="totalData" label="hidden" :viewType="viewType")
+TotalProgressbar(:data="totalData" :viewType="viewType")
     template(#legend)
         WeeksGraph(:data="totalGraph" label="Total" type="progress-bar" v-if="viewType === 'graph'")
         ProgressbarLegend(:data="totalData" label="Total" type="progress-bar" v-if="viewType === 'bar'")

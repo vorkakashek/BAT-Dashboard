@@ -12,8 +12,9 @@ const props = defineProps({
     },
     label: {
         type: String,
-        required: false
-    }
+        required: false,
+        default: 'Total'
+    },
 })
 
 const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
@@ -43,11 +44,8 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
     flex-shrink: 0;
     // margin-left: 12px;
     margin-top: 32px;
-
-    &--progress-bar {
-        width: 100%;
-    }
-
+    width: 100%;
+    
     @include respond-to(xlarge) {
         flex-wrap: wrap;
         width: 30%;
