@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from 'vue';
 import TogglerViewProgressbar from './TogglerViewProgressbar.vue'
 
 const props = defineProps({
@@ -15,6 +16,10 @@ const props = defineProps({
         required: false,
         default: 'Total'
     },
+    valueStore: {
+        type: String,
+        required: false
+    }
 })
 
 const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
@@ -32,7 +37,7 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
         .progressbar-legend__item-desc
             .progressbar-legend__item-name {{ item.name }}
             .progressbar-legend__item-value {{ item.value }}
-    TogglerViewProgressbar(v-if="type === 'progress-bar'" type="bar")
+    TogglerViewProgressbar(v-if="type === 'progress-bar'" type="bar" :value="valueStore")
 </template>
 
 <style lang="scss" scoped>

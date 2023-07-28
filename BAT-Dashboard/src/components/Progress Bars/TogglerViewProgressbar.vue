@@ -3,16 +3,23 @@ import { onMounted, ref, watch } from 'vue';
 import { useFiltersStore } from '../../store/store';
 const store = useFiltersStore()
 
+const props = defineProps({
+    value: {
+        type: String,
+        required: false,
+        default: 'viewType_1'
+    }
+})
+
 onMounted(() => {
-    viewType.value = store.togglers.find(e => e.name === 'viewType_1').value
+    viewType.value = store.togglers.find(e => e.name === `${props.value}`).value
 })
 
 const viewType = ref('bar')
 
 watch(viewType, (val) => {
-    store.save(val, 'viewType_1')
+    store.save(val, `${props.value}`)
 })
-
 </script>
 
 <template lang="pug">

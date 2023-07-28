@@ -139,7 +139,11 @@ export const useFiltersStore = defineStore('filtersStore', {
             },
             // View togglers
             {
-                name: 'viewType_1',
+                name: 'viewType_1', // Headers-Progress
+                value: 'bar',
+            },
+            {
+                name: 'viewType_2', // ISF-Progress
                 value: 'bar',
             }
         ],

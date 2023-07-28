@@ -13,6 +13,11 @@ const props = defineProps({
     },
     label: {
         type: String,
+        required: false,
+        default: "Total",
+    },
+    valueStore: {
+        type: String,
         required: false
     }
 });
@@ -59,7 +64,7 @@ const expandStats = (key) => {
 
 
 .graph-legend(:class="{'graph-legend--progress-bar': type === 'progress-bar'}")
-    .progressbar-label(v-if="props.label") {{ props.label }}
+    .progressbar-label(v-if="props.label !== 'Total' || type === 'progress-bar'") {{ props.label }}
     .graph-legend-group
         .graph-legend-item(v-for="(item, key) in data.weeks[0].graph")
             .graph-legend-name(:class="legendName(key)") {{ key }}
@@ -68,7 +73,7 @@ const expandStats = (key) => {
                     span pcs
                 .graph-legend-stats-percent {{ data.weeks[selectedWeek].graph[key].percent }} 
                     span %
-        TogglerViewProgressbar(v-if="type === 'progress-bar'" type="graph")
+        TogglerViewProgressbar(v-if="type === 'progress-bar'" type="graph" :value="valueStore")
 
 </template>
 

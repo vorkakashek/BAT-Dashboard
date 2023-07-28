@@ -389,8 +389,8 @@ Teleport(to="#export-excel")
 
 TotalProgressbar(:data="totalData" :viewType="viewType")
     template(#legend)
-        WeeksGraph(:data="totalGraph" label="Total" type="progress-bar" v-if="viewType === 'graph'")
-        ProgressbarLegend(:data="totalData" label="Total" type="progress-bar" v-if="viewType === 'bar'")
+        WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'" valueStore="viewType_1")
+        ProgressbarLegend(:data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_1")
 
 
 .panel
