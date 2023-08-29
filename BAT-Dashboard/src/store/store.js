@@ -60,6 +60,14 @@ export const useFiltersStore = defineStore('filtersStore', {
                 name: 'isf_8', // BWD / OHD
                 value: 'unset'
             },
+            {
+                name: 'isf_9', // CAPEX / OPEX
+                value: 'unset'
+            },
+            {
+                name: 'isf_10', // IndepLocal / RKA
+                value: 'unset'
+            },
             // CycleMaterials togglers
             {
                 name: 'cycle_1', // Дропдаун Cycles в сайд меню

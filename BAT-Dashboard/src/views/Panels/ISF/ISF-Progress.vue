@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, onMounted, watch } from "vue";
 import { useFiltersStore } from "@/store/store"
+import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
 import WeeksGraph from '@/components/Modals/Cycle Materials Modal/WeeksGraph.vue'
 
 const store = useFiltersStore()
@@ -9,11 +10,25 @@ onMounted(() => {
     if (store.togglers.find(e => e.name === 'isf_8').value !== 'unset') {
         ISFFilterValue.value = store.togglers.find(e => e.name === 'isf_8').value
     }
+    if (store.togglers.find(e => e.name === 'isf_9').value !== 'unset') {
+        PEXFilterValue.value = store.togglers.find(e => e.name === 'isf_9').value
+    }
+    if (store.togglers.find(e => e.name === 'isf_10').value !== 'unset') {
+        RKAFilterValue.value = store.togglers.find(e => e.name === 'isf_10').value
+    }
     viewType.value = store.togglers.find(e => e.name === 'viewType_2').value
 })
 
 const ISFFilterOptions = ref(['ALL', 'BWD', 'OHD']);
 const ISFFilterValue = ref('ALL');
+
+// CAPEX OPEX
+const PEXFilterOptions = ref(['ALL', 'CAPEX', 'OPEX']);
+const PEXFilterValue = ref('ALL');
+
+// Indep/Local RKA
+const RKAFilterOptions = ref(['Indep/Local', 'RKA']);
+const RKAFilterValue = ref(['Indep/Local', 'RKA']);
 
 const totalData = ref([
     {
@@ -397,6 +412,16 @@ watch(() => ISFFilterValue.value, (val) => {
         store.save(ISFFilterValue.value, 'isf_8')
     }
 })
+watch(() => PEXFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(PEXFilterValue.value, 'isf_9')
+    }
+})
+watch(() => RKAFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(RKAFilterValue.value, 'isf_10')
+    }
+})
 
 watch(store.togglers, (val) => {
     viewType.value = val.find(e => e.name === 'viewType_2').value
@@ -417,7 +442,10 @@ TotalProgressbar(:data="totalData" :viewType="viewType")
 
 .panel
     h2 Total
-    ISFFilter(:options="ISFFilterOptions" v-model="ISFFilterValue")
+    //- ISFFilter(:options="ISFFilterOptions" v-model="ISFFilterValue")
+    FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")
+    FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
+    FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
     .comparison-items
         ComparisonItem(v-for="item in itemList" :comparisonData="item" :vertical="true")
 
