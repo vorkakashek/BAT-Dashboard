@@ -3,6 +3,7 @@ import { computed, ref, onMounted, watch } from "vue";
 import { useFiltersStore } from "@/store/store"
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
 import WeeksGraph from '@/components/Modals/Cycle Materials Modal/WeeksGraph.vue'
+import WeeksGraphMulticategory from '@/components/Modals/Cycle Materials Modal/WeeksGraphMulticategory.vue'
 
 const store = useFiltersStore()
 
@@ -351,6 +352,220 @@ const totalGraph = ref({
     ],
 })
 
+const totalMulticategory = ref({
+    info: {
+        name: 'GC_A_TN_Big_Mini_Sas # Lucky Strike',
+        image: 3,
+        centralstorage: '02/05/2022',
+    },
+    weeks: [
+        {
+            week: 'Week 22.1',
+            number: '-4',
+            dateStart: '30/05',
+            dateEnd: '31/05',
+            graph: {
+                'Other': {
+                    qty: 500,
+                    percent: 100,
+                },
+                'Multicategory': {
+                    qty: 0,
+                    percent: 0,
+                },
+            }
+        },
+        {
+            week: 'Week 22.2',
+            number: '-3',
+            dateStart: '01/06',
+            dateEnd: '05/06',
+            graph: {
+                'Other': {
+                    qty: 400,
+                    percent: 80,
+                },
+                'Multicategory': {
+                    qty: 100,
+                    percent: 20,
+                },
+            }
+        },
+        {
+            week: 'Week 23',
+            number: '-2',
+            dateStart: '06/06',
+            dateEnd: '12/06',
+            graph: {
+                'Other': {
+                    qty: 300,
+                    percent: 60,
+                },
+                'Multicategory': {
+                    qty: 200,
+                    percent: 40,
+                },
+            }
+        },
+        {
+            week: 'Week 24',
+            number: '-1',
+            dateStart: '13/06',
+            dateEnd: '19/06',
+            graph: {
+                'Other': {
+                    qty: 200,
+                    percent: 40,
+                },
+                'Multicategory': {
+                    qty: 300,
+                    percent: 60,
+                },
+            }
+        },
+        {
+            week: 'Week 25',
+            number: '+1',
+            dateStart: '20/06',
+            dateEnd: '26/06',
+            graph: {
+                'Other': {
+                    qty: 100,
+                    percent: 20,
+                },
+                'Multicategory': {
+                    qty: 400,
+                    percent: 80,
+                },
+            }
+        },
+        {
+            week: 'Week 26',
+            number: '+2',
+            current: true,
+            dateStart: '20/06',
+            dateEnd: '26/06',
+            graph: {
+                'Other': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Multicategory': {
+                    qty: 500,
+                    percent: 100,
+                },
+            }
+        },
+        {
+            week: 'Week 27',
+            number: '+3',
+            dateStart: '09/05',
+            dateEnd: '15/05',
+            graph: {
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'In Stock': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Executed': {
+                    qty: 0,
+                    percent: 0,
+                },
+            }
+        },
+        {
+            week: 'Week 28',
+            number: '+4',
+            dateStart: '16/05',
+            dateEnd: '22/05',
+            graph: {
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'In Stock': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Executed': {
+                    qty: 0,
+                    percent: 0,
+                },
+            }
+        },
+        {
+            week: 'Week 29',
+            number: '+5',
+            dateStart: '23/05',
+            dateEnd: '29/05',
+            graph: {
+                'Not Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered to CS': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Transit': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Delivered': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'In Stock': {
+                    qty: 0,
+                    percent: 0,
+                },
+                'Executed': {
+                    qty: 0,
+                    percent: 0,
+                },
+            }
+        },
+    ],
+})
+
+const totalDataMulticategory = ref([
+    {
+        name: "Multicategory",
+        value: 500,
+    },
+    {
+        name: "Other",
+        value: 0,
+    },
+])
+
 const itemList = ref([
     {
         label: "MBU",
@@ -436,8 +651,9 @@ Teleport(to="#export-excel")
 
 TotalProgressbar(:data="totalData" :viewType="viewType")
     template(#legend)
-        ProgressbarLegend(:data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_2")
-        WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'" valueStore="viewType_2")
+        ProgressbarLegend(:data="totalData" type="progress-bar-multicategory" v-if="viewType === 'bar'" valueStore="viewType_2")
+        WeeksGraph(:data="totalGraph" type="progress-bar-multicategory" v-if="viewType === 'graph'" valueStore="viewType_2")
+        WeeksGraphMulticategory(:total="totalDataMulticategory" :data="totalMulticategory" type="progress-bar" v-if="viewType === 'multicategory'" valueStore="viewType_2")
 
 
 .panel

@@ -57,7 +57,7 @@ const handlerClass = (item) => {
 
 .vertical-graph(:class="{ ghost: ghost, 'vertical-graph--progress-bar': type === 'progress-bar' }")
     .graph-wrap(:class="{'graph-wrap--progress-bar': type === 'progress-bar'}")
-        .graph-thin.InStock(v-if="type !== 'progress-bar'")
+        .graph-thin.InStock(v-if="type !== 'progress-bar' && type !== 'progress-multicategory-bar'")
             .graph(:style="{ height: data.graph['In Stock'].percent + '%', animationDelay: itemKey * .1 + 's' }")
                 .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform('In Stock')]") {{ aroundNumber(data.graph['In Stock'].percent) }}
 
@@ -66,7 +66,7 @@ const handlerClass = (item) => {
                 .graph-item(:style="{ height: item.percent + '%' }" v-if="key !== 'Executed' && key !== 'In Stock' && item.percent !== 0")
                     .graph(:class="handlerClass(key)" :style="{ animationDelay: itemKey * .1 + 's' }")
                         .percent(v-if="item.percent !== 0" :style="{ animationDelay: itemKey * .1 + .3 + 's' }") {{ aroundNumber(item.percent) }}
-        .graph-thin(v-if="type !== 'progress-bar'")
+        .graph-thin(v-if="type !== 'progress-bar' && type !== 'progress-multicategory-bar'")
             .graph(:style="{ height: data.graph['Executed'].percent + '%', animationDelay: itemKey * .1 + 's' }")
                 .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform('Executed')]") {{ aroundNumber(data.graph['Executed'].percent) }}
 
@@ -275,6 +275,19 @@ const handlerClass = (item) => {
         &.DeliveredToTMR {
             background-color: #AFCA0B;
             order: 5;
+        }
+        &.Multicategory {
+            background: linear-gradient(180deg, #318CAF 0%, #1AABC3 100%), #318CAF;
+            order: 6;
+
+            .percent {
+                color: white;
+            }
+        }
+        &.Other {
+            background-color: #DFF7FF;
+            order: 7;
+
         }
     }
 

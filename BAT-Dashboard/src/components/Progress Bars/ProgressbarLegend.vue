@@ -28,7 +28,7 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
 
 
 <template lang="pug">
-.progressbar-legend(:class="{'progressbar-legend--progress-bar': type === 'progress-bar'}")
+.progressbar-legend(:class="{'progressbar-legend--progress-bar': type === 'progress-bar' || type === 'progress-bar-multicategory'}")
     .progressbar-label(v-if="props.label") {{ props.label }}
     .progressbar-legend__item(
         v-for="item in data",
@@ -37,7 +37,8 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
         .progressbar-legend__item-desc
             .progressbar-legend__item-name {{ item.name }}
             .progressbar-legend__item-value {{ item.value }}
-    TogglerViewProgressbar(v-if="type === 'progress-bar'" type="bar" :value="valueStore")
+    TogglerViewProgressbar(type="multicategory" :value="valueStore" v-if="type === 'progress-bar-multicategory'")
+    TogglerViewProgressbar(type="graph" :value="valueStore" v-if="type === 'progress-bar-multicategory' || type === 'progress-bar'")
 </template>
 
 <style lang="scss" scoped>
@@ -152,6 +153,20 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
 
         &:before {
             background-color: #E2F0D9;
+        }
+    }
+    &.Multicategory {
+        order: 1;
+
+        &:before {
+            background: linear-gradient(180deg, #318CAF 0%, #1AABC3 100%), #318CAF;
+        }
+    }
+    &.Other {
+        order: 1;
+
+        &:before {
+            background: #DFF7FF;
         }
     }
 

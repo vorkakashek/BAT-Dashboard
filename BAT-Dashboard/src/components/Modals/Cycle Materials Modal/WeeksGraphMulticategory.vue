@@ -6,6 +6,7 @@ import VerticalGraph from '@/components/Modals/Cycle Materials Modal/VerticalGra
 
 const props = defineProps({
     data: Object,
+    total: Array,
     type: {
         type: String,
         required: false,
@@ -48,13 +49,6 @@ const expandStats = (key) => {
 <template lang="pug">
 
 .graph-constructor
-    .graph-constructor-target-outer(v-if="targetPos !== null" :class="{'graph-constructor-target-outer--progress-bar': type === 'progress-bar'}")
-        .graph-constructor-target(:style="['bottom:' + targetPos + '%']")
-            .graph-constructor-target-value {{ targetPos }}%
-            .graph-constructor-target-name Target: 
-                br
-                | {{ data.info.target }}
-
     .graph-constructor-percents(:class="{'graph-constructor-percents--progress-bar': type === 'progress-bar'}")
         .percent(v-for="n in 11" :style="{ top: 100 - (n * 10 - 10) + '%', transform: 'translateY(-50%)' }") {{ n * 10 - 10 }}%
     .graph-constructor-content
@@ -62,20 +56,20 @@ const expandStats = (key) => {
         .backlines(:class="{'backlines--progress-bar': type === 'progress-bar'}")
             .line(v-for="n in 11" :style="{ top: 100 - (n * 10 - 10) + '%', transform: 'translateY(-50%)' }") 
 
-
-.graph-legend(:class="{'graph-legend--progress-bar': type === 'progress-bar'}")
-    .progressbar-label(v-if="props.label !== 'Total' || type === 'progress-bar'") {{ props.label }}
-    .graph-legend-group
-        .graph-legend-item(v-for="(item, key) in data.weeks[0].graph")
-            .graph-legend-name(:class="legendName(key)") {{ key }}
-            .graph-legend-stats(v-if="selectedWeek !== null")
-                .graph-legend-stats-qty {{ data.weeks[selectedWeek].graph[key].qty }} 
-                    span pcs
-                .graph-legend-stats-percent {{ data.weeks[selectedWeek].graph[key].percent }} 
-                    span %
-        .graph-legend-toolbar 
-            TogglerViewProgressbar(type="multicategory" :value="valueStore" v-if="type === 'progress-bar-multicategory'")
-            TogglerViewProgressbar(type="graph" :value="valueStore" v-if="type === 'progress-bar' || type === 'progress-bar-multicategory'")
+ProgressbarLegend(:data="total" type="progress-bar-multicategory" :valueStore="valueStore")
+//- .graph-legend(:class="{'graph-legend--progress-bar': type === 'progress-bar'}")
+//-     .progressbar-label(v-if="props.label !== 'Total' || type === 'progress-bar'") {{ props.label }}
+//-     .graph-legend-group
+//-         .graph-legend-item(v-for="(item, key) in data.weeks[0].graph")
+//-             .graph-legend-name(:class="legendName(key)") {{ key }}
+//-             .graph-legend-stats(v-if="selectedWeek !== null")
+//-                 .graph-legend-stats-qty {{ data.weeks[selectedWeek].graph[key].qty }} 
+//-                     span pcs
+//-                 .graph-legend-stats-percent {{ data.weeks[selectedWeek].graph[key].percent }} 
+//-                     span %
+//-         .graph-legend-toolbar 
+//-             TogglerViewProgressbar(type="multicategory" :value="valueStore")
+//-             TogglerViewProgressbar(type="graph" :value="valueStore")
 
 </template>
 
