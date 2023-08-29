@@ -245,28 +245,28 @@ export default {
                         // },
                     ],
                 },
-                {
-                    link: "Projects",
-                    name: "Projects",
-                    children: [
-                        {
-                            link: "Catalog",
-                            name: "Projects Catalog",
-                        },
-                        {
-                            link: "Delivery-Execution",
-                            name: "Delivery / Execution",
-                        },
-                        {
-                            link: "Comparison",
-                            name: "Comparison",
-                        },
-                        {
-                            link: "Progress",
-                            name: "Progress",
-                        },
-                    ],
-                },
+                // {
+                //     link: "Projects",
+                //     name: "Projects",
+                //     children: [
+                //         {
+                //             link: "Catalog",
+                //             name: "Projects Catalog",
+                //         },
+                //         {
+                //             link: "Delivery-Execution",
+                //             name: "Delivery / Execution",
+                //         },
+                //         {
+                //             link: "Comparison",
+                //             name: "Comparison",
+                //         },
+                //         {
+                //             link: "Progress",
+                //             name: "Progress",
+                //         },
+                //     ],
+                // },
             ],
             multiselects: [
                 {

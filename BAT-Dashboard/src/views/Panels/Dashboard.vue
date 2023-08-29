@@ -34,12 +34,12 @@ const tiles = ref([
         disabled: false,
         new: true,
     },
-    {
-        link: 'Projects',
-        name: 'Projects',
-        class: 'green',
-        disabled: true,
-    },
+    // {
+    //     link: 'Projects',
+    //     name: 'Projects',
+    //     class: 'green',
+    //     disabled: true,
+    // },
 ])
 
 </script>
