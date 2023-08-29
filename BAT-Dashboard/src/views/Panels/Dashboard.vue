@@ -32,6 +32,12 @@ const tiles = ref([
         name: 'Equipment in PP',
         class: 'blue-bright',
         disabled: false,
+    },
+    {
+        link: 'POSM',
+        name: 'POSM Balance',
+        class: 'green-light',
+        disabled: false,
         new: true,
     },
     // {
@@ -170,6 +176,21 @@ const tiles = ref([
 
         .dashboard-tile__icon {
             background-color: var(--blue-bright);
+        }
+    }
+
+    &.green-light {
+        .icon {
+            fill: var(--green-light);
+            fill: #fff;
+        }
+
+        .dashboard-tile__name {
+            color: var(--green-light);
+        }
+
+        .dashboard-tile__icon {
+            background-color: var(--green-light);
         }
     }
 

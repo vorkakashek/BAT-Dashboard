@@ -32,7 +32,7 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
     .progressbar-label(v-if="props.label") {{ props.label }}
     .progressbar-legend__item(
         v-for="item in data",
-        :class="deleteSpaces(item)"
+        :class="item.class ? item.class : deleteSpaces(item)"
     )
         .progressbar-legend__item-desc
             .progressbar-legend__item-name {{ item.name }}
@@ -214,6 +214,32 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
 
     &.Target {
         order: 99;
+    }
+
+    &.More90d {
+        &::before {
+            background-color: var(--orange-light);
+        }
+    }
+    &.More1y, &.Overdue {
+        &::before {
+            background-color: var(--orange-pale);
+        }
+    }
+    &.Current, &.Three12Month {
+        &::before {
+            background-color: var(--yellow);
+        }
+    }
+    &.GreenTarget, &.New {
+        order: 99;
+        &::before {
+            background-color: var(--green-light);
+        }
+    }
+
+    &.Hidden {
+        display: none;
     }
 
     @include respond-to(handlers) {

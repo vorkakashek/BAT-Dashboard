@@ -22,6 +22,9 @@ const props = defineProps({
         type: String,
         required: false,
         default: 'bar',
+    },
+    ignore: {
+        type: Array,
     }
 });
 
@@ -37,7 +40,7 @@ function hideEmpty(data) {
     .progressbar-container
         //- slot for progress bar
         slot(name="progressbar")
-            ItemProgressbar(:data="props.data" :label="props.label" :total="props.total" v-if="viewType ==='bar'")
+            ItemProgressbar(:data="props.data" :label="props.label" :ignore="props.ignore" :total="props.total" v-if="viewType ==='bar'")
         //- slot for legend (using in total progressbars)
         slot(name="legend")
         //- slot using in product cards

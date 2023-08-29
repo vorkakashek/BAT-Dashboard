@@ -79,8 +79,9 @@ ModalConstructor(modalName="ProductCardModalGraph", :data="product.graph", ref="
 
 .product-card
     .product-card__header
-        .product-card__header-name {{ product.name }}
-        .product-card__header-type {{ product.type }}
+        .product-card__header-name(v-if="product.name") {{ product.name }}
+        .product-card__header-type(v-if="product.type") {{ product.type }}
+        .product-card__header-percentage(v-if="product.percentage" :class="{ 'color-pale': product.notImportant }") {{ product.percentage }}
     .product-card__photo_wrap
         .details_icon(v-if="manyPhotos")
             app-icon(name="details")
@@ -106,7 +107,7 @@ ModalConstructor(modalName="ProductCardModalGraph", :data="product.graph", ref="
     //-     )
     slot(name="progressbar")
         .progressbar_outer
-            ItemProgressbar(:data="product.stats")
+            ItemProgressbar(:data="product.stats" :ignore="product.ignore")
     slot(name="legend")
         ItemData(:data="product.stats")
     .type(v-if="product_vals.length > 0")
@@ -225,12 +226,27 @@ img.interactive {
     justify-content: space-between;
     margin-bottom: auto;
     margin-bottom: 12px;
+    align-items: center;
 }
 
 .product-card__header-type {
     padding: var(--pd) var(--pdsm);
     font-weight: 700;
     color: var(--blue-light);
+}
+.product-card__header-percentage {
+    background-color: var(--tomato);
+    font-weight: 700;
+    color: #fff;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    &.color-pale {
+        background-color: var(--orange-pale);
+    }
 }
 
 .product-card__header-name {

@@ -83,7 +83,7 @@ function translateXFix(bar) {
     .progressbar-wrapper
         //- .progressbar-label(v-if="(props.label || props.total) && props.label !== 'hidden'") {{ props.label }}
         .progressbar-outer
-            .progressbar-inner(v-for="(bar, index) in bars" :style="['width: ' + progressbarPercent(bar)]" :class="progressbarClass(bar)")
+            .progressbar-inner(v-for="(bar, index) in bars" :style="['width: ' + progressbarPercent(bar)]" :class="bar.class ? bar.class : progressbarClass(bar)")
                 .progressbar-value(:class="handlerPosition(bar)" :style="translateXFix(bar)" v-if="bar.value > 0") {{ progressbarPercent(bar) }}
     //- slot using in product cards
     slot(name="data")
@@ -279,6 +279,25 @@ function translateXFix(bar) {
             color: var(--orange);
             bottom: calc(100% + 8px);
         }
+    }
+
+    &.More90d {
+        background-color: var(--orange-light);
+        z-index: 3;
+    }
+    &.Current, &.Three12Month {
+        background-color: var(--yellow);
+        z-index: 2;
+    }
+    &.GreenTarget, &.New {
+        background-color: var(--green-light);
+    }
+    &.More1y, &.Overdue {
+        background-color: var(--orange-pale);
+        z-index: 3;
+    }
+    &.Hidden {
+        display: none;
     }
 }
 

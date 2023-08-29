@@ -140,6 +140,29 @@ export const useFiltersStore = defineStore('filtersStore', {
                 name: 'equipment_3', // IndepLocal / RKA 
                 value: 'unset',
             },
+            // POSM - CAPEX
+            {
+                name: 'posm_capex',
+                value: 'unset'
+            },
+            // POSM - OPEX
+            {
+                name: 'posm_opex_1',
+                value: 'unset'
+            },
+            {
+                name: 'posm_opex_2',
+                value: 'unset'
+            },
+            // POSM - STOCK
+            {
+                name: 'posm_stock_1',
+                value: 'unset'
+            },
+            {
+                name: 'posm_stock_2',
+                value: 'unset'
+            },
             // Optional togglers
             {
                 name: 'optional_1',

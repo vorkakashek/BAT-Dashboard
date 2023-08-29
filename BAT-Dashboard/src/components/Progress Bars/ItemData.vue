@@ -15,7 +15,7 @@ function handlerClass(name) {
 
 <template lang="pug">
 .product-card-infographics
-    .stat(v-for="item in data" :class="handlerClass(item.name)")
+    .stat(v-for="item in data" :class="item.class ? item.class : handlerClass(item.name)")
         span.stat-name {{ item.name }}
         span.stat-value {{ item.value }}
 
@@ -81,6 +81,25 @@ function handlerClass(name) {
         border-radius: var(--radius-4);
         color: #333;
         order: 10;
+    }
+
+    &.More90d {
+        color: var(--orange-light);
+        z-index: 3;
+    }
+    &.Current, &.Three12Month {
+        color: var(--yellow);
+        z-index: 2;
+    }
+    &.GreenTarget, &.New {
+        color: var(--green-light);
+    }
+    &.More1y, &.Overdue {
+        color: var(--orange-pale);
+        z-index: 3;
+    }
+    &.Hidden {
+        display: none;
     }
 
 }

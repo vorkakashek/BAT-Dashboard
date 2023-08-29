@@ -267,6 +267,28 @@ export default {
                 //         },
                 //     ],
                 // },
+                {
+                    link: "POSM",
+                    name: "POSM Balance",
+                    children: [
+                        {
+                            link: "CAPEX-Depth",
+                            name: "CAPEX depts",
+                        },
+                        {
+                            link: "OPEX-Depth",
+                            name: "OPEX depts",
+                        },
+                        {
+                            link: "Stock",
+                            name: "STOCK",
+                        },
+                        {
+                            link: "Transits",
+                            name: "TRANSITS",
+                        },
+                    ],
+                },
             ],
             multiselects: [
                 {

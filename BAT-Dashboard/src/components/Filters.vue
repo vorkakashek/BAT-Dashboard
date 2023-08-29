@@ -1,6 +1,6 @@
 <script>
 export default {
-    props: ['multiselects'],
+    props: ['multiselects', 'disableAllClear'],
     data() {
         return {
 
@@ -26,7 +26,7 @@ export default {
         :searchable="false",
         :placeholder="multiselect.placeholder"
     )
-    .clear-filters(@click="clearFilter") Clear Filter
+    .clear-filters(@click="clearFilter" v-if="!disableAllClear") Clear Filter
 </template>
 
 <style lang="scss" scoped>
@@ -64,7 +64,6 @@ export default {
         .multiselect {
             margin: 0;
             width: fit-content;
-            min-width: 100px;
             border-radius: 100px;
             border: var(--ms-border-width,1px) solid rgb(227, 227, 227);
             background-color: var(--blue-light);
@@ -86,9 +85,9 @@ export default {
 
         .multiselect-single-label {
             position: unset;
-            padding-right: var(--pdlg);
             padding-left: var(--pdlg);
             color: #fff;
+            padding-right: 12px;
         }
 
         .multiselect-option {
@@ -121,6 +120,8 @@ export default {
 
         .multiselect-placeholder {
             // font-weight: 700;
+            position: relative;
+            padding-right: 12px;
             font-size: 14px;
             color: #fff;
             opacity: .85;
