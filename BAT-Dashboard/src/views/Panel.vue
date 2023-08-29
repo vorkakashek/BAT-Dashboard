@@ -51,15 +51,15 @@ const clicked = ref(false),
 //         children: [
 //             {
 //                 link: "Delivery-Execution",
-//                 name: "Delivery / Execution",
+//                 name: this.$t('leftSidebar.deliveryexecution'),
 //             },
 //             {
 //                 link: "Comparison",
-//                 name: "Comparison",
+//                 name: this.$t('leftSidebar.comparison'),
 //             },
 //             {
 //                 link: "Progress",
-//                 name: "Progress",
+//                 name: this.$t('leftSidebar.progress'),
 //             },
 //         ],
 //     },
@@ -69,11 +69,11 @@ const clicked = ref(false),
 //         children: [
 //             {
 //                 link: "Delivery-Execution",
-//                 name: "Delivery / Execution",
+//                 name: this.$t('leftSidebar.deliveryexecution'),
 //             },
 //             {
 //                 link: "Comparison",
-//                 name: "Comparison",
+//                 name: this.$t('leftSidebar.comparison'),
 //             },
 //         ],
 //     },
@@ -83,15 +83,15 @@ const clicked = ref(false),
 //         children: [
 //             {
 //                 link: "Delivery-Execution",
-//                 name: "Delivery / Execution",
+//                 name: this.$t('leftSidebar.deliveryexecution'),
 //             },
 //             {
 //                 link: "Comparison",
-//                 name: "Comparison",
+//                 name: this.$t('leftSidebar.comparison'),
 //             },
 //             {
 //                 link: "Progress",
-//                 name: "Progress",
+//                 name: this.$t('leftSidebar.progress'),
 //             },
 //         ],
 //     },
@@ -101,15 +101,15 @@ const clicked = ref(false),
 //         children: [
 //             {
 //                 link: "Delivery-Execution",
-//                 name: "Delivery / Execution",
+//                 name: this.$t('leftSidebar.deliveryexecution'),
 //             },
 //             {
 //                 link: "Comparison",
-//                 name: "Comparison",
+//                 name: this.$t('leftSidebar.comparison'),
 //             },
 //             {
 //                 link: "Progress",
-//                 name: "Progress",
+//                 name: this.$t('leftSidebar.progress'),
 //             },
 //         ],
 //     },
@@ -123,15 +123,15 @@ const clicked = ref(false),
 //             },
 //             {
 //                 link: "Delivery-Execution",
-//                 name: "Delivery / Execution",
+//                 name: this.$t('leftSidebar.deliveryexecution'),
 //             },
 //             {
 //                 link: "Comparison",
-//                 name: "Comparison",
+//                 name: this.$t('leftSidebar.comparison'),
 //             },
 //             {
 //                 link: "Progress",
-//                 name: "Progress",
+//                 name: this.$t('leftSidebar.progress'),
 //             },
 //         ],
 //     },
@@ -151,29 +151,33 @@ onMounted(() => {
 </script>
 
 <script>
+// import {useI18n} from "vue-i18n";
+        
+// const i18n = useI18n();
+
 export default {
     data() {
         return {
             navItems: [
                 {
                     link: "Dashboard",
-                    name: "Dashboard",
+                    name: this.$t('leftSidebar.dashboard'),
                 },
                 {
                     link: "ISF",
-                    name: "ISF",
+                    name: this.$t('leftSidebar.isf'),
                     children: [
                         {
                             link: "Delivery-Execution",
-                            name: "Delivery / Execution",
+                            name: this.$t('leftSidebar.deliveryexecution'),
                         },
                         {
                             link: "Comparison",
-                            name: "Comparison",
+                            name: this.$t('leftSidebar.comparison'),
                         },
                         {
                             link: "Progress",
-                            name: "Progress",
+                            name: this.$t('leftSidebar.progress'),
                         },
                     ],
                 },
@@ -183,65 +187,65 @@ export default {
                     children: [
                         {
                             link: "Delivery-Execution",
-                            name: "Delivery / Execution",
+                            name: this.$t('leftSidebar.deliveryexecution'),
                         },
                         {
                             link: "Comparison",
-                            name: "Comparison",
+                            name: this.$t('leftSidebar.comparison'),
                         },
                     ],
                 },
                 {
                     link: "Semi-permanentMaterials",
-                    name: "Semi-permanent materials",
+                    name: this.$t('leftSidebar.semipermanentMaterials'),
                     children: [
                         {
                             link: "Delivery-Execution",
-                            name: "Delivery / Execution",
+                            name: this.$t('leftSidebar.deliveryexecution'),
                         },
                         {
                             link: "Comparison",
-                            name: "Comparison",
+                            name: this.$t('leftSidebar.comparison'),
                         },
                         {
                             link: "Progress",
-                            name: "Progress",
+                            name: this.$t('leftSidebar.progress'),
                         },
                     ],
                 },
                 {
                     link: "Headers",
-                    name: "Headers",
+                    name: this.$t('leftSidebar.headers'),
                     children: [
                         {
                             link: "Delivery-Execution",
-                            name: "Delivery / Execution",
+                            name: this.$t('leftSidebar.deliveryexecution'),
                         },
                         {
                             link: "Comparison",
-                            name: "Comparison",
+                            name: this.$t('leftSidebar.comparison'),
                         },
                         {
                             link: "Progress",
-                            name: "Progress",
+                            name: this.$t('leftSidebar.progress'),
                         },
                     ],
                 },
                 {
                     link: "Equipment",
-                    name: "Equipment in PP",
+                    name: this.$t('leftSidebar.equipment'),
                     children: [
                         {
                             link: "Delivery-Execution",
-                            name: "Delivery / Execution",
+                            name: this.$t('leftSidebar.deliveryexecution'),
                         },
                         {
                             link: "Comparison",
-                            name: "Comparison",
+                            name: this.$t('leftSidebar.comparison'),
                         },
                         // {
                         //     link: "Progress",
-                        //     name: "Progress",
+                        //     name: this.$t('leftSidebar.progress'),
                         // },
                     ],
                 },
@@ -255,37 +259,37 @@ export default {
                 //         },
                 //         {
                 //             link: "Delivery-Execution",
-                //             name: "Delivery / Execution",
+                //             name: this.$t('leftSidebar.deliveryexecution'),
                 //         },
                 //         {
                 //             link: "Comparison",
-                //             name: "Comparison",
+                //             name: this.$t('leftSidebar.comparison'),
                 //         },
                 //         {
                 //             link: "Progress",
-                //             name: "Progress",
+                //             name: this.$t('leftSidebar.progress'),
                 //         },
                 //     ],
                 // },
                 {
                     link: "POSM",
-                    name: "POSM Balance",
+                    name: this.$t('leftSidebar.posm'),
                     children: [
                         {
                             link: "CAPEX-Depth",
-                            name: "CAPEX depts",
+                            name: this.$t('leftSidebar.capexdepth'),
                         },
                         {
                             link: "OPEX-Depth",
-                            name: "OPEX depts",
+                            name: this.$t('leftSidebar.opexdepth'),
                         },
                         {
                             link: "Stock",
-                            name: "STOCK",
+                            name: this.$t('leftSidebar.stock'),
                         },
                         {
                             link: "Transits",
-                            name: "TRANSITS",
+                            name: this.$t('leftSidebar.transits'),
                         },
                     ],
                 },
@@ -294,28 +298,28 @@ export default {
                 {
                     value: null,
                     options: ["Unit long name 1", "Unit 2", "Unit 3", "Unit 4"],
-                    placeholder: "Unit",
+                    placeholder: this.$t('multiselects.unit'),
                 },
 
                 {
                     value: null,
                     options: ["Region 1", "Region 2", "Region 3", "Region 4"],
-                    placeholder: "Region",
+                    placeholder: this.$t('multiselects.region'),
                 },
                 {
                     value: null,
                     options: ["City 1", "City 2", "City 3", "City 4"],
-                    placeholder: "City",
+                    placeholder: this.$t('multiselects.city'),
                 },
                 {
                     value: null,
                     options: ["CM 1", "CM 2", "CM 3", "CM 4"],
-                    placeholder: "CM",
+                    placeholder: this.$t('multiselects.cm'),
                 },
                 {
                     value: null,
                     options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
-                    placeholder: "TMR",
+                    placeholder: this.$t('multiselects.tmr'),
                 },
             ]
         };

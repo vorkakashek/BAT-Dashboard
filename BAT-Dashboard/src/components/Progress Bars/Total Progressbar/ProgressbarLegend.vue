@@ -34,7 +34,7 @@ let dataSet = computed(() => {
         :class="[deleteSpaces(item), {'empty': !(item.value > 0)}]"
     )
         .progressbar-legend__item-desc
-            .progressbar-legend__item-name {{ item.name }}
+            .progressbar-legend__item-name {{ $t(`${item.name}`) }}
             .progressbar-legend__item-value {{ item.value }}
 
 </template>

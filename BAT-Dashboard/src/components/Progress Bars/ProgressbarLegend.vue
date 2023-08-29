@@ -29,13 +29,13 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
 
 <template lang="pug">
 .progressbar-legend(:class="{'progressbar-legend--progress-bar': type === 'progress-bar' || type === 'progress-bar-multicategory'}")
-    .progressbar-label(v-if="props.label") {{ props.label }}
+    .progressbar-label(v-if="props.label") {{ $t(`${props.label}`) }}
     .progressbar-legend__item(
         v-for="item in data",
         :class="item.class ? item.class : deleteSpaces(item)"
     )
         .progressbar-legend__item-desc
-            .progressbar-legend__item-name {{ item.name }}
+            .progressbar-legend__item-name {{ $t(`${item.name}`) }}
             .progressbar-legend__item-value {{ item.value }}
     TogglerViewProgressbar(type="multicategory" :value="valueStore" v-if="type === 'progress-bar-multicategory'")
     TogglerViewProgressbar(type="graph" :value="valueStore" v-if="type === 'progress-bar-multicategory' || type === 'progress-bar'")

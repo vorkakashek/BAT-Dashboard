@@ -16,7 +16,7 @@ function handlerClass(name) {
 <template lang="pug">
 .product-card-infographics
     .stat(v-for="item in data" :class="item.class ? item.class : handlerClass(item.name)")
-        span.stat-name {{ item.name }}
+        span.stat-name {{ $t(`${item.name}`) }}
         span.stat-value {{ item.value }}
 
 </template>

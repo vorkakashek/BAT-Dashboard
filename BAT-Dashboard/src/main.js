@@ -30,10 +30,22 @@ import ModalConstructor from './components/Modals/ModalConstructor.vue'
 import Loading from './components/Loading.vue'
 import Notifications from '@kyvg/vue3-notification'
 
+import { createI18n } from 'vue-i18n'
+import en from './locales/en';
+import ru from './locales/ru';
 
+const i18n = createI18n({
+    locale: 'en',
+    legacy: false,
+    messages: {
+        ru: ru,
+        en: en
+    }
+})
 
 const app = createApp(App).use(createPinia()).use(Notifications);
 
+app.use(i18n);
 
 app.use(router);
 

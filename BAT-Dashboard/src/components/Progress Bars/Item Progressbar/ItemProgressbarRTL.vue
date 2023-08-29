@@ -96,7 +96,7 @@ function offset(name) {
 
 .progressbar-container.rtl
     .progressbar-wrapper
-        .progressbar-label(v-if="props.label || props.total") {{ props.label }}
+        .progressbar-label(v-if="props.label || props.total") {{ $t(`${props.label}`) }}
         .progressbar-outer
             //- .progressbar-inner(:style="['width: ' + progressbarPercent(bar)]" :class="progressbarClass(bar)")
             .progressbar-inner(v-for="(bar, index) in bars" :style="['width: ' + progressbarPercent(bar), `right: ${offset(bar.name)}%`]" :class="progressbarClass(bar)")

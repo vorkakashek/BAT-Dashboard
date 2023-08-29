@@ -79,7 +79,7 @@ ModalConstructor(modalName="ProductCardModalGraph", :data="product.graph", ref="
 
 .product-card
     .product-card__header
-        .product-card__header-name(v-if="product.name") {{ product.name }}
+        .product-card__header-name(v-if="product.name") {{ $t(`${product.name}`) }}
         .product-card__header-type(v-if="product.type") {{ product.type }}
         .product-card__header-percentage(v-if="product.percentage" :class="{ 'color-pale': product.notImportant }") {{ product.percentage }}
     .product-card__photo_wrap

@@ -1,7 +1,9 @@
 <script setup>
 import { computed, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-
+import {useI18n} from "vue-i18n";
+        
+const i18n = useI18n();
 
 const state = reactive({
     login: "",
@@ -15,10 +17,9 @@ const state = reactive({
 const router = useRouter()
 
 const formReady = computed(() => !state.loginErrors.length && !state.passwordErrors.length)
-
 function onsubmit() {
-    state.loginErrors = state.login ? [] : ["Login is required"]
-    state.passwordErrors = state.password ? [] : ["Password is required"]
+    state.loginErrors = state.login ? [] : [i18n.t("login.errors.login")] // Login is required
+    state.passwordErrors = state.password ? [] : [i18n.t("login.errors.password")] //"Password is required"
     if (!formReady.value) {
         return
     }
@@ -33,11 +34,11 @@ function onsubmit() {
     .auth-panel.panel
         transition(name="headerAnim", appear)
             .auth-panel__header.fajc
-                | Merchandising Dashboard
+                | {{ $t('header.logo') }}
         transition(name="bodyAnim", appear)
             .auth-panel__body
                 .auth-panel__tab
-                    .auth-panel__tab-name Login
+                    .auth-panel__tab-name {{ $t('login.login') }}
                     hr
                 form(@submit.prevent="onsubmit")
                     .error(v-if="!!state.loginErrors.length") {{ state.loginErrors[0] }}
@@ -46,7 +47,7 @@ function onsubmit() {
                         transition(name="authInputLabel", appear)
                             span.auth-input__label(
                                 v-bind:class="{ focused: state.loginfocused || state.login !== '' }"
-                            ) login
+                            ) {{ $t('login.inputs.login') }}
                         transition(name="input", appear)
                             input(
                                 v-model="state.login",
@@ -58,7 +59,7 @@ function onsubmit() {
                         transition(name="authInputLabel", appear style="animation-delay: .5s")
                             span.auth-input__label(
                                 v-bind:class="{ focused: state.passfocused || state.password !== '' }"
-                            ) password
+                            ) {{ $t('login.inputs.password') }}
                         transition(name="input", appear style="animation-delay: .4s")
                             input(
                                 v-model="state.password",
@@ -66,7 +67,7 @@ function onsubmit() {
                                 @focus="state.passfocused = true",
                                 @blur="state.passfocused = false"
                             )
-                    Btn(text="Login", @click="onsubmit", centered) 
+                    Btn(:text=`$t('login.submit')`, @click="onsubmit", centered) 
 </template>
 
 <style lang="scss" scoped>

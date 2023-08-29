@@ -82,7 +82,7 @@ function translateXFix(bar) {
 
 .progressbar-container(:class="{ 'rtl': rtl }")
     .progressbar-wrapper
-        .progressbar-label(v-if="props.label || props.total") {{ props.label }}
+        .progressbar-label(v-if="props.label || props.total") {{ $t(`${props.label}`) }}
         .progressbar-outer
             .progressbar-inner(v-for="(bar, index) in bars" :style="['width: ' + progressbarPercent(bar)]" :class="progressbarClass(bar)")
                 .progressbar-value(:class="handlerPosition(bar)" :style="translateXFix(bar)" v-if="bar.value > 0") {{ progressbarPercent(bar) }}

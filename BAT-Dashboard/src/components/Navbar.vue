@@ -2,6 +2,7 @@
 
 import { reactive, onBeforeMount, onBeforeUnmount } from 'vue'
 import Downloader from '@/components/Downloader.vue'
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
 import { useReportStore } from "@/store/store"
 const store = useReportStore()
 
@@ -46,18 +47,20 @@ nav(:class="{ active: state.menuActive }")
     )
         //- app-icon(name="nav-btn", size="20")
         .nav-btn-name 
-            span Menu
-            span Close
+            span {{ $t('header.menu') }}
+            span {{ $t('header.close') }}
         span
         span
         span
         span
 
 
-    .logo Merchandising Dashboard
+    .logo {{ $t('header.logo') }}
 
     #export-excel
     Downloader(v-if="store.amount_requested > 0 || store.amount_ready > 0")
+
+    LanguageSwitcher
 
     router-link.user.fajc(to="/login")
         .user-login username
@@ -111,7 +114,7 @@ nav {
 }
 
 .user {
-    margin-left: auto;
+    margin-left: 40px;
     margin-right: var(--layout-pd);
     text-decoration: none;
 

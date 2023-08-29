@@ -76,7 +76,7 @@ TotalProgressbar(:data="newTotalData")
         ProgressbarLegend(:data="newTotalData")
 
 .panel
-    h2 Total
+    h2 {{ $t('total') }}
     .comparison-items
         ComparisonItem(v-for="item in newItemList" :comparisonData="item" :vertical="true")
 </template>

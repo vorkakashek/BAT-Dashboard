@@ -25,14 +25,14 @@ const emits = defineEmits(["hide"])
 
 <template lang="pug">
 
-h2 Export Request
+h2 {{ $t('export.title') }}
 .modal-highlight 
     app-icon(name="time")
-    span This process may take some time
-.modal-text Do you want to save the report in Excel?
+    span {{ $t('export.highlight') }}
+.modal-text {{ $t('export.text') }}
 .modal-btns
-    Btn(text="No" color="#4a4a4a" @click="$emit('hide')")
-    Btn(text="Yes" @click="$emit('hide'), acceptHadnler()")
+    Btn(:text="$t('no')" color="#4a4a4a" @click="$emit('hide')")
+    Btn(:text="$t('yes')" @click="$emit('hide'), acceptHadnler()")
 
 
 </template>

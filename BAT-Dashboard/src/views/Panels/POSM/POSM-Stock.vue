@@ -40,7 +40,7 @@ const totalData = ref([
 
 const itemList = ref([
     {
-        name: "ТИП: Оборудование",
+        name: "TYPE: Equipment",
         photo: "MINI",
         percentage: "10%",
         ignore: [],
@@ -69,7 +69,7 @@ const itemList = ref([
         ],
     },
     {
-        name: "ТИП: Запчасти",
+        name: "TYPE: Parts",
         photo: "MINI",
         percentage: "10%",
         ignore: [],
@@ -98,7 +98,7 @@ const itemList = ref([
         ],
     },
     {
-        name: "ТИП: Сувениры",
+        name: "TYPE: Souvenirs",
         photo: "MINI",
         percentage: "10%",
         ignore: [],
@@ -127,7 +127,7 @@ const itemList = ref([
         ],
     },
     {
-        name: "ТИП: POSM",
+        name: "TYPE: POSM",
         photo: "MINI",
         percentage: "10%",
         ignore: [],

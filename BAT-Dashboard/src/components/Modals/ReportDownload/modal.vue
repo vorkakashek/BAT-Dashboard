@@ -24,7 +24,7 @@ const emits = defineEmits(["hide"])
 
 <template lang="pug">
     
-h2 Reports
+h2 {{ $t('reports') }}
 .report-list
     Report(v-for="report in reports" :data="report")
 

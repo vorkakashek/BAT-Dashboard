@@ -657,7 +657,7 @@ TotalProgressbar(:data="totalData" :viewType="viewType")
 
 
 .panel
-    h2 Total
+    h2 {{ $t('total') }}
     //- ISFFilter(:options="ISFFilterOptions" v-model="ISFFilterValue")
     FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")
     FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
