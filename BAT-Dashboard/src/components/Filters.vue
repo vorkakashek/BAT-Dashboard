@@ -107,6 +107,7 @@ export default {
             overflow-y: auto;
             border-radius: var(--radius-4);
             bottom: -2px;
+            min-width: min-content;
             &::-webkit-scrollbar {
                 width: 4px;
             }

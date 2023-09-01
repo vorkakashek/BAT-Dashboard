@@ -67,7 +67,7 @@ const expandStats = (key) => {
     .progressbar-label(v-if="props.label !== 'Total' || type === 'progress-bar'") {{ props.label }}
     .graph-legend-group
         .graph-legend-item(v-for="(item, key) in data.weeks[0].graph")
-            .graph-legend-name(:class="legendName(key)") {{ key }}
+            .graph-legend-name(:class="item.class ? item.class : legendName(key)") {{ key }}
             .graph-legend-stats(v-if="selectedWeek !== null")
                 .graph-legend-stats-qty {{ data.weeks[selectedWeek].graph[key].qty }} 
                     span pcs
@@ -246,6 +246,11 @@ const expandStats = (key) => {
     justify-content: flex-start;
     padding: 20px 0;
     position: relative;
+    &::-webkit-scrollbar {
+        display: none;
+        height: 0;
+        width: 0;
+    }
 }
 
 .graph-legend {
@@ -416,7 +421,32 @@ const expandStats = (key) => {
         &:before {
             background: linear-gradient(180deg, #50AF47 0%, #98CA0B 100%);
         }
+    }
 
+    &.More90d {
+        &:before {
+            background-color: var(--orange-light);
+        }
+    }
+    &.Current, &.Three12Month {
+        &:before {
+            background-color: var(--yellow);
+        }
+    }
+    &.GreenTarget, &.New {
+        &:before {
+            background-color: var(--green-light);
+        }
+    }
+    &.More1y, &.Overdue {
+        &:before {
+            background-color: var(--orange-pale);
+        }
+    }
+    &.Hidden {
+        &:before {
+            display: none;
+        }
     }
 }
 </style>

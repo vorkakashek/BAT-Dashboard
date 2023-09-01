@@ -64,7 +64,7 @@ const handlerClass = (item) => {
         .graph-thick
             template(v-for="(item, key) in data.graph")
                 .graph-item(:style="{ height: item.percent + '%' }" v-if="key !== 'Executed' && key !== 'In Stock' && item.percent !== 0")
-                    .graph(:class="handlerClass(key)" :style="{ animationDelay: itemKey * .1 + 's' }")
+                    .graph(:class="item.class ? item.class : handlerClass(key)" :style="{ animationDelay: itemKey * .1 + 's' }")
                         .percent(v-if="item.percent !== 0" :style="{ animationDelay: itemKey * .1 + .3 + 's' }") {{ aroundNumber(item.percent) }}
         .graph-thin(v-if="type !== 'progress-bar' && type !== 'progress-multicategory-bar'")
             .graph(:style="{ height: data.graph['Executed'].percent + '%', animationDelay: itemKey * .1 + 's' }")
@@ -288,6 +288,25 @@ const handlerClass = (item) => {
             background-color: #DFF7FF;
             order: 7;
 
+        }
+
+        &.More90d {
+            background-color: var(--orange-light);
+            z-index: 3;
+        }
+        &.Current, &.Three12Month {
+            background-color: var(--yellow);
+            z-index: 2;
+        }
+        &.GreenTarget, &.New {
+            background-color: var(--green-light);
+        }
+        &.More1y, &.Overdue {
+            background-color: var(--orange-pale);
+            z-index: 3;
+        }
+        &.Hidden {
+            display: none;
         }
     }
 

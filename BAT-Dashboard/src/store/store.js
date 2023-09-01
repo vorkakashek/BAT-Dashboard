@@ -176,7 +176,23 @@ export const useFiltersStore = defineStore('filtersStore', {
             {
                 name: 'viewType_2', // ISF-Progress
                 value: 'bar',
-            }
+            },
+            {
+                name: 'viewType_3', // POSM-CAPEX-Depth
+                value: 'bar',
+            },
+            {
+                name: 'viewType_4', // POSM-OPEX-Depth
+                value: 'bar',
+            },
+            {
+                name: 'viewType_5', // POSM-Stock
+                value: 'bar',
+            },
+            {
+                name: 'viewType_6', // POSM-Transit
+                value: 'bar',
+            },
         ],
     }),
     actions: {

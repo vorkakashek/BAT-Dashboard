@@ -7,8 +7,8 @@ import { useFiltersStore } from "@/store/store"
 import TotalProgressbarConstructor from "@/components/Progress Bars/Total Progressbar/TotalProgressbarConstructor.vue"
 import Progressbar from "@/components/Progress Bars/Total Progressbar/Progressbar.vue"
 import ProgressbarRTL from "@/components/Progress Bars/Total Progressbar/ProgressbarRTL.vue"
-import ItemProgressbar from "@/components/Progress Bars/Item Progressbar/ItemProgressbar.vue"
-import ItemProgressbarRTL from "@/components/Progress Bars/Item Progressbar/ItemProgressbarRTL.vue"
+// import ItemProgressbar from "@/components/Progress Bars/Item Progressbar/ItemProgressbar.vue"
+// import ItemProgressbarRTL from "@/components/Progress Bars/Item Progressbar/ItemProgressbarRTL.vue"
 import ItemLegend from "@/components/Progress Bars/Item Progressbar/ItemLegend.vue"
 
 const store = useFiltersStore();
@@ -132,32 +132,32 @@ let itemList = ref([
         type_bwd: "VITRINE",
         stats: [
             [
-                {
-                    name: "Executed",
-                    value: "3000",
-                },
+                // {
+                //     name: "Executed",
+                //     value: "3000",
+                // },
                 {
                     name: "Not Executed",
                     value: "1000",
                 },
-                {
-                    name: "Target",
-                    value: "4000",
-                }
+                // {
+                //     name: "Target",
+                //     value: "4000",
+                // }
             ],
             [
                 {
                     name: "Stock",
                     value: "500",
                 },
-                {
-                    name: "No Stock",
-                    value: "500",
-                },
-                {
-                    name: "Target",
-                    value: "4000",
-                }
+                // {
+                //     name: "No Stock",
+                //     value: "500",
+                // },
+                // {
+                //     name: "Target",
+                //     value: "4000",
+                // }
             ],
         ],
         info: {
@@ -171,32 +171,32 @@ let itemList = ref([
         type_bwd: "BWD",
         stats: [
             [
-                {
-                    name: "Executed",
-                    value: "1000",
-                },
+                // {
+                //     name: "Executed",
+                //     value: "1000",
+                // },
                 {
                     name: "Not Executed",
                     value: "3000",
                 },
-                {
-                    name: "Target",
-                    value: "4000",
-                },
+                // {
+                //     name: "Target",
+                //     value: "4000",
+                // },
             ],
             [
                 {
                     name: "Stock",
                     value: "2000",
                 },
-                {
-                    name: "No Stock",
-                    value: "1000",
-                },
-                {
-                    name: "Target",
-                    value: "4000",
-                },
+                // {
+                //     name: "No Stock",
+                //     value: "1000",
+                // },
+                // {
+                //     name: "Target",
+                //     value: "4000",
+                // },
             ]
         ],
         info: {
@@ -210,32 +210,32 @@ let itemList = ref([
         type_bwd: "BWD",
         stats: [
             [
-                {
-                    name: "Executed",
-                    value: "1500",
-                },
+                // {
+                //     name: "Executed",
+                //     value: "1500",
+                // },
                 {
                     name: "Not Executed",
                     value: "2500",
                 },
-                {
-                    name: "Target",
-                    value: "4000",
-                },
+                // {
+                //     name: "Target",
+                //     value: "4000",
+                // },
             ],
             [
                 {
                     name: "Stock",
                     value: "3000",
                 },
-                {
-                    name: "No Stock",
-                    value: "0",
-                },
-                {
-                    name: "Target",
-                    value: "4000",
-                },
+                // {
+                //     name: "No Stock",
+                //     value: "0",
+                // },
+                // {
+                //     name: "Target",
+                //     value: "4000",
+                // },
             ]
         ],
     },
@@ -245,32 +245,32 @@ let itemList = ref([
         type_bwd: "BWD",
         stats: [
             [
-                {
-                    name: "Executed",
-                    value: "1500",
-                },
+                // {
+                //     name: "Executed",
+                //     value: "1500",
+                // },
                 {
                     name: "Not Executed",
                     value: "2500",
                 },
-                {
-                    name: "Target",
-                    value: "4000",
-                },
+                // {
+                //     name: "Target",
+                //     value: "4000",
+                // },
             ],
             [
                 {
                     name: "Stock",
                     value: "3000",
                 },
-                {
-                    name: "No Stock",
-                    value: "0",
-                },
-                {
-                    name: "Target",
-                    value: "4000",
-                },
+                // {
+                //     name: "No Stock",
+                //     value: "0",
+                // },
+                // {
+                //     name: "Target",
+                //     value: "4000",
+                // },
             ]
         ],
     },
@@ -280,32 +280,32 @@ let itemList = ref([
         type_bwd: "BWD",
         stats: [
             [
-                {
-                    name: "Executed",
-                    value: "1500",
-                },
+                // {
+                //     name: "Executed",
+                //     value: "1500",
+                // },
                 {
                     name: "Not Executed",
                     value: "2500",
                 },
-                {
-                    name: "Target",
-                    value: "4000",
-                },
+                // {
+                //     name: "Target",
+                //     value: "4000",
+                // },
             ],
             [
                 {
                     name: "Stock",
                     value: "3000",
                 },
-                {
-                    name: "No Stock",
-                    value: "0",
-                },
-                {
-                    name: "Target",
-                    value: "4000",
-                },
+                // {
+                //     name: "No Stock",
+                //     value: "0",
+                // },
+                // {
+                //     name: "Target",
+                //     value: "4000",
+                // },
             ]
         ],
     },
@@ -351,8 +351,9 @@ TotalProgressbarConstructor(:data="total_3")
         template(#items)
             ProductCard(:product="item" v-for="item in itemList")
                 template(#progressbar)
-                    ItemProgressbar(:data="item.stats[0]")
-                    ItemProgressbarRTL(:data="item.stats[1]")
+                    span
+                //-     ItemProgressbar(:data="item.stats[0]")
+                //-     ItemProgressbarRTL(:data="item.stats[1]")
 
                 template(#legend)
                     ItemLegend(:data="item.stats")
