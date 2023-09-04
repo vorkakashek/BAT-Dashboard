@@ -42,6 +42,21 @@ const product_vals = computed(() => {
     return arr
 })
 
+const product_vals_doc = computed(() => {
+    let product_keys = Object.keys(props.product).filter((e) => e.includes('doc')),
+        arr = []
+
+    Object.entries(props.product).forEach((el) => {
+        product_keys.forEach((k) => {
+            if (el.includes(k)) {
+                arr.push(el[1])
+                // console.log(el[1])
+            }
+        })
+    })
+    return arr
+})
+
 let modal = ref()
 let modalGraph = ref()
 let clicked = ref(false)
@@ -113,6 +128,9 @@ ModalConstructor(modalName="ProductCardModalGraph", :data="product.graph", ref="
     .type(v-if="product_vals.length > 0")
         label Type: 
         span(v-for="item in product_vals") {{ item }}
+    .type(v-if="product_vals_doc.length > 0")
+        label DOC Type: 
+        span(v-for="item in product_vals_doc") {{ item }}
 </template>
 
 <style lang="scss" scoped>
@@ -226,6 +244,7 @@ img.interactive {
     justify-content: space-between;
     margin-bottom: auto;
     margin-bottom: 12px;
+    gap: 24px;
     align-items: center;
 }
 

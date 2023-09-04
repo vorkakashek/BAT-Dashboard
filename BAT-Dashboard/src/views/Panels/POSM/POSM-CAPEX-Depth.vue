@@ -21,7 +21,6 @@ const totalGraph = ref({
     info: {
         name: 'GC_A_TN_Big_Mini_Sas # Lucky Strike',
         image: 3,
-        targetPercent: 89.3,
         target: 4000,
         totalqty: 4000,
         centralstorage: '02/05/2022',
@@ -248,7 +247,7 @@ const totalData = ref([
 
 const itemList = ref([
     {
-        name: "new Монтаж",
+        name: "Installation of NEW",
         photo: "MINI",
         percentage: "10%",
         ignore: [],
@@ -270,7 +269,7 @@ const itemList = ref([
         ],
     },
     {
-        name: "Used Монтаж",
+        name: "Installation of USED",
         photo: "MINI",
         percentage: "30%",
         ignore: [],
@@ -292,7 +291,7 @@ const itemList = ref([
         ],
     },
     {
-        name: "Used ДеМонтаж",
+        name: "Demounting",
         photo: "MINI",
         percentage: "60%",
         ignore: [],

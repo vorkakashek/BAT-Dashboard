@@ -32,7 +32,6 @@ const totalGraph = ref({
     info: {
         name: 'GC_A_TN_Big_Mini_Sas # Lucky Strike',
         image: 3,
-        targetPercent: 89.3,
         target: 4000,
         totalqty: 4000,
         centralstorage: '02/05/2022',
@@ -242,6 +241,7 @@ const totalGraph = ref({
 
 const itemList = ref([
     {
+        name: "Материалы для выделения - Vuse",
         photo: "MINI",
         percentage: "10%",
         ignore: [],
@@ -261,10 +261,10 @@ const itemList = ref([
                 class: "GreenTarget",
             },
         ],
-        type_equipment: "Оборудование",
-        type_act: "Акт"
+        doc_act: "Ун. Акт ND"
     },
     {
+        name: "Запчасти - D",
         photo: "MINI",
         percentage: "10%",
         ignore: [],
@@ -284,10 +284,10 @@ const itemList = ref([
                 class: "GreenTarget",
             },
         ],
-        type_parts: "Запчасти",
-        type_actWork: "Акт от ворк"
+        doc_act: "Ун. Акт D",
     },
     {
+        name: "Оборудование FMC - D",
         photo: "MINI",
         percentage: "10%",
         ignore: [],
@@ -307,10 +307,10 @@ const itemList = ref([
                 class: "GreenTarget",
             },
         ],
-        type_souvenirs: "Сувениры",
-        type_statement: "Ведомость ЭДО"
+        doc_act: "Акт Опекс",
     },
     {
+        name: "Малоценные материалы - ND",
         photo: "MINI",
         percentage: "10%",
         ignore: [],
@@ -330,8 +330,7 @@ const itemList = ref([
                 class: "GreenTarget",
             },
         ],
-        type_posm: "POSM",
-        type_statement: "Ведомость ЭДО"
+        doc_act: "Ун. Акт малоценка",
     },
 ])
 

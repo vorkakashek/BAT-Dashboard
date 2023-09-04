@@ -35,7 +35,6 @@ const totalGraph = ref({
     info: {
         name: 'GC_A_TN_Big_Mini_Sas # Lucky Strike',
         image: 3,
-        targetPercent: 89.3,
         target: 4000,
         totalqty: 4000,
         centralstorage: '02/05/2022',
@@ -254,92 +253,92 @@ const totalGraph = ref({
 
 const itemList = ref([
     {
-        name: "Work",
-        photo: "MINI",
-        percentage: "10%",
-        ignore: [],
-        notImportant: true,
-        stats: [
-            {
-                name: "Overdue",
-                value: "140",
-            },
-            {
-                name: "3-12 Month",
-                value: "800",
-                class: "Three12Month",
-            },
-            {
-                name: "New",
-                value: "1000",
-                class: "GreenTarget",
-            },
-            {
-                name: "Target",
-                value: "1000",
-                class: "Hidden"
-            }
-        ],
-    },
-    {
-        name: "Promo",
-        photo: "MINI",
-        percentage: "10%",
-        ignore: [],
-        notImportant: true,
-        stats: [
-            {
-                name: "Overdue",
-                value: "140",
-            },
-            {
-                name: "3-12 Month",
-                value: "800",
-                class: "Three12Month",
-            },
-            {
-                name: "New",
-                value: "1000",
-                class: "GreenTarget",
-            },
-            {
-                name: "Target",
-                value: "1000",
-                class: "Hidden"
-            }
-        ],
-    },
-    {
-        name: "Mol",
-        photo: "MINI",
-        percentage: "10%",
-        ignore: [],
-        notImportant: true,
-        stats: [
-            {
-                name: "Overdue",
-                value: "140",
-            },
-            {
-                name: "3-12 Month",
-                value: "800",
-                class: "Three12Month",
-            },
-            {
-                name: "New",
-                value: "1000",
-                class: "GreenTarget",
-            },
-            {
-                name: "Target",
-                value: "1000",
-                class: "Hidden"
-            }
-        ],
-    },
-    {
         name: "TMR",
-        photo: "MINI",
+        photo: "work",
+        percentage: "10%",
+        ignore: [],
+        notImportant: true,
+        stats: [
+            {
+                name: "Overdue",
+                value: "140",
+            },
+            {
+                name: "3-12 Month",
+                value: "800",
+                class: "Three12Month",
+            },
+            {
+                name: "New",
+                value: "1000",
+                class: "GreenTarget",
+            },
+            {
+                name: "Target",
+                value: "1000",
+                class: "Hidden"
+            }
+        ],
+    },
+    {
+        name: "Промо",
+        photo: "promo",
+        percentage: "10%",
+        ignore: [],
+        notImportant: true,
+        stats: [
+            {
+                name: "Overdue",
+                value: "140",
+            },
+            {
+                name: "3-12 Month",
+                value: "800",
+                class: "Three12Month",
+            },
+            {
+                name: "New",
+                value: "1000",
+                class: "GreenTarget",
+            },
+            {
+                name: "Target",
+                value: "1000",
+                class: "Hidden"
+            }
+        ],
+    },
+    {
+        name: "Мол",
+        photo: "mol",
+        percentage: "10%",
+        ignore: [],
+        notImportant: true,
+        stats: [
+            {
+                name: "Overdue",
+                value: "140",
+            },
+            {
+                name: "3-12 Month",
+                value: "800",
+                class: "Three12Month",
+            },
+            {
+                name: "New",
+                value: "1000",
+                class: "GreenTarget",
+            },
+            {
+                name: "Target",
+                value: "1000",
+                class: "Hidden"
+            }
+        ],
+    },
+    {
+        name: "Ворк",
+        photo: "tmr",
         percentage: "10%",
         ignore: [],
         notImportant: true,
