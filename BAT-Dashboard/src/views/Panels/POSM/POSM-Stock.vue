@@ -291,6 +291,8 @@ const itemList = ref([
                 class: "Hidden"
             }
         ],
+        type_equipment: "Оборудование",
+        type_act: "Акт"
     },
     {
         name: "TYPE: Parts",
@@ -320,6 +322,8 @@ const itemList = ref([
                 class: "Hidden"
             }
         ],
+        type_equipment: "Оборудование",
+        type_act: "Акт"
     },
     {
         name: "TYPE: Souvenirs",
@@ -349,6 +353,8 @@ const itemList = ref([
                 class: "Hidden"
             }
         ],
+        type_equipment: "Оборудование",
+        type_act: "Акт"
     },
     {
         name: "TYPE: POSM",
@@ -378,6 +384,8 @@ const itemList = ref([
                 class: "Hidden"
             }
         ],
+        type_equipment: "Оборудование",
+        type_act: "Акт"
     },
 ])
 
