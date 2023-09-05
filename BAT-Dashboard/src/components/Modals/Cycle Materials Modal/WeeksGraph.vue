@@ -246,6 +246,7 @@ const expandStats = (key) => {
     justify-content: flex-start;
     padding: 20px 0;
     position: relative;
+    scrollbar-width: none;
     &::-webkit-scrollbar {
         display: none;
         height: 0;
