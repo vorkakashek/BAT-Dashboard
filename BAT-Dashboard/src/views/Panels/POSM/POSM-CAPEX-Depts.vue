@@ -1,35 +1,21 @@
 <script setup>
 import { computed, ref, onMounted, watch } from "vue";
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
-import { useFiltersStore } from "@/store/store"
 import WeeksGraph from '@/components/Modals/Cycle Materials Modal/WeeksGraph.vue'
+import { useFiltersStore } from "@/store/store"
 
 const store = useFiltersStore()
 const viewType = ref('bar')
 
 onMounted(() => {
-    viewType.value = store.togglers.find(e => e.name === 'viewType_6').value
+    if (store.togglers.find(e => e.name === 'posm_capex').value !== 'unset') {
+        CAPEXFilterValue.value = store.togglers.find(e => e.name === 'posm_capex').value
+    }
+    viewType.value = store.togglers.find(e => e.name === 'viewType_3').value
 })
 
-const totalData = ref([
-    {
-        name: "Overdue",
-        value: 1235,
-    },
-    {
-        name: "Current",
-        value: 3200,
-    },
-    {
-        name: "New",
-        value: 4000,
-    },
-    {
-        name: "Target",
-        value: 4000,
-        class: 'Hidden'
-    }
-])
+const CAPEXFilterOptions = ref(['Sum', 'SKU']);
+const CAPEXFilterValue = ref('Sum');
 
 const totalGraph = ref({
     info: {
@@ -46,15 +32,14 @@ const totalGraph = ref({
             dateStart: '30/05',
             dateEnd: '31/05',
             graph: {
-                '>1 YEAR': {
+                '>90 D': {
                     qty: 0,
                     percent: 0,
-                    class: 'More1y'
+                    class: 'More90d'
                 },
-                '3-12 MONTH': {
+                'Current': {
                     qty: 3000,
                     percent: 90,
-                    class: 'Three12Month'
                 },
                 'Target': {
                     qty: 1000,
@@ -69,15 +54,14 @@ const totalGraph = ref({
             dateStart: '01/06',
             dateEnd: '05/06',
             graph: {
-                '>1 YEAR': {
+                '>90 D': {
                     qty: 1000,
                     percent: 10,
-                    class: 'More1y'
+                    class: 'More90d'
                 },
-                '3-12 MONTH': {
+                'Current': {
                     qty: 2000,
                     percent: 80,
-                    class: 'Three12Month'
                 },
                 'Target': {
                     qty: 1000,
@@ -92,15 +76,14 @@ const totalGraph = ref({
             dateStart: '06/06',
             dateEnd: '12/06',
             graph: {
-                '>1 YEAR': {
+                '>90 D': {
                     qty: 0,
                     percent: 0,
-                    class: 'More1y'
+                    class: 'More90d'
                 },
-                '3-12 MONTH': {
+                'Current': {
                     qty: 3000,
                     percent: 90,
-                    class: 'Three12Month'
                 },
                 'Target': {
                     qty: 1000,
@@ -115,15 +98,14 @@ const totalGraph = ref({
             dateStart: '13/06',
             dateEnd: '19/06',
             graph: {
-                '>1 YEAR': {
+                '>90 D': {
                     qty: 0,
                     percent: 0,
-                    class: 'More1y'
+                    class: 'More90d'
                 },
-                '3-12 MONTH': {
+                'Current': {
                     qty: 3000,
                     percent: 90,
-                    class: 'Three12Month'
                 },
                 'Target': {
                     qty: 1000,
@@ -138,15 +120,14 @@ const totalGraph = ref({
             dateStart: '20/06',
             dateEnd: '26/06',
             graph: {
-                '>1 YEAR': {
+                '>90 D': {
                     qty: 0,
                     percent: 0,
-                    class: 'More1y'
+                    class: 'More90d'
                 },
-                '3-12 MONTH': {
+                'Current': {
                     qty: 3000,
                     percent: 90,
-                    class: 'Three12Month'
                 },
                 'Target': {
                     qty: 1000,
@@ -162,15 +143,14 @@ const totalGraph = ref({
             dateStart: '20/06',
             dateEnd: '26/06',
             graph: {
-                '>1 YEAR': {
+                '>90 D': {
                     qty: 0,
                     percent: 0,
-                    class: 'More1y'
+                    class: 'More90d'
                 },
-                '3-12 MONTH': {
+                'Current': {
                     qty: 3000,
                     percent: 90,
-                    class: 'Three12Month'
                 },
                 'Target': {
                     qty: 1000,
@@ -185,15 +165,14 @@ const totalGraph = ref({
             dateStart: '09/05',
             dateEnd: '15/05',
             graph: {
-                '>1 YEAR': {
+                '>90 D': {
                     qty: 0,
                     percent: 0,
-                    class: 'More1y'
+                    class: 'More90d'
                 },
-                '3-12 MONTH': {
+                'Current': {
                     qty: 0,
                     percent: 0,
-                    class: 'Three12Month'
                 },
                 'Target': {
                     qty: 0,
@@ -208,15 +187,14 @@ const totalGraph = ref({
             dateStart: '16/05',
             dateEnd: '22/05',
             graph: {
-                '>1 YEAR': {
+                '>90 D': {
                     qty: 0,
                     percent: 0,
-                    class: 'More1y'
+                    class: 'More90d'
                 },
-                '3-12 MONTH': {
+                'Current': {
                     qty: 0,
                     percent: 0,
-                    class: 'Three12Month'
                 },
                 'Target': {
                     qty: 0,
@@ -231,15 +209,14 @@ const totalGraph = ref({
             dateStart: '23/05',
             dateEnd: '29/05',
             graph: {
-                '>1 YEAR': {
+                '>90 D': {
                     qty: 0,
                     percent: 0,
-                    class: 'More1y'
+                    class: 'More90d'
                 },
-                '3-12 MONTH': {
+                'Current': {
                     qty: 0,
                     percent: 0,
-                    class: 'Three12Month'
                 },
                 'Target': {
                     qty: 0,
@@ -251,124 +228,102 @@ const totalGraph = ref({
     ],
 })
 
+const totalData = ref([
+    {
+        name: ">90 D",
+        value: 1235,
+        class: "More90d",
+    },
+    {
+        name: "Current",
+        value: 3200,
+    },
+    {
+        name: "Target",
+        value: 4000,
+        class: "GreenTarget",
+    },
+])
+
 const itemList = ref([
     {
-        name: "TMR",
-        photo: "work",
+        name: "Installation of NEW",
+        photo: "MINI",
         percentage: "10%",
         ignore: [],
-        notImportant: true,
         stats: [
             {
-                name: "Overdue",
+                name: ">90 d",
                 value: "140",
+                class: "More90d",
             },
             {
-                name: "3-12 Month",
+                name: "Current",
                 value: "800",
-                class: "Three12Month",
-            },
-            {
-                name: "New",
-                value: "1000",
-                class: "GreenTarget",
             },
             {
                 name: "Target",
                 value: "1000",
-                class: "Hidden"
-            }
+                class: "GreenTarget",
+            },
         ],
     },
     {
-        name: "Промо",
-        photo: "promo",
-        percentage: "10%",
+        name: "Installation of USED",
+        photo: "MINI",
+        percentage: "30%",
         ignore: [],
-        notImportant: true,
         stats: [
             {
-                name: "Overdue",
+                name: ">90 d",
                 value: "140",
+                class: "More90d",
             },
             {
-                name: "3-12 Month",
+                name: "Current",
                 value: "800",
-                class: "Three12Month",
-            },
-            {
-                name: "New",
-                value: "1000",
-                class: "GreenTarget",
             },
             {
                 name: "Target",
                 value: "1000",
-                class: "Hidden"
-            }
+                class: "GreenTarget",
+            },
         ],
     },
     {
-        name: "МОЛ",
-        photo: "mol",
-        percentage: "10%",
+        name: "Demounting",
+        photo: "MINI",
+        percentage: "60%",
         ignore: [],
-        notImportant: true,
         stats: [
             {
-                name: "Overdue",
-                value: "140",
+                name: ">90 d",
+                value: "500",
+                class: "More90d",
             },
             {
-                name: "3-12 Month",
+                name: "Current",
                 value: "800",
-                class: "Three12Month",
-            },
-            {
-                name: "New",
-                value: "1000",
-                class: "GreenTarget",
             },
             {
                 name: "Target",
                 value: "1000",
-                class: "Hidden"
-            }
-        ],
-    },
-    {
-        name: "Ворк",
-        photo: "tmr",
-        percentage: "10%",
-        ignore: [],
-        notImportant: true,
-        stats: [
-            {
-                name: "Overdue",
-                value: "140",
-            },
-            {
-                name: "3-12 Month",
-                value: "800",
-                class: "Three12Month",
-            },
-            {
-                name: "New",
-                value: "1000",
                 class: "GreenTarget",
             },
-            {
-                name: "Target",
-                value: "1000",
-                class: "Hidden"
-            }
         ],
     },
 ])
 
-watch(store.togglers, (val) => {
-    viewType.value = val.find(e => e.name === 'viewType_6').value
+watch(() => CAPEXFilterValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(CAPEXFilterValue.value, 'posm_capex')
+    }
 })
+
+watch(store.togglers, (val) => {
+    viewType.value = val.find(e => e.name === 'viewType_3').value
+})
+
 </script>
 
 <template lang="pug">
@@ -378,10 +333,11 @@ Teleport(to="#export-excel")
 
 TotalProgressbar(:data="totalData" :ignore="[]" :viewType="viewType")
     template(#legend)
-        WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'" valueStore="viewType_6")
-        ProgressbarLegend(:data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_6")
+        WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'" valueStore="viewType_3")
+        ProgressbarLegend(:data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_3")
 
 .panel
+    FilterToggler(:options="CAPEXFilterOptions" v-model="CAPEXFilterValue")
     ProductCards
         template(#items)
             ProductCard(v-for="product in itemList", :product="product")

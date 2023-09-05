@@ -147,6 +147,10 @@ export const useFiltersStore = defineStore('filtersStore', {
             },
             // POSM - OPEX
             {
+                name: 'posm_opex',
+                value: 'unset'
+            },
+            {
                 name: 'posm_opex_1',
                 value: 'unset'
             },

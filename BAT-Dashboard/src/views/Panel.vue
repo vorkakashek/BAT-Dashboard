@@ -276,12 +276,12 @@ export default {
                     name: this.$t('leftSidebar.posm'),
                     children: [
                         {
-                            link: "CAPEX-Depth",
-                            name: this.$t('leftSidebar.capexdepth'),
+                            link: "CAPEX-Depts",
+                            name: this.$t('leftSidebar.capexdepts'),
                         },
                         {
-                            link: "OPEX-Depth",
-                            name: this.$t('leftSidebar.opexdepth'),
+                            link: "OPEX-Depts",
+                            name: this.$t('leftSidebar.opexdepts'),
                         },
                         {
                             link: "Stock",

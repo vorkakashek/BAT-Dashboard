@@ -156,19 +156,19 @@ const router = createRouter({
                 {
                     name: 'POSM',
                     path: 'POSM',
-                    redirect: { name: 'POSM-CAPEX-Depth' },
+                    redirect: { name: 'POSM-CAPEX-Depts' },
                     params: true,
                     component: () => import('../views/Panels/POSM/POSM.vue'),
                     children: [
                         {
-                            name: 'POSM-CAPEX-Depth',
-                            path: 'CAPEX-Depth',
-                            component: () => import('../views/Panels/POSM/POSM-CAPEX-Depth.vue')
+                            name: 'POSM-CAPEX-Depts',
+                            path: 'CAPEX-Depts',
+                            component: () => import('../views/Panels/POSM/POSM-CAPEX-Depts.vue')
                         },
                         {
-                            name: 'POSM-OPEX-Depth',
-                            path: 'OPEX-Depth',
-                            component: () => import('../views/Panels/POSM/POSM-OPEX-Depth.vue')
+                            name: 'POSM-OPEX-Depts',
+                            path: 'OPEX-Depts',
+                            component: () => import('../views/Panels/POSM/POSM-OPEX-Depts.vue')
                         },
                         {
                             name: 'POSM-Stock',

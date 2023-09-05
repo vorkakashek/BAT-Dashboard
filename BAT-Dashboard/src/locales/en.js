@@ -67,8 +67,8 @@ export default {
 		deliveryexecution: 'Delivery / Execution',
 		comparison: 'Comparison',
 		progress: 'Progress',
-		capexdepth: 'CAPEX depth',
-		opexdepth: 'OPEX depth',
+		capexdepts: 'CAPEX depts',
+		opexdepts: 'OPEX depts',
 		stock: 'STOCK',
 		transits: "TRANSITS"
 	},

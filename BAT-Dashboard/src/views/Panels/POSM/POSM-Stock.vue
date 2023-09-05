@@ -20,8 +20,8 @@ onMounted(() => {
 const StockFilterOptions = ref(['Strings', 'Acts', 'Sum']);
 const StockFilterValue = ref('Strings');
 
-const StockFilterOptionsTwo = ref(['WORK', 'OFFICE', 'TMR']);
-const StockFilterValueTwo = ref(['WORK', 'OFFICE', 'TMR']);
+const StockFilterOptionsTwo = ref(['WORK', 'OFFICE', 'TMR', 'PROMO', 'MTP']);
+const StockFilterValueTwo = ref(['WORK', 'OFFICE', 'TMR', 'PROMO', 'MTP']);
 
 const totalData = ref([
     {
