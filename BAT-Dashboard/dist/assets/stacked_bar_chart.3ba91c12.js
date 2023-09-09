@@ -1,0 +1,1 @@
+import{o as e,c as t,e as o}from"./index.11084321.js";const h={viewBox:"0 0 24 24",fill:"none",xmlns:"http://www.w3.org/2000/svg"},r=o("path",{d:"M4 20V9h4v11H4ZM4 8V4h4v4H4Zm6 12v-8h4v8h-4Zm0-9V7h4v4h-4Zm6 9v-5h4v5h-4Zm0-6v-4h4v4h-4Z"},null,-1),s=[r];function a(c,n){return e(),t("svg",h,s)}var _={render:a};export{_ as default,a as render};

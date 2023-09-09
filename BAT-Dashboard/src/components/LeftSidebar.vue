@@ -2,7 +2,11 @@
 import { inject } from "vue";
 
 export default {
-    props: ["sidebarActive"],
+    props: {
+        sidebarActive: {
+            type: Boolean,
+        }
+    },
     inject: ["navItems", "updateItems"],
     data() {
         return {};
@@ -15,7 +19,7 @@ export default {
 </script>
 
 <template lang="pug">
-aside(:class="{ active: sidebarActive }")
+aside(:class="{ 'active': sidebarActive }")
     div(v-for="item in navItems")
         router-link.sidebar__nav-item(:to="`/panel/${item.link}`")
             app-icon(:name="item.link", size="24")
@@ -36,7 +40,6 @@ aside(:class="{ active: sidebarActive }")
                     v-for="child in item.children",
                     :to="`/panel/${item.link}/${child.link}`"
                 ) {{ child.name }}
-
 
 </template>
 

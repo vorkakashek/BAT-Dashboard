@@ -1,12 +1,13 @@
 <script setup>
 
-import { reactive, onBeforeMount, onBeforeUnmount } from 'vue'
+import { reactive, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import Downloader from '@/components/Downloader.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
 import { useReportStore } from "@/store/store"
 const store = useReportStore()
 
 const props = defineProps(['navActive'])
+const emits = defineEmits(['activate'])
 
 const state = reactive({
     visible: false,
@@ -14,6 +15,7 @@ const state = reactive({
 })
 
 const navClick = () => {
+    emits('activate')
     state.menuActive = !state.menuActive
     props.navActive({ menuActive: state.menuActive, })
 }

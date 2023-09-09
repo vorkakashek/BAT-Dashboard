@@ -179,7 +179,7 @@ export const useFiltersStore = defineStore('filtersStore', {
             },
             {
                 name: 'viewType_2', // ISF-Progress
-                value: 'bar',
+                value: 'multicategory',
             },
             {
                 name: 'viewType_3', // POSM-CAPEX-Depth
