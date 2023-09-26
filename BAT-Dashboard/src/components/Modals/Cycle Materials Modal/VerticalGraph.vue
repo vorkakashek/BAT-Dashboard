@@ -308,6 +308,24 @@ const handlerClass = (item) => {
         &.Hidden {
             display: none;
         }
+        &.More180d {
+            background-color: #434343;
+            .percent {
+                color: white;
+            }
+        }
+        &.d90d180 {
+            background-color: var(--orange-light);
+        }
+        &.d30d90 {
+            background-color: var(--yellow);
+        }
+        &.Less30d {
+            background-color: var(--green-light);
+        }
+        &.new {
+            background-color: var(--blue-sky);
+        }
     }
 
     .percent {

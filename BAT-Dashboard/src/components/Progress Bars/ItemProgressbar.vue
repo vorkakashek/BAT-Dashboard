@@ -1,6 +1,6 @@
 <script setup>
 
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps({
     data: {
@@ -10,7 +10,7 @@ const props = defineProps({
     ignore: {
         type: Array,
         required: false,
-        default: ['Target', 'Not Delivered', 'Potential', 'Stock'],
+        default: ['Target', 'Not Delivered', 'Potential', 'Stock', 'Total'],
     },
     rtl: {
         type: Boolean,
@@ -20,15 +20,14 @@ const props = defineProps({
     label: {
         type: String,
         required: false,
-    },
-    total: {
-        type: Boolean,
-        required: false,
     }
 });
 
 const bars = computed(() => {
     return props.data.filter((el) => !props.ignore.includes(el.name))
+});
+const isTotal = computed(() => {
+    return props.data.some((el) => el.name === 'Total');
 });
 
 const target = computed(() => {
@@ -38,10 +37,13 @@ const target = computed(() => {
     else if (props.data.find(({ name }) => name === 'Potential') !== undefined) {
         return props.data.find(({ name }) => name === 'Potential').value;
     }
+    else if (isTotal.value) {
+        return props.data.find(({ name }) => name === 'Total').value;
+    }
 });
 
 function progressbarPercent(bar) {
-    return parseFloat((bar.value / (target.value / 100)).toFixed(1)) + '%'
+    return parseFloat((bar.value / (target.value / 100)).toFixed(1))
 };
 
 function progressbarClass(bar) {
@@ -49,13 +51,33 @@ function progressbarClass(bar) {
 };
 
 function handlerPosition(bar) {
+    if(isTotal.value) {
+        const percent = progressbarPercent(bar)
+        console.log(percent, beforeElement.value, bar.value)
+        if(percent > 11) {
+            beforeElement.value = [percent, 'top']
+            return 'top'
+        }
+        if(percent < 11 && beforeElement.value[0] < 11 && beforeElement.value[1] === 'top') {
+            beforeElement.value = [percent, 'bottom']
+            return 'bottom'
+        }
+        if(percent < 11 && beforeElement.value[0] < 11 && beforeElement.value[1] === 'bottom') {
+            beforeElement.value = [percent, 'top']
+            return 'top'
+        }
+        beforeElement.value = [percent, 'top']
+    }
     if (bar.name === 'Delivered to TMR' || bar.name === 'Transit to TMR' || bar.name === 'Delivered') {
         return 'bottom';
     }
     return 'top';
 }
 
-function translateXFix(bar) {
+const beforeElement = ref([0, 'top'])
+
+function translateXFix(bar, index) {
+    if(isTotal.value) return 'transform: translateX(-50%)'
     if (parseFloat((bar.value / (target.value / 100)).toFixed(1)) < 4) {
         return 'transform: translateX(0%)'
     }
@@ -71,20 +93,18 @@ function translateXFix(bar) {
     } else {
         return 'transform: translateX(50%)'
     }
-
 }
 
 </script>
 
 <template lang="pug">
-
-
 .progressbar-container(:class="{ 'rtl': rtl }")
     .progressbar-wrapper
         //- .progressbar-label(v-if="(props.label || props.total) && props.label !== 'hidden'") {{ props.label }}
-        .progressbar-outer
-            .progressbar-inner(v-for="(bar, index) in bars" :style="['width: ' + progressbarPercent(bar)]" :class="bar.class ? bar.class : progressbarClass(bar)")
-                .progressbar-value(:class="handlerPosition(bar)" :style="translateXFix(bar)" v-if="bar.value > 0") {{ progressbarPercent(bar) }}
+        .progressbar-outer(:class='{ "total": isTotal }')
+            template(v-for="(bar, index) in bars" ref="elements")
+                .progressbar-inner(:style="['width: ' + progressbarPercent(bar) + '%']" :class="bar.class ? bar.class : progressbarClass(bar)" v-if="bar['name'] !== 'Total'")
+                    .progressbar-value(:class="handlerPosition(bar)"  :style="translateXFix(bar, index)" v-if="bar.value > 0") {{ progressbarPercent(bar) + '%' }}
     //- slot using in product cards
     slot(name="data")
 </template>
@@ -200,6 +220,16 @@ function translateXFix(bar) {
     width: 100%;
     height: 22px;
 
+    &.total {
+        display: flex;
+        .progressbar-inner {
+            position: relative;
+        }
+        .progressbar-value {
+            left: 50%;
+        }
+    }
+
     @include respond-to(medium) {
         max-width: 100%;
     }
@@ -283,21 +313,63 @@ function translateXFix(bar) {
 
     &.More90d {
         background-color: var(--orange-light);
+        .progressbar-value {
+            color: var(--orange-light);
+        }
         z-index: 3;
     }
     &.Current, &.Three12Month {
         background-color: var(--yellow);
+        .progressbar-value {
+            color: var(--yellow);
+        }
         z-index: 2;
     }
     &.GreenTarget, &.New {
         background-color: var(--green-light);
+        .progressbar-value {
+            color: var(--green-light);
+        }
     }
     &.More1y, &.Overdue {
         background-color: var(--orange-pale);
+        .progressbar-value {
+            color: var(--orange-pale);
+        }
         z-index: 3;
     }
     &.Hidden {
         display: none;
+    }
+    &.More180d {
+        background-color: #434343;
+        .progressbar-value {
+            color: #434343;
+        }
+    }
+    &.d90d180 {
+        background-color: var(--orange-light);
+        .progressbar-value {
+            color: var(--orange-light);
+        }
+    }
+    &.d30d90 {
+        background-color: var(--yellow);
+        .progressbar-value {
+            color: var(--yellow);
+        }
+    }
+    &.Less30d {
+        background-color: var(--green-light);
+        .progressbar-value {
+            color: var(--green-light);
+        }
+    }
+    &.new {
+        background-color: var(--blue-sky);
+        .progressbar-value {
+            color: var(--blue-sky);
+        }
     }
 }
 

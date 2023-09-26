@@ -25,6 +25,11 @@ const props = defineProps({
     },
     ignore: {
         type: Array,
+    },
+    hasTotal: {
+        type: Boolean,
+        required: false,
+        default: false,
     }
 });
 
@@ -32,7 +37,11 @@ const props = defineProps({
 function hideEmpty(data) {
     return data.some(({ value }) => value > 0);
 }
-
+const total = computed(() => {
+    if(props.hasTotal) {
+        return props.data.reduce((a, b) => a + Number(b.value), 0);
+    }
+})
 </script>
 
 <template lang="pug">
@@ -40,7 +49,7 @@ function hideEmpty(data) {
     .progressbar-container
         //- slot for progress bar
         slot(name="progressbar")
-            ItemProgressbar(:data="props.data" :label="props.label" :ignore="props.ignore" :total="props.total" v-if="viewType ==='bar'")
+            ItemProgressbar(:hasTotal="hasTotal" :data="[...props.data, hasTotal ? {name: 'Total', value: total} : '']" :label="props.label" :ignore="props.ignore" :total="props.total" v-if="viewType ==='bar'")
         //- slot for legend (using in total progressbars)
         slot(name="legend")
         //- slot using in product cards

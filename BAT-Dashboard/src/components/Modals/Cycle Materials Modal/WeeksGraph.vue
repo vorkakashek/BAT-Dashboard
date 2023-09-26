@@ -449,5 +449,20 @@ const expandStats = (key) => {
             display: none;
         }
     }
+    &.More180d::before {
+        background-color: #434343;
+    }
+    &.d90d180::before {
+        background-color: var(--orange-light);
+    }
+    &.d30d90::before {
+        background-color: var(--yellow);
+    }
+    &.Less30d::before {
+        background-color: var(--green-light);
+    }
+    &.new::before {
+        background-color: var(--blue-sky);
+    }
 }
 </style>

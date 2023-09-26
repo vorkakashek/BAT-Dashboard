@@ -32,19 +32,30 @@ const totalGraph = ref({
             dateStart: '30/05',
             dateEnd: '31/05',
             graph: {
-                '>90 D': {
-                    qty: 0,
-                    percent: 0,
-                    class: 'More90d'
+                '> 180 D': {
+                    qty: 10,
+                    percent: 20,
+                    class: 'More180d'
                 },
-                'Current': {
-                    qty: 3000,
-                    percent: 90,
+                '90-180 d': {
+                    qty: 10,
+                    percent: 20,
+                    class: "d90d180",
                 },
-                'Target': {
-                    qty: 1000,
-                    percent: 10,
-                    class: 'GreenTarget'
+                "30-90 d": {
+                    qty: 20,
+                    percent: 20,
+                    class: "d30d90",
+                },
+                "< 30 d": {
+                    qty: 10,
+                    percent: 20,
+                    class: "Less30d",
+                },
+                "NEW": {
+                    qty: 10,
+                    percent: 20,
+                    class: "new",
                 },
             }
         },
@@ -54,19 +65,30 @@ const totalGraph = ref({
             dateStart: '01/06',
             dateEnd: '05/06',
             graph: {
-                '>90 D': {
-                    qty: 1000,
-                    percent: 10,
-                    class: 'More90d'
+                '> 180 D': {
+                    qty: 10,
+                    percent: 20,
+                    class: 'More180d'
                 },
-                'Current': {
-                    qty: 2000,
-                    percent: 80,
+                '90-180 d': {
+                    qty: 10,
+                    percent: 20,
+                    class: "d90d180",
                 },
-                'Target': {
-                    qty: 1000,
-                    percent: 10,
-                    class: 'GreenTarget'
+                "30-90 d": {
+                    qty: 20,
+                    percent: 20,
+                    class: "d30d90",
+                },
+                "< 30 d": {
+                    qty: 10,
+                    percent: 20,
+                    class: "Less30d",
+                },
+                "NEW": {
+                    qty: 10,
+                    percent: 20,
+                    class: "new",
                 },
             }
         },
@@ -76,19 +98,30 @@ const totalGraph = ref({
             dateStart: '06/06',
             dateEnd: '12/06',
             graph: {
-                '>90 D': {
-                    qty: 0,
-                    percent: 0,
-                    class: 'More90d'
+                '> 180 D': {
+                    qty: 10,
+                    percent: 20,
+                    class: 'More180d'
                 },
-                'Current': {
-                    qty: 3000,
-                    percent: 90,
+                '90-180 d': {
+                    qty: 10,
+                    percent: 20,
+                    class: "d90d180",
                 },
-                'Target': {
-                    qty: 1000,
-                    percent: 10,
-                    class: 'GreenTarget'
+                "30-90 d": {
+                    qty: 20,
+                    percent: 20,
+                    class: "d30d90",
+                },
+                "< 30 d": {
+                    qty: 10,
+                    percent: 20,
+                    class: "Less30d",
+                },
+                "NEW": {
+                    qty: 10,
+                    percent: 20,
+                    class: "new",
                 },
             }
         },
@@ -98,19 +131,30 @@ const totalGraph = ref({
             dateStart: '13/06',
             dateEnd: '19/06',
             graph: {
-                '>90 D': {
-                    qty: 0,
-                    percent: 0,
-                    class: 'More90d'
+                '> 180 D': {
+                    qty: 10,
+                    percent: 20,
+                    class: 'More180d'
                 },
-                'Current': {
-                    qty: 3000,
-                    percent: 90,
+                '90-180 d': {
+                    qty: 10,
+                    percent: 20,
+                    class: "d90d180",
                 },
-                'Target': {
-                    qty: 1000,
-                    percent: 10,
-                    class: 'GreenTarget'
+                "30-90 d": {
+                    qty: 20,
+                    percent: 20,
+                    class: "d30d90",
+                },
+                "< 30 d": {
+                    qty: 10,
+                    percent: 20,
+                    class: "Less30d",
+                },
+                "NEW": {
+                    qty: 10,
+                    percent: 20,
+                    class: "new",
                 },
             }
         },
@@ -120,19 +164,30 @@ const totalGraph = ref({
             dateStart: '20/06',
             dateEnd: '26/06',
             graph: {
-                '>90 D': {
-                    qty: 0,
-                    percent: 0,
-                    class: 'More90d'
+                '> 180 D': {
+                    qty: 10,
+                    percent: 20,
+                    class: 'More180d'
                 },
-                'Current': {
-                    qty: 3000,
-                    percent: 90,
+                '90-180 d': {
+                    qty: 10,
+                    percent: 20,
+                    class: "d90d180",
                 },
-                'Target': {
-                    qty: 1000,
-                    percent: 10,
-                    class: 'GreenTarget'
+                "30-90 d": {
+                    qty: 20,
+                    percent: 20,
+                    class: "d30d90",
+                },
+                "< 30 d": {
+                    qty: 10,
+                    percent: 20,
+                    class: "Less30d",
+                },
+                "NEW": {
+                    qty: 10,
+                    percent: 20,
+                    class: "new",
                 },
             }
         },
@@ -143,19 +198,30 @@ const totalGraph = ref({
             dateStart: '20/06',
             dateEnd: '26/06',
             graph: {
-                '>90 D': {
-                    qty: 0,
-                    percent: 0,
-                    class: 'More90d'
+                '> 180 D': {
+                    qty: 10,
+                    percent: 20,
+                    class: 'More180d'
                 },
-                'Current': {
-                    qty: 3000,
-                    percent: 90,
+                '90-180 d': {
+                    qty: 10,
+                    percent: 20,
+                    class: "d90d180",
                 },
-                'Target': {
-                    qty: 1000,
-                    percent: 10,
-                    class: 'GreenTarget'
+                "30-90 d": {
+                    qty: 20,
+                    percent: 20,
+                    class: "d30d90",
+                },
+                "< 30 d": {
+                    qty: 10,
+                    percent: 20,
+                    class: "Less30d",
+                },
+                "NEW": {
+                    qty: 10,
+                    percent: 20,
+                    class: "new",
                 },
             }
         },
@@ -174,10 +240,9 @@ const totalGraph = ref({
                     qty: 0,
                     percent: 0,
                 },
-                'Target': {
+                'Total': {
                     qty: 0,
                     percent: 0,
-                    class: 'GreenTarget'
                 },
             }
         },
@@ -196,10 +261,9 @@ const totalGraph = ref({
                     qty: 0,
                     percent: 0,
                 },
-                'Target': {
+                'Total': {
                     qty: 0,
                     percent: 0,
-                    class: 'GreenTarget'
                 },
             }
         },
@@ -218,10 +282,9 @@ const totalGraph = ref({
                     qty: 0,
                     percent: 0,
                 },
-                'Target': {
+                'Total': {
                     qty: 0,
                     percent: 0,
-                    class: 'GreenTarget'
                 },
             }
         },
@@ -230,18 +293,29 @@ const totalGraph = ref({
 
 const totalData = ref([
     {
-        name: ">90 D",
-        value: 1235,
-        class: "More90d",
+        name: "> 180 d",
+        value: "1",
+        class: "More180d",
     },
     {
-        name: "Current",
-        value: 3200,
+        name: "90-180 d",
+        value: "10",
+        class: "d90d180",
     },
     {
-        name: "Target",
-        value: 4000,
-        class: "GreenTarget",
+        name: "30-90 d",
+        value: "20",
+        class: "d30d90",
+    },
+    {
+        name: "< 30 d",
+        value: "10",
+        class: "Less30d",
+    },
+    {
+        name: "NEW",
+        value: "10",
+        class: "new",
     },
 ])
 
@@ -253,62 +327,95 @@ const itemList = ref([
         ignore: [],
         stats: [
             {
-                name: ">90 d",
-                value: "140",
-                class: "More90d",
+                name: "> 180 d",
+                value: "1",
+                class: "More180d",
             },
             {
-                name: "Current",
-                value: "800",
+                name: "90-180 d",
+                value: "1",
+                class: "d90d180",
             },
             {
-                name: "Target",
-                value: "1000",
-                class: "GreenTarget",
-            },
-        ],
-    },
-    {
-        name: "Installation of USED",
-        photo: "MINI",
-        percentage: "30%",
-        ignore: [],
-        stats: [
-            {
-                name: ">90 d",
-                value: "140",
-                class: "More90d",
+                name: "30-90 d",
+                value: "20",
+                class: "d30d90",
             },
             {
-                name: "Current",
-                value: "800",
+                name: "< 30 d",
+                value: "10",
+                class: "Less30d",
             },
             {
-                name: "Target",
-                value: "1000",
-                class: "GreenTarget",
+                name: "NEW",
+                value: "10",
+                class: "new",
             },
         ],
     },
     {
-        name: "Demounting",
+        name: "Installation of NEW",
         photo: "MINI",
-        percentage: "60%",
+        percentage: "10%",
         ignore: [],
         stats: [
             {
-                name: ">90 d",
-                value: "500",
-                class: "More90d",
+                name: "> 180 d",
+                value: "90",
+                class: "More180d",
             },
             {
-                name: "Current",
-                value: "800",
+                name: "90-180 d",
+                value: "3",
+                class: "d90d180",
             },
             {
-                name: "Target",
-                value: "1000",
-                class: "GreenTarget",
+                name: "30-90 d",
+                value: "3",
+                class: "d30d90",
+            },
+            {
+                name: "< 30 d",
+                value: "3",
+                class: "Less30d",
+            },
+            {
+                name: "NEW",
+                value: "1",
+                class: "new",
+            },
+        ],
+    },
+    {
+        name: "Installation of NEW",
+        photo: "MINI",
+        percentage: "10%",
+        ignore: [],
+        stats: [
+            {
+                name: "> 180 d",
+                value: "10",
+                class: "More180d",
+            },
+            {
+                name: "90-180 d",
+                value: "10",
+                class: "d90d180",
+            },
+            {
+                name: "30-90 d",
+                value: "20",
+                class: "d30d90",
+            },
+            {
+                name: "< 30 d",
+                value: "10",
+                class: "Less30d",
+            },
+            {
+                name: "NEW",
+                value: "10",
+                class: "new",
             },
         ],
     },
@@ -331,16 +438,16 @@ watch(store.togglers, (val) => {
 Teleport(to="#export-excel")
     ExportExcel()
 
-TotalProgressbar(:data="totalData" :ignore="[]" :viewType="viewType")
+TotalProgressbar(hasTotal :data="totalData" :ignore="[]" :viewType="viewType")
     template(#legend)
         WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'" valueStore="viewType_3")
-        ProgressbarLegend(:data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_3")
+        ProgressbarLegend(hasTotal :data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_3")
 
 .panel
     FilterToggler(:options="CAPEXFilterOptions" v-model="CAPEXFilterValue")
     ProductCards
         template(#items)
-            ProductCard(v-for="product in itemList", :product="product")
+            ProductCard(v-for="product in itemList", :product="product" hasTotal)
 </template>
 
 <style lang="scss" scoped>

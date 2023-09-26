@@ -6,6 +6,11 @@ const props = defineProps({
     product: {
         type: Object,
         required: true,
+    },
+    hasTotal: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 })
 
@@ -13,6 +18,12 @@ const state = reactive({
     visible: false,
     index: 0,
     imgs: '',
+})
+
+const total = computed(() => {
+    if(props.hasTotal) {
+        return props.product.stats.reduce((a, b) => a + Number(b.value), 0);
+    }
 })
 
 const importPhoto = (photo) => new URL(`./../assets/images/${photo}.jpg`, import.meta.url).href;
@@ -96,7 +107,7 @@ ModalConstructor(modalName="ProductCardModalGraph", :data="product.graph", ref="
     .product-card__header
         .product-card__header-name(v-if="product.name") {{ $t(`${product.name}`) }}
         .product-card__header-type(v-if="product.type") {{ product.type }}
-        .product-card__header-percentage(v-if="product.percentage" :class="{ 'color-pale': product.notImportant }") {{ product.percentage }}
+        //- .product-card__header-percentage(v-if="product.percentage" :class="{ 'color-pale': product.notImportant }") {{ product.percentage }}
     .product-card__photo_wrap
         .details_icon(v-if="manyPhotos")
             app-icon(name="details")
@@ -122,9 +133,9 @@ ModalConstructor(modalName="ProductCardModalGraph", :data="product.graph", ref="
     //-     )
     slot(name="progressbar")
         .progressbar_outer
-            ItemProgressbar(:data="product.stats" :ignore="product.ignore")
+            ItemProgressbar(:data="[...product.stats, hasTotal ? {name: 'Total', value: total} : '']" :ignore="product.ignore")
     slot(name="legend")
-        ItemData(:data="product.stats")
+        ItemData(:data="[...product.stats, hasTotal ? {name: 'Total', value: total} : '']")
     .type(v-if="product_vals.length > 0")
         label Type: 
         span(v-for="item in product_vals") {{ item }}

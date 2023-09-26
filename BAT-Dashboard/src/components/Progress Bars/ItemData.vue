@@ -74,7 +74,8 @@ function handlerClass(name) {
     }
 
     &.Target,
-    &.Potential {
+    &.Potential,
+    &.Total {
         margin-top: var(--pdsm);
         background-color: var(--color-target);
         padding: var(--pd) var(--pdsm);
@@ -101,7 +102,21 @@ function handlerClass(name) {
     &.Hidden {
         display: none;
     }
-
+    &.More180d {
+        color: #434343;
+    }
+    &.d90d180 {
+        color: var(--orange-light);
+    }
+    &.d30d90 {
+        color: var(--yellow);
+    }
+    &.Less30d {
+        color: var(--green-light);
+    }
+    &.new {
+        color: var(--blue-sky);
+    }
 }
 
 .stat-value {

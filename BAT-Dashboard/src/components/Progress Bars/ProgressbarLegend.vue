@@ -19,6 +19,11 @@ const props = defineProps({
     valueStore: {
         type: String,
         required: false
+    },
+    hasTotal: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 })
 
@@ -30,13 +35,11 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
 <template lang="pug">
 .progressbar-legend(:class="{'progressbar-legend--progress-bar': type === 'progress-bar' || type === 'progress-bar-multicategory'}")
     .progressbar-label(v-if="props.label") {{ $t(`${props.label}`) }}
-    .progressbar-legend__item(
-        v-for="item in data",
-        :class="item.class ? item.class : deleteSpaces(item)"
-    )
-        .progressbar-legend__item-desc
-            .progressbar-legend__item-name {{ $t(`${item.name}`) }}
-            .progressbar-legend__item-value {{ item.value }}
+    template(v-for="item in data")
+        .progressbar-legend__item(:class="item.class ? item.class : deleteSpaces(item)" v-if="item.name !== 'Total'")
+            .progressbar-legend__item-desc
+                .progressbar-legend__item-name {{ $t(`${item.name}`) }}
+                .progressbar-legend__item-value {{ item.value }}
     TogglerViewProgressbar(type="multicategory" :value="valueStore" v-if="type === 'progress-bar-multicategory'")
     TogglerViewProgressbar(type="graph" :value="valueStore" v-if="type === 'progress-bar-multicategory' || type === 'progress-bar'")
 </template>
@@ -240,6 +243,22 @@ const deleteSpaces = (item) => item.name.replace(/\s+/g, '');
 
     &.Hidden {
         display: none;
+    }
+
+    &.More180d::before {
+        background-color: #434343;
+    }
+    &.d90d180::before {
+        background-color: var(--orange-light);
+    }
+    &.d30d90::before {
+        background-color: var(--yellow);
+    }
+    &.Less30d::before {
+        background-color: var(--green-light);
+    }
+    &.new::before {
+        background-color: var(--blue-sky);
     }
 
     @include respond-to(handlers) {

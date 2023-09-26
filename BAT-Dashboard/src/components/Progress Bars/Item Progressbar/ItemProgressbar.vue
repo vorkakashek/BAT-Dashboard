@@ -10,7 +10,7 @@ const props = defineProps({
     ignore: {
         type: Array,
         required: false,
-        default: ['Target', 'Not Delivered', "Potential", "Not Executed"],
+        default: ['Target', 'Not Delivered', "Potential", "Not Executed", "Total"],
     }
 })
 
