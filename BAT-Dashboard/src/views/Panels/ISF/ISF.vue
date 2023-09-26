@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import FavoriteToggler from "@/components/FavoriteToggler.vue";
+import OptionalToggler from "@/components/OptionalToggler.vue";
 import { useFiltersStore } from "@/store/store"
 
 const store = useFiltersStore()
@@ -8,6 +9,9 @@ const store = useFiltersStore()
 onMounted(() => {
     if (store.togglers.find(e => e.name === 'isf_1').value !== 'unset') {
         itemValue.value = [store.togglers.find(e => e.name === 'isf_1').value]
+    }
+    if (store.togglers.find(e => e.name === 'isf_11').value !== 'unset') {
+        optionalValue.value = store.togglers.find(e => e.name === 'isf_11').value
     }
 })
 
@@ -36,6 +40,23 @@ const options = [
     },
 ];
 
+const optionalOptions = ref([
+    {
+        value: 'optional_1',
+        label: 'Name 1',
+    },
+    {
+        value: 'optional_2',
+        label: 'Name 2',
+    },
+    {
+        value: 'optional_3',
+        label: 'Name 3',
+    },
+])
+const optionalValue = ref([''])
+
+
 const itemValue = ref([options.length]);
 
 const handlerOpen = (value) => itemValue.value = []
@@ -49,6 +70,11 @@ const handlerClose = () => {
 watch(() => itemValue.value, (val) => {
     if (val.length !== undefined) {
         store.save(itemValue.value[0], 'isf_1')
+    }
+})
+watch(() => optionalValue.value, (val) => {
+    if (val.length !== undefined) {
+        store.save(optionalValue.value, 'isf_11')
     }
 })
 
@@ -77,11 +103,29 @@ Teleport(to="#multiselector")
             span {{ option.label }}
             span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
 
-FavoriteToggler(:options="options" v-model="itemValue")
+.filter-group
+    FavoriteToggler(:options="options" v-model="itemValue")
+    OptionalToggler(v-if="optionalOptions && optionalOptions.length > 0" :options="optionalOptions" v-model="optionalValue")
 
 RouterView
 
 
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.filter-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: var(--pdlg);
+
+    >* {
+        margin: 0 !important;
+        margin-bottom: var(--pdlg) !important;
+
+        &:not(:last-child) {
+            margin-right: var(--pdlg) !important;
+        }
+    }
+}
+</style>

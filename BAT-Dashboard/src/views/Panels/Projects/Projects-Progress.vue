@@ -77,5 +77,5 @@ TotalProgressbar(:data="totalData")
 .panel
     h2 {{ $t('total') }}
     .comparison-items
-        ComparisonItem(v-for="item in itemList" :comparisonData="item" :vertical="true")
+        ComparisonItem(v-for="item in itemList" :comparisonData="item")
 </template>

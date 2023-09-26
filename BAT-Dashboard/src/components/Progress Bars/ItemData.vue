@@ -8,16 +8,18 @@ const props = defineProps({
 });
 
 function handlerClass(name) {
-    return name.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('');
+    if(name === '' || name === undefined) return ''
+    return name.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(''); 
 };
 
 </script>
 
 <template lang="pug">
 .product-card-infographics
-    .stat(v-for="item in data" :class="item.class ? item.class : handlerClass(item.name)")
-        span.stat-name {{ $t(`${item.name}`) }}
-        span.stat-value {{ item.value }}
+    template(v-for="item in data")
+        .stat(:class="item.class ? item.class : handlerClass(item.name)" v-if="item !== undefined")
+            span.stat-name {{ $t(`${item.name}`) }}
+            span.stat-value {{ item.value }}
 
 </template>
 

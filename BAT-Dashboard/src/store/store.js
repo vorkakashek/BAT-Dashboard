@@ -68,6 +68,10 @@ export const useFiltersStore = defineStore('filtersStore', {
                 name: 'isf_10', // IndepLocal / RKA
                 value: 'unset'
             },
+            {
+                name: 'isf_11', // IndepLocal / RKA
+                value: 'unset'
+            },
             // CycleMaterials togglers
             {
                 name: 'cycle_1', // Дропдаун Cycles в сайд меню
@@ -120,6 +124,10 @@ export const useFiltersStore = defineStore('filtersStore', {
             // Headers - Comparison
             {
                 name: 'headers_3', // IndepLocal / RKA
+                value: 'unset'
+            },
+            {
+                name: 'headers_4', // IndepLocal / RKA
                 value: 'unset'
             },
             // Projects togglers

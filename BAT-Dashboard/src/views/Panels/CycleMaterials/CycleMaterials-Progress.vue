@@ -100,7 +100,6 @@ TotalProgressbar(:inData="totalData")
         ComparisonItem(
             v-for="item in itemList",
             :comparisonData="item",
-            :vertical="true"
         )
 </template>
 

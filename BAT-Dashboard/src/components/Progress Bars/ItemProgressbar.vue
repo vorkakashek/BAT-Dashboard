@@ -47,34 +47,34 @@ function progressbarPercent(bar) {
 };
 
 function progressbarClass(bar) {
-    return bar.name.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('');
+    if(bar === '') return ''
+    return bar.name.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('')
 };
 
+let beforeElement = [0, '']
 function handlerPosition(bar) {
     if(isTotal.value) {
         const percent = progressbarPercent(bar)
-        console.log(percent, beforeElement.value, bar.value)
         if(percent > 11) {
-            beforeElement.value = [percent, 'top']
+            beforeElement = [percent, 'top']
             return 'top'
         }
-        if(percent < 11 && beforeElement.value[0] < 11 && beforeElement.value[1] === 'top') {
-            beforeElement.value = [percent, 'bottom']
+        else if(percent < 11 && beforeElement[0] < 11 && beforeElement[1] === 'top') {
+            beforeElement = [percent, 'bottom']
             return 'bottom'
         }
-        if(percent < 11 && beforeElement.value[0] < 11 && beforeElement.value[1] === 'bottom') {
-            beforeElement.value = [percent, 'top']
+        else if(percent < 11 && beforeElement[0] < 11 && beforeElement[1] === 'bottom') {
+            beforeElement = [percent, 'top']
             return 'top'
         }
-        beforeElement.value = [percent, 'top']
+        beforeElement = [percent, 'top']
+        return 'top'
     }
     if (bar.name === 'Delivered to TMR' || bar.name === 'Transit to TMR' || bar.name === 'Delivered') {
         return 'bottom';
     }
     return 'top';
 }
-
-const beforeElement = ref([0, 'top'])
 
 function translateXFix(bar, index) {
     if(isTotal.value) return 'transform: translateX(-50%)'
@@ -102,7 +102,7 @@ function translateXFix(bar, index) {
     .progressbar-wrapper
         //- .progressbar-label(v-if="(props.label || props.total) && props.label !== 'hidden'") {{ props.label }}
         .progressbar-outer(:class='{ "total": isTotal }')
-            template(v-for="(bar, index) in bars" ref="elements")
+            template(v-for="(bar, index) in bars")
                 .progressbar-inner(:style="['width: ' + progressbarPercent(bar) + '%']" :class="bar.class ? bar.class : progressbarClass(bar)" v-if="bar['name'] !== 'Total'")
                     .progressbar-value(:class="handlerPosition(bar)"  :style="translateXFix(bar, index)" v-if="bar.value > 0") {{ progressbarPercent(bar) + '%' }}
     //- slot using in product cards

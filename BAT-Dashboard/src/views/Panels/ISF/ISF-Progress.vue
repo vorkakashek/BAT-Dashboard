@@ -663,6 +663,6 @@ TotalProgressbar(:data="totalData" :viewType="viewType")
     FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
     FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
     .comparison-items
-        ComparisonItem(v-for="item in itemList" :comparisonData="item" :vertical="true")
+        ComparisonItem(v-for="item in itemList" :comparisonData="item")
 
 </template>

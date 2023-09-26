@@ -135,7 +135,7 @@ ModalConstructor(modalName="ProductCardModalGraph", :data="product.graph", ref="
         .progressbar_outer
             ItemProgressbar(:data="[...product.stats, hasTotal ? {name: 'Total', value: total} : '']" :ignore="product.ignore")
     slot(name="legend")
-        ItemData(:data="[...product.stats, hasTotal ? {name: 'Total', value: total} : '']")
+        ItemData(:data="hasTotal ? [...product.stats, {name: 'Total', value: total}] : product.stats")
     .type(v-if="product_vals.length > 0")
         label Type: 
         span(v-for="item in product_vals") {{ item }}
