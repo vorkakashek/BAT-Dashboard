@@ -41,34 +41,43 @@ onBeforeUnmount(() => {
 </script>
 
 <template lang="pug">
-nav(:class="{ active: state.menuActive }")
-    .nav-btn.fajc(
-        v-if="state.visible",
-        @click="navClick",
-        :class="{ active: state.menuActive }"
-    )
-        //- app-icon(name="nav-btn", size="20")
-        .nav-btn-name 
-            span {{ $t('header.menu') }}
-            span {{ $t('header.close') }}
-        span
-        span
-        span
-        span
+.nav-wrapper 
+    nav.nav(:class="{ active: state.menuActive }")
+        .nav__buttons
+            Downloader(v-if="store.amount_requested > 0 || store.amount_ready > 0")
+        .nav__controllers
+            LanguageSwitcher
+            router-link.user(to="/login") Username
+                app-icon(name="log-out", size="18")
+        //- .nav-btn.fajc(
+        //-     v-if="state.visible",
+        //-     @click="navClick",
+        //-     :class="{ active: state.menuActive }"
+        //- )
+        //-     //- app-icon(name="nav-btn", size="20")
+        //-     .nav-btn-name 
+        //-         span {{ $t('header.menu') }}
+        //-         span {{ $t('header.close') }}
+        //-     span
+        //-     span
+        //-     span
+        //-     span
+
+//- nav(:class="{ active: state.menuActive }")
 
 
-    .logo {{ $t('header.logo') }}
+//-     .logo {{ $t('header.logo') }}
 
-    #export-excel
-    Downloader(v-if="store.amount_requested > 0 || store.amount_ready > 0")
+//-     #export-excel
+//-     Downloader(v-if="store.amount_requested > 0 || store.amount_ready > 0")
 
-    LanguageSwitcher
+//-     LanguageSwitcher
 
-    router-link.user.fajc(to="/login")
-        .user-login username
-        app-icon(name="log-out", size="40")
+//-     router-link.user.fajc(to="/login")
+//-         .user-login username
+//-         app-icon(name="log-out", size="40")
         
-#overlay(@click="navClick")
+//- #overlay(@click="navClick")
 </template>
 
 <style lang="scss" scoped>
@@ -98,31 +107,55 @@ nav.active {
         transition: opacity .3s ease .1s;
     }
 }
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
+.nav {
     height: var(--navbar);
     width: 100%;
     background-color: #fff;
-    box-shadow: var(--shadow);
-    z-index: 999;
+    // box-shadow: var(--shadow);
     display: flex;
     align-items: center;
-
-    @include respond-to(large) {
-        height: calc(var(--navbar) / 1.25);
+    max-width: 1440px;
+    margin: 0 auto;
+    border-radius: 4px;
+    padding: 12px;
+    justify-content: space-between;
+    &__buttons {
+        display: flex;
+        gap: 8px;
     }
+    &__controllers {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+    // @include respond-to(large) {
+    //     height: calc(var(--navbar) / 1.25);
+    // }
+}
+
+.nav-wrapper {
+    z-index: 999;
+    padding-top: var(--layout-inner-pd);
+    padding-right: var(--layout-pd);
+    padding-left: calc(var(--sidebar) + var(--layout-inner-pd) + var(--layout-pd));
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 
 .user {
-    margin-left: 40px;
-    margin-right: var(--layout-pd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 8px 8px 16px;
+    border: 1px solid #ECECEC;
+    color: var(--TEXT---PRIMARY, #3A474B);
+    font-size: 13px;
+    font-weight: 700;
     text-decoration: none;
-
-    &:hover {
-        opacity: .75;
-    }
+    border-radius: 8px;
 
     @include respond-to (large) {
         margin-left: 16px;
@@ -133,58 +166,18 @@ nav {
     }
 }
 
-.user-login {
-    font-weight: 700;
-    font-size: 13px;
-    margin-right: 8px;
-    // color: var(--blue-light);
-    color: #333;
+// .user-login {
+//     font-weight: 700;
+//     font-size: 13px;
+//     margin-right: 8px;
+//     // color: var(--blue-light);
+//     color: #333;
 
-    @include respond-to (handlers) {
-        display: none;
-    }
-}
+//     @include respond-to (handlers) {
+//         display: none;
+//     }
+// }
 
-.logo {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    width: var(--sidebar);
-    position: relative;
-    padding: 0 16px;
-    font-weight: 900;
-    font-size: 18px;
-    margin-right: var(--layout-pd);
-    color: var(--blue-dark);
-    line-height: 1;
-
-    &:after {
-        content: "";
-        width: calc(100% - var(--pdlg) * 2);
-        bottom: 0;
-        height: 4px;
-        position: absolute;
-        z-index: 1;
-        background: var(--BAT);
-    }
-
-
-    @include respond-to (large) {
-        margin-right: auto;
-        width: calc(var(--sidebar) - 36px - 8px);
-        font-size: calc(5px + var(--index) * 0.6);
-    }
-
-    @include respond-to(handlers) {
-        padding: 0 8px;
-        width: fit-content;
-        font-size: calc(5px + var(--index) * 0.75);
-
-        &:after {
-            width: calc(100% - 16px);
-        }
-    }
-}
 
 .nav-btn {
     margin-left: var(--pdlg);

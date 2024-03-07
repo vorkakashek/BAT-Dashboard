@@ -1,0 +1,82 @@
+<script setup>
+defineProps({
+	disabled: Boolean,
+	to: String,
+	isPrimary: Boolean,
+	icon: String
+})
+</script>
+	
+<template lang="pug">
+router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary }", :to="to")
+	.button__icon
+		app-icon(:name="icon" size="20")
+	.button__title
+		slot
+	<svg class="button__lock" v-if="disabled" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M3.49992 12.8333C3.17909 12.8333 2.90443 12.7191 2.67596 12.4906C2.44749 12.2621 2.33325 11.9875 2.33325 11.6666V5.83331C2.33325 5.51248 2.44749 5.23783 2.67596 5.00935C2.90443 4.78088 3.17909 4.66665 3.49992 4.66665H4.08325V3.49998C4.08325 2.69304 4.36763 2.00519 4.93638 1.43644C5.50513 0.867688 6.19297 0.583313 6.99992 0.583313C7.80686 0.583313 8.49471 0.867688 9.06346 1.43644C9.63221 2.00519 9.91658 2.69304 9.91658 3.49998V4.66665H10.4999C10.8208 4.66665 11.0954 4.78088 11.3239 5.00935C11.5523 5.23783 11.6666 5.51248 11.6666 5.83331V11.6666C11.6666 11.9875 11.5523 12.2621 11.3239 12.4906C11.0954 12.7191 10.8208 12.8333 10.4999 12.8333H3.49992ZM3.49992 11.6666H10.4999V5.83331H3.49992V11.6666ZM6.99992 9.91665C7.32075 9.91665 7.5954 9.80241 7.82388 9.57394C8.05235 9.34547 8.16658 9.07081 8.16658 8.74998C8.16658 8.42915 8.05235 8.15449 7.82388 7.92602C7.5954 7.69755 7.32075 7.58331 6.99992 7.58331C6.67909 7.58331 6.40443 7.69755 6.17596 7.92602C5.94749 8.15449 5.83325 8.42915 5.83325 8.74998C5.83325 9.07081 5.94749 9.34547 6.17596 9.57394C6.40443 9.80241 6.67909 9.91665 6.99992 9.91665ZM5.24992 4.66665H8.74992V3.49998C8.74992 3.01387 8.57978 2.60067 8.2395 2.2604C7.89922 1.92012 7.48603 1.74998 6.99992 1.74998C6.51381 1.74998 6.10061 1.92012 5.76034 2.2604C5.42006 2.60067 5.24992 3.01387 5.24992 3.49998V4.66665Z" fill="#B8BDBE"/>
+	</svg>
+
+</template>
+	
+<style scoped lang="scss">
+.button {
+	display: flex;
+	text-decoration: none;
+	padding: 4px;
+	gap: 12px;
+	align-items: center;
+	width: 100%;
+	transition: .3s ease;
+	&__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 8px;
+		border-radius: 8px;
+		background: #F9FAFB;
+		:deep(path) {
+			fill: #00B1EB
+		}
+	}
+	&__title {
+		color: var(--TEXT---PRIMARY, #3A474B);
+		font-size: 14px;
+		font-weight: 600;
+	}
+	&__lock {
+		margin-left: auto;
+	}
+	&--primary {
+		background: #00B1EB;
+		border-radius: 8px;
+		.button {
+			&__icon {
+				background: transparent;
+				:deep(path) {
+					fill: #fff
+				}
+			}
+			&__title {
+				color: #fff;
+			}
+		}
+	}
+	&.disabled {
+		pointer-events: none;
+		.button {
+			&__title {
+				color: #B8BDBE;
+			}
+			&__icon {
+				:deep(path) {
+					fill: #B8BDBE
+				}
+			}
+		}
+	}
+	@include hover {
+		opacity: 0.8;
+	}
+}
+</style>

@@ -72,10 +72,10 @@
     --pdlg: 16px;
     --pdxl: 24px;
     --pdxxl: 32px;
-
+    --layout-inner-pd: 12px;
     /* --sidebar: 256px; */
     --sidebar: 300px;
-    --navbar: 64px;
+    --navbar: 58px;
 
     --shadow: 0px 4px 4px rgba(207, 207, 207, 0.25);
     --shadow-large: 0px 16px 16px rgba(207, 207, 207, 0.25);

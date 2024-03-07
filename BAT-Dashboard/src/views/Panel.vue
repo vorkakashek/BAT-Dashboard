@@ -36,10 +36,6 @@ export default {
         return {
             navItems: [
                 {
-                    link: "Dashboard",
-                    name: this.$t('leftSidebar.dashboard'),
-                },
-                {
                     link: "ISF",
                     name: this.$t('leftSidebar.isf'),
                     children: [
@@ -57,82 +53,24 @@ export default {
                         },
                     ],
                 },
-                {
-                    link: "CycleMaterials",
-                    name: "CycleMaterials",
-                    children: [
-                        {
-                            link: "Delivery-Execution",
-                            name: this.$t('leftSidebar.deliveryexecution'),
-                        },
-                        {
-                            link: "Comparison",
-                            name: this.$t('leftSidebar.comparison'),
-                        },
-                    ],
-                },
-                {
-                    link: "Semi-permanentMaterials",
-                    name: this.$t('leftSidebar.semipermanentMaterials'),
-                    children: [
-                        {
-                            link: "Delivery-Execution",
-                            name: this.$t('leftSidebar.deliveryexecution'),
-                        },
-                        {
-                            link: "Comparison",
-                            name: this.$t('leftSidebar.comparison'),
-                        },
-                        {
-                            link: "Progress",
-                            name: this.$t('leftSidebar.progress'),
-                        },
-                    ],
-                },
-                {
-                    link: "Headers",
-                    name: this.$t('leftSidebar.headers'),
-                    children: [
-                        {
-                            link: "Delivery-Execution",
-                            name: this.$t('leftSidebar.deliveryexecution'),
-                        },
-                        {
-                            link: "Comparison",
-                            name: this.$t('leftSidebar.comparison'),
-                        },
-                        {
-                            link: "Progress",
-                            name: this.$t('leftSidebar.progress'),
-                        },
-                    ],
-                },
-                {
-                    link: "Equipment",
-                    name: this.$t('leftSidebar.equipment'),
-                    children: [
-                        {
-                            link: "Delivery-Execution",
-                            name: this.$t('leftSidebar.deliveryexecution'),
-                        },
-                        {
-                            link: "Comparison",
-                            name: this.$t('leftSidebar.comparison'),
-                        },
-                        // {
-                        //     link: "Progress",
-                        //     name: this.$t('leftSidebar.progress'),
-                        // },
-                    ],
-                },
                 // {
-                //     link: "Projects",
-                //     name: "Projects",
+                //     link: "CycleMaterials",
+                //     name: "CycleMaterials",
                 //     children: [
                 //         {
-                //             link: "Catalog",
-                //             name: "Projects Catalog",
+                //             link: "Delivery-Execution",
+                //             name: this.$t('leftSidebar.deliveryexecution'),
                 //         },
+                //         {
+                //             link: "Comparison",
+                //             name: this.$t('leftSidebar.comparison'),
+                //         },
+                //     ],
+                // },
+                // {
+                //     link: "Semi-permanentMaterials",
+                //     name: this.$t('leftSidebar.semipermanentMaterials'),
+                //     children: [
                 //         {
                 //             link: "Delivery-Execution",
                 //             name: this.$t('leftSidebar.deliveryexecution'),
@@ -145,6 +83,42 @@ export default {
                 //             link: "Progress",
                 //             name: this.$t('leftSidebar.progress'),
                 //         },
+                //     ],
+                // },
+                // {
+                //     link: "Headers",
+                //     name: this.$t('leftSidebar.headers'),
+                //     children: [
+                //         {
+                //             link: "Delivery-Execution",
+                //             name: this.$t('leftSidebar.deliveryexecution'),
+                //         },
+                //         {
+                //             link: "Comparison",
+                //             name: this.$t('leftSidebar.comparison'),
+                //         },
+                //         {
+                //             link: "Progress",
+                //             name: this.$t('leftSidebar.progress'),
+                //         },
+                //     ],
+                // },
+                // {
+                //     link: "Equipment",
+                //     name: this.$t('leftSidebar.equipment'),
+                //     children: [
+                //         {
+                //             link: "Delivery-Execution",
+                //             name: this.$t('leftSidebar.deliveryexecution'),
+                //         },
+                //         {
+                //             link: "Comparison",
+                //             name: this.$t('leftSidebar.comparison'),
+                //         },
+                //         // {
+                //         //     link: "Progress",
+                //         //     name: this.$t('leftSidebar.progress'),
+                //         // },
                 //     ],
                 // },
                 {
@@ -166,6 +140,29 @@ export default {
                         {
                             link: "Transits",
                             name: this.$t('leftSidebar.transits'),
+                        },
+                    ],
+                },
+                {
+                    link: "Projects",
+                    name: "Projects",
+                    disabled: true,
+                    children: [
+                        {
+                            link: "Catalog",
+                            name: "Projects Catalog",
+                        },
+                        {
+                            link: "Delivery-Execution",
+                            name: this.$t('leftSidebar.deliveryexecution'),
+                        },
+                        {
+                            link: "Comparison",
+                            name: this.$t('leftSidebar.comparison'),
+                        },
+                        {
+                            link: "Progress",
+                            name: this.$t('leftSidebar.progress'),
                         },
                     ],
                 },

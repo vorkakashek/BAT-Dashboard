@@ -30,36 +30,35 @@ const switchLocale = (lang) => {
 <style scoped lang="scss">
 .locale {
 	display: flex;
-	border: 1px solid #e5e5e5;
-	border-radius: 30px;
-	padding: 1px;
 	position: relative;
 	margin-left: auto;
 	&::before {
 		content: '';
-		width: 43px;
-		height: 22px;
-		border-radius: 30px;
-		background: #9FB0B6;
+		width: 32px;
+		height: 23px;
+		border-radius: 6px;
+		background: #3A474B;
 		position: absolute;
-		top: 1px;
+		top: 0px;
+		left: 0px;
 		transition: .3s ease;
-		left: 1px;
 	}
 	&--active::before {
-		left: calc(100% - 44px);
+		left: calc(100% - 32px);
 	}
 	&__button {
 		background: transparent;
 		border: 0;
-		padding: 4px 13px;
+		padding: 4px 8px;
+		width: 32px;
+		height: 23px;
 		display: flex;
 		outline: none;
 		transition: .3s ease;
-		color: #BFBFBF;
 		font-size: 12px;
 		font-weight: 700;
 		cursor: pointer;
+		color: #bfbfbf;
 		&--active {
 			color: #fff
 		}

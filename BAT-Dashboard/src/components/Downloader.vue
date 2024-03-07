@@ -28,7 +28,7 @@ ModalConstructor(modalName="ReportDownload", ref="modal", :dialog="true")
     .downloader-icon
         app-icon(name="download")
     .downloader-amount(:class="{ timer: store.amount_new < 1 }" v-if="store.amount_new > 0 || store.amount_requested > 0")
-        app-icon(name="time" size="15" v-if="store.amount_requested > 0 && store.amount_new < 1")
+        app-icon(name="time" size="24" v-if="store.amount_requested > 0 && store.amount_new < 1")
         .amount(v-if="store.amount_new > 0") {{ store.amount_new }}
 
 </template>
@@ -36,14 +36,12 @@ ModalConstructor(modalName="ReportDownload", ref="modal", :dialog="true")
 <style lang="scss" scoped>
 .downloader {
     background-color: var(--blue-light);
-    border-radius: var(--radius-8);
-    width: 40px;
-    height: 40px;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: var(--pdsm);
-    margin-right: var(--pdsm);
     cursor: pointer;
     transition: all .3s ease;
 
@@ -88,8 +86,8 @@ ModalConstructor(modalName="ReportDownload", ref="modal", :dialog="true")
     position: absolute;
     top: 0;
     right: 0;
-    width: 1.1rem;
-    height: 1.1rem;
+    width: 1rem;
+    height: 1rem;
     border-radius: 100%;
     transform: translateX(25%) translateY(-25%);
     background-color: rgb(246, 73, 73);
@@ -101,8 +99,8 @@ ModalConstructor(modalName="ReportDownload", ref="modal", :dialog="true")
         background-color: rgb(166, 166, 166);
         width: min-content;
         height: min-content;
-        width: 19px;
-        height: 19px;
+        width: 1rem;
+        height: 1rem;
 
         .icon {
             fill: #fff;

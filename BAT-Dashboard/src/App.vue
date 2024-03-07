@@ -30,8 +30,8 @@ strong {
 
 main {
     max-width: 100%;
-    margin-left: var(--sidebar);
-    margin-top: var(--navbar);
+    margin-left: calc(var(--sidebar) + var(--layout-inner-pd));
+    margin-top: calc(var(--navbar) + var(--layout-inner-pd));
     padding: var(--layout-pd);
 
     @include respond-to(large) {

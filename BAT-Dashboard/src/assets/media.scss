@@ -4,6 +4,15 @@ $lg: 992px;
 $xl: 1200px;
 $xxl: 1400px;
 
+
+@mixin hover {
+    @media (hover: hover) {
+        &:hover {
+            @content;
+        }
+    }
+}
+
 @mixin respond-to($media) {
     @if $media==handlers {
         @media only screen and (max-width: $sm - 0.1px) {
@@ -85,12 +94,10 @@ $xxl: 1400px;
 
     @else {
         @media screen and (max-width: $media) {
-            @content
+            @content;
         }
     }
 }
-
-
 
 :root {
     --layout-pd: 32px;
