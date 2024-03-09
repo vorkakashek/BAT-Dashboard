@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref, onMounted, watch } from "vue";
+import POSMLayout from "./POSM-layout.vue";
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
 import WeeksGraph from '@/components/Modals/Cycle Materials Modal/WeeksGraph.vue'
 import { useFiltersStore } from "@/store/store"
@@ -434,20 +435,20 @@ watch(store.togglers, (val) => {
 </script>
 
 <template lang="pug">
+POSMLayout
+    Teleport(to="#export-excel")
+        ExportExcel()
 
-Teleport(to="#export-excel")
-    ExportExcel()
+    TotalProgressbar(hasTotal :data="totalData" :ignore="[]" :viewType="viewType")
+        template(#legend)
+            WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'" valueStore="viewType_3")
+            ProgressbarLegend(hasTotal :data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_3")
 
-TotalProgressbar(hasTotal :data="totalData" :ignore="[]" :viewType="viewType")
-    template(#legend)
-        WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'" valueStore="viewType_3")
-        ProgressbarLegend(hasTotal :data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_3")
-
-.panel
-    FilterToggler(:options="CAPEXFilterOptions" v-model="CAPEXFilterValue")
-    ProductCards
-        template(#items)
-            ProductCard(v-for="product in itemList", :product="product" hasTotal)
+    .panel
+        FilterToggler(:options="CAPEXFilterOptions" v-model="CAPEXFilterValue")
+        ProductCards
+            template(#items)
+                ProductCard(v-for="product in itemList", :product="product" hasTotal)
 </template>
 
 <style lang="scss" scoped>

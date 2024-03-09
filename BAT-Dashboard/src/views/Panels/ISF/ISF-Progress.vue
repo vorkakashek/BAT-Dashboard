@@ -1,4 +1,5 @@
 <script setup>
+import ISFLayout from "./ISF-layout.vue";
 import { computed, ref, onMounted, watch } from "vue";
 import { useFiltersStore } from "@/store/store"
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
@@ -645,24 +646,25 @@ watch(store.togglers, (val) => {
 </script>
 
 <template lang="pug">
+ISFLayout
 
-Teleport(to="#export-excel")
-    ExportExcel()
+    Teleport(to="#export-excel")
+        ExportExcel()
 
-TotalProgressbar(:data="totalData" :viewType="viewType")
-    template(#legend)
-        ProgressbarLegend(:data="totalData" type="progress-bar-multicategory" v-if="viewType === 'bar'" valueStore="viewType_2")
-        WeeksGraph(:data="totalGraph" type="progress-bar-multicategory" v-if="viewType === 'graph'" valueStore="viewType_2")
-        WeeksGraphMulticategory(:total="totalDataMulticategory" :data="totalMulticategory" type="progress-bar" v-if="viewType === 'multicategory'" valueStore="viewType_2")
+    TotalProgressbar(:data="totalData" :viewType="viewType")
+        template(#legend)
+            ProgressbarLegend(:data="totalData" type="progress-bar-multicategory" v-if="viewType === 'bar'" valueStore="viewType_2")
+            WeeksGraph(:data="totalGraph" type="progress-bar-multicategory" v-if="viewType === 'graph'" valueStore="viewType_2")
+            WeeksGraphMulticategory(:total="totalDataMulticategory" :data="totalMulticategory" type="progress-bar" v-if="viewType === 'multicategory'" valueStore="viewType_2")
 
 
-.panel
-    h2 {{ $t('total') }}
-    //- ISFFilter(:options="ISFFilterOptions" v-model="ISFFilterValue")
-    FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")
-    FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
-    FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
-    .comparison-items
-        ComparisonItem(v-for="item in itemList" :comparisonData="item")
+    .panel
+        h2 {{ $t('total') }}
+        //- ISFFilter(:options="ISFFilterOptions" v-model="ISFFilterValue")
+        FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")
+        FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
+        FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
+        .comparison-items
+            ComparisonItem(v-for="item in itemList" :comparisonData="item")
 
 </template>

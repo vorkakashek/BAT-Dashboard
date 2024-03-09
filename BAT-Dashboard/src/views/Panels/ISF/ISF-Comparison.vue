@@ -1,4 +1,5 @@
 <script setup>
+import ISFLayout from "./ISF-layout.vue";
 import { computed, ref, reactive, onMounted, watch } from "vue";
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
 import { useFiltersStore } from "@/store/store"
@@ -168,33 +169,33 @@ watch(() => RKAFilterValue.value, (val) => {
 
 
 <template lang="pug">
+ISFLayout
+    Teleport(to="#export-excel")
+        ExportExcel()
 
-Teleport(to="#export-excel")
-    ExportExcel()
+    vue-easy-lightbox(
+        :visible="state.visible",
+        :imgs="state.imgs",
+        :index="state.index",
+        @hide="handleHide"
+    )
 
-vue-easy-lightbox(
-    :visible="state.visible",
-    :imgs="state.imgs",
-    :index="state.index",
-    @hide="handleHide"
-)
+    TotalProgressbar(:data="totalData")
+        template(#legend)
+            ProgressbarLegend(:data="totalData")
 
-TotalProgressbar(:data="totalData")
-    template(#legend)
-        ProgressbarLegend(:data="totalData")
+    .panel
+        h2 ISF
+        .comparison-wrap
+            .comparison-aside
+                img.zoom(:src="importPhoto", @click="() => showSingle()")
 
-.panel
-    h2 ISF
-    .comparison-wrap
-        .comparison-aside
-            img.zoom(:src="importPhoto", @click="() => showSingle()")
-
-        .comparison-content
-            FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")
-            FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
-            FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
-            .comparison-items
-                ComparisonItem(v-for="item in itemList", :comparisonData="item")
+            .comparison-content
+                FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")
+                FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
+                FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
+                .comparison-items
+                    ComparisonItem(v-for="item in itemList", :comparisonData="item")
 </template>
 
 <style lang="scss" scoped>

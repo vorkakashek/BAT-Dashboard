@@ -1,6 +1,6 @@
 import {
     createRouter,
-    createWebHashHistory
+    createWebHistory
 } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Login from "../views/Login.vue";
@@ -8,12 +8,12 @@ import Panel from "../views/Panel.vue";
 import Dashboard from "../views/Panels/Dashboard.vue";
 
 const router = createRouter({
-    history: createWebHashHistory(
+    history: createWebHistory(
         import.meta.env.BASE_URL),
     routes: [
         {
             path: "/:catchAll(.*)",
-            redirect: { name: 'panel' },
+            redirect: "/panel",
         },
         {
             path: '/login',
@@ -24,7 +24,7 @@ const router = createRouter({
             path: "/panel",
             name: "panel",
             component: Panel,
-            redirect: { name: 'Dashboard' },
+            redirect: '/panel/Dashboard',
             children: [
                 {
                     name: 'Dashboard',
@@ -34,12 +34,12 @@ const router = createRouter({
                 {
                     name: 'ISF',
                     path: 'ISF',
-                    redirect: { name: 'ISF-Delivery-Execution' },
+                    // redirect: { name: 'ISF-Delivery-Execution' },
                     component: () => import('../views/Panels/ISF/ISF.vue'),
                     children: [
                         {
                             name: 'ISF-Delivery-Execution',
-                            path: 'Delivery-Execution',
+                            path: 'Equipment',
                             component: () => import('../views/Panels/ISF/ISF-Delivery-Execution.vue')
                         },
                         {
@@ -57,7 +57,7 @@ const router = createRouter({
                 {
                     name: 'CycleMaterials',
                     path: 'CycleMaterials',
-                    redirect: { name: 'CycleMaterials-Delivery-Execution' },
+                    // redirect: { name: 'CycleMaterials-Delivery-Execution' },
                     component: () => import('../views/Panels/CycleMaterials/CycleMaterials.vue'),
                     children: [
                         {
@@ -85,7 +85,7 @@ const router = createRouter({
                 {
                     name: 'Semi-permanentMaterials',
                     path: 'Semi-permanentMaterials',
-                    redirect: { name: 'Semi-permanentMaterials-Delivery-Execution' },
+                    // redirect: { name: 'Semi-permanentMaterials-Delivery-Execution' },
                     component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials.vue'),
                     children: [
                         {
@@ -108,7 +108,7 @@ const router = createRouter({
                 {
                     name: 'Headers',
                     path: 'Headers',
-                    redirect: { name: 'Headers-Delivery-Execution' },
+                    // redirect: { name: 'Headers-Delivery-Execution' },
                     params: true,
                     component: () => import('../views/Panels/Headers/Headers.vue'),
                     children: [
@@ -132,7 +132,7 @@ const router = createRouter({
                 {
                     name: 'Equipment',
                     path: 'Equipment',
-                    redirect: { name: 'Equipment-Delivery-Execution' },
+                    // redirect: { name: 'Equipment-Delivery-Execution' },
                     params: true,
                     component: () => import('../views/Panels/Equipment/Equipment.vue'),
                     children: [
@@ -156,7 +156,7 @@ const router = createRouter({
                 {
                     name: 'POSM',
                     path: 'POSM',
-                    redirect: { name: 'POSM-CAPEX-Depts' },
+                    // redirect: { name: 'POSM-CAPEX-Depts' },
                     params: true,
                     component: () => import('../views/Panels/POSM/POSM.vue'),
                     children: [
@@ -185,7 +185,7 @@ const router = createRouter({
                 {
                     name: 'Projects',
                     path: 'Projects',
-                    redirect: { name: 'Projects-Catalog' },
+                    // redirect: { name: 'Projects-Catalog' },
                     params: true,
                     component: () => import('../views/Panels/Projects/Projects.vue'),
                     children: [

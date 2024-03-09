@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref, onMounted, watch } from "vue";
+import POSMLayout from "./POSM-layout.vue";
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
 import { useFiltersStore } from "@/store/store"
 import WeeksGraph from '@/components/Modals/Cycle Materials Modal/WeeksGraph.vue'
@@ -469,27 +470,27 @@ watch(store.togglers, (val) => {
 </script>
 
 <template lang="pug">
+POSMLayout
+    Teleport(to="#export-excel")
+        ExportExcel()
 
-Teleport(to="#export-excel")
-    ExportExcel()
+    TotalProgressbar(hasTotal :data="totalData" :ignore="[]" :viewType="viewType")
+        template(#legend)
+            WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'" valueStore="viewType_4")
+            ProgressbarLegend(hasTotal :data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_4")
 
-TotalProgressbar(hasTotal :data="totalData" :ignore="[]" :viewType="viewType")
-    template(#legend)
-        WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'" valueStore="viewType_4")
-        ProgressbarLegend(hasTotal :data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_4")
+    .panel
+        .row
+            FilterToggler(:options="OPEXFilterOptions" v-model="OPEXFilterValue")
+            Filters(
+                :multiselects="multiselects"
+                disableAllClear="true"
+                class='filters'
+            )
 
-.panel
-    .row
-        FilterToggler(:options="OPEXFilterOptions" v-model="OPEXFilterValue")
-        Filters(
-            :multiselects="multiselects"
-            disableAllClear="true"
-            class='filters'
-        )
-
-    ProductCards
-        template(#items)
-            ProductCard(hasTotal v-for="product in itemList", :product="product")
+        ProductCards
+            template(#items)
+                ProductCard(hasTotal v-for="product in itemList", :product="product")
 </template>
 
 <style lang="scss" scoped>

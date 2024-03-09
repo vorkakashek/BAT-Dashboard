@@ -58,19 +58,21 @@ export default {
 	},
 	leftSidebar: {
 		dashboard: 'Dashboard',
-		isf: 'ISF',
+		isf: 'ISF / POSM',
 		semipermanentMaterials: 'Semi-permanent materials',
-		equipment: 'Equipment in PP',
+		equipment: 'Equipment',
 		headers: 'Headers',
 		posm: 'POSM Balance',
-
+		lightbox: 'Lightbox',
 		deliveryexecution: 'Delivery / Execution',
+		cycleMaterials: "Cycle Materials",
 		comparison: 'Comparison',
 		progress: 'Progress',
 		capexdepts: 'CAPEX depts',
 		opexdepts: 'OPEX depts',
 		stock: 'STOCK',
-		transits: "TRANSITS"
+		transits: "TRANSITS",
+		premiumPartners: "Premium Partners",
 	},
 	multiselects: {
 		unit: 'Unit',

@@ -2,20 +2,230 @@
 import { useReportStore } from "@/store/store"
 import Navbar from "@/components/Navbar.vue";
 import LeftSidebar from "@/components/LeftSidebar.vue";
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView, useRoute } from "vue-router";
 import { computed } from "vue";
 import { ref, onMounted, watch, provide } from "vue";
+import { useI18n } from "vue-i18n";
+
+const route = useRoute()
+const { t } = useI18n()
+const store = useReportStore()
 
 const active = ref(false);
+const navItems = ref([
+    {
+        link: "ISF",
+        icon: "ISFPOSM",
+        name: t('leftSidebar.isf'),
+        children: [
+            {
+                link: "Equipment",
+                name: t('leftSidebar.equipment'),
+            },
+            {
+                link: "Headers",
+                name: t('leftSidebar.headers'),
+            },
+            {
+                link: "CycleMaterials",
+                name: t('leftSidebar.cycleMaterials'),
+            },
+            {
+                link: "Semi-permanentMaterials",
+                name: t('leftSidebar.semipermanentMaterials'),
+            },
+            {
+                link: "PremiumPartners",
+                name: t('leftSidebar.premiumPartners'),
+            },
+        ]
+        // children: [
+        //     {
+        //         link: "Delivery-Execution",
+        //         name: t('leftSidebar.deliveryexecution'),
+        //     },
+        //     {
+        //         link: "Comparison",
+        //         name: t('leftSidebar.comparison'),
+        //     },
+        //     {
+        //         link: "Progress",
+        //         name: t('leftSidebar.progress'),
+        //     },
+        // ],
+    },
+    {
+        link: "POSM",
+        name: t('leftSidebar.posm'),
+        children: [
+            {
+                link: "CAPEX-Depts",
+                name: t('leftSidebar.capexdepts'),
+            },
+            {
+                link: "OPEX-Depts",
+                name: t('leftSidebar.opexdepts'),
+            },
+            {
+                link: "Stock",
+                name: t('leftSidebar.stock'),
+            },
+            {
+                link: "Transits",
+                name: t('leftSidebar.transits'),
+            },
+        ],
+    },
+    {
+        link: "Projects",
+        name: "Projects",
+        disabled: true,
+        children: [
+            {
+                link: "Catalog",
+                name: "Projects Catalog",
+            },
+            {
+                link: "Delivery-Execution",
+                name: t('leftSidebar.deliveryexecution'),
+            },
+            {
+                link: "Comparison",
+                name: t('leftSidebar.comparison'),
+            },
+            {
+                link: "Progress",
+                name: t('leftSidebar.progress'),
+            },
+        ],
+    },
+    // {
+    //     link: "CycleMaterials",
+    //     name: "CycleMaterials",
+    //     children: [
+    //         {
+    //             link: "Delivery-Execution",
+    //             name: t('leftSidebar.deliveryexecution'),
+    //         },
+    //         {
+    //             link: "Comparison",
+    //             name: t('leftSidebar.comparison'),
+    //         },
+    //     ],
+    // },
+    // {
+    //     link: "Semi-permanentMaterials",
+    //     name: t('leftSidebar.semipermanentMaterials'),
+    //     children: [
+    //         {
+    //             link: "Delivery-Execution",
+    //             name: t('leftSidebar.deliveryexecution'),
+    //         },
+    //         {
+    //             link: "Comparison",
+    //             name: t('leftSidebar.comparison'),
+    //         },
+    //         {
+    //             link: "Progress",
+    //             name: t('leftSidebar.progress'),
+    //         },
+    //     ],
+    // },
+    // {
+    //     link: "Headers",
+    //     name: t('leftSidebar.headers'),
+    //     children: [
+    //         {
+    //             link: "Delivery-Execution",
+    //             name: t('leftSidebar.deliveryexecution'),
+    //         },
+    //         {
+    //             link: "Comparison",
+    //             name: t('leftSidebar.comparison'),
+    //         },
+    //         {
+    //             link: "Progress",
+    //             name: t('leftSidebar.progress'),
+    //         },
+    //     ],
+    // },
+    // {
+    //     link: "Equipment",
+    //     name: t('leftSidebar.equipment'),
+    //     children: [
+    //         {
+    //             link: "Delivery-Execution",
+    //             name: t('leftSidebar.deliveryexecution'),
+    //         },
+    //         {
+    //             link: "Comparison",
+    //             name: t('leftSidebar.comparison'),
+    //         },
+    //         // {
+    //         //     link: "Progress",
+    //         //     name: t('leftSidebar.progress'),
+    //         // },
+    //     ],
+    // },
+])
+const navItemsBuffer = ref([...navItems.value]);
+const multiselects = ref([
+    {
+        value: null,
+        options: ["Unit long name 1", "Unit 2", "Unit 3", "Unit 4"],
+        placeholder: t('multiselects.unit'),
+    },
 
-const clicked = ref(false),
-    modal = ref(),
-    store = useReportStore(),
-    menuActive = ref(false)
+    {
+        value: null,
+        options: ["Region 1", "Region 2", "Region 3", "Region 4"],
+        placeholder: t('multiselects.region'),
+    },
+    {
+        value: null,
+        options: ["City 1", "City 2", "City 3", "City 4"],
+        placeholder: t('multiselects.city'),
+    },
+    {
+        value: null,
+        options: ["CM 1", "CM 2", "CM 3", "CM 4"],
+        placeholder: t('multiselects.cm'),
+    },
+    {
+        value: null,
+        options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
+        placeholder: t('multiselects.tmr'),
+    },
+])
+const updatedItems = ref([])
+
+const clicked = ref(false)
+const modal = ref()
+const menuActive = ref(false)
 
 // контент для Alarm-сообщения
-let modal_msg = 'ipsum, dolor sit amet consectetur adipisicing elit. Culpa consequuntur illum nihil blanditiis iste vel vero obcaecati omnis cumque error! Cumque vitae tempore vero doloremque eos error, in possimus temporibus.',
-    modal_title = 'Title'
+let modal_msg = 'ipsum, dolor sit amet consectetur adipisicing elit. Culpa consequuntur illum nihil blanditiis iste vel vero obcaecati omnis cumque error! Cumque vitae tempore vero doloremque eos error, in possimus temporibus.'
+let modal_title = 'Title'
+
+const navActive = (data) => {
+    menuActive = data.menuActive;
+}
+const updateItems = (key, value) => {
+    const index = navItems.value.findIndex(({ name }) => name === key);
+
+    navItems.value.splice(index, 1, {
+        ...navItems.value[index],
+        itemValue: value,
+    });
+}
+const filterItems = (key, value) => {
+    if(value === 'Dashboard') navItems.value = navItemsBuffer.value
+    else navItems.value = [...navItemsBuffer.value.filter(e => e[key] === value)]
+}
+
+provide('navItems', navItems)
+provide('updateItems', updateItems)
+provide('filterItems', filterItems)
 
 // показываем модалку с уведомлением один раз, сохраняя в localStorage
 onMounted(() => {
@@ -24,199 +234,15 @@ onMounted(() => {
     }
 })
 
-</script>
-
-<script>
-// import {useI18n} from "vue-i18n";
-        
-// const i18n = useI18n();
-
-export default {
-    data() {
-        return {
-            navItems: [
-                {
-                    link: "ISF",
-                    name: this.$t('leftSidebar.isf'),
-                    children: [
-                        {
-                            link: "Delivery-Execution",
-                            name: this.$t('leftSidebar.deliveryexecution'),
-                        },
-                        {
-                            link: "Comparison",
-                            name: this.$t('leftSidebar.comparison'),
-                        },
-                        {
-                            link: "Progress",
-                            name: this.$t('leftSidebar.progress'),
-                        },
-                    ],
-                },
-                // {
-                //     link: "CycleMaterials",
-                //     name: "CycleMaterials",
-                //     children: [
-                //         {
-                //             link: "Delivery-Execution",
-                //             name: this.$t('leftSidebar.deliveryexecution'),
-                //         },
-                //         {
-                //             link: "Comparison",
-                //             name: this.$t('leftSidebar.comparison'),
-                //         },
-                //     ],
-                // },
-                // {
-                //     link: "Semi-permanentMaterials",
-                //     name: this.$t('leftSidebar.semipermanentMaterials'),
-                //     children: [
-                //         {
-                //             link: "Delivery-Execution",
-                //             name: this.$t('leftSidebar.deliveryexecution'),
-                //         },
-                //         {
-                //             link: "Comparison",
-                //             name: this.$t('leftSidebar.comparison'),
-                //         },
-                //         {
-                //             link: "Progress",
-                //             name: this.$t('leftSidebar.progress'),
-                //         },
-                //     ],
-                // },
-                // {
-                //     link: "Headers",
-                //     name: this.$t('leftSidebar.headers'),
-                //     children: [
-                //         {
-                //             link: "Delivery-Execution",
-                //             name: this.$t('leftSidebar.deliveryexecution'),
-                //         },
-                //         {
-                //             link: "Comparison",
-                //             name: this.$t('leftSidebar.comparison'),
-                //         },
-                //         {
-                //             link: "Progress",
-                //             name: this.$t('leftSidebar.progress'),
-                //         },
-                //     ],
-                // },
-                // {
-                //     link: "Equipment",
-                //     name: this.$t('leftSidebar.equipment'),
-                //     children: [
-                //         {
-                //             link: "Delivery-Execution",
-                //             name: this.$t('leftSidebar.deliveryexecution'),
-                //         },
-                //         {
-                //             link: "Comparison",
-                //             name: this.$t('leftSidebar.comparison'),
-                //         },
-                //         // {
-                //         //     link: "Progress",
-                //         //     name: this.$t('leftSidebar.progress'),
-                //         // },
-                //     ],
-                // },
-                {
-                    link: "POSM",
-                    name: this.$t('leftSidebar.posm'),
-                    children: [
-                        {
-                            link: "CAPEX-Depts",
-                            name: this.$t('leftSidebar.capexdepts'),
-                        },
-                        {
-                            link: "OPEX-Depts",
-                            name: this.$t('leftSidebar.opexdepts'),
-                        },
-                        {
-                            link: "Stock",
-                            name: this.$t('leftSidebar.stock'),
-                        },
-                        {
-                            link: "Transits",
-                            name: this.$t('leftSidebar.transits'),
-                        },
-                    ],
-                },
-                {
-                    link: "Projects",
-                    name: "Projects",
-                    disabled: true,
-                    children: [
-                        {
-                            link: "Catalog",
-                            name: "Projects Catalog",
-                        },
-                        {
-                            link: "Delivery-Execution",
-                            name: this.$t('leftSidebar.deliveryexecution'),
-                        },
-                        {
-                            link: "Comparison",
-                            name: this.$t('leftSidebar.comparison'),
-                        },
-                        {
-                            link: "Progress",
-                            name: this.$t('leftSidebar.progress'),
-                        },
-                    ],
-                },
-            ],
-            multiselects: [
-                {
-                    value: null,
-                    options: ["Unit long name 1", "Unit 2", "Unit 3", "Unit 4"],
-                    placeholder: this.$t('multiselects.unit'),
-                },
-
-                {
-                    value: null,
-                    options: ["Region 1", "Region 2", "Region 3", "Region 4"],
-                    placeholder: this.$t('multiselects.region'),
-                },
-                {
-                    value: null,
-                    options: ["City 1", "City 2", "City 3", "City 4"],
-                    placeholder: this.$t('multiselects.city'),
-                },
-                {
-                    value: null,
-                    options: ["CM 1", "CM 2", "CM 3", "CM 4"],
-                    placeholder: this.$t('multiselects.cm'),
-                },
-                {
-                    value: null,
-                    options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
-                    placeholder: this.$t('multiselects.tmr'),
-                },
-            ]
-        };
-    },
-    provide() {
-        return {
-            navItems: computed(() => this.navItems),
-            updateItems: this.updateItems,
-        };
-    },
-    methods: {
-        navActive(data) {
-            this.menuActive = data.menuActive;
-        },
-        updateItems(key, value) {
-            const index = this.navItems.findIndex(({ name }) => name === key);
-
-            this.navItems.splice(index, 1, {
-                ...this.navItems[index],
-                itemValue: value,
-            });
-        },
-    },
-};
+// watch(() => route.name, (val) => {
+//     if(route.name !== 'Dashboard') {
+//         console.log(navItems.value.filter(e => e.link === route.name)[0].children)
+//         updateItems.value = [...navItems.value.filter(e => e.link === route.name)[0].children]
+//         console.log(updateItems.value)
+//     } else {
+//         updateItems.value = []
+//     }
+// })
 </script>
 
 <template lang="pug">
@@ -225,8 +251,9 @@ LeftSidebar(:sidebarActive="active")
 ModalConstructor(modalName="AlarmExpress", ref="modal", :dialog="true", :title="modal_title", :msg="modal_msg")
 main
     .container
+        //- span {{ $route.path }} {{ !($route.path === '/panel/Dashboard' || $route.path === '/panel/Projects/Catalog') }}
         Filters(
-            v-if="$route.path !== '/panel/Dashboard' && $route.path !== '/panel/Projects/Catalog'",
+            v-if="!($route.path === '/panel/Dashboard' || $route.path === '/panel/Projects/Catalog' || $route.path === '/panel/ISF' || $route.path === '/panel/POSM')",
             :multiselects="multiselects"
         )
         RouterView
