@@ -60,7 +60,7 @@ let currentYear = (y) => {
 
 
 <template lang="pug">
-Teleport(to="#multiselector")
+Teleport(to="#Equipment")
     Multiselect(
         v-model="itemValue", 
         :close-on-select="true", 

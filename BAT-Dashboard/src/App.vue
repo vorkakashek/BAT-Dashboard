@@ -31,11 +31,17 @@ strong {
 main {
     max-width: 100%;
     margin-left: calc(var(--sidebar) + var(--layout-inner-pd));
-    margin-top: calc(var(--navbar) + var(--layout-inner-pd));
+    margin-top: var(--layout-inner-pd);
     padding: var(--layout-pd);
 
+    @include r(1280px) {
+        margin-left: var(--layout-inner-pd);
+    }
     @include respond-to(large) {
         margin-left: 0;
+    }
+    @include r(575px) {
+        padding: 16px;
     }
 }
 
@@ -72,7 +78,7 @@ hr {
     border-radius: var(--radius-8);
     background-color: #fff;
     padding: var(--pdlg);
-    border: 1px solid #eeeeee;
+    // border: 1px solid #eeeeee;
 
     h2 {
         font-weight: 900;

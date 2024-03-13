@@ -31,16 +31,16 @@ const togglerValue = computed({
 
 <style lang="scss" scoped>
 .filter_toggler {
-    display: inline-flex;
+    display: flex;
     width: fit-content;
     flex-wrap: wrap;
     align-items: center;
-    margin-bottom: var(--pdlg);
-    border-radius: 100px;
+    margin: var(--pdlg) 0;
+    border-radius: 12px;
     background-color: #fff;
-    border: 1px solid #E1E1E1;
     overflow: hidden;
-
+    gap: 2px;
+    padding: 4px;
     &:not(:first-child) {
         margin-left: 16px;
     }
@@ -58,48 +58,28 @@ const togglerValue = computed({
         &:checked {
             &~.filter_toggler-option-label {
                 background-color: var(--blue-light);
-                opacity: 1;
                 color: #fff;
-
+                font-weight: 700;
                 &:hover {
                     background-color: var(--blue-light-hover);
                 }
             }
         }
     }
-
-    &:not(&:last-child) {
-        margin-right: 1px;
-
-        input:not(:checked)~.filter_toggler-option-label {
-            display: flex;
-            align-items: center;
-            position: relative;
-
-            &:after {
-                content: '';
-                display: block;
-                position: absolute;
-                z-index: 1;
-                right: 0;
-                height: calc(100% - 16px);
-                width: 1px;
-                background-color: #E1E1E1;
-            }
-        }
-    }
 }
 
 .filter_toggler-option-label {
-    padding: var(--pdsm) 12px;
-    border-radius: var(--radius-4);
-    font-weight: 700;
-    font-size: 13px;
-    opacity: .6;
-    transition: all .3s ease;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: #979797;
+    font-family: "Source Sans Pro";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    transition: .3s ease;
 
     &:hover {
-        background-color: #cccccc;
+        background-color: hsl(120, 6%, 92%);
     }
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup>
 import NavigationTiles from '../../components/NavigationTiles.vue';
-
+const username =  localStorage.getItem('Username');
 </script>
 
 <template lang="pug">

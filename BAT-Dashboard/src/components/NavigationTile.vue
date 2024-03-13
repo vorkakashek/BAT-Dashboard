@@ -10,7 +10,7 @@ defineProps({
 .tile(:class="{'tile--disabled': data.disabled}")
 	router-link(:to="`/panel/${data.link}`").tile__link
 	app-icon(:name="data.icon ? data.icon : data.link", size="150").tile__icon
-	.tile__children(v-if="data.children !== undefined && !data.disabled")
+	.tile__children(v-if="data.children !== undefined && !data.disabled && data.withChildren")
 		template(v-for="child in data.children")
 			router-link(:to="`/panel/${data.link}/${child.link}`").tile__child
 				app-icon(:name="child.icon ? child.icon : child.link", size="20")
@@ -153,6 +153,36 @@ defineProps({
 				z-index: 2;
 				transition: top .3s ease, z-index 0s .3s ease;
 			}
+		}
+	}
+	@include r(768px) {
+		&__title {
+			font-size: 16px;
+		}
+		&__children {
+			position: static;
+			top: 0;
+			left: 0;
+			opacity: 1;
+			z-index: 2;
+			gap: 6px 10px;
+			margin-top: 20px;
+		}
+		&__icon {
+			margin: 0 auto;
+			width: 100px !important;
+			height: 100px !important;
+		}
+		&__child {
+			padding: 0px;
+			gap: 6px;
+			:deep(svg) {
+				width: 10px !important;
+				height: 10px !important;
+			}
+		}
+		&__row {
+			margin-top: 20px;
 		}
 	}
 }

@@ -26,6 +26,11 @@
         background: var(--BAT);
     }
 
+    @include r(768px) {
+      font-size: 13px;
+      height: 25px;
+    }
+
 
     // @include respond-to (large) {
     //     margin-right: auto;

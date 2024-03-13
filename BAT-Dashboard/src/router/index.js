@@ -22,7 +22,7 @@ const router = createRouter({
         },
         {
             path: "/panel",
-            name: "panel",
+            name: "Dashboard",
             component: Panel,
             redirect: '/panel/Dashboard',
             children: [
@@ -37,146 +37,163 @@ const router = createRouter({
                     // redirect: { name: 'ISF-Delivery-Execution' },
                     component: () => import('../views/Panels/ISF/ISF.vue'),
                     children: [
-                        {
-                            name: 'ISF-Delivery-Execution',
-                            path: 'Equipment',
-                            component: () => import('../views/Panels/ISF/ISF-Delivery-Execution.vue')
-                        },
-                        {
-                            name: 'ISF-Comparison',
-                            path: 'Comparison',
-                            component: () => import('../views/Panels/ISF/ISF-Comparison.vue')
-                        },
-                        {
-                            name: 'ISF-Progress',
-                            path: 'Progress',
-                            component: () => import('../views/Panels/ISF/ISF-Progress.vue')
-                        },
-                    ],
-                },
-                {
-                    name: 'CycleMaterials',
-                    path: 'CycleMaterials',
-                    // redirect: { name: 'CycleMaterials-Delivery-Execution' },
-                    component: () => import('../views/Panels/CycleMaterials/CycleMaterials.vue'),
-                    children: [
-                        {
-                            name: 'CycleMaterials-Delivery-Execution',
-                            path: 'Delivery-Execution',
-                            component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Delivery-Execution.vue')
-                        },
                         // {
-                        //     name: 'CycleMaterials-Execution',
-                        //     path: 'Execution',
-                        //     component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Execution.vue')
-                        // }, 
-                        {
-                            name: 'CycleMaterials-Comparison',
-                            path: 'Comparison',
-                            component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Comparison.vue')
-                        },
-                        // {
-                        //     name: 'CycleMaterials-Progress',
-                        //     path: 'Progress',
-                        //     component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Progress.vue')
-                        // }, 
-                    ],
-                },
-                {
-                    name: 'Semi-permanentMaterials',
-                    path: 'Semi-permanentMaterials',
-                    // redirect: { name: 'Semi-permanentMaterials-Delivery-Execution' },
-                    component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials.vue'),
-                    children: [
-                        {
-                            name: 'Semi-permanentMaterials-Delivery-Execution',
-                            path: 'Delivery-Execution',
-                            component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials-Delivery-Execution.vue')
-                        },
-                        {
-                            name: 'Semi-permanentMaterials-Comparison',
-                            path: 'Comparison',
-                            component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials-Comparison.vue')
-                        },
-                        {
-                            name: 'Semi-permanentMaterials-Progress',
-                            path: 'Progress',
-                            component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials-Progress.vue')
-                        },
-                    ],
-                },
-                {
-                    name: 'Headers',
-                    path: 'Headers',
-                    // redirect: { name: 'Headers-Delivery-Execution' },
-                    params: true,
-                    component: () => import('../views/Panels/Headers/Headers.vue'),
-                    children: [
-                        {
-                            name: 'Headers-Delivery-Execution',
-                            path: 'Delivery-Execution',
-                            component: () => import('../views/Panels/Headers/Headers-Delivery-Execution.vue')
-                        },
-                        {
-                            name: 'Headers-Comparison',
-                            path: 'Comparison',
-                            component: () => import('../views/Panels/Headers/Headers-Comparison.vue')
-                        },
-                        {
-                            name: 'Headers-Progress',
-                            path: 'Progress',
-                            component: () => import('../views/Panels/Headers/Headers-Progress.vue')
-                        },
-                    ],
-                },
-                {
-                    name: 'Equipment',
-                    path: 'Equipment',
-                    // redirect: { name: 'Equipment-Delivery-Execution' },
-                    params: true,
-                    component: () => import('../views/Panels/Equipment/Equipment.vue'),
-                    children: [
-                        {
-                            name: 'Equipment-Delivery-Execution',
-                            path: 'Delivery-Execution',
-                            component: () => import('../views/Panels/Equipment/Equipment-Delivery-Execution.vue')
-                        },
-                        {
-                            name: 'Equipment-Comparison',
-                            path: 'Comparison',
-                            component: () => import('../views/Panels/Equipment/Equipment-Comparison.vue')
-                        },
-                        // {
-                        //     name: 'Equipment-Progress',
-                        //     path: 'Progress',
-                        //     component: () => import('../views/Panels/Equipment/Equipment-Progress.vue')
+                        //     name: 'ISF-Delivery-Execution',
+                        //     path: 'Equipment',
+                        //     component: () => import('../views/Panels/ISF/ISF-Delivery-Execution.vue')
                         // },
+                        // {
+                        //     name: 'ISF-Comparison',
+                        //     path: 'Comparison',
+                        //     component: () => import('../views/Panels/ISF/ISF-Comparison.vue')
+                        // },
+                        // {
+                        //     name: 'ISF-Progress',
+                        //     path: 'Progress',
+                        //     component: () => import('../views/Panels/ISF/ISF-Progress.vue')
+                        // },
+                        {
+                            name: 'CycleMaterials',
+                            path: 'CycleMaterials',
+                            redirect: '/panel/ISF/CycleMaterials/Delivery-Execution',
+                            // redirect: { name: 'CycleMaterials-Delivery-Execution' },
+                            component: () => import('../views/Panels/CycleMaterials/CycleMaterials.vue'),
+                            children: [
+                                {
+                                    name: 'CycleMaterials Delivery Execution',
+                                    meta: {
+                                        label: 'Delivery Execution',
+                                    },
+                                    path: 'Delivery-Execution',
+                                    component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Delivery-Execution.vue')
+                                },
+                                {
+                                    name: 'CycleMaterials Comparison',
+                                    meta: {
+                                        label: 'Comparison',
+                                    },
+                                    path: 'Comparison',
+                                    component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Comparison.vue')
+                                },
+                            ],
+                        },
+                        {
+                            name: 'Semi-permanentMaterials',
+                            path: 'Semi-permanentMaterials',
+                            // redirect: { name: 'Semi-permanentMaterials-Delivery-Execution' },
+                            redirect: '/panel/ISF/Semi-permanentMaterials/Delivery-Execution',
+                            component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials.vue'),
+                            children: [
+                                {
+                                    name: 'Semi-permanentMaterials Delivery Execution',
+                                    meta: {
+                                        label: 'Delivery Execution',
+                                    },
+                                    path: 'Delivery-Execution',
+                                    component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials-Delivery-Execution.vue')
+                                },
+                                {
+                                    name: 'Semi-permanentMaterials Comparison',
+                                    meta: {
+                                        label: 'Comparison',
+                                    },
+                                    path: 'Comparison',
+                                    component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials-Comparison.vue')
+                                },
+                                {
+                                    name: 'Semi-permanentMaterials Progress',
+                                    meta: {
+                                        label: 'Progress',
+                                    },
+                                    path: 'Progress',
+                                    component: () => import('../views/Panels/Semi-permanentMaterials/Semi-permanentMaterials-Progress.vue')
+                                },
+                            ],
+                        },
+                        {
+                            name: 'Headers',
+                            path: 'Headers',
+                            redirect: '/panel/ISF/Headers/Delivery-Execution',
+                            // params: true,
+                            component: () => import('../views/Panels/Headers/Headers.vue'),
+                            children: [
+                                {
+                                    name: 'Headers Delivery Execution',
+                                    meta: {
+                                        label: 'Delivery Execution',
+                                    },
+                                    path: 'Delivery-Execution',
+                                    component: () => import('../views/Panels/Headers/Headers-Delivery-Execution.vue')
+                                },
+                                {
+                                    name: 'Headers Comparison',
+                                    meta: {
+                                        label: 'Comparison',
+                                    },
+                                    path: 'Comparison',
+                                    component: () => import('../views/Panels/Headers/Headers-Comparison.vue')
+                                },
+                                {
+                                    name: 'Headers Progress',
+                                    meta: {
+                                        label: 'Progress',
+                                    },
+                                    path: 'Progress',
+                                    component: () => import('../views/Panels/Headers/Headers-Progress.vue')
+                                },
+                            ],
+                        },
+                        {
+                            name: 'Equipment',
+                            path: 'Equipment',
+                            redirect: '/panel/ISF/Equipment/Delivery-Execution',
+                            params: true,
+                            component: () => import('../views/Panels/Equipment/Equipment.vue'),
+                            children: [
+                                {
+                                    name: 'Equipment Delivery Execution',
+                                    path: 'Delivery-Execution',
+                                    meta: {
+                                        label: 'Delivery Execution',
+                                    },
+                                    component: () => import('../views/Panels/Equipment/Equipment-Delivery-Execution.vue')
+                                },
+                                {
+                                    name: 'Equipment Comparison',
+                                    meta: {
+                                        label: 'Comparison',
+                                    },
+                                    path: 'Comparison',
+                                    component: () => import('../views/Panels/Equipment/Equipment-Comparison.vue')
+                                },
+                            ],
+                        },
                     ],
                 },
                 {
-                    name: 'POSM',
+                    name: 'POSM Balance',
                     path: 'POSM',
                     // redirect: { name: 'POSM-CAPEX-Depts' },
                     params: true,
                     component: () => import('../views/Panels/POSM/POSM.vue'),
                     children: [
                         {
-                            name: 'POSM-CAPEX-Depts',
+                            name: 'CAPEX-Depts',
                             path: 'CAPEX-Depts',
                             component: () => import('../views/Panels/POSM/POSM-CAPEX-Depts.vue')
                         },
                         {
-                            name: 'POSM-OPEX-Depts',
+                            name: 'OPEX-Depts',
                             path: 'OPEX-Depts',
                             component: () => import('../views/Panels/POSM/POSM-OPEX-Depts.vue')
                         },
                         {
-                            name: 'POSM-Stock',
+                            name: 'Stock',
                             path: 'Stock',
                             component: () => import('../views/Panels/POSM/POSM-Stock.vue')
                         },
                         {
-                            name: 'POSM-Transits',
+                            name: 'Transits',
                             path: 'Transits',
                             component: () => import('../views/Panels/POSM/POSM-Transits.vue')
                         },

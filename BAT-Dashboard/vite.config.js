@@ -20,5 +20,5 @@ export default defineConfig({
       }
     }
   },
-  base: '/BAT-Dashboard/',
+  base: '/BAT-Dashboard-new/',
 });

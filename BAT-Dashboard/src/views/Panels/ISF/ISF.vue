@@ -4,7 +4,8 @@ import NavigationTiles from '../../../components/NavigationTiles.vue';
 
 
 <template lang="pug">
-NavigationTiles
+NavigationTiles(v-if="$route.path.split('/').at(-1) === 'ISF'")
+RouterView
 </template>
 
 <style lang="scss" scoped>

@@ -80,5 +80,6 @@ export default {
 		city: 'City',
 		cm: 'CM',
 		tmr: 'TMR',
+		department: 'Department',
 	}
 }

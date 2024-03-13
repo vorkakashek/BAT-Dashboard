@@ -52,10 +52,11 @@ const emit = defineEmits(['update:modelValue']);
     flex-wrap: wrap;
     align-items: center;
     margin: var(--pdlg) 0;
-    border-radius: 100px;
+    border-radius: 12px;
     background-color: #fff;
-    border: 1px solid #E1E1E1;
     overflow: hidden;
+    gap: 2px;
+    padding: 4px;
 }
 
 .toggle-option {
@@ -72,43 +73,25 @@ const emit = defineEmits(['update:modelValue']);
                 background-color: var(--blue-light);
                 opacity: 1;
                 color: #fff;
-
+                font-weight: 700;
                 &:hover {
                     background-color: var(--blue-light-hover);
                 }
             }
         }
     }
-
-    &:not(&:last-child) {
-        margin-right: 1px;
-
-        input:not(:checked)~.toggle-option-label {
-            display: flex;
-            align-items: center;
-            position: relative;
-
-            &:after {
-                content: '';
-                display: block;
-                position: absolute;
-                z-index: 1;
-                right: 0;
-                height: calc(100% - 16px);
-                width: 1px;
-                background-color: #E1E1E1;
-            }
-        }
-    }
 }
 
 .toggle-option-label {
-    padding: var(--pdsm) 12px;
-    border-radius: var(--radius-4);
+    padding: 8px 12px;
+    border-radius: 8px;
     font-weight: 700;
     font-size: 13px;
-    opacity: .6;
     transition: all .3s ease;
+    color: #979797;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
 
     &:hover {
         background-color: #cccccc;

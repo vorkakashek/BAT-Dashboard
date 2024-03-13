@@ -62,7 +62,7 @@ let currentYear = (y) => {
 Teleport(to="#export-excel")
     ExportExcel(disabled)
 
-Teleport(to="#multiselector")
+Teleport(to="#Semi-permanentMaterials")
     Multiselect(
         v-model="itemValue", 
         :close-on-select="true", 

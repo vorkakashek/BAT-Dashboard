@@ -657,7 +657,6 @@ ISFLayout
             WeeksGraph(:data="totalGraph" type="progress-bar-multicategory" v-if="viewType === 'graph'" valueStore="viewType_2")
             WeeksGraphMulticategory(:total="totalDataMulticategory" :data="totalMulticategory" type="progress-bar" v-if="viewType === 'multicategory'" valueStore="viewType_2")
 
-
     .panel
         h2 {{ $t('total') }}
         //- ISFFilter(:options="ISFFilterOptions" v-model="ISFFilterValue")

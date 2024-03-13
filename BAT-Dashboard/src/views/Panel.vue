@@ -6,7 +6,7 @@ import { RouterLink, RouterView, useRoute } from "vue-router";
 import { computed } from "vue";
 import { ref, onMounted, watch, provide } from "vue";
 import { useI18n } from "vue-i18n";
-
+import Breadcrumbs from "../components/Breadcrumbs.vue";
 const route = useRoute()
 const { t } = useI18n()
 const store = useReportStore()
@@ -17,25 +17,84 @@ const navItems = ref([
         link: "ISF",
         icon: "ISFPOSM",
         name: t('leftSidebar.isf'),
+        withChildren: true,
         children: [
             {
-                link: "Equipment",
+                link: "ISF/Equipment",
+                icon: "Equipment",
                 name: t('leftSidebar.equipment'),
+                children: [
+                    {
+                        link: "ISF/Equipment/Comparison",
+                        name: t('leftSidebar.comparison'),
+                    },
+                    {
+                        link: "ISF/Equipment/Delivery-Execution",
+                        name: t('leftSidebar.deliveryexecution'),
+                    }
+                ]
             },
             {
-                link: "Headers",
+                link: "ISF/Headers",
+                icon: "Headers",
                 name: t('leftSidebar.headers'),
+                children: [
+                    {
+                        link: "ISF/Headers/Comparison",
+                        name: t('leftSidebar.comparison'),
+                    },
+                    {
+                        link: "ISF/Headers/Delivery-Execution",
+                        name: t('leftSidebar.deliveryexecution'),
+                    },
+                    {
+                        link: "ISF/Headers/Progress",
+                        name: t('leftSidebar.progress'),
+                    },
+                ],
             },
             {
-                link: "CycleMaterials",
+                link: "ISF/CycleMaterials",
+                icon: "CycleMaterials",
                 name: t('leftSidebar.cycleMaterials'),
+                children: [
+                    {
+                        link: "ISF/CycleMaterials/Comparison",
+                        name: t('leftSidebar.comparison'),
+                    },
+                    {
+                        link: "ISF/CycleMaterials/Delivery-Execution",
+                        name: t('leftSidebar.deliveryexecution'),
+                    },
+                    {
+                        link: "ISF/CycleMaterials/Progress",
+                        name: t('leftSidebar.progress'),
+                    },
+                ],
             },
             {
-                link: "Semi-permanentMaterials",
+                link: "ISF/Semi-permanentMaterials",
+                icon: "Semi-permanentMaterials",
                 name: t('leftSidebar.semipermanentMaterials'),
+                children: [
+                    {
+                        link: "ISF//Semi-permanentMaterials/Comparison",
+                        name: t('leftSidebar.comparison'),
+                    },
+                    {
+                        link: "ISF//Semi-permanentMaterials/Delivery-Execution",
+                        name: t('leftSidebar.deliveryexecution'),
+                    },
+                    {
+                        link: "ISF//Semi-permanentMaterials/Progress",
+                        name: t('leftSidebar.progress'),
+                    },
+                ],
             },
             {
-                link: "PremiumPartners",
+                link: "ISF/PremiumPartners",
+                icon: "PremiumPartners",
+                disabled: true,
                 name: t('leftSidebar.premiumPartners'),
             },
         ]
@@ -57,21 +116,26 @@ const navItems = ref([
     {
         link: "POSM",
         name: t('leftSidebar.posm'),
+        withChildren: true,
         children: [
             {
-                link: "CAPEX-Depts",
+                link: "POSM/CAPEX-Depts",
+                icon: "CAPEX-Depts",
                 name: t('leftSidebar.capexdepts'),
             },
             {
-                link: "OPEX-Depts",
+                link: "POSM/OPEX-Depts",
+                icon: "OPEX-Depts",
                 name: t('leftSidebar.opexdepts'),
             },
             {
-                link: "Stock",
+                link: "POSM/Stock",
+                icon: "Stock",
                 name: t('leftSidebar.stock'),
             },
             {
-                link: "Transits",
+                link: "POSM/Transits",
+                icon: "Transits",
                 name: t('leftSidebar.transits'),
             },
         ],
@@ -172,6 +236,12 @@ const navItemsBuffer = ref([...navItems.value]);
 const multiselects = ref([
     {
         value: null,
+        options: ["New","Pending","Canceled","Shipped"],
+        placeholder: t('multiselects.department'),
+        multiselect: true,
+    },
+    {
+        value: null,
         options: ["Unit long name 1", "Unit 2", "Unit 3", "Unit 4"],
         placeholder: t('multiselects.unit'),
     },
@@ -247,11 +317,12 @@ onMounted(() => {
 
 <template lang="pug">
 Navbar(:navActive="navActive" @activate="active = !active")
-LeftSidebar(:sidebarActive="active")
+LeftSidebar(:navActive="active" @activate="active = !active")
 ModalConstructor(modalName="AlarmExpress", ref="modal", :dialog="true", :title="modal_title", :msg="modal_msg")
 main
     .container
         //- span {{ $route.path }} {{ !($route.path === '/panel/Dashboard' || $route.path === '/panel/Projects/Catalog') }}
+        Breadcrumbs(v-if="!($route.path === '/panel/Dashboard' || $route.path === '/panel/Projects/Catalog')")
         Filters(
             v-if="!($route.path === '/panel/Dashboard' || $route.path === '/panel/Projects/Catalog' || $route.path === '/panel/ISF' || $route.path === '/panel/POSM')",
             :multiselects="multiselects"

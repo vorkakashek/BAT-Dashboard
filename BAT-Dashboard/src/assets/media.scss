@@ -13,6 +13,13 @@ $xxl: 1400px;
     }
 }
 
+@mixin r($viewport) {
+    @media screen and (max-width: $viewport) {
+        @content;
+    }
+};
+
+
 @mixin respond-to($media) {
     @if $media==handlers {
         @media only screen and (max-width: $sm - 0.1px) {

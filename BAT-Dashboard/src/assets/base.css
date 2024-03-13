@@ -87,6 +87,13 @@
     --tr-2: cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
+@media screen and (max-width: 768px) {
+    :root {
+        --navbar: 68px;
+    }
+    
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --color-background: var(--vt-c-black);

@@ -1,5 +1,5 @@
 <script setup>
-
+import Logo from "./Logo.vue";
 import { reactive, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import Downloader from '@/components/Downloader.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
@@ -43,7 +43,15 @@ onBeforeUnmount(() => {
 <template lang="pug">
 .nav-wrapper 
     nav.nav(:class="{ active: state.menuActive }")
+        .nav__mobile
+            button.nav__burger(@click="navClick")
+                span
+                span
+                span
+            Logo.nav__logo
+        Logo.nav__logo.nav__logo--mobile
         .nav__buttons
+            #export-excel
             Downloader(v-if="store.amount_requested > 0 || store.amount_ready > 0")
         .nav__controllers
             LanguageSwitcher
@@ -128,6 +136,86 @@ nav.active {
         align-items: center;
         gap: 24px;
     }
+    &__mobile {
+        display: none;
+    }
+    &__burger {
+        width: 36px;
+        height: 36px;
+        background: var(--blue-light);
+        border: 0;
+        border-radius: 6px;
+        position: relative;
+        span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 2px;
+            width: 18px;
+            border-radius: 2px;
+            background-color: white;
+            transform: translate(-50%, -50%);
+            transition: .3s ease;
+            &:nth-child(1) {
+                transform: translate(-50%, calc(-50% - 6px));
+            }
+            &:nth-child(2) {
+                width: 12px;
+                transform: translate(calc(-50% - 3px), -50%);
+            }
+            &:nth-child(3) {
+                transform: translate(-50%, calc(-50% + 6px));
+            }
+        }
+    }
+    &__logo {
+        &--mobile {
+            display: none;
+        }
+    }
+    @include r(1280px) {
+        &__mobile {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        &__logo {
+            max-width: 276px;
+            width: 276px;
+        }
+    }
+    @include r(768px) {
+        &__controllers {
+            display: none;
+        }
+        &__logo {
+            max-width: 174px;
+            width: 174px;
+            display: none;
+            &--mobile {
+                display: flex;
+            }
+        }
+    }
+    @include r(575px) {
+        background: transparent;
+        padding: 12px 16px;
+    }
+    &.active {
+        .nav__burger {
+            span {
+                &:nth-child(1) {
+                    transform: translate(-50%, -50%) rotate(45deg);
+                }
+                &:nth-child(2) {
+                    width: 0;
+                }
+                &:nth-child(3) {
+                    transform: translate(-50%, -50%) rotate(-45deg);
+                }
+            }
+        }
+    }
     // @include respond-to(large) {
     //     height: calc(var(--navbar) / 1.25);
     // }
@@ -138,10 +226,16 @@ nav.active {
     padding-top: var(--layout-inner-pd);
     padding-right: var(--layout-pd);
     padding-left: calc(var(--sidebar) + var(--layout-inner-pd) + var(--layout-pd));
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
+    @include r(1280px) {
+        padding-left: var(--layout-pd);
+    }
+    @include r(575px) {
+        padding: 6px 0;
+    }
 }
 
 .user {

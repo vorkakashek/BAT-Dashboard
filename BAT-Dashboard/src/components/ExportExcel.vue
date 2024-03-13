@@ -24,7 +24,7 @@ const modal = ref()
 ModalConstructor(modalName="ExportExcel", ref="modal", :dialog="true")
 
 .export-excel(:href="props.link" :class="{ disabled }" @click="modal.show")
-    app-icon(name="excel", size="40")
+    app-icon(name="excel", size="20")
 
 
 </template>
@@ -35,7 +35,13 @@ ModalConstructor(modalName="ExportExcel", ref="modal", :dialog="true")
     display: flex;
     align-items: center;
     justify-content: center;
-
+    width: 32px;
+    height: 32px;
+    background: #216F44;
+    border-radius: 4px;
+    :deep(path) {
+        fill: #fff
+    }
     &:hover {
         opacity: 0.75;
     }
@@ -45,18 +51,6 @@ ModalConstructor(modalName="ExportExcel", ref="modal", :dialog="true")
         opacity: .5;
         pointer-events: none;
         user-select: none;
-    }
-
-    @include respond-to(large) {
-        height: 36px;
-        width: 36px;
-        margin-left: auto;
-        margin-right: 8px;
-
-        .icon {
-            height: 36px;
-            width: 36px;
-        }
     }
 }
 </style>
