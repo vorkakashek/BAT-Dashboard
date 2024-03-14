@@ -51,7 +51,7 @@ const activeItem = ref('')
                     :icon="item.icon ? item.icon : item.link" 
                     :to="`/panel/${item.link}`" 
                     :disabled="item.disabled" 
-                    :activeItem="route.path.split('/')[3].toLowerCase() === item.name.split(' ').join('').toLowerCase()" 
+                    :activeItem="route.path.split('/')[3]?.toLowerCase() === item.name.split(' ').join('').toLowerCase()" 
                     :children="(item.children && $route.path.includes('ISF')) ? item.children : []" 
                     :name="item.name"
                 ) {{ item.name }}

@@ -61,21 +61,21 @@ let currentYear = (y) => {
 
 
 <template lang="pug">
-Teleport(to="#multiselector")
-    Multiselect(
-        v-model="itemValue", 
-        :close-on-select="true", 
-        :options="options", 
-        mode="tags",
-        :max="1",
-        @open="handlerOpen",
-        @close="handlerClose",
-        :canClear='false',
-        :searchable="true",
-        )
-        template(v-slot:option="{ option }")
-            span {{ option.label }}
-            span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
+//- Teleport(to="#multiselector")
+//-     Multiselect(
+//-         v-model="itemValue", 
+//-         :close-on-select="true", 
+//-         :options="options", 
+//-         mode="tags",
+//-         :max="1",
+//-         @open="handlerOpen",
+//-         @close="handlerClose",
+//-         :canClear='false',
+//-         :searchable="true",
+//-         )
+//-         template(v-slot:option="{ option }")
+//-             span {{ option.label }}
+//-             span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
 
 FavoriteToggler(:options="options" v-model="itemValue")
 
