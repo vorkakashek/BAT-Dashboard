@@ -103,17 +103,17 @@ const activityOptions = ref([
 ]);
 
 const state = reactive({
-    cycleValue: '',
+    cycleValue: [0],
     activityValue: [],
 });
 
 const activeCycleOptions = computed(() => {
-    return cycleOptions.value.filter((obj) => state.cycleValue === obj.value);
+    return cycleOptions.value.filter((obj) => state.cycleValue[0] === obj.value);
 });
 
 const filteredActivityOptions = computed(() => {
     return activityOptions.value.filter(({ value }) => {
-        if (value === 0 || state.cycleValue === '') {
+        if (value === 0 || state.cycleValue[0] === 0) {
             return true;
         }
         return activeCycleOptions.value.some(({ activities }) => {
@@ -182,8 +182,8 @@ Teleport(to="#export-excel")
 
 Teleport(to="#CycleMaterials")
     Dropdown(
-        v-model="state.cycleValue",
-        :value="state.cycleValue",
+        @update:modelValue="(val) => state.cycleValue = [val.value]",
+        :value="cycleOptions.filter(i => i.value === state.cycleValue[0])[0]",
         isWhite
         isFill
         :options="cycleOptions",
@@ -193,7 +193,7 @@ Teleport(to="#CycleMaterials")
             span {{ option.label }}
             span.tag {{ option.year }}
         template(v-slot:value="{ value }")
-            | {{value.label || 'Cycle Name'}}
+            | {{value?.label || 'Cycle Name'}}
     Dropdown(
         v-model="state.activityValue",
         :value="state.activityValue",
@@ -207,7 +207,7 @@ Teleport(to="#CycleMaterials")
             span {{ option.label }}
             span.tag {{ option.year }}
         template(v-slot:value="{ value }")
-            | {{value.label || 'Activity'}}
+            | {{value?.label || 'Activity'}}
     //- .multiselect-label 
     //-     span CYCLE 
     //-     | Selection:
@@ -290,9 +290,6 @@ RouterView
     align-items: center;
     flex-wrap: wrap;
     margin-top: var(--pdlg);
-    &:not(:first-child) {
-        margin-left: var(--pdlg);
-    }
     >* {
         margin: 0 !important;
         margin-bottom: var(--pdlg) !important;

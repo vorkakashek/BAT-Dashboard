@@ -11,6 +11,7 @@ const props = defineProps({
 	icon: String,
 	name: String,
 	activeItem: Boolean,
+	isOpen: Boolean,
 	children: {
 		type: Array,
 		default: [],
@@ -20,13 +21,13 @@ const props = defineProps({
 </script>
 	
 <template lang="pug">
-router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary, 'button--back': isBack }", :to="to" v-if="children?.length === 0")
+router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary, 'button--back': isBack }", :to="to" v-if="!(children?.length > 0 || isOpen)")
 	.button__icon
 		app-icon(v-if="icon" :name="icon" size="20")
 	.button__title
 		slot
 	app-icon(name="lock" size="14").button__lock(v-if="disabled")
-.button-wrapper(v-else :class="{'button-wrapper--open': activeItem}")
+.button-wrapper(v-else :class="{'button-wrapper--open': activeItem || isOpen }")
 	.button.button--children(:class="{ 'disabled': disabled, 'button--primary': isPrimary, 'button--back': isBack }")
 		.button__header(@click="$emit('open')")
 			.button__icon
@@ -38,9 +39,9 @@ router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary,
 				<path d="M3.33333 0.833292L7.5 4.99996L3.33333 9.16663L2.59375 8.42704L6.02083 4.99996L2.59375 1.57288L3.33333 0.833292Z" fill="#3A474B"/>
 			</svg>
 		.button__wrapper
-			.button__content(:id="`${name.split(' ').join('')}`")
+			.button__content(:id="`${name?.split(' ').join('')}`")
 				
-	.button-childrens__wrapper
+	.button-childrens__wrapper(v-if="children?.length > 0")
 		.button-childrens
 			template(v-for="item in children") 
 				router-link.button-children(:to="`/panel/${item.link}`") 

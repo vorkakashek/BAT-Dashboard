@@ -56,7 +56,7 @@ const optionalOptions = ref([
         label: 'Name 3',
     },
 ])
-const optionalValue = ref([''])
+const optionalValue = ref([0])
 
 
 const handlerOpen = (value) => itemValue.value = []
@@ -88,8 +88,8 @@ let currentYear = (y) => {
 <template lang="pug">
 Teleport(to="#Headers")
     Dropdown(
-        v-model="itemValue",
-        :value="itemValue",
+        @update:modelValue="(val) => itemValue = [val.value]",
+        :value="options.filter(i => i.value === itemValue[0])[0]",
         isWhite
         isFill
         :options="options",
@@ -99,7 +99,7 @@ Teleport(to="#Headers")
             span {{ option.label }}
             span.tag {{ option.year }}
         template(v-slot:value="{ value }")
-            | {{value.label || 'Cycle Name'}}
+            | {{value?.label || 'Cycle Name'}}
     //- Multiselect(
     //-     v-model="itemValue", 
     //-     :close-on-select="true", 
@@ -130,9 +130,6 @@ RouterView
     align-items: center;
     flex-wrap: wrap;
     margin-top: var(--pdlg);
-    &:not(:first-child) {
-        margin-left: var(--pdlg);
-    }
     >* {
         margin: 0 !important;
         margin-bottom: var(--pdlg) !important;

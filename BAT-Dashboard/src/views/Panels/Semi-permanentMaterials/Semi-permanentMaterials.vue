@@ -65,8 +65,8 @@ Teleport(to="#export-excel")
 
 Teleport(to="#Semi-permanentmaterials")
     Dropdown(
-        v-model="itemValue",
-        :value="itemValue",
+        @update:modelValue="(val) => itemValue = [val.value]",
+        :value="options.filter(i => i.value === itemValue[0])[0]",
         isWhite
         isFill
         :options="options",
@@ -76,7 +76,7 @@ Teleport(to="#Semi-permanentmaterials")
             span {{ option.label }}
             span.tag {{ option.year }}
         template(v-slot:value="{ value }")
-            | {{value.label || 'Cycle Name'}}
+            | {{value?.label || 'Cycle Name'}}
     //- Multiselect(
     //-     v-model="itemValue", 
     //-     :close-on-select="true", 

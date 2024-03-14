@@ -15,7 +15,7 @@ const props = defineProps({
 		default: false
 	},
 	value: {
-		type: [String, Array, null],
+		type: [String, Array, null, Number, Object],
 		default: null 
 	},
 	isWhite: {
@@ -29,9 +29,8 @@ const props = defineProps({
 	isTags: {
 		type: Boolean,
 		default: false
-	}
+	},
 })
-const value = ref(props.value)
 const open = ref(false)
 const dropdownPlaceholder = ref(null)
 const dropdown = ref(null)
@@ -68,25 +67,30 @@ const updatePosition = () => {
 }
 
 const checkSelected = (option) => {
-	if(value.value?.[0]?.value !== undefined) return value.value?.filter(i => i?.value === option?.value)?.length > 0
-	return value.value?.length !== undefined ? value.value?.includes(option) : (value.value?.value === option?.value && value.value?.value !== undefined)
+	if(props.value?.[0]?.value !== undefined) return props.value?.filter(i => i?.value === option?.value)?.length > 0
+	return props.value?.length !== undefined ? props.value?.includes(option) : (props.value?.value === option?.value && props.value?.value !== undefined)
 }
 
 const selected = (option, index) => {
+	const value = ref(props.value)
 	if(!props.multiselect && !props.isTags) {
 		value.value = option
 		open.value = false
 	} else {
-		if(value.value?.includes(option)) {
+		if(props.value?.includes(option)) {
 			value.value = value.value.filter(val => val !== option)
-		} else if (option?.value !== undefined && value.value?.filter(val => val?.value === option?.value).length > 0) {
-			value.value = value.value?.filter(val => val?.value !== option?.value)
+		} else if (option?.value !== undefined && props.value?.filter(val => val?.value === option?.value).length > 0) {
+			value.value = props.value?.filter(val => val?.value !== option?.value)
 		} else {
 			value.value = value.value ? [...value.value, option] : [option]
 		}
 	}
 	updatePosition()
-	emits('update:modelValue', value.value)
+	if(props.isNumberValue) {
+		emits('update:modelValue', value.value.value)
+	} else {
+		emits('update:modelValue', value.value)
+	}
 }
 
 </script>

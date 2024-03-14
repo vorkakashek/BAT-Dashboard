@@ -44,6 +44,8 @@ const activeItem = ref('')
         .aside-back
             AsideButton(:isPrimary="$route.path === '/panel/Dashboard'" :isBack="$route.path !== '/panel/Dashboard'" :icon="$route.path !== '/panel/Dashboard' ? 'back' : 'Dashboard'" to="/panel/Dashboard") Dashboard
         .aside__group
+            AsideButton.aside__isf-back(isOpen name="POSMBalance" :isPrimary="$route.path.includes('POSM')" v-if="$route.path.includes('POSM/')" icon="POSM" to="/panel/POSM") 
+                | POSM Balance
             AsideButton.aside__isf-back(:isPrimary="$route.path.includes('ISF')" v-if="$route.path.includes('ISF/')" icon="ISFPOSM" to="/panel/ISF") ISF / POSM
             template(v-for="(item, index) in navItems.length === 1 ? navItems[0].children : navItems")
                 AsideButton(
