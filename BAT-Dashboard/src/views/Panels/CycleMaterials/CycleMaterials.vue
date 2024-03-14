@@ -6,6 +6,7 @@ import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
 // import SalesChannelFilter from "@/components/SalesChannelFilter.vue"; надо удалить из компонентов проекта
 
 import { useFiltersStore } from "@/store/store";
+import Dropdown from "@/components/Dropdown.vue";
 const store = useFiltersStore();
 
 onMounted(() => {
@@ -102,17 +103,17 @@ const activityOptions = ref([
 ]);
 
 const state = reactive({
-    cycleValue: [0],
-    activityValue: [0],
+    cycleValue: '',
+    activityValue: [],
 });
 
 const activeCycleOptions = computed(() => {
-    return cycleOptions.value.filter((obj) => state.cycleValue.includes(obj.value));
+    return cycleOptions.value.filter((obj) => state.cycleValue === obj.value);
 });
 
 const filteredActivityOptions = computed(() => {
     return activityOptions.value.filter(({ value }) => {
-        if (value === 0 || state.cycleValue.includes(0)) {
+        if (value === 0 || state.cycleValue === '') {
             return true;
         }
         return activeCycleOptions.value.some(({ activities }) => {
@@ -126,15 +127,15 @@ watch(() => state.cycleValue, (val) => {
         state.cycleValue = [cycleOptions.value.length - 1]
     }
     // filtering Activity Options
-    state.activityValue = state.activityValue.filter((v) => {
-        return filteredActivityOptions.value.some(({ value }) => v === value);
-    });
-    store.save(state.cycleValue[0], 'cycle_1')
+    // state.activityValue = state.activityValue.filter((v) => {
+    //     return filteredActivityOptions.value.some(({ value }) => v === value);
+    // });
+    store.save(state.cycleValue, 'cycle_1')
 });
 
 watch(() => state.activityValue, (val) => {
     if (val.length < 1) {
-        state.activityValue = [0]
+        state.activityValue = []
     }
     store.save(state.activityValue, 'cycle_2')
 })
@@ -180,39 +181,66 @@ Teleport(to="#export-excel")
     ExportExcel(disabled)
 
 Teleport(to="#CycleMaterials")
-    .multiselect-label 
-        span CYCLE 
-        | Selection:
-    Multiselect(
-        v-model="state.cycleValue", 
-        :close-on-select="true", 
-        :options="cycleOptions", 
-        mode="tags",
-        :clearOnSelect="false",
-        :canClear="false",
-        @select="handleSelector($event, 'cycleValue')", 
-        :searchable="true",
-        placeholder="Start typing or select...",
-        :style="{ marginBottom: '16px' }",
-        )
+    Dropdown(
+        v-model="state.cycleValue",
+        :value="state.cycleValue",
+        isWhite
+        isFill
+        :options="cycleOptions",
+        placeholder="Cycle Name",
+    )
         template(v-slot:option="{ option }")
             span {{ option.label }}
-            span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
-    .multiselect-label 
-        span ACTIVITY 
-        | Selection: 
-    Multiselect(
-        v-model="state.activityValue", 
-        :close-on-select="true", 
-        :options="filteredActivityOptions", 
-        mode="tags",
-        @select="handleSelector($event, 'activityValue')", 
-        :searchable="true",
-        placeholder="Start typing or select...",
-        )
+            span.tag {{ option.year }}
+        template(v-slot:value="{ value }")
+            | {{value.label || 'Cycle Name'}}
+    Dropdown(
+        v-model="state.activityValue",
+        :value="state.activityValue",
+        isWhite
+        isFill
+        isTags
+        :options="filteredActivityOptions",
+        placeholder="Activity",
+    )
         template(v-slot:option="{ option }")
             span {{ option.label }}
-            span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
+            span.tag {{ option.year }}
+        template(v-slot:value="{ value }")
+            | {{value.label || 'Activity'}}
+    //- .multiselect-label 
+    //-     span CYCLE 
+    //-     | Selection:
+    //- Multiselect(
+    //-     v-model="state.cycleValue", 
+    //-     :close-on-select="true", 
+    //-     :options="cycleOptions", 
+    //-     mode="tags",
+    //-     :clearOnSelect="false",
+    //-     :canClear="false",
+    //-     @select="handleSelector($event, 'cycleValue')", 
+    //-     :searchable="true",
+    //-     placeholder="Start typing or select...",
+    //-     :style="{ marginBottom: '16px' }",
+    //-     )
+    //-     template(v-slot:option="{ option }")
+    //-         span {{ option.label }}
+    //-         span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
+    //- .multiselect-label 
+    //-     span ACTIVITY 
+    //-     | Selection: 
+    //- Multiselect(
+    //-     v-model="state.activityValue", 
+    //-     :close-on-select="true", 
+    //-     :options="filteredActivityOptions", 
+    //-     mode="tags",
+    //-     @select="handleSelector($event, 'activityValue')", 
+    //-     :searchable="true",
+    //-     placeholder="Start typing or select...",
+    //-     )
+    //-     template(v-slot:option="{ option }")
+    //-         span {{ option.label }}
+    //-         span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
     //- Multiselect(
     //-     v-model="state.cycleValue", 
     //-     :close-on-select="true", 
@@ -258,11 +286,13 @@ RouterView
 }
 
 .filter-group {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     flex-wrap: wrap;
     margin-top: var(--pdlg);
-
+    &:not(:first-child) {
+        margin-left: var(--pdlg);
+    }
     >* {
         margin: 0 !important;
         margin-bottom: var(--pdlg) !important;

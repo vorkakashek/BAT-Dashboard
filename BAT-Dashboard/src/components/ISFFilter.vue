@@ -35,7 +35,7 @@ const togglerValue = computed({
 
 <style lang="scss" scoped>
 .ISFFilter {
-    display: flex;
+    display: inline-flex;
     width: fit-content;
     flex-wrap: wrap;
     align-items: center;

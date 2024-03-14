@@ -35,7 +35,7 @@ const props = defineProps({
 
 
 function hideEmpty(data) {
-    return data.some(({ value }) => value > 0);
+    return props.data?.some(({ value }) => value > 0);
 }
 const total = computed(() => {
     if(props.hasTotal) {

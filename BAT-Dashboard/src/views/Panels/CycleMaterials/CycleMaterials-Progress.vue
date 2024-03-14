@@ -90,7 +90,7 @@ const itemList = ref([
 Teleport(to="#export-excel")
     ExportExcel(disabled)
 
-TotalProgressbar(:inData="totalData")
+TotalProgressbar(:data="totalData")
     template(#legend)
         ProgressbarLegend(:data="totalData")
 

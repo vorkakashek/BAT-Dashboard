@@ -31,7 +31,7 @@ const togglerValue = computed({
 
 <style lang="scss" scoped>
 .filter_toggler {
-    display: flex;
+    display: inline-flex;
     width: fit-content;
     flex-wrap: wrap;
     align-items: center;
@@ -43,6 +43,9 @@ const togglerValue = computed({
     padding: 4px;
     &:not(:first-child) {
         margin-left: 16px;
+    }
+    .panel & {
+        background-color: #F6F7F6;
     }
 }
 

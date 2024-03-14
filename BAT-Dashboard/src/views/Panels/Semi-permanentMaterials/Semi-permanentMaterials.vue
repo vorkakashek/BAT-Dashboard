@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, onMounted } from "vue";
 import FavoriteToggler from "@/components/FavoriteToggler.vue";
+import Dropdown from "@/components/Dropdown.vue";
 import { useFiltersStore } from "@/store/store";
 const store = useFiltersStore();
 
@@ -35,7 +36,7 @@ const options = [
     },
 ]
 
-const itemValue = ref([options.length]);
+const itemValue = ref([]);
 
 const handlerOpen = (value) => itemValue.value = []
 const handlerClose = () => {
@@ -62,21 +63,34 @@ let currentYear = (y) => {
 Teleport(to="#export-excel")
     ExportExcel(disabled)
 
-Teleport(to="#Semi-permanentMaterials")
-    Multiselect(
-        v-model="itemValue", 
-        :close-on-select="true", 
-        :options="options", 
-        mode="tags",
-        :max="1",
-        @open="handlerOpen",
-        @close="handlerClose",
-        :canClear='false',
-        :searchable="true",
-        )
+Teleport(to="#Semi-permanentmaterials")
+    Dropdown(
+        v-model="itemValue",
+        :value="itemValue",
+        isWhite
+        isFill
+        :options="options",
+        placeholder="Cycle Name",
+    )
         template(v-slot:option="{ option }")
             span {{ option.label }}
-            span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
+            span.tag {{ option.year }}
+        template(v-slot:value="{ value }")
+            | {{value.label || 'Cycle Name'}}
+    //- Multiselect(
+    //-     v-model="itemValue", 
+    //-     :close-on-select="true", 
+    //-     :options="options", 
+    //-     mode="tags",
+    //-     :max="1",
+    //-     @open="handlerOpen",
+    //-     @close="handlerClose",
+    //-     :canClear='false',
+    //-     :searchable="true",
+    //-     )
+    //-     template(v-slot:option="{ option }")
+    //-         span {{ option.label }}
+    //-         span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
 //- Teleport(to="#multiselector")
 //-     Multiselect(
 //-         v-model="itemValue", 

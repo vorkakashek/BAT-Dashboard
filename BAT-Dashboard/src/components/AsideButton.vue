@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import Dropdown from '@/components/Dropdown.vue';
 
+defineEmits(['open'])
 const props = defineProps({
 	disabled: Boolean,
 	to: String,
@@ -9,13 +10,13 @@ const props = defineProps({
 	isBack: Boolean,
 	icon: String,
 	name: String,
+	activeItem: Boolean,
 	children: {
 		type: Array,
 		default: [],
 	}
 })
-console.log(props.children)
-const open = ref(false)
+
 </script>
 	
 <template lang="pug">
@@ -25,9 +26,9 @@ router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary,
 	.button__title
 		slot
 	app-icon(name="lock" size="14").button__lock(v-if="disabled")
-.button-wrapper(v-else :class="{'button-wrapper--open': open}")
+.button-wrapper(v-else :class="{'button-wrapper--open': activeItem}")
 	.button.button--children(:class="{ 'disabled': disabled, 'button--primary': isPrimary, 'button--back': isBack }")
-		.button__header(@click="open = !open")
+		.button__header(@click="$emit('open')")
 			.button__icon
 				app-icon(v-if="icon" :name="icon" size="20")
 			.button__title
@@ -172,6 +173,9 @@ router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary,
 		.button-childrens__wrapper {
 			grid-template-rows: 1fr;
 		}
+		.button-childrens {
+			padding: 4px;
+		}
 		.button {
 			background: #00B1EB;
 			&__wrapper {
@@ -208,6 +212,8 @@ router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary,
 	background: #F9FAFB;
 	height: 100%;
 	transition: .3s ease;
+	padding: 0px 4px;
+	gap: 4px;
 	&__wrapper {
 		display: grid;
 		transition: .3s ease;
@@ -218,11 +224,22 @@ router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary,
 	display: flex;
 	align-items: center;
 	padding: 4px;
+	border-radius: 8px;
 	gap: 12px;
 	text-decoration: none;
 	color: var(--TEXT---PRIMARY, #3A474B);
 	font-size: 14px;
 	font-weight: 600;
 	line-height: normal;
+	:deep(circle) {
+		fill: #3A474B;
+	}
+	&.router-link-active {
+		background: #F2F5F8;
+		color: #00B1EB;
+		:deep(circle) {
+			fill: #00B1EB;
+		}
+	}
 }
 </style>

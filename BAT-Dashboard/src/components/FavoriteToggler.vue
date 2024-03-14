@@ -47,7 +47,7 @@ const emit = defineEmits(['update:modelValue']);
 
 <style lang="scss" scoped>
 .FavoriteToggler {
-    display: flex;
+    display: inline-flex;
     width: fit-content;
     flex-wrap: wrap;
     align-items: center;

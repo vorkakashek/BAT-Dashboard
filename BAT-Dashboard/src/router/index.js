@@ -32,7 +32,7 @@ const router = createRouter({
                     component: () => import('../views/Panels/Dashboard.vue'),
                 },
                 {
-                    name: 'ISF',
+                    name: 'ISF / POSM',
                     path: 'ISF',
                     // redirect: { name: 'ISF-Delivery-Execution' },
                     component: () => import('../views/Panels/ISF/ISF.vue'),
@@ -75,6 +75,14 @@ const router = createRouter({
                                     path: 'Comparison',
                                     component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Comparison.vue')
                                 },
+                                // {
+                                //     name: 'CycleMaterials Progress',
+                                //     meta: {
+                                //         label: 'Progress',
+                                //     },
+                                //     path: 'Progress',
+                                //     component: () => import('../views/Panels/CycleMaterials/CycleMaterials-Progress.vue')
+                                // },
                             ],
                         },
                         {
@@ -156,10 +164,43 @@ const router = createRouter({
                                     meta: {
                                         label: 'Delivery Execution',
                                     },
-                                    component: () => import('../views/Panels/Equipment/Equipment-Delivery-Execution.vue')
+                                    component: () => import('../views/Panels/ISF/ISF-Delivery-Execution.vue')
                                 },
                                 {
                                     name: 'Equipment Comparison',
+                                    meta: {
+                                        label: 'Comparison',
+                                    },
+                                    path: 'Comparison',
+                                    component: () => import('../views/Panels/ISF/ISF-Comparison.vue')
+                                },
+                                {
+                                    name: 'Equipment Progress',
+                                    meta: {
+                                        label: 'Progress',
+                                    },
+                                    path: 'Progress',
+                                    component: () => import('../views/Panels/ISF/ISF-Progress.vue')
+                                },
+                            ],
+                        },
+                        {
+                            name: 'Premium Partners',
+                            path: 'PremiumPartners',
+                            redirect: '/panel/ISF/PremiumPartners/Delivery-Execution',
+                            params: true,
+                            component: () => import('../views/Panels/Equipment/Equipment.vue'),
+                            children: [
+                                {
+                                    name: 'PremiumPartners Delivery Execution',
+                                    path: 'Delivery-Execution',
+                                    meta: {
+                                        label: 'Delivery Execution',
+                                    },
+                                    component: () => import('../views/Panels/Equipment/Equipment-Delivery-Execution.vue')
+                                },
+                                {
+                                    name: 'PremiumPartners Comparison',
                                     meta: {
                                         label: 'Comparison',
                                     },

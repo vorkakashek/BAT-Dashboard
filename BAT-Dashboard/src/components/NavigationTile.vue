@@ -12,7 +12,7 @@ defineProps({
 	app-icon(:name="data.icon ? data.icon : data.link", size="150").tile__icon
 	.tile__children(v-if="data.children !== undefined && !data.disabled && data.withChildren")
 		template(v-for="child in data.children")
-			router-link(:to="`/panel/${data.link}/${child.link}`").tile__child
+			router-link(:to="`/panel/${child.link}`").tile__child
 				app-icon(:name="child.icon ? child.icon : child.link", size="20")
 				| {{ child.name }}
 	.tile__row

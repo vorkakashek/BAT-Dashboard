@@ -25,14 +25,18 @@ const navItems = ref([
                 name: t('leftSidebar.equipment'),
                 children: [
                     {
+                        link: "ISF/Equipment/Delivery-Execution",
+                        name: t('leftSidebar.deliveryexecution'),
+                    },
+                    {
                         link: "ISF/Equipment/Comparison",
                         name: t('leftSidebar.comparison'),
                     },
                     {
-                        link: "ISF/Equipment/Delivery-Execution",
-                        name: t('leftSidebar.deliveryexecution'),
-                    }
-                ]
+                        link: "ISF/Equipment/Progress",
+                        name: t('leftSidebar.progress'),
+                    },
+                ],
             },
             {
                 link: "ISF/Headers",
@@ -40,12 +44,12 @@ const navItems = ref([
                 name: t('leftSidebar.headers'),
                 children: [
                     {
-                        link: "ISF/Headers/Comparison",
-                        name: t('leftSidebar.comparison'),
-                    },
-                    {
                         link: "ISF/Headers/Delivery-Execution",
                         name: t('leftSidebar.deliveryexecution'),
+                    },
+                    {
+                        link: "ISF/Headers/Comparison",
+                        name: t('leftSidebar.comparison'),
                     },
                     {
                         link: "ISF/Headers/Progress",
@@ -59,17 +63,17 @@ const navItems = ref([
                 name: t('leftSidebar.cycleMaterials'),
                 children: [
                     {
-                        link: "ISF/CycleMaterials/Comparison",
-                        name: t('leftSidebar.comparison'),
-                    },
-                    {
                         link: "ISF/CycleMaterials/Delivery-Execution",
                         name: t('leftSidebar.deliveryexecution'),
                     },
                     {
-                        link: "ISF/CycleMaterials/Progress",
-                        name: t('leftSidebar.progress'),
+                        link: "ISF/CycleMaterials/Comparison",
+                        name: t('leftSidebar.comparison'),
                     },
+                    // {
+                    //     link: "ISF/CycleMaterials/Progress",
+                    //     name: t('leftSidebar.progress'),
+                    // },
                 ],
             },
             {
@@ -78,15 +82,15 @@ const navItems = ref([
                 name: t('leftSidebar.semipermanentMaterials'),
                 children: [
                     {
-                        link: "ISF//Semi-permanentMaterials/Comparison",
-                        name: t('leftSidebar.comparison'),
-                    },
-                    {
-                        link: "ISF//Semi-permanentMaterials/Delivery-Execution",
+                        link: "ISF/Semi-permanentMaterials/Delivery-Execution",
                         name: t('leftSidebar.deliveryexecution'),
                     },
                     {
-                        link: "ISF//Semi-permanentMaterials/Progress",
+                        link: "ISF/Semi-permanentMaterials/Comparison",
+                        name: t('leftSidebar.comparison'),
+                    },
+                    {
+                        link: "ISF/Semi-permanentMaterials/Progress",
                         name: t('leftSidebar.progress'),
                     },
                 ],
@@ -94,8 +98,18 @@ const navItems = ref([
             {
                 link: "ISF/PremiumPartners",
                 icon: "PremiumPartners",
-                disabled: true,
+                // disabled: true,
                 name: t('leftSidebar.premiumPartners'),
+                children: [
+                    {
+                        link: "ISF/PremiumPartners/Delivery-Execution",
+                        name: t('leftSidebar.deliveryexecution'),
+                    },
+                    {
+                        link: "ISF/PremiumPartners/Comparison",
+                        name: t('leftSidebar.comparison'),
+                    },
+                ]
             },
         ]
         // children: [

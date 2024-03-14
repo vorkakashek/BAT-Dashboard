@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, onMounted } from "vue";
 import FavoriteToggler from "@/components/FavoriteToggler.vue";
+import Dropdown from "@/components/Dropdown.vue";
 import { useFiltersStore } from "@/store/store";
 const store = useFiltersStore();
 
@@ -35,7 +36,7 @@ const options = [
     },
 ];
 
-const itemValue = ref([options.length]);
+const itemValue = ref([]);
 
 const handlerOpen = (value) => itemValue.value = []
 const handlerClose = () => {
@@ -60,21 +61,34 @@ let currentYear = (y) => {
 
 
 <template lang="pug">
-Teleport(to="#Equipment")
-    Multiselect(
-        v-model="itemValue", 
-        :close-on-select="true", 
+Teleport(to="#PremiumPartners")
+    Dropdown(
+        v-model="itemValue",
+        :value="itemValue",
+        isWhite
+        isFill
         :options="options",
-        mode="tags",
-        :max="1",
-        @open="handlerOpen",
-        @close="handlerClose",
-        :canClear='false',
-        :searchable="true",
-        )
+        placeholder="Cycle Name",
+    )
         template(v-slot:option="{ option }")
             span {{ option.label }}
-            span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
+            span.tag {{ option.year }}
+        template(v-slot:value="{ value }")
+            | {{value.label || 'Cycle Name'}}
+    //- Multiselect(
+    //-     v-model="itemValue", 
+    //-     :close-on-select="true", 
+    //-     :options="options",
+    //-     mode="tags",
+    //-     :max="1",
+    //-     @open="handlerOpen",
+    //-     @close="handlerClose",
+    //-     :canClear='false',
+    //-     :searchable="true",
+    //-     )
+    //-     template(v-slot:option="{ option }")
+    //-         span {{ option.label }}
+    //-         span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
 
 FavoriteToggler(:options="options" v-model="itemValue")
 

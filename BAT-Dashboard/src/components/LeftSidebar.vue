@@ -9,6 +9,7 @@ import { useRouter, useRoute } from 'vue-router'
 const navItems = inject("navItems");
 const updateItems = inject("updateItems");
 const filterItems = inject("filterItems");
+const router = useRouter()
 const route = useRoute()
 
 const props = defineProps({
@@ -17,6 +18,7 @@ const props = defineProps({
 const emits = defineEmits(['activate'])
 filterItems('link', route.path.split('/')[2])
 watch(() => route.path, () => {
+    console.log(route.path.split('/')[3])
     filterItems('link', route.path.split('/')[2])
 })
 const navClick = () => {
@@ -24,6 +26,7 @@ const navClick = () => {
     state.menuActive = !state.menuActive
     props.navActive({ menuActive: state.menuActive, })
 }
+const activeItem = ref('')
 </script>
 
 <template lang="pug">
@@ -42,8 +45,16 @@ const navClick = () => {
             AsideButton(:isPrimary="$route.path === '/panel/Dashboard'" :isBack="$route.path !== '/panel/Dashboard'" :icon="$route.path !== '/panel/Dashboard' ? 'back' : 'Dashboard'" to="/panel/Dashboard") Dashboard
         .aside__group
             AsideButton.aside__isf-back(:isPrimary="$route.path.includes('ISF')" v-if="$route.path.includes('ISF/')" icon="ISFPOSM" to="/panel/ISF") ISF / POSM
-            template(v-for="item in navItems.length === 1 ? navItems[0].children : navItems")
-                AsideButton(:icon="item.icon ? item.icon : item.link" :to="`/panel/${item.link}`" :disabled="item.disabled" :children="(item.children && $route.path.includes('ISF')) ? item.children : []" :name="item.name") {{ item.name }}
+            template(v-for="(item, index) in navItems.length === 1 ? navItems[0].children : navItems")
+                AsideButton(
+                    @open="() => {activeItem = index; router.push(`/panel/${item.link}`)}" 
+                    :icon="item.icon ? item.icon : item.link" 
+                    :to="`/panel/${item.link}`" 
+                    :disabled="item.disabled" 
+                    :activeItem="route.path.split('/')[3].toLowerCase() === item.name.split(' ').join('').toLowerCase()" 
+                    :children="(item.children && $route.path.includes('ISF')) ? item.children : []" 
+                    :name="item.name"
+                ) {{ item.name }}
         .aside-version 
             p.aside-version__value v {{ version }}
         .sidebar__tag-select

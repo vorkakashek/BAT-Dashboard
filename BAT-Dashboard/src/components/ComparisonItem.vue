@@ -44,7 +44,7 @@ const product_vals = computed(() => {
     .comparison-item-label {{ comparisonData.label }}
 
     slot(name="progressbar")
-        ItemProgressbar(:data="comparisonData.stats" v-if="!vertical")
+        ItemProgressbar(:data="comparisonData.stats" v-if="!vertical && comparisonData?.stats?.length > 0")
     slot(name="data")
         ItemData(:data="comparisonData.stats")
 

@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from "vue";
 import FavoriteToggler from "@/components/FavoriteToggler.vue";
 import OptionalToggler from "@/components/OptionalToggler.vue";
+import Dropdown from "@/components/Dropdown.vue";
 import { useFiltersStore } from "@/store/store"
 
 const store = useFiltersStore()
@@ -57,7 +58,7 @@ const optionalOptions = ref([
 const optionalValue = ref([''])
 
 
-const itemValue = ref([options.length]);
+const itemValue = ref([]);
 
 const handlerOpen = (value) => itemValue.value = []
 
@@ -87,21 +88,34 @@ let currentYear = (y) => {
 
 
 <template lang="pug">
-Teleport(to="#ISF")
-    Multiselect(
-        v-model="itemValue", 
-        :close-on-select="true", 
-        :options="options", 
-        mode="tags",
-        :max="1",
-        @open="handlerOpen",
-        @close="handlerClose",
-        :canClear='false',
-        :searchable="true",
-        )
+Teleport(to="#Equipment")
+    Dropdown(
+        v-model="itemValue",
+        :value="itemValue",
+        isWhite
+        isFill
+        :options="options",
+        placeholder="Cycle Name",
+    )
         template(v-slot:option="{ option }")
             span {{ option.label }}
-            span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
+            span.tag {{ option.year }}
+        template(v-slot:value="{ value }")
+            | {{value.label || 'Cycle Name'}}
+    //- Multiselect(
+    //-     v-model="itemValue", 
+    //-     :close-on-select="true", 
+    //-     :options="options", 
+    //-     mode="tags",
+    //-     :max="1",
+    //-     @open="handlerOpen",
+    //-     @close="handlerClose",
+    //-     :canClear='false',
+    //-     :searchable="true",
+    //-     )
+    //-     template(v-slot:option="{ option }")
+    //-         span {{ option.label }}
+    //-         span.tag(:class="{ 'current': currentYear(option.year) }") {{ option.year }}
 
 .filter-group
     FavoriteToggler(:options="options" v-model="itemValue")
@@ -114,11 +128,13 @@ slot
 
 <style lang="scss" scoped>
 .filter-group {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     flex-wrap: wrap;
     margin-top: var(--pdlg);
-
+    &:not(:first-child) {
+        margin-left: var(--pdlg);
+    }
     >* {
         margin: 0 !important;
         margin-bottom: var(--pdlg) !important;

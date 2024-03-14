@@ -14,6 +14,10 @@ const props = defineProps({
 		type: Boolean,
 		default: false
 	},
+	value: {
+		type: [String, Array, null],
+		default: null 
+	},
 	isWhite: {
 		type: Boolean,
 		default: false
@@ -22,23 +26,24 @@ const props = defineProps({
 		type: Boolean,
 		default: false
 	},
-	isSelectedInRow: {
+	isTags: {
 		type: Boolean,
 		default: false
 	}
 })
-const value = ref(null)
+const value = ref(props.value)
 const open = ref(false)
 const dropdownPlaceholder = ref(null)
 const dropdown = ref(null)
 const top = ref(dropdownPlaceholder.value?.getBoundingClientRect().top + window.scrollY)
 const left = ref(dropdownPlaceholder.value?.getBoundingClientRect().left)
 const width = ref(dropdown.value?.getBoundingClientRect().width)
-
+const widthPlaceholder = ref(dropdownPlaceholder.value?.getBoundingClientRect().width)
 nextTick(() => {
 	top.value = dropdownPlaceholder.value?.getBoundingClientRect().top + window.scrollY
 	left.value = dropdownPlaceholder.value?.getBoundingClientRect().left
 	width.value = dropdown.value?.getBoundingClientRect().width
+	widthPlaceholder.value = dropdownPlaceholder.value?.getBoundingClientRect().width
 	const resizeObserver = new ResizeObserver(function() {
 		width.value = dropdown.value?.getBoundingClientRect().width
 	});
@@ -59,15 +64,23 @@ nextTick(() => {
 const updatePosition = () => {
 	top.value = dropdownPlaceholder.value?.getBoundingClientRect().top + window.scrollY
 	left.value = dropdownPlaceholder.value?.getBoundingClientRect().left
+	widthPlaceholder.value = dropdownPlaceholder.value?.getBoundingClientRect().width
+}
+
+const checkSelected = (option) => {
+	if(value.value?.[0]?.value !== undefined) return value.value?.filter(i => i?.value === option?.value)?.length > 0
+	return value.value?.length !== undefined ? value.value?.includes(option) : (value.value?.value === option?.value && value.value?.value !== undefined)
 }
 
 const selected = (option, index) => {
-	if(!props.multiselect) {
+	if(!props.multiselect && !props.isTags) {
 		value.value = option
 		open.value = false
 	} else {
 		if(value.value?.includes(option)) {
-			value.value?.splice(value.value?.indexOf(option), 1)
+			value.value = value.value.filter(val => val !== option)
+		} else if (option?.value !== undefined && value.value?.filter(val => val?.value === option?.value).length > 0) {
+			value.value = value.value?.filter(val => val?.value !== option?.value)
 		} else {
 			value.value = value.value ? [...value.value, option] : [option]
 		}
@@ -79,28 +92,55 @@ const selected = (option, index) => {
 </script>
 	
 <template lang="pug">
-.dropdown-placeholder(ref="dropdownPlaceholder" :style="{ width: `${isFill ? '100%' : width }px` }" :class="{ 'dropdown-placeholder--white': isWhite }")
+.dropdown-placeholder(ref="dropdownPlaceholder" :style="{ width: `${isFill ? '100%' : '' }px` }" :class="{ 'dropdown-placeholder--white': isWhite, 'dropdown-placeholder--tags': isTags }")
 	.dropdown__header(@click="() => {open = !open; updatePosition();}")
-		.dropdown__value {{ (value && !multiselect) ? value : placeholder }} {{ (multiselect && value?.length > 0) ? `(Selected: ${value.length})` : '' }}
+		template(v-if="isTags && value?.length > 0")
+			.dropdown__value(v-for="item in value" @click="selected(item); open = false;") 
+				| {{ item?.label }}
+				<svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.8987 10.4167L4.08203 9.59998L6.18203 7.49998L4.08203 5.41457L4.8987 4.5979L6.9987 6.6979L9.08412 4.5979L9.90078 5.41457L7.80078 7.49998L9.90078 9.59998L9.08412 10.4167L6.9987 8.31665L4.8987 10.4167Z" fill="white"/>
+				</svg>
+		template(v-else-if="isTags && value?.length === 0")
+			.dropdown__value.dropdown__value--placeholder {{ placeholder }}
+		template(v-else)
+			.dropdown__value(:class="{'dropdown__value--placeholder': value === '' || value === null || value?.length === 0}")
+				slot(name="value" :value="value")
+					| {{ (value && !multiselect) ? value : placeholder }} {{ (multiselect && value?.length > 0) ? `(Selected: ${value.length})` : '' }}
 		.dropdown__icon
 			<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M1.94 3.00011L5 6.06011L8.06 3.00011L9 3.94677L5 7.94677L1 3.94677L1.94 3.00011Z" fill="white"/>
 			</svg>
 	teleport(to="body")
-		.dropdown(:class="{ 'dropdown--open': open, 'dropdown--white': isWhite }" :style="{ top: `${top}px`, left: `${left}px`, opacity: open ? 1 : 0 }" ref="dropdown")
+		.dropdown(:class="{ 'dropdown--open': open, 'dropdown--white': isWhite, 'dropdown--tags': isTags }" :style="{ top: `${top}px`, left: `${left}px`, opacity: open ? 1 : 0, width: `${isFill ? widthPlaceholder : ''}px` }" ref="dropdown")
 			.dropdown__header(@click="() => {open = !open; updatePosition();}")
-				.dropdown__value {{ (value && !multiselect) ? value : placeholder }} {{ (multiselect && value?.length > 0) ? `(Selected: ${value.length})` : '' }}
+				template(v-if="isTags && value?.length > 0")
+					.dropdown__value(v-for="item in value" @click="selected(item); open = true;") 
+						| {{ item?.label }}
+						<svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M4.8987 10.4167L4.08203 9.59998L6.18203 7.49998L4.08203 5.41457L4.8987 4.5979L6.9987 6.6979L9.08412 4.5979L9.90078 5.41457L7.80078 7.49998L9.90078 9.59998L9.08412 10.4167L6.9987 8.31665L4.8987 10.4167Z" fill="white"/>
+						</svg>
+				template(v-else-if="isTags && value?.length === 0")
+					.dropdown__value.dropdown__value--placeholder {{ placeholder }}
+				template(v-else)
+					.dropdown__value(:class="{'dropdown__value--placeholder': value === '' || value === null || value?.length === 0}")
+						slot(name="value" :value="value")
+							| {{ (value && !multiselect) ? value : placeholder }} {{ (multiselect && value?.length > 0) ? `(Selected: ${value.length})` : '' }}
 				.dropdown__icon
 					<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M1.94 3.00011L5 6.06011L8.06 3.00011L9 3.94677L5 7.94677L1 3.94677L1.94 3.00011Z" fill="white"/>
 					</svg>
 			.dropdown__wrapper(:class="{ 'dropdown__wrapper--open': open }")
 				.dropdown__content
-					button.dropdown__item(v-for="(item, index) in options", @click="() => selected(item, index)" :class="{'dropdown__item--selected': typeof value === 'object' ? value?.includes(item) : false}" ) 
-						| {{ item }}
-						<svg v-if="multiselect" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11362 2.94702C8.40652 2.65412 8.40652 2.17925 8.11362 1.88636C7.82073 1.59346 7.34586 1.59346 7.05296 1.88636L4.99996 3.93936L2.94696 1.88636C2.65406 1.59346 2.17919 1.59346 1.8863 1.88636C1.5934 2.17925 1.5934 2.65412 1.8863 2.94702L3.9393 5.00002L1.8863 7.05302C1.5934 7.34592 1.5934 7.82079 1.8863 8.11368C2.17919 8.40658 2.65406 8.40658 2.94696 8.11368L4.99996 6.06068L7.05296 8.11368C7.34586 8.40658 7.82073 8.40658 8.11362 8.11368C8.40652 7.82079 8.40652 7.34592 8.11362 7.05302L6.06062 5.00002L8.11362 2.94702Z" fill="white"/>
-						</svg>
+					button.dropdown__item(
+						v-for="(item, index) in options"
+						@click="() => selected(item, index)" 
+						:class="{'dropdown__item--selected': typeof value === 'object' ? checkSelected(item) : false}"
+					) 
+						slot(name="option", :option="item", :index="index")
+							| {{ item }}
+							<svg v-if="multiselect" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11362 2.94702C8.40652 2.65412 8.40652 2.17925 8.11362 1.88636C7.82073 1.59346 7.34586 1.59346 7.05296 1.88636L4.99996 3.93936L2.94696 1.88636C2.65406 1.59346 2.17919 1.59346 1.8863 1.88636C1.5934 2.17925 1.5934 2.65412 1.8863 2.94702L3.9393 5.00002L1.8863 7.05302C1.5934 7.34592 1.5934 7.82079 1.8863 8.11368C2.17919 8.40658 2.65406 8.40658 2.94696 8.11368L4.99996 6.06068L7.05296 8.11368C7.34586 8.40658 7.82073 8.40658 8.11362 8.11368C8.40652 7.82079 8.40652 7.34592 8.11362 7.05302L6.06062 5.00002L8.11362 2.94702Z" fill="white"/>
+							</svg>
 
 </template>
 	
@@ -114,12 +154,39 @@ const selected = (option, index) => {
 		.dropdown {
 			&__value {
 				color: var(--TEXT---PRIMARY, #3A474B);
+				&--placeholder {
+					color: #9DA8B5;
+					padding: 0;
+					background: transparent;
+				}
 			}
 			&__icon {
 				margin-left: auto;
 				:deep(path) {
 					fill: var(--TEXT---PRIMARY, #3A474B);
 				}
+			}
+		}
+	}
+	&--tags {
+		.dropdown__header {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 4px ;
+		}
+		.dropdown__value {
+			display: flex;
+			font-size: 12px;
+			font-weight: 700;
+			padding: 4px;
+			gap: 2px;
+			color: #fff;
+			background: #00B1EB;
+			border-radius: 4px;
+			&--placeholder {
+				color: #9DA8B5;
+				padding: 0;
+				background: transparent;
 			}
 		}
 	}
@@ -132,7 +199,8 @@ const selected = (option, index) => {
 	top: 0;
 	left: 0;
 	width: auto;
-	z-index: 100;
+	z-index: 1002;
+	pointer-events: none;
 	&__header {
 		display: flex;
 		align-items: center;
@@ -228,7 +296,7 @@ const selected = (option, index) => {
 	&--open {
 		background: #fff;
 		box-shadow: 0px 16px 24px 0px rgba(157, 168, 181, 0.25);
-		z-index: 101;
+		z-index: 1003;
 		.dropdown {
 			&__value {
 				color: var(--blue-light);
@@ -246,12 +314,39 @@ const selected = (option, index) => {
 		.dropdown {
 			&__value {
 				color: var(--TEXT---PRIMARY, #3A474B);
+				&--placeholder {
+					color: #9DA8B5;
+					padding: 0;
+					background: transparent;
+				}
 			}
 			&__icon {
 				margin-left: auto;
 				:deep(path) {
 					fill: var(--TEXT---PRIMARY, #3A474B);
 				}
+			}
+		}
+	}
+	&--tags {
+		.dropdown__header {
+			display: flex;
+			gap: 4px;
+			flex-wrap: wrap;
+		}
+		.dropdown__value {
+			display: flex;
+			font-size: 12px;
+			font-weight: 700;
+			padding: 4px;
+			gap: 2px;
+			color: #fff;
+			background: #00B1EB;
+			border-radius: 4px;
+			&--placeholder {
+				color: #9DA8B5;
+				padding: 0;
+				background: transparent;
 			}
 		}
 	}
