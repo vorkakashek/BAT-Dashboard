@@ -103,7 +103,7 @@ const activityOptions = ref([
 ]);
 
 const cycleValue = ref([cycleOptions.value.length - 1]);
-const activityValue = ref([]);
+const activityValue = ref([activityOptions.value[0]]);
 
 // const activeCycleOptions = computed(() => {
 //     return [...cycleOptions.value.filter((obj) => cycleValue[0] === obj.value)];
@@ -121,7 +121,7 @@ const activityValue = ref([]);
 // });
 
 const upadteActivityValue = (value) => {
-    console.log(value)
+    // console.log(value)
     // console.log(cycleOptions.value.filter(i => i.value === cycleValue.value[0])[0], value)
     activityValue.value = value.length < 1 ? [] : value.filter(i => cycleOptions.value.filter(i => i.value === cycleValue.value[0])[0].activities.includes(i.value))
 }

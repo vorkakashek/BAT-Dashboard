@@ -98,7 +98,7 @@ const selected = (option, index) => {
 		}
 	}
 	updatePosition()
-	console.log(value.value)
+	// console.log(value.value)
 	if(props.isNumberValue) {
 		emits('update:modelValue', [value.value.value])
 	} else {

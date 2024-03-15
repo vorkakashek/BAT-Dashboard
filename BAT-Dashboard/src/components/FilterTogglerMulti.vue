@@ -75,9 +75,9 @@ const togglerValue = computed({
     padding: 6px 8px;
     border-radius: 8px;
     color: #979797;
+    font-weight: 700;
     font-family: "Source Sans Pro";
     font-size: 14px;
-    font-weight: 400;
     line-height: normal;
     transition: .3s ease;
 

@@ -56,7 +56,7 @@ const emit = defineEmits(['update:modelValue']);
     background-color: #fff;
     overflow: hidden;
     gap: 2px;
-    padding: 4px;
+    padding: 2px;
 }
 
 .toggle-option {
@@ -83,14 +83,14 @@ const emit = defineEmits(['update:modelValue']);
 }
 
 .toggle-option-label {
-    padding: 8px 12px;
+    padding: 6px 8px;
     border-radius: 8px;
     font-weight: 700;
     font-size: 13px;
     transition: all .3s ease;
     color: #979797;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 700;
     line-height: normal;
 
     &:hover {

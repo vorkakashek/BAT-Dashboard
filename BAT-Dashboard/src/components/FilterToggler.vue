@@ -81,9 +81,9 @@ const togglerValue = computed({
     color: #979797;
     font-family: "Source Sans Pro";
     font-size: 14px;
-    font-weight: 400;
     line-height: normal;
     transition: .3s ease;
+    font-weight: 700;
 
     &:hover {
         background-color: hsl(120, 6%, 92%);
