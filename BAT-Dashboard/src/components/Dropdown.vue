@@ -65,6 +65,8 @@ nextTick(() => {
 			open.value = false
 		}
 	})
+	window.addEventListener('resize', updatePosition)
+	window.addEventListener('scroll', updatePosition)
 })
 
 const updatePosition = () => {
@@ -74,7 +76,6 @@ const updatePosition = () => {
 }
 
 watch(() => props.value, () => {
-	console.log(props.value)
 	value.value = props.value
 })
 
@@ -97,6 +98,7 @@ const selected = (option, index) => {
 		}
 	}
 	updatePosition()
+	console.log(value.value)
 	if(props.isNumberValue) {
 		emits('update:modelValue', [value.value.value])
 	} else {

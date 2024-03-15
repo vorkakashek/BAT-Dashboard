@@ -141,9 +141,9 @@ watch(() => cycleValue.value, (val) => {
 });
 
 watch(() => activityValue.value, (val) => {
-    if (val.length < 1) {
-        activityValue.value = []
-    }
+    // if (val.length < 1) {
+    //     activityValue.value = []
+    // }
     store.save(activityValue.value, 'cycle_2')
 })
 
@@ -202,8 +202,8 @@ Teleport(to="#CycleMaterials")
         template(v-slot:value="{ value }")
             | {{value?.label || 'Cycle Name'}}
     Dropdown(
-        @update:modelValue="(val) => upadteActivityValue(val)",
-        :value="activityValue",
+        @update:modelValue="(val) => val.length < 1 ? activityValue = [] : upadteActivityValue(val)",
+        :value="activityValue || []",
         isWhite
         isFill
         isTags
