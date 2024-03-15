@@ -58,7 +58,7 @@ const optionalOptions = ref([
 const optionalValue = ref([''])
 
 
-const itemValue = ref([0]);
+const itemValue = ref([options.length - 1]);
 
 const handlerOpen = (value) => itemValue.value = []
 
@@ -121,7 +121,7 @@ Teleport(to="#Equipment")
     FavoriteToggler(:options="options" v-model="itemValue")
     OptionalToggler(v-if="optionalOptions && optionalOptions.length > 0" :options="optionalOptions" v-model="optionalValue")
 
-slot
+router-view 
 
 
 </template>
@@ -132,9 +132,6 @@ slot
     align-items: center;
     flex-wrap: wrap;
     margin-top: var(--pdlg);
-    &:not(:first-child) {
-        margin-left: var(--pdlg);
-    }
     >* {
         margin: 0 !important;
         margin-bottom: var(--pdlg) !important;

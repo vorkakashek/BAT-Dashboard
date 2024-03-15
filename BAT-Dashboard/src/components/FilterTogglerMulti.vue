@@ -40,7 +40,7 @@ const togglerValue = computed({
     background-color: #fff;
     overflow: hidden;
     gap: 2px;
-    padding: 4px;
+    padding: 2px;
     &:not(:first-child) {
         margin-left: 16px;
     }
@@ -72,7 +72,7 @@ const togglerValue = computed({
 }
 
 .filter_toggler-option-label {
-    padding: 8px 12px;
+    padding: 6px 8px;
     border-radius: 8px;
     color: #979797;
     font-family: "Source Sans Pro";

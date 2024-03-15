@@ -53,7 +53,7 @@ const options = [
     },
 ];
 
-const itemValue = ref([0]);
+const itemValue = ref([options.length - 1]);
 
 watch(itemValue, (value) => {
     if (value.length < 1) {

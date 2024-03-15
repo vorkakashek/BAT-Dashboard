@@ -169,33 +169,33 @@ watch(() => RKAFilterValue.value, (val) => {
 
 
 <template lang="pug">
-ISFLayout
-    Teleport(to="#export-excel")
-        ExportExcel()
 
-    vue-easy-lightbox(
-        :visible="state.visible",
-        :imgs="state.imgs",
-        :index="state.index",
-        @hide="handleHide"
-    )
+Teleport(to="#export-excel")
+    ExportExcel()
 
-    TotalProgressbar(:data="totalData")
-        template(#legend)
-            ProgressbarLegend(:data="totalData")
+vue-easy-lightbox(
+    :visible="state.visible",
+    :imgs="state.imgs",
+    :index="state.index",
+    @hide="handleHide"
+)
 
-    .panel
-        h2 ISF
-        .comparison-wrap
-            .comparison-aside
-                img.zoom(:src="importPhoto", @click="() => showSingle()")
+TotalProgressbar(:data="totalData")
+    template(#legend)
+        ProgressbarLegend(:data="totalData")
 
-            .comparison-content
-                FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")
-                FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
-                FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
-                .comparison-items
-                    ComparisonItem(v-for="item in itemList", :comparisonData="item")
+.panel
+    h2 ISF
+    .comparison-wrap
+        .comparison-aside
+            img.zoom(:src="importPhoto", @click="() => showSingle()")
+
+        .comparison-content
+            FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")
+            FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
+            FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
+            .comparison-items
+                ComparisonItem(v-for="item in itemList", :comparisonData="item")
 </template>
 
 <style lang="scss" scoped>

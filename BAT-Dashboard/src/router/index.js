@@ -156,7 +156,7 @@ const router = createRouter({
                             path: 'Equipment',
                             redirect: '/panel/ISF/Equipment/Delivery-Execution',
                             params: true,
-                            component: () => import('../views/Panels/Equipment/Equipment.vue'),
+                            component: () => import('../views/Panels/ISF/ISF-layout.vue'),
                             children: [
                                 {
                                     name: 'Equipment Delivery Execution',

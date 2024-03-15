@@ -40,7 +40,7 @@ const options = [
     },
 ];
 
-const itemValue = ref([]);
+const itemValue = ref([options.length - 1]);
 
 const optionalOptions = ref([
     {

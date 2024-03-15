@@ -30,7 +30,12 @@ const props = defineProps({
 		type: Boolean,
 		default: false
 	},
+	isNumberValue: {
+		type: Boolean,
+		default: false
+	}
 })
+const value = ref(props.value)
 const open = ref(false)
 const dropdownPlaceholder = ref(null)
 const dropdown = ref(null)
@@ -38,6 +43,8 @@ const top = ref(dropdownPlaceholder.value?.getBoundingClientRect().top + window.
 const left = ref(dropdownPlaceholder.value?.getBoundingClientRect().left)
 const width = ref(dropdown.value?.getBoundingClientRect().width)
 const widthPlaceholder = ref(dropdownPlaceholder.value?.getBoundingClientRect().width)
+
+
 nextTick(() => {
 	top.value = dropdownPlaceholder.value?.getBoundingClientRect().top + window.scrollY
 	left.value = dropdownPlaceholder.value?.getBoundingClientRect().left
@@ -66,28 +73,32 @@ const updatePosition = () => {
 	widthPlaceholder.value = dropdownPlaceholder.value?.getBoundingClientRect().width
 }
 
+watch(() => props.value, () => {
+	console.log(props.value)
+	value.value = props.value
+})
+
 const checkSelected = (option) => {
-	if(props.value?.[0]?.value !== undefined) return props.value?.filter(i => i?.value === option?.value)?.length > 0
-	return props.value?.length !== undefined ? props.value?.includes(option) : (props.value?.value === option?.value && props.value?.value !== undefined)
+	if(value.value?.[0]?.value !== undefined) return value.value?.filter(i => i?.value === option?.value)?.length > 0
+	return value.value?.length !== undefined ? value.value?.includes(option) : (value.value?.value === option?.value && value.value?.value !== undefined)
 }
 
 const selected = (option, index) => {
-	const value = ref(props.value)
 	if(!props.multiselect && !props.isTags) {
 		value.value = option
 		open.value = false
 	} else {
-		if(props.value?.includes(option)) {
+		if(value.value?.includes(option)) {
 			value.value = value.value.filter(val => val !== option)
-		} else if (option?.value !== undefined && props.value?.filter(val => val?.value === option?.value).length > 0) {
-			value.value = props.value?.filter(val => val?.value !== option?.value)
+		} else if (option?.value !== undefined && value.value?.filter(val => val?.value === option?.value).length > 0) {
+			value.value = value.value?.filter(val => val?.value !== option?.value)
 		} else {
 			value.value = value.value ? [...value.value, option] : [option]
 		}
 	}
 	updatePosition()
 	if(props.isNumberValue) {
-		emits('update:modelValue', value.value.value)
+		emits('update:modelValue', [value.value.value])
 	} else {
 		emits('update:modelValue', value.value)
 	}
@@ -135,16 +146,16 @@ const selected = (option, index) => {
 					</svg>
 			.dropdown__wrapper(:class="{ 'dropdown__wrapper--open': open }")
 				.dropdown__content
-					button.dropdown__item(
-						v-for="(item, index) in options"
-						@click="() => selected(item, index)" 
-						:class="{'dropdown__item--selected': typeof value === 'object' ? checkSelected(item) : false}"
-					) 
-						slot(name="option", :option="item", :index="index")
-							| {{ item }}
-							<svg v-if="multiselect" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11362 2.94702C8.40652 2.65412 8.40652 2.17925 8.11362 1.88636C7.82073 1.59346 7.34586 1.59346 7.05296 1.88636L4.99996 3.93936L2.94696 1.88636C2.65406 1.59346 2.17919 1.59346 1.8863 1.88636C1.5934 2.17925 1.5934 2.65412 1.8863 2.94702L3.9393 5.00002L1.8863 7.05302C1.5934 7.34592 1.5934 7.82079 1.8863 8.11368C2.17919 8.40658 2.65406 8.40658 2.94696 8.11368L4.99996 6.06068L7.05296 8.11368C7.34586 8.40658 7.82073 8.40658 8.11362 8.11368C8.40652 7.82079 8.40652 7.34592 8.11362 7.05302L6.06062 5.00002L8.11362 2.94702Z" fill="white"/>
-							</svg>
+					template(v-for="(item, index) in options")
+						button.dropdown__item(
+							@click="() => selected(item, index)" 
+							:class="{'dropdown__item--selected': typeof value === 'object' ? checkSelected(item) : false}"
+						) 
+							slot(name="option", :option="item", :index="index")
+								| {{ item }}
+								<svg v-if="multiselect" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11362 2.94702C8.40652 2.65412 8.40652 2.17925 8.11362 1.88636C7.82073 1.59346 7.34586 1.59346 7.05296 1.88636L4.99996 3.93936L2.94696 1.88636C2.65406 1.59346 2.17919 1.59346 1.8863 1.88636C1.5934 2.17925 1.5934 2.65412 1.8863 2.94702L3.9393 5.00002L1.8863 7.05302C1.5934 7.34592 1.5934 7.82079 1.8863 8.11368C2.17919 8.40658 2.65406 8.40658 2.94696 8.11368L4.99996 6.06068L7.05296 8.11368C7.34586 8.40658 7.82073 8.40658 8.11362 8.11368C8.40652 7.82079 8.40652 7.34592 8.11362 7.05302L6.06062 5.00002L8.11362 2.94702Z" fill="white"/>
+								</svg>
 
 </template>
 	
@@ -295,6 +306,18 @@ const selected = (option, index) => {
 			color: #fff;
 			border-radius: 6px;
 			background: #00B1EB;
+		}
+		:deep(.tag) {
+			position: absolute;
+			right: 4px;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 11px;
+			font-weight: 700;
+			border-radius: 4px;
+			background-color: #F2F5F8;
+			padding: 0 6px;
+			color: #7c8e99;
 		}
 	}
 	&--open {

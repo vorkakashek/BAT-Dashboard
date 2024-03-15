@@ -45,7 +45,7 @@ router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary,
 		.button-childrens
 			template(v-for="item in children") 
 				router-link.button-children(:to="`/panel/${item.link}`") 
-					app-icon(name="dot" size="36")
+					app-icon(name="dot" size="32")
 					| {{ item.name }}
 
 

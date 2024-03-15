@@ -36,7 +36,7 @@ const options = [
     },
 ];
 
-const itemValue = ref([0]);
+const itemValue = ref([options.length - 1]);
 
 const handlerOpen = (value) => itemValue.value = []
 const handlerClose = () => {

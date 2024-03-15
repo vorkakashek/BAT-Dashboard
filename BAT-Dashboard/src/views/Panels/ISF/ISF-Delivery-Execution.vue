@@ -502,21 +502,20 @@ watch(() => RKAFilterValue.value, (val) => {
 </script>
 
 <template lang="pug">
-ISFLayout
-    Teleport(to="#export-excel")
-        ExportExcel()
+Teleport(to="#export-excel")
+    ExportExcel()
 
-    TotalProgressbar(:data="totalData")
-        template(#legend)
-            ProgressbarLegend(:data="totalData")
+TotalProgressbar(:data="totalData")
+    template(#legend)
+        ProgressbarLegend(:data="totalData")
 
-    .panel
-        FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")
-        FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
-        FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
-        ProductCards
-            template(#items)
-                ProductCard(v-for="product in itemList", :product="product")
+.panel
+    FilterToggler(:options="ISFFilterOptions" v-model="ISFFilterValue")
+    FilterToggler(:options="PEXFilterOptions" v-model="PEXFilterValue")
+    FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
+    ProductCards
+        template(#items)
+            ProductCard(v-for="product in itemList", :product="product")
 </template>
 
 <style lang="scss" scoped>

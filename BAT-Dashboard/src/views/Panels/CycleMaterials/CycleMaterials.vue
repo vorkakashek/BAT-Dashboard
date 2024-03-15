@@ -12,10 +12,10 @@ const store = useFiltersStore();
 onMounted(() => {
     optionalValue.value = ['']
     if (store.togglers.find(e => e.name === 'cycle_1').value !== 'unset') {
-        state.cycleValue = [store.togglers.find(e => e.name === 'cycle_1').value]
+        cycleValue.value = [store.togglers.find(e => e.name === 'cycle_1').value]
     }
     if (store.togglers.find(e => e.name === 'cycle_2').value !== 'unset') {
-        state.activityValue = store.togglers.find(e => e.name === 'cycle_2').value
+        activityValue.value = store.togglers.find(e => e.name === 'cycle_2').value
     }
     if (store.togglers.find(e => e.name === 'cycle_3').value !== 'unset') {
         RKAFilterValue.value = store.togglers.find(e => e.name === 'cycle_3').value
@@ -33,27 +33,27 @@ const cycleOptions = ref([
     {
         value: 3,
         label: 'Cycle Name 4',
-        activities: [5],
+        activities: [0, 5],
         favorite: true,
         year: '2023'
     },
     {
         value: 2,
         label: 'Cycle Name 3',
-        activities: [2, 3, 4],
+        activities: [0, 2, 3, 4],
         year: '2023'
     },
     {
         value: 1,
         label: 'Cycle Name 2',
-        activities: [1, 2, 4],
+        activities: [0, 1, 2, 4],
         favorite: true,
         year: '2022'
     },
     {
         value: 0,
         label: 'Cycle Name 1',
-        activities: [1, 3, 4],
+        activities: [0, 1, 3, 4],
         favorite: true,
         year: '2022'
     },
@@ -102,42 +102,49 @@ const activityOptions = ref([
     },
 ]);
 
-const state = reactive({
-    cycleValue: [0],
-    activityValue: [],
-});
+const cycleValue = ref([cycleOptions.value.length - 1]);
+const activityValue = ref([]);
 
-const activeCycleOptions = computed(() => {
-    return cycleOptions.value.filter((obj) => state.cycleValue[0] === obj.value);
-});
+// const activeCycleOptions = computed(() => {
+//     return [...cycleOptions.value.filter((obj) => cycleValue[0] === obj.value)];
+// });
 
-const filteredActivityOptions = computed(() => {
-    return activityOptions.value.filter(({ value }) => {
-        if (value === 0 || state.cycleValue[0] === 0) {
-            return true;
-        }
-        return activeCycleOptions.value.some(({ activities }) => {
-            return activities.includes(value);
-        })
-    });
-});
+// const filteredActivityOptions = computed(() => {
+//     return [...activityOptions.value.filter(({ value }) => {
+//         if (value === 0 || cycleValue.value[0] === 0) {
+//             return true;
+//         }
+//         return activeCycleOptions.value.some(({ activities }) => {
+//             return activities.includes(value);
+//         })
+//     })];
+// });
 
-watch(() => state.cycleValue, (val) => {
+const upadteActivityValue = (value) => {
+    console.log(value)
+    // console.log(cycleOptions.value.filter(i => i.value === cycleValue.value[0])[0], value)
+    activityValue.value = value.length < 1 ? [] : value.filter(i => cycleOptions.value.filter(i => i.value === cycleValue.value[0])[0].activities.includes(i.value))
+}
+
+watch(() => cycleValue.value, (val) => {
     if (val.length < 1) {
-        state.cycleValue = [cycleOptions.value.length - 1]
+        cycleValue.value = [cycleOptions.value.length - 1]
+    }
+    if(activityValue.value.length >= 1) {
+        upadteActivityValue(activityValue.value)
     }
     // filtering Activity Options
-    // state.activityValue = state.activityValue.filter((v) => {
+    // activityValue.value = activityValue.value.filter((v) => {
     //     return filteredActivityOptions.value.some(({ value }) => v === value);
     // });
-    store.save(state.cycleValue, 'cycle_1')
+    store.save(cycleValue.value, 'cycle_1')
 });
 
-watch(() => state.activityValue, (val) => {
+watch(() => activityValue.value, (val) => {
     if (val.length < 1) {
-        state.activityValue = []
+        activityValue.value = []
     }
-    store.save(state.activityValue, 'cycle_2')
+    store.save(activityValue.value, 'cycle_2')
 })
 
 watch(() => RKAFilterValue.value, (val) => {
@@ -175,15 +182,15 @@ let currentYear = (y) => {
 <template lang="pug">
 
 
-div {{ state.SalesChannelFilter_Value}}
+//- div {{ state.SalesChannelFilter_Value}}
 
 Teleport(to="#export-excel")
     ExportExcel(disabled)
 
 Teleport(to="#CycleMaterials")
     Dropdown(
-        @update:modelValue="(val) => state.cycleValue = [val.value]",
-        :value="cycleOptions.filter(i => i.value === state.cycleValue[0])[0]",
+        @update:modelValue="(val) => cycleValue = [val.value]",
+        :value="cycleOptions.filter(i => i.value === cycleValue[0])[0]",
         isWhite
         isFill
         :options="cycleOptions",
@@ -195,12 +202,12 @@ Teleport(to="#CycleMaterials")
         template(v-slot:value="{ value }")
             | {{value?.label || 'Cycle Name'}}
     Dropdown(
-        v-model="state.activityValue",
-        :value="state.activityValue",
+        @update:modelValue="(val) => upadteActivityValue(val)",
+        :value="activityValue",
         isWhite
         isFill
         isTags
-        :options="filteredActivityOptions",
+        :options="activityOptions.filter(i => cycleOptions.some(j => j.value === cycleValue[0] && j.activities.includes(i.value)))",
         placeholder="Activity",
     )
         template(v-slot:option="{ option }")
@@ -265,7 +272,7 @@ Teleport(to="#CycleMaterials")
     //-     )
 
 .filter-group
-    FavoriteToggler(:options="cycleOptions" v-model="state.cycleValue")
+    FavoriteToggler(:options="cycleOptions" v-model="cycleValue")
     FilterTogglerMulti(:options="RKAFilterOptions" v-model="RKAFilterValue")
     OptionalToggler(v-if="optionalOptions && optionalOptions.length > 0" :options="optionalOptions" v-model="optionalValue")
     
