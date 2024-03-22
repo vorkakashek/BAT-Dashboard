@@ -195,6 +195,7 @@ Teleport(to="#CycleMaterials")
         isFill
         :options="cycleOptions",
         placeholder="Cycle Name",
+        isDefaultValue
     )
         template(v-slot:option="{ option }")
             span {{ option.label }}

@@ -33,6 +33,10 @@ const props = defineProps({
 	isNumberValue: {
 		type: Boolean,
 		default: false
+	},
+	isDefaultValue: {
+		type: Boolean,
+		default: false
 	}
 })
 const value = ref(props.value)
@@ -43,7 +47,7 @@ const top = ref(dropdownPlaceholder.value?.getBoundingClientRect().top + window.
 const left = ref(dropdownPlaceholder.value?.getBoundingClientRect().left)
 const width = ref(dropdown.value?.getBoundingClientRect().width)
 const widthPlaceholder = ref(dropdownPlaceholder.value?.getBoundingClientRect().width)
-
+const defaultValue = props.options[props.options.length - 1]
 
 nextTick(() => {
 	top.value = dropdownPlaceholder.value?.getBoundingClientRect().top + window.scrollY
@@ -107,8 +111,9 @@ const selected = (option, index) => {
 }
 
 const clear = () => {
-	value.value = null
-	emits('update:modelValue', null)
+	console.log(defaultValue, value.value)
+	value.value = props.isDefaultValue ? defaultValue : null
+	emits('update:modelValue', props.isDefaultValue ? defaultValue : null)
 }
 
 </script>
@@ -128,7 +133,7 @@ const clear = () => {
 			.dropdown__value(:class="{'dropdown__value--placeholder': value === '' || value === null || value?.length === 0}")
 				slot(name="value" :value="value")
 					| {{ (value && !multiselect) ? value : placeholder }} {{ (multiselect && value?.length > 0) ? `(Selected: ${value.length})` : '' }}
-			.dropdown__clear(@click="clear" v-if="!multiselect && value !== '' && value !== null && value?.length > 0")
+			.dropdown__clear(@click="clear" v-if="!multiselect && ((value !== '' && value !== null && value?.length > 0) || isDefaultValue ? defaultValue?.value !== value?.value : false)")
 				<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11362 2.94702C8.40652 2.65412 8.40652 2.17925 8.11362 1.88636C7.82073 1.59346 7.34586 1.59346 7.05296 1.88636L4.99996 3.93936L2.94696 1.88636C2.65406 1.59346 2.17919 1.59346 1.8863 1.88636C1.5934 2.17925 1.5934 2.65412 1.8863 2.94702L3.9393 5.00002L1.8863 7.05302C1.5934 7.34592 1.5934 7.82079 1.8863 8.11368C2.17919 8.40658 2.65406 8.40658 2.94696 8.11368L4.99996 6.06068L7.05296 8.11368C7.34586 8.40658 7.82073 8.40658 8.11362 8.11368C8.40652 7.82079 8.40652 7.34592 8.11362 7.05302L6.06062 5.00002L8.11362 2.94702Z" fill="white"/>
 				</svg>
@@ -151,9 +156,9 @@ const clear = () => {
 					.dropdown__value(:class="{'dropdown__value--placeholder': value === '' || value === null || value?.length === 0}")
 						slot(name="value" :value="value")
 							| {{ (value && !multiselect) ? value : placeholder }} {{ (multiselect && value?.length > 0) ? `(Selected: ${value.length})` : '' }}
-					.dropdown__clear(@click="clear" v-if="!multiselect && value !== null && value !== '' && value !== undefined")
+					.dropdown__clear(@click="clear" v-if="!multiselect && ((value !== '' && value !== null && value?.length > 0) || isDefaultValue ? defaultValue?.value !== value?.value : false)")
 						<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11362 2.94702C8.40652 2.65412 8.40652 2.17925 8.11362 1.88636C7.82073 1.59346 7.34586 1.59346 7.05296 1.88636L4.99996 3.93936L2.94696 1.88636C2.65406 1.59346 2.17919 1.59346 1.8863 1.88636C1.5934 2.17925 1.5934 2.65412 1.8863 2.94702L3.9393 5.00002L1.8863 7.05302C1.5934 7.34592 1.5934 7.82079 1.8863 8.11368C2.17919 8.40658 2.65406 8.40658 2.94696 8.11368L4.99996 6.06068L7.05296 8.11368C7.34586 8.40658 7.82073 8.40658 8.11362 8.11368C8.40652 7.82079 8.40652 7.34592 8.11362 7.05302L6.06062 5.00002L8.11362 2.94702Z" fill="#00B1EB"/>
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11362 2.94702C8.40652 2.65412 8.40652 2.17925 8.11362 1.88636C7.82073 1.59346 7.34586 1.59346 7.05296 1.88636L4.99996 3.93936L2.94696 1.88636C2.65406 1.59346 2.17919 1.59346 1.8863 1.88636C1.5934 2.17925 1.5934 2.65412 1.8863 2.94702L3.9393 5.00002L1.8863 7.05302C1.5934 7.34592 1.5934 7.82079 1.8863 8.11368C2.17919 8.40658 2.65406 8.40658 2.94696 8.11368L4.99996 6.06068L7.05296 8.11368C7.34586 8.40658 7.82073 8.40658 8.11362 8.11368C8.40652 7.82079 8.40652 7.34592 8.11362 7.05302L6.06062 5.00002L8.11362 2.94702Z" fill="white"/>
 						</svg>
 				.dropdown__icon
 					<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -188,6 +193,11 @@ const clear = () => {
 					color: #9DA8B5;
 					padding: 0;
 					background: transparent;
+				}
+			}
+			&__clear {
+				:deep(path) {
+					fill: var(--TEXT---PRIMARY, #3A474B);
 				}
 			}
 			&__icon {
@@ -262,6 +272,7 @@ const clear = () => {
 		justify-content: center;
 		margin-right: 8px;
 		transition: .3s ease;
+		margin-left: auto;
 		svg {
 			width: 10px;
 			height: 10px;
@@ -378,8 +389,12 @@ const clear = () => {
 					background: transparent;
 				}
 			}
+			&__clear {
+				:deep(path) {
+					fill: var(--TEXT---PRIMARY, #3A474B);
+				}
+			}
 			&__icon {
-				margin-left: auto;
 				:deep(path) {
 					fill: var(--TEXT---PRIMARY, #3A474B);
 				}

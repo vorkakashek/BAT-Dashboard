@@ -69,6 +69,7 @@ Teleport(to="#PremiumPartners")
         isFill
         :options="options",
         placeholder="Cycle Name",
+        isDefaultValue
     )
         template(v-slot:option="{ option }")
             span {{ option.label }}

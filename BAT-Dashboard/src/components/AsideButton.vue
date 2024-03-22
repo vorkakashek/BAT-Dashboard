@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import Dropdown from '@/components/Dropdown.vue';
 
 defineEmits(['open'])
 const props = defineProps({
@@ -119,6 +118,11 @@ router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary,
 			fill: #B8BDBE
 		}
 	}
+	&.router-link-active:not(&--primary) {
+		.button__title {
+			color: #00B1EB;
+		}
+	}
 	&--children {
 		gap: 0;
 		padding: 0;
@@ -159,11 +163,6 @@ router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary,
 					fill: #B8BDBE
 				}
 			}
-		}
-	}
-	&.router-link-active {
-		.button__title {
-			color: #00B1EB;
 		}
 	}
 	@include hover {
