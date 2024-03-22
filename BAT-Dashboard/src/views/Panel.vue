@@ -275,11 +275,11 @@ const multiselects = ref([
         options: ["CM 1", "CM 2", "CM 3", "CM 4"],
         placeholder: t('multiselects.cm'),
     },
-    {
-        value: null,
-        options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
-        placeholder: t('multiselects.tmr'),
-    },
+    // {
+    //     value: null,
+    //     options: ["TMR 1", "TMR 2", "TMR 3", "TMR 4"],
+    //     placeholder: t('multiselects.tmr'),
+    // },
 ])
 const updatedItems = ref([])
 

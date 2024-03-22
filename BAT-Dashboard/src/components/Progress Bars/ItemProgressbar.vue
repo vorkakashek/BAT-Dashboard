@@ -20,6 +20,10 @@ const props = defineProps({
     label: {
         type: String,
         required: false,
+    },
+    isMillion: {
+        type: Boolean,
+        required: false,
     }
 });
 
@@ -95,6 +99,11 @@ function translateXFix(bar, index) {
     }
 }
 
+function progressbarMillion(bar) {
+    if(bar === '') return null
+    return `${(bar.value / 1000000).toFixed(1)} млн`.replace('.', ',')
+}
+
 </script>
 
 <template lang="pug">
@@ -104,7 +113,9 @@ function translateXFix(bar, index) {
         .progressbar-outer(:class='{ "total": isTotal }')
             template(v-for="(bar, index) in bars")
                 .progressbar-inner(:style="['width: ' + progressbarPercent(bar) + '%']" :class="bar.class ? bar.class : progressbarClass(bar)" v-if="bar['name'] !== 'Total'")
-                    .progressbar-value(:class="handlerPosition(bar)"  :style="translateXFix(bar, index)" v-if="bar.value > 0") {{ progressbarPercent(bar) + '%' }}
+                    .progressbar-value(:class="handlerPosition(bar)"  :style="translateXFix(bar, index)" v-if="bar.value > 0") 
+                        | {{ progressbarPercent(bar) + '%' }}  
+                        span(style="margin-left: 5px; font-weight: 600" v-if="progressbarMillion(bar) !== null && isMillion") ({{ progressbarMillion(bar) }})
     //- slot using in product cards
     slot(name="data")
 </template>

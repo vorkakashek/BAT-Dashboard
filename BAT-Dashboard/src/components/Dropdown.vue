@@ -106,6 +106,11 @@ const selected = (option, index) => {
 	}
 }
 
+const clear = () => {
+	value.value = null
+	emits('update:modelValue', null)
+}
+
 </script>
 	
 <template lang="pug">
@@ -123,6 +128,10 @@ const selected = (option, index) => {
 			.dropdown__value(:class="{'dropdown__value--placeholder': value === '' || value === null || value?.length === 0}")
 				slot(name="value" :value="value")
 					| {{ (value && !multiselect) ? value : placeholder }} {{ (multiselect && value?.length > 0) ? `(Selected: ${value.length})` : '' }}
+			.dropdown__clear(@click="clear" v-if="!multiselect && value !== '' && value !== null && value?.length > 0")
+				<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11362 2.94702C8.40652 2.65412 8.40652 2.17925 8.11362 1.88636C7.82073 1.59346 7.34586 1.59346 7.05296 1.88636L4.99996 3.93936L2.94696 1.88636C2.65406 1.59346 2.17919 1.59346 1.8863 1.88636C1.5934 2.17925 1.5934 2.65412 1.8863 2.94702L3.9393 5.00002L1.8863 7.05302C1.5934 7.34592 1.5934 7.82079 1.8863 8.11368C2.17919 8.40658 2.65406 8.40658 2.94696 8.11368L4.99996 6.06068L7.05296 8.11368C7.34586 8.40658 7.82073 8.40658 8.11362 8.11368C8.40652 7.82079 8.40652 7.34592 8.11362 7.05302L6.06062 5.00002L8.11362 2.94702Z" fill="white"/>
+				</svg>
 		.dropdown__icon
 			<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M1.94 3.00011L5 6.06011L8.06 3.00011L9 3.94677L5 7.94677L1 3.94677L1.94 3.00011Z" fill="white"/>
@@ -142,6 +151,10 @@ const selected = (option, index) => {
 					.dropdown__value(:class="{'dropdown__value--placeholder': value === '' || value === null || value?.length === 0}")
 						slot(name="value" :value="value")
 							| {{ (value && !multiselect) ? value : placeholder }} {{ (multiselect && value?.length > 0) ? `(Selected: ${value.length})` : '' }}
+					.dropdown__clear(@click="clear" v-if="!multiselect && value !== null && value !== '' && value !== undefined")
+						<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M8.11362 2.94702C8.40652 2.65412 8.40652 2.17925 8.11362 1.88636C7.82073 1.59346 7.34586 1.59346 7.05296 1.88636L4.99996 3.93936L2.94696 1.88636C2.65406 1.59346 2.17919 1.59346 1.8863 1.88636C1.5934 2.17925 1.5934 2.65412 1.8863 2.94702L3.9393 5.00002L1.8863 7.05302C1.5934 7.34592 1.5934 7.82079 1.8863 8.11368C2.17919 8.40658 2.65406 8.40658 2.94696 8.11368L4.99996 6.06068L7.05296 8.11368C7.34586 8.40658 7.82073 8.40658 8.11362 8.11368C8.40652 7.82079 8.40652 7.34592 8.11362 7.05302L6.06062 5.00002L8.11362 2.94702Z" fill="#00B1EB"/>
+						</svg>
 				.dropdown__icon
 					<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M1.94 3.00011L5 6.06011L8.06 3.00011L9 3.94677L5 7.94677L1 3.94677L1.94 3.00011Z" fill="white"/>
@@ -226,6 +239,21 @@ const selected = (option, index) => {
 		transition: .3s ease;
 		gap: 10px;
 	}
+	&__clear {
+		margin-left: auto;
+		width: 10px;
+		height: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		svg {
+			width: 10px;
+			height: 10px;
+		}
+		& + .dropdown__icon {
+			margin-left: 0;
+		}
+	}
 	&__icon {
 		width: 10px;
 		height: 10px;
@@ -300,6 +328,7 @@ const selected = (option, index) => {
 		font-weight: 600;
 		line-height: normal;
 		white-space: nowrap;
+		// gap: 8px;
 		cursor: pointer;
 		display: flex;
 		justify-content: space-between;

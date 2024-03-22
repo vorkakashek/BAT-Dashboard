@@ -50,6 +50,10 @@ const handlerClass = (item) => {
     return item.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join('')
 }
 
+function progressbarMillion(bar) {
+    if(bar === '') return null
+    return `${(bar.qty / 1000000).toFixed(1)} млн`.replace('.', ',')
+}
 </script>
 
 
@@ -65,10 +69,12 @@ const handlerClass = (item) => {
             template(v-for="(item, key) in data.graph")
                 .graph-item(:style="{ height: item.percent + '%' }" v-if="key !== 'Executed' && key !== 'In Stock' && item.percent !== 0")
                     .graph(:class="item.class ? item.class : handlerClass(key)" :style="{ animationDelay: itemKey * .1 + 's' }")
-                        .percent(v-if="item.percent !== 0" :style="{ animationDelay: itemKey * .1 + .3 + 's' }") {{ aroundNumber(item.percent) }}
+                        .percent(v-if="item.percent !== 0" :style="{ animationDelay: itemKey * .1 + .3 + 's' }") 
+                            | {{ aroundNumber(item.percent) }}%
+                            span(v-if="progressbarMillion(item) !== null") {{ progressbarMillion(item) }}
         .graph-thin(v-if="type !== 'progress-bar' && type !== 'progress-multicategory-bar'")
             .graph(:style="{ height: data.graph['Executed'].percent + '%', animationDelay: itemKey * .1 + 's' }")
-                .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform('Executed')]") {{ aroundNumber(data.graph['Executed'].percent) }}
+                .percent(:style="[{ animationDelay: itemKey * .1 + .3 + 's' }, verticalTransform('Executed')]") {{ aroundNumber(data.graph['Executed'].percent) }}%
 
     .week(:class="{ current: data.current }" :style="{ animationDelay: itemKey * .1 + 's' }")
         .week-label
@@ -209,7 +215,7 @@ const handlerClass = (item) => {
 }
 
 .graph-thick {
-    width: 40px;
+    width: 27px;
     height: 100%;
     margin: 0 2px;
     display: flex;
@@ -217,7 +223,8 @@ const handlerClass = (item) => {
     padding: 0 1px;
     border-radius: var(--radius-4);
     justify-content: flex-end;
-
+    position: relative;
+    color: #333;
     .graph-item {
         padding: 1px;
         display: flex;
@@ -235,74 +242,80 @@ const handlerClass = (item) => {
 
         &.NotDeliveredToCS {
             background-color: #EDD0D099;
+            color: #EDD0D099;
             order: 0;
 
-            .percent {
-                opacity: .7;
-            }
         }
 
         &.DeliveredToCS {
             background-color: #E5E5E5;
+            color: #E5E5E5;
             order: 1;
         }
 
         &.TransitToCity {
             background-color: #FFF2CC;
+            color: #FFF2CC;
             order: 2;
         }
 
         &.DeliveredToCity {
             background-color: #FFBB00;
+            color: #FFBB00;
             order: 3;
         }
 
         &.Transit {
             background-color: #E2F0D9;
+            color: #E2F0D9;
             order: 4;
         }
 
         &.TransitToTMR {
             background-color: #E2F0D9;
+            color: #E2F0D9;
             order: 4;
         }
 
         &.Delivered {
             background-color: #AFCA0B;
+            color: #AFCA0B;
             order: 5;
         }
 
         &.DeliveredToTMR {
             background-color: #AFCA0B;
+            color: #AFCA0B;
             order: 5;
         }
         &.Multicategory {
             background: linear-gradient(180deg, #318CAF 0%, #1AABC3 100%), #318CAF;
             order: 6;
-
-            .percent {
-                color: white;
-            }
         }
         &.Other {
             background-color: #DFF7FF;
+            color: #DFF7FF;
             order: 7;
 
         }
 
         &.More90d {
             background-color: var(--orange-light);
+            color: var(--orange-light);
             z-index: 3;
         }
         &.Current, &.Three12Month {
             background-color: var(--yellow);
+            color: var(--yellow);
             z-index: 2;
         }
         &.GreenTarget, &.New {
             background-color: var(--green-light);
+            color: var(--green-light);
         }
         &.More1y, &.Overdue {
             background-color: var(--orange-pale);
+            color: var(--orange-pale);
             z-index: 3;
         }
         &.Hidden {
@@ -310,36 +323,40 @@ const handlerClass = (item) => {
         }
         &.More180d {
             background-color: #434343;
-            .percent {
-                color: white;
-            }
+            color: #434343;
         }
         &.d90d180 {
             background-color: var(--orange-light);
+            color: var(--orange-light);
         }
         &.d30d90 {
             background-color: var(--yellow);
+            color: var(--yellow);
         }
         &.Less30d {
             background-color: var(--green-light);
+            color: var(--green-light);
         }
         &.new {
             background-color: var(--blue-sky);
+            color: var(--blue-sky);
         }
     }
 
     .percent {
         font-weight: 900;
-        color: #333;
+        color: inherit;
         font-size: 13px;
+        letter-spacing: 0.42px;
         animation: .4s ease both fade;
+        white-space: nowrap;
     }
 }
 
 .graph-wrap {
     height: 420px;
     display: flex;
-    justify-content: center;
+    padding: 0px 10px;
     &--progress-bar {
         height: 210px;
     }
@@ -536,5 +553,20 @@ const handlerClass = (item) => {
     font-size: 14px;
     color: #333;
     opacity: .7;
+}
+
+.percent {
+    position: absolute;
+    left: calc(100% + 14px);
+    display: flex;
+    flex-direction: column;
+    line-height: 18px;
+    span {
+        color: inherit;
+        font-weight: 600;
+        font-size: 12px;
+        white-space: nowrap;
+        line-height: 15px;
+    }
 }
 </style>

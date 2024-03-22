@@ -293,11 +293,11 @@ const totalGraph = ref({
 })
 
 const totalData = ref([
-    {
-        name: "> 180 d",
-        value: "1",
-        class: "More180d",
-    },
+    // {
+    //     name: "> 180 d",
+    //     value: "1",
+    //     class: "More180d",
+    // },
     {
         name: "90-180 d",
         value: "10",
@@ -313,11 +313,11 @@ const totalData = ref([
         value: "10",
         class: "Less30d",
     },
-    {
-        name: "NEW",
-        value: "10",
-        class: "new",
-    },
+    // {
+    //     name: "NEW",
+    //     value: "10",
+    //     class: "new",
+    // },
 ])
 
 const itemList = ref([
@@ -502,5 +502,12 @@ POSMLayout
     display: flex;
     align-items: flex-start;
     gap: 8px;
+    :deep(.filters) {
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+    :deep(.filters__row > .dropdown-placeholder) {
+        margin-right: 0 !important;
+    }
 }
 </style>

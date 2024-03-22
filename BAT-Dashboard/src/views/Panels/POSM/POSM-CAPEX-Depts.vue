@@ -4,6 +4,7 @@ import POSMLayout from "./POSM-layout.vue";
 import FilterTogglerMulti from "@/components/FilterTogglerMulti.vue";
 import WeeksGraph from '@/components/Modals/Cycle Materials Modal/WeeksGraph.vue'
 import { useFiltersStore } from "@/store/store"
+import Dropdown from "@/components/Dropdown.vue";
 
 const store = useFiltersStore()
 const viewType = ref('bar')
@@ -15,8 +16,11 @@ onMounted(() => {
     viewType.value = store.togglers.find(e => e.name === 'viewType_3').value
 })
 
-const CAPEXFilterOptions = ref(['Sum', 'SKU']);
+const CAPEXFilterOptions = ref(['Strings', 'Acts', 'Sum']);
 const CAPEXFilterValue = ref('Sum');
+
+const CAPEXDropdownOptions = ref(['New','Pending','Canceled','Shipped',])
+const CAPEXDropdownValue = ref(null);
 
 const totalGraph = ref({
     info: {
@@ -33,30 +37,20 @@ const totalGraph = ref({
             dateStart: '30/05',
             dateEnd: '31/05',
             graph: {
-                '> 180 D': {
-                    qty: 10,
-                    percent: 20,
-                    class: 'More180d'
-                },
                 '90-180 d': {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d90d180",
                 },
                 "30-90 d": {
-                    qty: 20,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d30d90",
                 },
                 "< 30 d": {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "Less30d",
-                },
-                "NEW": {
-                    qty: 10,
-                    percent: 20,
-                    class: "new",
                 },
             }
         },
@@ -66,30 +60,20 @@ const totalGraph = ref({
             dateStart: '01/06',
             dateEnd: '05/06',
             graph: {
-                '> 180 D': {
-                    qty: 10,
-                    percent: 20,
-                    class: 'More180d'
-                },
                 '90-180 d': {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d90d180",
                 },
                 "30-90 d": {
-                    qty: 20,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d30d90",
                 },
                 "< 30 d": {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "Less30d",
-                },
-                "NEW": {
-                    qty: 10,
-                    percent: 20,
-                    class: "new",
                 },
             }
         },
@@ -99,30 +83,20 @@ const totalGraph = ref({
             dateStart: '06/06',
             dateEnd: '12/06',
             graph: {
-                '> 180 D': {
-                    qty: 10,
-                    percent: 20,
-                    class: 'More180d'
-                },
                 '90-180 d': {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d90d180",
                 },
                 "30-90 d": {
-                    qty: 20,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d30d90",
                 },
                 "< 30 d": {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "Less30d",
-                },
-                "NEW": {
-                    qty: 10,
-                    percent: 20,
-                    class: "new",
                 },
             }
         },
@@ -132,30 +106,20 @@ const totalGraph = ref({
             dateStart: '13/06',
             dateEnd: '19/06',
             graph: {
-                '> 180 D': {
-                    qty: 10,
-                    percent: 20,
-                    class: 'More180d'
-                },
                 '90-180 d': {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d90d180",
                 },
                 "30-90 d": {
-                    qty: 20,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d30d90",
                 },
                 "< 30 d": {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "Less30d",
-                },
-                "NEW": {
-                    qty: 10,
-                    percent: 20,
-                    class: "new",
                 },
             }
         },
@@ -165,30 +129,20 @@ const totalGraph = ref({
             dateStart: '20/06',
             dateEnd: '26/06',
             graph: {
-                '> 180 D': {
-                    qty: 10,
-                    percent: 20,
-                    class: 'More180d'
-                },
                 '90-180 d': {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d90d180",
                 },
                 "30-90 d": {
-                    qty: 20,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d30d90",
                 },
                 "< 30 d": {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "Less30d",
-                },
-                "NEW": {
-                    qty: 10,
-                    percent: 20,
-                    class: "new",
                 },
             }
         },
@@ -199,30 +153,20 @@ const totalGraph = ref({
             dateStart: '20/06',
             dateEnd: '26/06',
             graph: {
-                '> 180 D': {
-                    qty: 10,
-                    percent: 20,
-                    class: 'More180d'
-                },
                 '90-180 d': {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d90d180",
                 },
                 "30-90 d": {
-                    qty: 20,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "d30d90",
                 },
                 "< 30 d": {
-                    qty: 10,
-                    percent: 20,
+                    qty: 30,
+                    percent: 33.33,
                     class: "Less30d",
-                },
-                "NEW": {
-                    qty: 10,
-                    percent: 20,
-                    class: "new",
                 },
             }
         },
@@ -294,11 +238,6 @@ const totalGraph = ref({
 
 const totalData = ref([
     {
-        name: "> 180 d",
-        value: "1",
-        class: "More180d",
-    },
-    {
         name: "90-180 d",
         value: "10",
         class: "d90d180",
@@ -313,16 +252,11 @@ const totalData = ref([
         value: "10",
         class: "Less30d",
     },
-    {
-        name: "NEW",
-        value: "10",
-        class: "new",
-    },
 ])
 
 const itemList = ref([
     {
-        name: "Installation of NEW",
+        name: "Москва",
         photo: "MINI",
         percentage: "10%",
         ignore: [],
@@ -355,7 +289,7 @@ const itemList = ref([
         ],
     },
     {
-        name: "Installation of NEW",
+        name: "Северо-Запад",
         photo: "MINI",
         percentage: "10%",
         ignore: [],
@@ -388,7 +322,7 @@ const itemList = ref([
         ],
     },
     {
-        name: "Installation of NEW",
+        name: "Юг",
         photo: "MINI",
         percentage: "10%",
         ignore: [],
@@ -439,18 +373,31 @@ POSMLayout
     Teleport(to="#export-excel")
         ExportExcel()
 
-    TotalProgressbar(hasTotal :data="totalData" :ignore="[]" :viewType="viewType")
+    TotalProgressbar(hasTotal :data="totalData" :ignore="[]" :viewType="viewType" )
         template(#legend)
             WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'" valueStore="viewType_3")
             ProgressbarLegend(hasTotal :data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_3")
 
     .panel
-        FilterToggler(:options="CAPEXFilterOptions" v-model="CAPEXFilterValue")
+        .panel__row
+            FilterToggler(:options="CAPEXFilterOptions" v-model="CAPEXFilterValue")
+            Dropdown(
+                multiselect
+                :options="CAPEXDropdownOptions"
+                v-model="CAPEXDropdownValue"
+                placeholder="Document status"
+            )
         ProductCards
             template(#items)
                 ProductCard(v-for="product in itemList", :product="product" hasTotal)
 </template>
 
 <style lang="scss" scoped>
-
+.panel {
+    &__row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+}
 </style>

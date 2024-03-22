@@ -161,6 +161,11 @@ router-link.button(:class="{ 'disabled': disabled, 'button--primary': isPrimary,
 			}
 		}
 	}
+	&.router-link-active {
+		.button__title {
+			color: #00B1EB;
+		}
+	}
 	@include hover {
 		opacity: 0.8;
 	}

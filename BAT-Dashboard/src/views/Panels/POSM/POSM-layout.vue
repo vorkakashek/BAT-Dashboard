@@ -61,7 +61,7 @@ let currentYear = (y) => {
 
 
 <template lang="pug">
-Teleport(to="#POSMBalance")
+Teleport(to="#POSMBalance") 
     Dropdown(
         @update:modelValue="(val) => itemValue = [val.value]",
         :value="options.filter(i => i.value === itemValue[0])[0]",

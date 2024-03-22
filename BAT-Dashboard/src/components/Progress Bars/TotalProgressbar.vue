@@ -49,7 +49,7 @@ const total = computed(() => {
     .progressbar-container
         //- slot for progress bar
         slot(name="progressbar")
-            ItemProgressbar(:hasTotal="hasTotal" :data="[...props.data, hasTotal ? {name: 'Total', value: total} : '']" :label="props.label" :ignore="props.ignore" :total="props.total" v-if="viewType ==='bar'")
+            ItemProgressbar(isMillion :hasTotal="hasTotal" :data="[...props.data, hasTotal ? {name: 'Total', value: total} : '']" :label="props.label" :ignore="props.ignore" :total="props.total" v-if="viewType ==='bar'")
         //- slot for legend (using in total progressbars)
         slot(name="legend")
         //- slot using in product cards
