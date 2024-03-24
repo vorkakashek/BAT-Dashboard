@@ -115,7 +115,7 @@ function progressbarMillion(bar) {
                 .progressbar-inner(:style="['width: ' + progressbarPercent(bar) + '%']" :class="bar.class ? bar.class : progressbarClass(bar)" v-if="bar['name'] !== 'Total'")
                     .progressbar-value(:class="handlerPosition(bar)"  :style="translateXFix(bar, index)" v-if="bar.value > 0") 
                         | {{ progressbarPercent(bar) + '%' }}  
-                        span(style="margin-left: 5px; font-weight: 600" v-if="progressbarMillion(bar) !== null && isMillion") ({{ progressbarMillion(bar) }})
+                        span(style="margin-left: 5px; font-weight: 600; white-space: nowrap" v-if="progressbarMillion(bar) !== null && isMillion") ({{ progressbarMillion(bar) }})
     //- slot using in product cards
     slot(name="data")
 </template>
@@ -206,6 +206,7 @@ function progressbarMillion(bar) {
 .progressbar-value {
     position: absolute;
     left: 100%;
+    white-space: nowrap;
     font-weight: 900;
     // transform: translateX(-50%);
     font-size: 13.5px;

@@ -373,7 +373,7 @@ POSMLayout
     Teleport(to="#export-excel")
         ExportExcel()
 
-    TotalProgressbar(hasTotal :data="totalData" :ignore="[]" :viewType="viewType" )
+    TotalProgressbar(isMillion hasTotal :data="totalData" :ignore="[]" :viewType="viewType" )
         template(#legend)
             WeeksGraph(:data="totalGraph" type="progress-bar" v-if="viewType === 'graph'" valueStore="viewType_3")
             ProgressbarLegend(hasTotal :data="totalData" type="progress-bar" v-if="viewType === 'bar'" valueStore="viewType_3")
