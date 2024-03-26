@@ -29,6 +29,7 @@ export default {
             :placeholder="multiselect.placeholder",
             :multiselect="multiselect.multiselect",
             v-model="multiselect.value",
+            :value="multiselect.value",
         )
     //- Multiselect(
     //-     v-for="multiselect in multiselects",
